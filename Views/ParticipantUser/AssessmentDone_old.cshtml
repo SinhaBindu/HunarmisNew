@@ -1,0 +1,33 @@
+﻿@model Hunarmis.Models.CertificateModel
+@{
+    ViewBag.Title = "Assessment Completed";
+}
+
+
+<div id="page-content" style="overflow :auto; height:420px;">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                    
+                        @if (Model != null)
+                        {
+                            if (Model.IsCertificate == "1")
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @Html.Raw(Model.HrmlData)
+                                    </div>
+                                </div>
+                            }
+                            else if (Model.IsCertificate == "0")
+                            {<div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="text-capitalize text-warning">No Issue To Certificate -  (more than 50% Score - Issue To Certificate).</h3>
+                                    </div>
+                                </div>
+                            }
+                        }
+            </div>
+        </div>
+    </div>
+</div>

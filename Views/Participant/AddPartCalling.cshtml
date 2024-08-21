@@ -1,0 +1,617 @@
+﻿@model Hunarmis.Models.ParticipantChildModel
+@using Hunarmis.Manager;
+
+@{
+    ViewBag.Title = "Questionnaire";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Questionnaire";
+    ViewBag.SemiTitleLink = "/";
+    string IsSadmin = string.Empty;
+}
+<link href="~/Content/plugins/multiple-email/email.multiple.css" rel="stylesheet" />
+
+<style>
+    @@media (max-width:991px) {
+        .mt-md-10 {
+            margin-top: 10px;
+        }
+    }
+
+    .text-white {
+        color: #fff;
+    }
+
+    .center {
+        margin-top: 50px;
+    }
+
+    .modal-header {
+        padding-bottom: 10px;
+    }
+
+    .modal-footer {
+        padding: 0;
+    }
+
+        .modal-footer .btn-group button {
+            height: 40px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border: none;
+            border-right: 1px solid #ddd;
+        }
+
+        .modal-footer .btn-group:last-child > button {
+            border-right: 0;
+        }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    @using (Html.BeginForm("AddPartCalling", "Participant", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", enctype = "multipart/form-data", @id = "formid" }))
+                    {
+                        <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                        <div class="panel-bodys">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.ID)
+                            @Html.HiddenFor(m => m.ParticipantId_fk)
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>Questionnaire Information</p>
+                            <h4 class="semi-title">Basic Details</h4>
+                            <div class="basic-info">
+                                <div class=""><p>Reg ID  <span> :@Model.RegID</span></p></div>
+                                <div class=""><p>Name  <span>: @Model.FullName</span></p></div>
+                                <div class=""><p>Phone No  <span>: @Model.PhoneNo</span></p></div>
+                                <div class=""><p>Batch Name <span> : @Model.BatchName</span></p></div>
+                                <div class=""><p>Start Batch Name  <span>: @Model.SBatchDt</span></p></div>
+                                <div class=""><p>End Batch Name  <span> : @Model.EBatchDt</span></p></div>
+                                <div class=""><p>Training Agency Name  <span> : @Model.TrainingAgencyName</span></p></div>
+                                <div class=""><p>Training Center  <span> : @Model.TrainingCenter</span></p></div>
+                                <div class=""><p>Reported By  <span> : @Model.ReportedBy</span></p></div>
+                                <div class=""><p>Reported On  <span> : @Model.ReportedOn</span></p></div>
+                                <div class=""><p>Remark Status  <span> : @Model.PrvRemarkStatus</span></p></div>
+                                <div class=""><p>Remarks  <span> : @Model.PrvRemark</span></p></div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.QuesYear, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                <div class="col-lg-3">
+                                    @Html.DropDownListFor(model => model.QuesYear, CommonModel.GetYear(1), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.QuesYear, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mark-devide"></div>
+                                @Html.LabelFor(model => model.QuesMonth, htmlAttributes: new { @class = "control-label col-lg-2" })
+                                <div class="col-lg-3">
+                                    @Html.DropDownListFor(model => model.QuesMonth, CommonModel.GetMonth(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.QuesMonth, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mark-devide"></div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CallType, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                <div class="checkbox">
+                                    @foreach (var item in CommonModel.GetCalling())
+                                    {
+                                        <div class="input-spacer">
+                                            @Html.RadioButtonFor(model => model.CallType, item.Value, new { id = "CallType" + item.Value, @required = "required" }) @item.Text
+                                        </div>
+                                    }
+                                    @Html.ValidationMessageFor(model => model.CallType, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mark-devide"></div>
+                            </div>
+                            <div class="form-group div-remark" style="display:none;">
+                                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                <div class="col-lg-8">
+                                    @Html.TextAreaFor(model => model.Remark, new { @type = "text", @class = "required form-control" })
+                                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mark-devide"></div>
+                            </div>
+                            <div class="form-group div-remark" style="display:none;">
+                                @Html.LabelFor(model => model.RemarkStatus, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                <div class="col-lg-8">
+                                    @Html.DropDownListFor(model => model.RemarkStatus, CommonModel.GetRemarkStatusList(false), "Select One", htmlAttributes: new { @class = "form-control select2" , @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.RemarkStatus, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="mark-devide"></div>
+                            </div>
+                            <div style="display:none;" id="div-ques">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsAssessmentCert, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.IsAssessmentCert, item.Value, new { id = "IsAssessmentCert" + item.Value, @required = "required" }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.IsAssessmentCert, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsPresent, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.IsPresent, item.Value, new { id = "IsPresent" + item.Value, @required = "required" }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.IsPresent, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group" id="div-IsComfortable" style="display:none;">
+                                    @Html.LabelFor(model => model.IsComfortable, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            @Html.RadioButtonFor(model => model.IsComfortable, item.Value, new { id = "IsComfortable" + item.Value }) @item.Text
+                                        }
+                                        @Html.ValidationMessageFor(model => model.IsComfortable, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable" id="div-EmpCompany" style="display:none;">
+                                    @Html.LabelFor(model => model.EmpCompany, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.EmpCompany, new { htmlAttributes = new { @type = "text", @class = "required form-control" } })
+                                        @Html.ValidationMessageFor(model => model.EmpCompany, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                @*<div class="form-group Iscomftable" style="display:none;">
+                @Html.LabelFor(model => model.FirstJobTraining, htmlAttributes: new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.EditorFor(model => model.FirstJobTraining, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.FirstJobTraining, "", new { @class = "text-danger" })
+                </div>
+                <div class="mark-devide"></div>
+            </div>*@
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.DOJ, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
+                                        @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group" style="display:none">
+                                    @Html.LabelFor(model => model.CurrentEmployer, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.CurrentEmployer, new { htmlAttributes = new { @type = "text", @class = "required form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.CurrentEmployer, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.SalaryPackage, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal(this)", min = "0"} })
+                                        @Html.ValidationMessageFor(model => model.SalaryPackage, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.CurrentlyWorking, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.CurrentlyWorking, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.CurrentlyWorking, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.WorkingKM, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.DropDownListFor(model => model.WorkingKM, CommonModel.GetLocatedKM(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                        @Html.ValidationMessageFor(model => model.WorkingKM, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.Traininghelp, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.Traininghelp, item.Value, new { id = "IsAssessmentCert" + item.Value, @required = "required" }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.Traininghelp, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <h4 class="semi-title Iscomftable">@Hunarmis.Models.DplyPartCalName.SectionGeneral</h4>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.SalaryWages, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.SalaryWages, item.Value, new { id = "SalaryWages" + item.Value, @required = "required" }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.SalaryWages, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.ExpectationJobRole, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.ExpectationJobRole, item.Value, new { id = "ExpectationJobRole" + item.Value, @required = "required" }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.ExpectationJobRole, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.WorkPlaceSafe, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.WorkPlaceSafe, item.Value, new { id = "ExpectationJobRole" + item.Value, @required = "required" }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.WorkPlaceSafe, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable">
+                                    @Html.LabelFor(model => model.IsMSBenefit, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.IsMSBenefit, item.Value, new { id = "IsMSBenefit" + item.Value, @required = "required" }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.IsMSBenefit, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable" id="div-MSBenefitId" style="display:none;">
+                                    @Html.LabelFor(model => model.MSBenefitId, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.DropDownListFor(model => model.MSBenefitId, CommonModel.GetBenefit(), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(model => model.MSBenefitId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable" id="div-AnyChallenges" style="display:none;">
+                                    @Html.LabelFor(model => model.AnyChallenges, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.AnyChallenges, item.Value, new { id = "AnyChallenges" + item.Value }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.AnyChallenges, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group Iscomftable" id="div-AreaSupport" style="display:none;">
+                                    @Html.LabelFor(model => model.AreaSupport, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.EditorFor(model => model.AreaSupport, new { htmlAttributes = new { @type = "text", @class = "required form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AreaSupport, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group" id="div-EmployedId" style="display:none;">
+                                    @Html.LabelFor(model => model.EmployedId, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="col-lg-8">
+                                        @Html.DropDownListFor(model => model.EmployedId, CommonModel.GetEmployed(), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(model => model.EmployedId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="mark-devide"></div>
+                                </div>
+                                <div class="form-group IsGettingjob" style="display:none;">
+                                    @Html.LabelFor(model => model.IsGettingjob, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    <div class="checkbox">
+                                        @foreach (var item in CommonModel.GetYesNo())
+                                        {
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.IsGettingjob, item.Value, new { id = "IsGettingjob" + item.Value }) @item.Text
+                                            </div>
+                                        }
+                                        @Html.ValidationMessageFor(model => model.IsGettingjob, "", new { @class = "text-danger" })
+                                    </div>
+                                    @*<div class="col-lg-8">
+                    @Html.EditorFor(model => model.IsGettingjob, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.IsGettingjob, "", new { @class = "text-danger" })
+                </div>*@
+                                    <div class="mark-devide"></div>
+                                </div>
+
+                                @*id="div-PlacedStatus" style="display:none;"*@
+                                <div id="div-PlacedStatus" style="display:none;">
+                                    <h4 class="semi-title">@Hunarmis.Models.DplyPartCalName.SectionPlacement</h4>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PlacedStatus, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                        <div class="checkbox">
+                                            @foreach (var item in CommonModel.GetYesNo())
+                                            {
+                                                <div class="input-spacer">
+                                                    @Html.RadioButtonFor(model => model.PlacedStatus, item.Value, new { id = "PlacedStatus" + item.Value }) @item.Text
+                                                </div>
+                                            }
+                                            @Html.ValidationMessageFor(model => model.PlacedStatus, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="mark-devide"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-7">
+                                    <span class="">
+                                        @*<button type="submit" class="previous btn btn-primary btn-lg">Submit</button>*@
+                                        <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="previous btn-lg btn-register" />
+                                        <a href="~/Participant/AddPartCalling?PartId=@Model.ParticipantId_fk" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Content/plugins/multiple-email/jquery.email.multiple.js"></script>
+        <script src="~/Scripts/CustomValidator.js"></script>
+        <script src="~/Scripts/Custom/Employee.js"></script>*@
+    <script>
+       @* $('#DesignationId').val('@Model.DesignationId').select2();*@
+        $(document).ready(function () {
+
+            $('#SalaryPackage').on('input', function () {
+                var value = $(this).val();
+                var validValue = value.replace(/[^0-9.]/g, '');
+                var decimalMatch = validValue.match(/^\d*(\.\d{0,2})?$/);
+                if (decimalMatch) {
+                    $(this).val(validValue);
+                } else {
+                    $(this).val(value.slice(0, -1));
+                }
+            });
+            //datepickermonth
+            $("#DOJ").datepicker({
+                //dateFormat: 'mm-dd-yy',
+                dateFormat: 'dd-M-yy',
+                // changeMonth: true,
+                //changeYear: true,
+                maxDate: new Date(),
+                onSelect: function (d, i) {
+                    if (d !== i.lastVal) {
+                        $(this).change();
+                    }
+                }
+            });
+            $('#DOJ').change(function () {
+                debugger;
+                var dojvl = ($('#DOJ').val());
+                var dojvl1 = dojvl;
+               // var DOj = getAge(dojvl);
+               // $('#CurrentEmployer').val(DOJ);
+            })
+          //$('input[name="IsPeerPresent"]:checked').length != 0
+
+            $('input[type=radio][name=CallType]').change(function () {
+                $('#div-ques').hide(); $('.div-remark').hide();
+                $('#Remark').removeAttr('required'); $('#Remark').val('');
+                $('#RemarkStatus').removeAttr('required'); $('#RemarkStatus').val('0');
+                if (this.value == 'Yes') {
+                    $('#div-ques').show();
+                }
+                else if (this.value == 'No') {
+                    $('.div-remark').show();
+                    $('#Remark').attr('required','required');
+                    $('#RemarkStatus').attr('required','required');
+                }
+            });
+           
+
+            $('input[type=radio][name=IsPresent]').change(function () {
+                $("input[name=IsComfortable]").prop('checked', false);
+                $('#EmployedId').val(''); $('.Iscomftable').hide(); InputClear();
+                if (this.value == 'Yes') {
+                    $('#div-IsComfortable').show(); $("input[name=IsComfortable]").attr('required', 'required');
+                    $('#div-EmployedId').hide(); $("input[name=EmployedId]").removeAttr('required');
+                    $('.IsGettingjob').hide();
+                }
+                else if (this.value == 'No') {
+                    $('#div-EmployedId').show();
+                    $("input[name=EmployedId]").attr('required', 'required');
+                    $("input[name=IsComfortable]").removeAttr('required');
+                    $('.IsGettingjob').show();
+                    $('#div-IsComfortable').hide();
+                }
+            });
+            $('input[type=radio][name=IsComfortable]').change(function () {
+                $("input[name=AnyChallenges]").prop('checked', false);
+                $('.Iscomftable').hide(); InputClear();
+                //$("input[name=PlacedStatus]").prop('checked', false);
+                $('#AreaSupport').val('');
+                $('#EmpCompany').val('');
+                if (this.value == 'Yes') {
+                    $('.Iscomftable').show();
+                    $('#div-EmpCompany').show(); $("input[name=EmpCompany]").attr('required', 'required');
+                    $('#div-AnyChallenges').show(); $("input[name=AnyChallenges]").attr('required', 'required');
+                    $('#div-AreaSupport').hide(); $("input[name=AreaSupport]").attr('required', 'required');
+                }
+                else if (this.value == 'No') {
+                    $('#div-EmpCompany').hide(); $("input[name=EmpCompany]").removeAttr('required');
+                    $('#div-AnyChallenges').hide(); $("input[name=AnyChallenges]").removeAttr('required');
+                    $('#div-AreaSupport').hide(); $("input[name=AreaSupport]").removeAttr('required');
+                }
+            });
+            $('input[type=radio][name=AnyChallenges]').change(function () {
+                $("input[name=PlacedStatus]").prop('checked', false);
+                $('#AreaSupport').val('');
+                if (this.value == 'Yes') {
+                    $('#div-AreaSupport').show(); $("input[name=AreaSupport]").attr('required', 'required');
+                    $('#div-PlacedStatus').show(); $("input[name=PlacedStatus]").attr('required', 'required');
+                }
+                else if (this.value == 'No') {
+                    $('#div-AreaSupport').hide(); $("input[name=AreaSupport]").removeAttr('required');
+                    $('#div-PlacedStatus').hide(); $("input[name=PlacedStatus]").removeAttr('required');
+                }
+            });
+            $('input[type=radio][name=IsMSBenefit]').change(function () {
+                $('#MSBenefitId').val('');
+                if (this.value == 'Yes') {
+                    $('#div-MSBenefitId').show(); $("input[name=MSBenefitId]").attr('required', 'required');
+                }
+                else if (this.value == 'No') {
+                    $('#div-MSBenefitId').hide(); $("input[name=MSBenefitId]").removeAttr('required');
+                }
+            });
+
+            $("#formid").on("submit", function (event) {
+                event.preventDefault();
+                if ($('#QuesYear').val() == '' || $('#QuesMonth').val() == '') {
+                    toastr.error("Error", 'Please Select Year & Month.');
+                     return false;
+                }
+                else {
+                var formData = $(this).serialize();
+                var strCallType = $('input[type=radio][name=CallType]:checked').val();
+                    if (strCallType == 'Yes') {
+                        if (confirm("Are you sure you want to submit data this?")) {
+                            //jQuery.event.trigger("ajaxStart");
+                            debugger;
+                            var isvalid = $("#formid").valid(); //$('#formid').validate();
+                            if (isvalid) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: document.baseURI + "/Participant/AddPartCalling/",
+                                    data: formData,
+                                    dataType: 'json',
+                                    //contentType: "application/json; charset=utf-8",
+                                    success: function (resp) {
+                                        //  CreateToasterMessage("Registration", resp.Message, resp.StatusType);
+                                        if (resp.StatusType == "success") {
+                                            toastr.success("Success", resp.Message);
+                                            //jQuery.event.trigger("ajaxStop");
+                                        }
+                                        else {
+                                            toastr.error("Error", resp.Message);
+                                          //  return false;
+                                        }
+                                    },
+                                    error: function (req, error) {
+                                        if (error === 'error') { error = req.statusText; }
+                                        var errormsg = 'There was a communication error: ' + error;
+                                        // CreateToasterMessage("Error", errormsg, "error");
+                                        toastr.error("Error", errormsg);
+                                        //jQuery.event.trigger("ajaxStop");
+                                       // return false;
+                                    }
+                                });
+                            }
+                            else {
+                                //CreateToasterMessage("Error", "All Record Validate !!", "error");
+                                toastr.error("Error", "All Record Validate !!");
+                                // jQuery.event.trigger("ajaxStop");
+                               // return false;
+                            }
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else if (strCallType == 'No') {
+                        if ($('#Remark').val() != '') {
+                            $.ajax({
+                                type: "POST",
+                                url: document.baseURI + "/Participant/AddPartCalling/",
+                                data: formData,
+                                dataType: 'json',
+                                success: function (resp) {
+                                    if (resp.StatusType == "success") {
+                                        toastr.success("Success", resp.Message);
+                                    }
+                                    else {
+                                        toastr.error("Error", resp.Message);
+                                        return false;
+                                    }
+                                },
+                                error: function (req, error) {
+                                    if (error === 'error') { error = req.statusText; }
+                                    var errormsg = 'There was a communication error: ' + error;
+                                    toastr.error("Error", errormsg);
+                                    return false;
+                                }
+                            });
+                        }
+                        else {
+                            toastr.error("Error", 'Enter the Remark.');
+                            return false;
+                        }
+                    }
+                }
+            });//end final submit
+
+        });//End Load Method
+       
+
+        function formatDate(dateStr) {
+            debugger;
+            const d = new Date(dateStr);
+            var fdate = d.getDate().toString().padStart(2, '0') + '-' + d.getMonth() + 1 + '-' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes().toString().padStart(2, '0')
+            return fdate;
+        }
+
+        function InputClear() {
+            $("input[name=EmpCompany]").val('');
+            //$("input[name=FirstJobTraining]").val('');
+            $("input[name=DOJ]").val('');
+            $("input[name=CurrentEmployer]").val('');
+            $("input[name=Designation]").val('');
+            $("input[name=SalaryPackage]").val('');
+            $("input[name=CurrentlyWorking]").val('');
+            $("input[name=WorkingKM]").val('');
+            $("input[name=Traininghelp]").prop('checked', false);
+            $("input[name=SalaryWages]").prop('checked', false);
+            $("input[name=ExpectationJobRole]").prop('checked', false);
+            $("input[name=WorkPlaceSafe]").prop('checked', false);
+            $("input[name=IsMSBenefit]").prop('checked', false);
+            $("input[name=MSBenefitId]").val('');
+            $("input[name=AnyChallenges]").prop('checked', false);
+            $("input[name=AreaSupport]").val('');
+            $("input[name=EmployedId]").prop('checked', false);
+            $("input[name=IsGettingjob]").prop('checked', false);
+            $("input[name=PlacedStatus]").prop('checked', false);
+        }
+        function setTwoNumberDecimal(event) {
+            if (this.value != null) {
+                this.value = parseFloat(this.value).toFixed(2);
+            }
+        }
+
+
+    </script>
+}

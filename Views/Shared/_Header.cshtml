@@ -1,0 +1,220 @@
+﻿<style>
+    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+        color: #040404
+    }
+
+    #page-head {
+        display: none;
+    }
+
+    #navbar-container {
+        background-color: #fff;
+    }
+
+    .navbar-top-links > li > a {
+        color: #040404;
+        border-left: 1px solid #ECF0F5 !important;
+    }
+
+    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
+        color: #040404;
+    }
+
+        .navbar-top-links .tgl-menu-btn > a:focus {
+            color: #040404;
+        }
+
+    .navbar-top-links:first-child {
+        margin-left: 0px !important;
+    }
+
+    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
+        color: #040404;
+    }
+
+    #container .badge:not(.badge-default) {
+        color: #040404;
+    }
+
+    .navbar-top-links > .open > a, .navbar-top-links > .open > a:focus {
+        background: #8A77F4 !important
+    }
+
+    .navbar-top-links > li > a:hover {
+        background: #8A77F4 !important
+    }
+
+    .navbar-brand {
+        padding: 0 5px;
+    }
+
+    .dashboard-title {
+        font-size: 24px;
+        position: absolute;
+        top: 13px;
+        z-index: 999;
+        left: 55px;
+        color: #5A3653
+    }
+
+    .brand-text {
+        color: #454845;
+        margin-left: 10px;
+    }
+
+    .navbar-header:before {
+        background: #fff !important
+    }
+
+    .count-box {
+        display: flex;
+        margin-left: 10px
+    }
+
+    .d-box .count-box h3 {
+        margin: 15px 2px 19px;
+    }
+
+</style>
+
+<header id="navbar">
+    <div id="navbar-container" class="boxed">
+        <div class="navbar-header">
+            <a href="~/Home/Dashboard" class="navbar-brand">
+                @*<img src="~/Content/images/pci.png" class="brand-icon" alt="" />*@
+                <img src="~/Content/images/pcilogo.png" class="brand-icon" alt="" />
+                @*<div class="brand-title">
+                    <span class="brand-text">Hunar</span>
+                </div>*@
+            </a>
+        </div>
+        @*<a href="#"><img src="~/Content/images/jepc-logo.png" alt="Logo" class="logo-icon"></a>*@
+    <div class="navbar-content">
+        <ul class="nav navbar-top-links">
+            <li class="tgl-menu-btn">
+                <a class="mainnav-toggle" href="#">
+                    <i class="demo-pli-list-view"></i>
+                </a>
+
+            </li>
+
+        </ul>
+        <p class="dashboard-title">Dashboard</p>
+        <ul class="nav navbar-top-links">
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    <i class="demo-pli-bell"></i>
+                    <span class="badge badge-header badge-danger"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                    <div class="nano scrollable">
+                        <div class="nano-content">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li id="dropdown-user" class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                    <span class="ic-user pull-right">
+                        <i class="demo-pli-male"></i>
+                    </span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
+                    <ul class="head-list">
+
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li>
+                                <a href="~/Employee/Profiles"><i class="demo-pli-male icon-lg icon-fw"></i> Profile</a>
+                            </li>
+                            <li>
+                                <a href="~/Manage/ChangePassword"><i class="demo-pli-gear icon-lg icon-fw"></i> Change Password</a>
+                            </li>
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li>
+                                    <a href="~/Account/UserResetPassword"><i class="demo-pli-gear icon-lg icon-fw"></i> Reset Password</a>
+                                </li>
+                            }
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="demo-pli-unlock icon-lg icon-fw"></i> Logout</a></li>
+
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </div>
+</header>
+<style>
+    .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin: 4px 0 0 25px;
+        padding: 0 20px;
+        min-width: 840px;
+    }
+
+        .main-header div {
+            flex: 1;
+        }
+
+    .left-logo {
+        text-align: left;
+    }
+
+    .center-logo {
+        text-align: center;
+    }
+
+    .right-logo {
+        text-align: right;
+    }
+
+    .main-header div img {
+        width: 55px !important
+    }
+
+    .main-header .right-logo img, .main-header .shiksha-logo img {
+        width: 110px !important
+    }
+    /*.brand-icon {
+        display: none !important
+    }*/
+    @@media screen and (max-width: 1250px) {
+        .main-header {
+            min-width: 740px;
+        }
+    }
+    @@media screen and (max-width: 1160px) {
+        .main-header {
+            min-width: 600px;
+        }
+    }
+    @@media screen and (max-width: 1050px) {
+        .main-header {
+            min-width: 500px;
+        }
+    }
+    @@media screen and (max-width: 768px) {
+        .main-header {
+            display: none;
+        }
+
+        .brand-icon {
+            display: block
+        }
+
+        .logo-icon {
+            margin-left: 60px !important
+        }
+    }
+</style>

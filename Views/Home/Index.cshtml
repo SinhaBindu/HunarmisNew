@@ -1,0 +1,826 @@
+﻿@model  Hunarmis.Models.AspNetUser
+@using Hunarmis.Models
+@*@model IEnumerable<KGBV_JH.Models.QesRes>*@
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.TitleIcon = "fa fa-area-chart";
+    ViewBag.SemiTitle = "Dashboard";
+    ViewBag.SemiTitleLink = "/Home/Index";
+}
+
+<style>
+    .container {
+        width: 340px;
+        height: 280px;
+        display: inline-block;
+    }
+    .container2 {
+        width: 550px;
+        height: 280px;
+        display: inline-block;
+    }
+    /* #chartgrouptree {
+        width: 950px;
+        height: 500px;
+        display: inline-block;
+        margin:0,0,0,;
+    }*/
+    input#em {
+        width: 100%;
+    }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
+                            <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
+                        </p>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="col-sm-12" id="errormsg">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <input id="em" type="range" min="0.3" max="2" step="0.01" value="1" style="display:none;" />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4" style="display:none;">
+                                <div id="chartbatch" class="container"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="chartcourse" class="container"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="chartqlf" class="container"></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="charttrainAge" class="container"></div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div id="chartgrouptree" class=""></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="chartcutmthcallstu" class="container2"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="chartplace" class="container2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="panel-body">
+                        <div class="row">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/treegraph.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
+    <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+    <script src="https://code.highcharts.com/modules/lollipop.js"></script>
+
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        var chart = [];
+        $(document).ready(function () {
+            LoadReport();
+
+            //$('#em').on('input', function () {
+            //    chart.container.style.fontSize = this.value + 'em';
+            //    // Update layout based on new font and line sizes
+            //    chart.isDirtyLegend = true;
+            //    chart.redraw(false);
+            //});
+        });
+        function LoadReport() {
+            $('#errormsg').html("");
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            $('#errormsg').removeClass("text-danger");
+            $.ajax({
+                // url: url,
+                url: document.baseURI + "/Home/GetIndex",
+                type: "POST",
+                data: '',
+                // contentType: "application/json",
+                success: function (resp) {
+                    if (resp.IsSuccess) {
+                        var resdata = JSON.parse(resp.Data);
+                        var resdata1 = JSON.parse(resp.Data2);
+                        var resdata2 = JSON.parse(resp.Data3);
+                        var resdata3 = JSON.parse(resp.Data4);
+                        $('#errormsg').addClass("text-black");
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        var BatchData = [], CourseData = [], DisData = [],
+                            QlfData = [], TrainCrData = [], TrainingAgency = [], CutMnthCallSt = [];
+                        var Noofpart = 0; var Colpart = ""; var totalpart = [], DataPlace = [],
+                            AC = [], EP = [], CE = [], TH = [];
+
+                        if (resdata) {
+                            BatchData = resdata.filter(x => x.Type == "Batch");
+                            CourseData = resdata.filter(x => x.Type == "Course");
+                            DisData = resdata.filter(x => x.Type == "District");
+                            QlfData = resdata.filter(x => x.Type == "Qualification");
+                            //TrainCrData = resdata.filter(x => x.Type == "TrainingCenter");
+                            TrainingAgency = resdata.filter(x => x.Type == "TrainingAgency");
+                            AC = resdata.filter(x => x.Type == "AssessmentCertified");
+                            EP = resdata.filter(x => x.Type == "EmployedPresent");
+                            CE = resdata.filter(x => x.Type == "ComfortableEmployment");
+                            TH = resdata.filter(x => x.Type == "TrainingHelp");
+                            totalpart = resdata.filter(x => x.Type == "Participant");
+                            $('#partcolm').html(totalpart[0].ColumnName); $('#noofpart').html(totalpart[0].NoofData);
+                            //ChartBatch(BatchData);
+                            ChartCourse(CourseData);
+                            ChartQlf(QlfData);
+                            ChartTrainingAgency(TrainingAgency);
+                        }
+                        if (resdata1.length != 0 || resdata2.length != 0 || resdata3.length != 0) {
+                            totalpart = resdata.filter(x => x.Type == "Participant");
+                            //if (resdata1) {
+                            //    ChartGroupTree(resdata1, totalpart[0].NoofData);
+                            //}
+                            if (resdata2) {
+                                ChartCutmnthcallstu(resdata2, totalpart[0].NoofData);
+                            }
+                            if (resdata3) {
+                                ChartPlace(resdata3, totalpart[0].NoofData);
+                            }
+                        }
+                    }
+                    else {
+                        $('#errormsg').html(resp.Data); $('#errormsg').addClass("text-danger");
+                        //CreateToasterMessage("Error", response.Message, response.StatusType);
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    $('#errormsg').html(errormsg); $('#errormsg').addClass("text-danger");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                }
+            });
+        }
+
+        function ChartBatch(BatchData) {
+            if (BatchData.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < BatchData.length; i++) {
+                    var obj = [BatchData[i].ColumnName, BatchData[i].NoofData];
+                    name.push(obj);
+                }
+
+                // Set up the chart
+                chart = Highcharts.chart('chartbatch', {
+                    chart: {
+                        type: 'pyramid3d',
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 10,
+                            depth: 50,
+                            viewDistance: 50
+                        }
+                    },
+                    title: {
+                        text: 'Batch Distribution'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                                allowOverlap: true,
+                                x: 10,
+                                y: -5
+                            },
+                            width: '60%',
+                            height: '80%',
+                            center: ['50%', '45%']
+                        }
+                    },
+                    series: [{
+                        name: 'Batch',
+                        data: name
+                    }]
+                });
+            }
+        }
+        function ChartCourse(Datalist) {
+            var Dlist = []; var name = []; var vl = [];
+            if (Datalist.length > 0) {
+                for (var i = 0; i < Datalist.length; i++) {
+                    name.push([Datalist[i].ColumnName]);
+                    vl.push([Datalist[i].NoofData]);
+                }
+                chart = Highcharts.chart('chartcourse', {
+                    chart: {
+                        type: 'cylinder',
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 15,
+                            beta: 15,
+                            depth: 50,
+                            viewDistance: 25
+                        }
+                    },
+                    title: {
+                        text: 'Course Distribution'
+                    },
+                    //subtitle: {
+                    //    text: 'Source: ' +
+                    //        '<a href="https://www.fhi.no/en/id/infectious-diseases/coronavirus/daily-reports/daily-reports-COVID19/"' +
+                    //        'target="_blank">FHI</a>'
+                    //},
+                    xAxis: {
+                        categories: name,
+                        labels: {
+                            skew3d: true,
+                            style: {                                
+                                fontSize: '1em'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            margin: 20,
+                            text: 'No of Course'
+                        },
+                        labels: {
+                            skew3d: true
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        headerFormat: '<b>Course: {point.x}</b><br>'
+                    },
+                    plotOptions: {
+                        series: {
+                            depth: 25,
+                            colorByPoint: true
+                        }
+                    },
+                    series: [{
+                        data: vl,
+                        name: 'Course',
+                        showInLegend: false,
+                        dataLabels: {
+                            enabled: true,
+                            //style: {
+                            //    fontSize: "1em",
+                            //}
+                        }
+                    }]
+                });
+            }
+        }
+        function ChartQlf(Datalist) {
+            if (Datalist.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Datalist.length; i++) {
+                    Dlist.push({ name: Datalist[i].ColumnName, y: Datalist[i].NoofData });
+                }
+
+                //Highcharts.setOptions({
+                //    colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                //        return {
+                //            radialGradient: {
+                //                cx: 0.5,
+                //                cy: 0.3,
+                //                r: 0.7
+                //            },
+                //            stops: [
+                //                [0, color],
+                //                [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+                //            ]
+                //        };
+                //    })
+                //});
+
+                // Build the chart
+                chart = Highcharts.chart('chartqlf', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie',
+                        borderWidth: 1
+                    },
+                    title: {
+                        text: 'Qualification Distribution',
+                        align: 'center'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                        style: {
+                            color: 'blue',
+                            fontWeight: 'bold',
+                            fontsize: '20px'
+                        }
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    legend: {
+                        itemStyle: {
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '20px'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
+                                    '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
+                                connectorColor: 'rgba(128,128,128,0.5)'
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Qualification',
+                        data: Dlist,
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "10px",
+                            }
+                        }
+                    }]
+                });
+            }
+        }
+        function ChartTrainingAgency(Datalist) {
+            if (Datalist.length > 0) {
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Datalist.length; i++) {
+                    Dlist.push({ name: Datalist[i].ColumnName, y: Datalist[i].NoofData });
+                }
+
+                chart = Highcharts.chart('charttrainAge', {
+
+                    chart: {
+                        type: 'lollipop',
+                        borderWidth: 1
+                    },
+                    accessibility: {
+                        point: {
+                            valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    //subtitle: {
+                    //    text: '2021'
+                    //},
+                    title: {
+                        text: 'Training Agency Distribution'
+                    },
+                    tooltip: {
+                        shared: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        labels: {
+                            skew3d: true,
+                            style: {
+                                fontSize: '1em'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'No Of Training Agency'
+                        }
+                    },
+                    series: [{
+                        name: 'Training Agency',
+                        data: Dlist
+                    }]
+
+                });
+            }
+        }
+        /*Training Center Over state to Training Center wise */
+        function ChartGroupTree(Datalist, TotalPart) {
+            if (Datalist.length > 0) {
+                var objd = []; arrdist = [];
+                var Dlist = []; var filtervl = 0;
+                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + ' / ' + TotalPart }];//
+                debugger;
+                const groupByDis = groupBy(["DistrictId", "DistrictName"]);
+                for (let [groupName, values] of Object.entries(groupByDis(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('--');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + ' / ' + sum });//
+                }
+                const groupByTrainAgency = groupBy(["DistrictId", "TrainingAgencyId", "TrainingAgencyName"]);
+                for (let [groupName, values] of Object.entries(groupByTrainAgency(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('--');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0] && x.TrainingAgencyId == strsp[1]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + '.' + strsp[1], parent: strsp[0] + '.0', name: strsp[2] + ' / ' + sum }); ////+ strsp[3]
+                }
+                const groupByTrainCenter = groupBy(["DistrictId", "TrainingAgencyId", "TrainingCenterId", "TrainingCenter"]);
+                debugger;
+                for (let [groupName, values] of Object.entries(groupByTrainCenter(Datalist))) {
+                    //console.log(`${groupName}: ${values.length}`);
+                    var strsp = groupName.split('--');
+                    filtervl = Datalist.filter(x => x.DistrictId == strsp[0]
+                        && x.TrainingAgencyId == strsp[1] && x.TrainingCenterId == strsp[2]);
+                    let sum = filtervl.reduce(function (accumulator, curValue) {
+                        return accumulator + curValue.NoofPart
+                    }, 0)
+                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.' + strsp[1], name: strsp[3] + ' / ' + sum }); ////strsp[4]
+                }
+                //for (var i = 0; i < Datalist.length; i++) {
+                //    objd.push({ id: Datalist[i].TrainingAgencyId + '.' + Datalist[i].TrainingCenterId, parent: Datalist[i].DistrictId + '.' + Datalist[i].TrainingAgencyId, name: Datalist[i].TrainingCenter });
+                //}
+                const data = objd;
+                chart = Highcharts.chart('chartgrouptree', {
+                    chart: {
+                        inverted: true,
+                        marginBottom: 170
+                        //borderWidth: 1
+                    },
+                    title: {
+                        text: 'Training Center Distribution',
+                        align: 'center'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    labels: {
+                        skew3d: true,
+                        style: {
+                            fontSize: '1em'
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'treegraph',
+                            data,
+                            tooltip: {
+                                pointFormat: '{point.name}'
+                            },
+                            dataLabels: {
+                                pointFormat: '{point.name}',
+                                style: {
+                                    whiteSpace: 'nowrap',
+                                    color: '#000000',
+                                    textOutline: '3px contrast',
+                                    fontSize:'1em',
+                                },
+                                crop: false
+                            },
+                            marker: {
+                                radius: 6
+                            },
+                            legend: {
+                                itemStyle: {
+                                    color: 'white',
+                                    fontWeight: 'bold',
+                                    fontSize: '20px'
+                                }
+                            },
+                            levels: [
+                                {
+                                    level: 1,
+                                    dataLabels: {
+                                        align: 'left',
+                                        x: 20
+                                    }
+                                },
+                                {
+                                    level: 2,
+                                    colorByPoint: true,
+                                    dataLabels: {
+                                        verticalAlign: 'bottom',
+                                        y: -20
+                                    }
+                                },
+                                {
+                                    level: 3,
+                                    //colorVariation: {
+                                    //    key: 'brightness',
+                                    //    to: -0.5
+                                    //},
+                                    dataLabels: {
+                                        verticalAlign: 'top',
+                                        /*rotation: 90,*/
+                                        y: -20
+                                    }
+                                },
+                                //{
+                                //    level: 4,
+                                //    //colorVariation: {
+                                //    //    key: 'brightness',
+                                //    //   /* to: -0.5*/
+                                //    //},
+                                //    dataLabels: {
+                                //        verticalAlign: 'bottom',
+                                //        //verticalAlign: 'top',
+                                //        /*rotation: 90,*/
+                                //        y: -20
+                                //    }
+                                //}
+                                {
+                                    level: 4,
+                                    colorVariation: {
+                                        key: 'brightness',
+                                        to: -0.5
+                                    },
+                                    dataLabels: {
+                                        verticalAlign: 'top',
+                                        rotation: 90,
+                                        y: 20
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                });
+            }
+        }
+        function ChartCutmnthcallstu(Datalist, TotalPart) {
+            debugger;
+
+            if (Datalist.length > 0) {
+                var Dlist1 = [];
+                var objd = new Object();
+                var Dlist = []; var name = []; var vl = [];
+                for (var i = 0; i < Datalist.length; i++) {
+                    var obj = [Datalist[i].CallStatusText, Datalist[i].NoofCall];
+                    Dlist1.push({ name: Datalist[i].CallStatusText, y: Datalist[i].NoofCall, color: Datalist[i].ColorCode });
+                    Dlist.push(obj);
+                }
+               
+                //Highcharts.chart('chartcutmthcallstu', {
+                //    chart: {
+                //        plotBackgroundColor: null,
+                //        plotBorderWidth: 0,
+                //        plotShadow: false,
+                //        borderWidth: 1
+                //    },
+                //    title: {
+                //        text: 'Calling Status',
+                //        align: 'center',
+                //        //verticalAlign: 'middle',
+                //        //y: 60
+                //    },
+                //    credits: {
+                //        enabled: false
+                //    },
+                //    tooltip: {
+                //        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                //    },
+                //    accessibility: {
+                //        point: {
+                //            valueSuffix: '%'
+                //        }
+                //    },
+                //    plotOptions: {
+                //        pie: {
+                //            dataLabels: {
+                //                enabled: true,
+                //                distance: -50,
+                //                style: {
+                //                    fontWeight: 'bold',
+                //                    color: 'white'
+                //                }
+                //            },
+                //            startAngle: -90,
+                //            endAngle: 90,
+                //            center: ['50%', '75%'],
+                //            size: '110%'
+                //        },
+                //        series: {
+                //            cursor: 'pointer',
+                //            point: {
+                //                events: {
+                //                    click: function () {
+                //                        location.href = "/Participant/ParticipantCallList"
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    },
+                //    series: [{
+                //        type: 'pie',
+                //        name: 'Calling Status',
+                //        innerSize: '50%',
+                //        data: Dlist,
+                //    }]
+                //});
+
+                // Build the chart
+                chart = Highcharts.chart('chartcutmthcallstu', {
+                    //chart: {
+                    //    plotBackgroundColor: null,
+                    //    plotBorderWidth: null,
+                    //    plotShadow: false,
+                    //    type: 'pie',
+                    //    borderWidth: 1
+                    //},
+                    chart: {
+                        type: 'pie',
+                        borderWidth: 1,
+                        options3d: {
+                            enabled: true,
+                            alpha: 45
+                        }
+                    },
+                   // colors: ['#F3B04A', '#82C368', '#4D49CC','#E8CB56'],
+                    title: {
+                        text: 'Current Month Calling Status',
+                        align: 'center'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                        style: {
+                            color: 'blue',
+                            fontWeight: 'bold',
+                            fontsize: '20px'
+                        }
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    legend: {
+                        itemStyle: {
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '20px'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
+                                    '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
+                                connectorColor: 'rgba(128,128,128,0.5)'
+                            }
+                        },
+                        series: {
+                            cursor: 'pointer',
+                            point: {
+                                events: {
+                                    click: function () {
+                                        location.href = "/Participant/ParticipantCallList"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Calling',
+                        data: Dlist1,
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: "10px",
+                            }
+                        }
+                    }]
+
+                });
+            }
+        }
+        function ChartPlace(Datalist, TotalPart) {
+            if (Datalist.length > 0) {
+                debugger;
+                var objd = new Object();
+                var Dlist = [], name=[];
+                for (var i = 0; i < Datalist.length; i++) {
+                    //var obj = [Datalist[i].ColumnName, Datalist[i].NoofData];
+                    name.push(obj);
+                }
+                var obj = ['Placed', Datalist[0].NoofPlace];
+                Dlist.push(obj);
+                obj = ['Not Placed', Datalist[0].NoofNotPlace];
+                Dlist.push(obj);
+
+                // Set up the chart
+                chart = Highcharts.chart('chartplace', {
+                    chart: {
+                        type: 'columnpyramid',
+                        borderWidth: 1,
+                        //options3d: {
+                        //    enabled: true,
+                        //    alpha: 10,
+                        //    depth: 50,
+                        //    viewDistance: 50
+                        //}
+                    },
+                    colors: ['#F3B04A', '#82C368'],
+                    title: {
+                        text: 'Placement Status : ' + TotalPart
+                    },
+                    xAxis: {
+                        crosshair: true,
+                        labels: {
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+                        type: 'category'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                                allowOverlap: true,
+                                x: 10,
+                                y: -5,
+                                style: {
+                                    fontSize:'1em'
+                                },
+                            },
+                            //width: '60%',
+                            //height: '80%',
+                            //center: ['50%', '45%']
+                        }
+                    },
+                    series: [{
+                        name: 'Placement',
+                        data: Dlist
+                    }]
+                });
+            }
+        }
+
+
+        const groupBy = (keys) => (array) =>
+            array.reduce((objectsByKeyValue, obj) => {
+                const value = keys.map((key) => obj[key]).join("--");
+                objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                return objectsByKeyValue;
+            }, {});
+    </script>
+}

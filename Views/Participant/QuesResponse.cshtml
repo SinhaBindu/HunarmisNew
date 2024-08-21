@@ -1,0 +1,189 @@
+﻿@using System.Data
+@using Hunarmis.Manager
+@using Hunarmis.Models
+@{
+    ViewBag.Title = "Call Detail Response";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Participant Response Details";
+    ViewBag.SemiTitleLink = "/Participant/PartQuestionList";
+    string IsSadmin = string.Empty;
+    DataTable dt = new DataTable();
+    if (Model != null)
+    {
+        dt = Model;
+    }
+}
+@*<h2>Participant Questionnaire Response Details</h2>*@
+
+<style>
+    .content-manage {
+        padding: 10px 20px
+    }
+</style>
+
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+
+                    <div class="panel-bodys">
+                        <div class="bg-light rounded h-100 p-4">
+                            @{
+                                int indx = dt.Rows.Count;
+                                if (dt.Rows.Count > 0)
+                                {
+                                    <section class="accordion">
+                                        <div class="content-manage">
+                                            <h4 class="semi-title">Basic Details</h4>
+                                            <div class="basic-info">
+                                                <div class=""><p>@DplyPartCalName.RegID  <span> :@dt.Rows[0]["RegID"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.FullName  <span>: @dt.Rows[0]["FullName"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.PhoneNo  <span>: @dt.Rows[0]["PhoneNo"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.BatchName <span> : @dt.Rows[0]["BatchName"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.SBatchDt <span>: @dt.Rows[0]["BatchStartDate"].ToString()</span></p></div>
+                                                <div class=""><p>@DplyPartCalName.EBatchDt  <span> : @dt.Rows[0]["BatchEndDate"].ToString()</span></p></div>
+                                            </div>
+
+                                            @foreach (DataRow dr in dt.Rows)
+                                            {
+                                                //style = "overflow:scroll;padding-left:3%;"
+                                                <div class="row">
+                                                    <div class="tab">
+                                                        <input type="checkbox" name="accordion-1" id="cb_@indx" checked>
+                                                        <label for="cb_@indx" class="tab__label">  #@indx @dr["Ques_Month"].ToString() / @dr["Ques_Year"].ToString() </label>
+
+                                                        <div class="tab__content">
+                                                            <div class="manage-box">
+                                                                <div class="conent-arrange">
+                                                                    <h4 class="semi-title">Questionnaire Response</h4>
+                                                                    <div class="col-md-12"> @DplyPartCalName.QuesMonth:  <span> @dr["Ques_Month"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.QuesYear:   <span> @dr["Ques_Year"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.IsAssessmentCert:  <span> @dr["IsAssessmentCert"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.IsComfortable:  <span> @dr["IsComfortable"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.EmpCompany:  <span> @dr["EmpCompany"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.FirstJobTraining:  <span> @dr["FirstJobTraining"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.DOJ:  <span> @CommonModel.FormateDtDMY(dr["DOJ"].ToString())</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.CurrentEmployer:  <span> @dr["CurrentEmployer"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.Designation:  <span> @dr["Designation"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.SalaryPackage:  <span> @dr["SalaryPackage"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.CurrentlyWorking:  <span> @dr["CurrentlyWorking"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.WorkingKM:  <span> @dr["WorkingKM"].ToString()</span></div>
+                                                                    @*<div class="col-md-12"> @DplyPartCalName.WorkingKMOther  <strong> :@Model.WorkingKMOther</strong></div>*@
+                                                                    <div class="col-md-12"> @DplyPartCalName.Traininghelp:  <span> @dr["Traininghelp"].ToString()</span></div>
+                                                                </div>
+
+                                                                <div class="conent-arrange">
+                                                                    <h4 class="semi-title"> @DplyPartCalName.SectionGeneral </h4>
+                                                                    <div class="col-md-12"> @DplyPartCalName.SalaryWages:  <span> @dr["SalaryWages"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.ExpectationJobRole:  <span> @dr["ExpectationJobRole"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.WorkPlaceSafe:  <span> @dr["WorkPlaceSafe"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.IsMSBenefit:  <stronspang> @dr["IsMSBenefit"].ToString()</stronspang></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.MSBenefitId:  <span> @dr["MSBenefitId"].ToString()</span></div>
+                                                                    @*<div class="col-md-12"> @DplyPartCalName.MSOther  <strong> :@dt.Rows[0][""].ToString()</strong></div>*@
+                                                                    <div class="col-md-12"> @DplyPartCalName.AnyChallenges:  <span> @dr["AnyChallenges"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.AreaSupport:  <span> @dr["AreaSupport"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.EmployedId:  <span> @dr["EmployedId"].ToString()</span></div>
+                                                                    @*<div class="col-md-12"> @DplyPartCalName.EmployedOther  <strong> :@Model.EmployedOther</strong></div>*@
+                                                                    <div class="col-md-12"> @DplyPartCalName.IsGettingjob:  <span> @dr["IsGettingjob"].ToString()</span></div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.SectionPlacement</div>
+                                                                    <div class="col-md-12"> @DplyPartCalName.PlacedStatus: <span> @dr["PlacedStatus"].ToString()</span></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                indx--;
+                                            }
+                                        </div>
+                                    </section>
+                                }
+
+                            }
+                        </div>
+                        <div class="breaker"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Custom/Master.js"></script>
+    <link href="~/Content/css/Accordioncss.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function () {
+
+            //BindYearList("YearId", 0, 0);
+            //BindMonthList("MonthId", 0, 0);
+            //BindBatchList("BatchId", 0, true);
+
+            //$("#formid").submit(function (e) {
+            //    e.preventDefault();
+            //    BindData();
+            //});
+
+            //BindData();
+        });
+        function BindData() {
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.YearId = $('#YearId').val() == '' ? '' : $('#YearId').val();
+            filtermodel.MonthId = $('#MonthId').val() == '' ? '' : $('#MonthId').val();
+            filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
+            var formData = $('#formid').serialize();
+
+            $.ajax({
+                type: "Get",
+                url: document.baseURI + "/Participant/GetPartQuestionList",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                success: function (res) {
+                    if (res.IsSuccess) {
+                        $("#subdata").html(res.Data);
+
+                        if ($.fn.dataTable.isDataTable('#tbl')) {
+                            $("#tbl").dataTable().fnDestroy();
+                        }
+                        table = $('#tbl').DataTable({
+                            //scrollY: "400px",
+                            //scrollX: true,
+                            //scrollCollapse: true,
+                            //paging: false,
+                            pageLength: 100,
+                            fixedColumns: {
+                                leftColumns: 1,
+                                rightColumns: 1
+                            },
+                            buttons: [{
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Beneficiary Lists',//$('#IDDistrict option:selected').text() +
+                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                filename: 'Beneficiary List',
+                                exportOptions: { modifier: { page: 'all' } }
+                            }],
+                        });
+                        $('.dataTables_filter input[type="search"]').css(
+                            { 'width': '500px', 'display': 'inline-block' }
+                        );
+                        $('#div-download').empty();
+                        table.buttons().container().appendTo($('#div-download'));
+                    }
+                    else {
+                        $("#subdata").html(res.Data);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //Do To Message display
+                }
+            });
+        }
+    </script>
+}
+

@@ -1,0 +1,109 @@
+﻿@using System.Data
+@using System.Text.RegularExpressions;
+@using Hunarmis.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+<style>
+    table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+        padding-right: 0px !important;
+    }
+
+    table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date,
+    table.dataTable td.dt-type-numeric,
+    table.dataTable td.dt-type-date {
+        text-align: left !important;
+    }
+</style>
+<div class="bg-light rounded h-100 p-4">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" id="tbl">
+            <thead class="text-center">
+                <tr>
+                    <th class="text-center tblth">Srno.</th>
+                    <th class="text-center tblth">Edit</th>
+                    <th class="text-center tblth">Placement<br /> Tracker</th>
+                    <th class="text-center tblth">Center Name<br />/Location</th>
+                    <th class="text-center tblth">Phone No</th>
+                    <th class="text-center tblth">Name</th>
+                    <th class="text-center tblth">Registration ID</th>
+                    <th class="text-center tblth">Email ID</th>
+                  @*<th class="text-center tblth">Aadhar <br />Card No.</th>*@
+                    <th class="text-center tblth">Batch Name</th>
+                    <th class="text-center tblth">Batch Start Date</th>
+                    <th class="text-center tblth">Batch End Date</th>
+                    <th class="text-center tblth">Course</th>
+                    <th class="text-center tblth">Status/Date</th>
+                    <th class="text-center tblth">Reported By</th>
+                    <th class="text-center tblth">Assessment<br /> Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (dt.Rows.Count > 0)
+                    {
+                        int srno = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                                <tr>
+                                    <td class="text-center">@(srno++)</td>
+                                    <td class="text-center">
+                                        <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        @if (!string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString()))
+                                        {
+                                            @*if (!string.IsNullOrWhiteSpace(dr["IsPlacementTracker"].ToString()))
+                                            {
+                                                if (dr["IsPlacementTracker"].ToString() == "1")
+                                                {
+                                                    <button type="button" class="btn btn-primary btnpopplacetview" onclick="BindPlacementDetailData('@dr["ID"].ToString()','@dr["maxPlaceTrackerID"].ToString()')">
+                                                        Placement Tracker View
+                                                    </button>
+                                                }
+                                            }
+                                            else
+                                            {*@
+                                        <button type="button" style="@dr["PlaceTrackerEditColor"]" class="btn btnpop" data-id="@dr["ID"]" data-placementrackerid="@dr["maxPlaceTrackerID"]" data-placetrackerdistrictId="@dr["PlaceTrackerDistrictId"]">
+                                            Placement Tracker
+                                        </button>
+                                            //}
+                                        }
+                                    </td>
+                                    <td class="text-left">
+                                        @dr["TrainingCenter"]
+                                        /<br />@dr["DistrictName"]
+                                    </td>
+                                    <td class="" width="20%">
+                                        @dr["PhoneNo"]
+                                    </td>
+                                    <td class="text-left">@dr["FullName"]</td>
+                                    <td class="text-center text-white" style="background: #604ccf !important; color: #fff !important"><strong>@dr["RegID"]</strong></td>
+                                    <td class="text-left">@dr["EmailID"]</td>
+                                    @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
+                                    <td class="text-left">@dr["BatchName"]</td>
+                                    <td class="text-center">@dr["BatchStartDate"]</td>
+                                    <td class="text-center">@dr["BatchEndDate"]</td>
+                                    <td class="text-center">@dr["CourseName"]</td>
+                                    <td class="text-center">@dr["CurrentStatus"]/<br />@dr["CurrentReportedDate"] </td>
+                                    <td class="text-center" style="word-break:break-word !important;">@dr["CurrentReportedByName"]</td>
+                                    <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
+                                </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="15" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
