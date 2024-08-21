@@ -621,7 +621,7 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.EmployeeType_Master.OrderBy(x => x.OrderBy).Select(course => new SelectListItem { Value = course.EmployeeTypeId_pk.ToString(), Text = course.EmployeeTypeName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "-1", Text = "Select" });
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
             return list.ToList();
@@ -632,7 +632,7 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.Industry_Master.OrderBy(x=>x.OrderBy).Select(course => new SelectListItem { Value = course.IndustryId_pk.ToString(), Text = course.IndustryName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "-1", Text = "Select" });
+                list.Add(new SelectListItem { Value = "", Text = "Select" });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
             return list.OrderBy(x => x.Text).ToList();
