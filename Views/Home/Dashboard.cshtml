@@ -32,7 +32,7 @@
     }
 
     .d-box {
-        flex-basis: 18.3%;
+        flex-basis: 23.4%;
         border-radius: 6px;
         background: #fff;
         padding-bottom: 12px;
@@ -238,6 +238,22 @@
     .d-box .count-box h3 {
         margin: 15px 2px 19px;
     }
+
+    .form-box-select {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 10px;
+    }
+    .highcharts-label text, .highcharts-legend-item text {
+        color: #000 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #000 !important;
+    }
+    .highcharts-text-outline {
+        stroke: none !important;
+    }
 </style>
 <div class="dashboard-box">
     @if (dt != null && dt.Rows.Count > 0)
@@ -270,31 +286,34 @@
             <h3 class="count">@dt.Rows[0]["Placements"]</h3>
             <span>Placements</span>
         </div>
-        <div class="d-box" style="display:none">
-            <p class="bgr5">
-                <img src="~/Content/images/center.png" alt="center" class="bgr-icon" />
-            </p>
-            <div class="count-box">
-                <h3 class="count">
-                    @dt.Rows[0]["TrainingCenters"]
-                </h3>
-                <h3>/</h3>
-                <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
-            </div>
-            <span>Centers</span>
-        </div>
+        @*<div class="d-box" style="display:none">
+                <p class="bgr5">
+                    <img src="~/Content/images/center.png" alt="center" class="bgr-icon" />
+                </p>
+                <div class="count-box">
+                    <h3 class="count">
+                        @dt.Rows[0]["TrainingCenters"]
+                    </h3>
+                    <h3>/</h3>
+                    <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
+                </div>
+                <span>Centers</span>
+            </div>*@
     }
 </div>
 
 <div class="data-box-2">
     <div class="boxe flx1">
-        <h2>
-            Number of participants
-        </h2>
-        <select id="ddlSection1" class="form-control">
-            <option value="Location">Location</option>
-            <option value="Course">Course</option>
-        </select>
+        <div class="form-box-select">
+            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
+                Number of participants
+            </h2>
+            <select id="ddlSection1" class="form-control">
+                <option value="Location">Location</option>
+                <option value="Course">Course</option>
+            </select>
+        </div>
+
         <div>
             <figure class="highcharts-figure" id="figureSection1_Location">
                 <div id="parent-container">
@@ -310,13 +329,15 @@
     </div>
 
     <div class="boxe flx1">
-        <h2>
-            Gender
-        </h2>
-        <select id="ddlSection2" class="form-control">
-            <option value="Location">Location</option>
-            <option value="Course">Course</option>
-        </select>
+        <div class="form-box-select">
+            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
+                Gender Wise Distribution
+            </h2>
+            <select id="ddlSection2" class="form-control">
+                <option value="Location">Location</option>
+                <option value="Course">Course</option>
+            </select>
+        </div>
         <div>
             <figure class="highcharts-figure" id="figureSection2_Location">
                 <div id="parent-container">
@@ -336,14 +357,15 @@
 
 <div class="data-box-2">
     <div class="boxe flx2">
-        <h2>
-            Avarge Salary
-        </h2>
-        <select id="ddlSection3" class="form-control">
-            <option value="Location">Location</option>
-            <option value="Course">Course</option>
-        </select>
-
+        <div class="form-box-select">
+            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
+                Location Wise Average Salary
+            </h2>
+            <select id="ddlSection3" class="form-control">
+                <option value="Location">Location</option>
+                <option value="Course">Course</option>
+            </select>
+        </div>
         <div>
             <figure class="highcharts-figure" id="figureSection3_Location">
                 <div id="parent-container">
@@ -358,16 +380,18 @@
         </div>
     </div>
 </div>
-
-<div>
-    Participant Profile
+<div style="padding: 0px 20px 20px;">
+    <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
+        Participant Profile
+    </div>
+    <hr style="border: 4px double #f9841b; margin: 0px; " />
 </div>
-<hr />
+
 <div class="data-box-2">
 
     <div class="boxe flx2">
         <h2>
-            Age Group
+            Age Group Wise Distribution
         </h2>
 
         <div>
@@ -381,7 +405,7 @@
 
     <div class="boxe flx2">
         <h2>
-            Location
+            Location Wise Distribution
         </h2>
 
         <div>
@@ -484,7 +508,8 @@
     function section2() {
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
-            data: { mode: 2},
+            data: { mode: 2 },
+
             async: false,
             success: function (result) {
                 console.log(result);
@@ -507,8 +532,8 @@
                 console.log(result);
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.CourseJsonData), 'containerSection3_Course', 'column-group', 'Course wise average salary', 'Course', 'Average salary', 'CourseName', 'Gender');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection3_Location', 'column-group', 'Location wise average salary', 'Location', 'Average salary', 'DistrictName', 'Gender');
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection3_Course', 'column-group', '', 'Course', 'Average salary', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection3_Location', 'column-group', '', 'Location', 'Average salary', 'DistrictName', 'Gender');
                 }
             }
         });
@@ -602,7 +627,7 @@
         //        y: jsonData[i].Total
         //    });
         //}
-
+        colors = ['#f9841b', '#0d71c9', '#d73447', '#019968' ]
         Highcharts.chart(selector, {
             chart: {
                 type: graphType,
@@ -617,6 +642,7 @@
                 text: title,
                 align: 'left',
                 style: {
+                    
                     //display: 'none'
                 }
             },
@@ -625,11 +651,18 @@
             },
             plotOptions: {
                 series: {
+                    shadow: false,
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.y:.0f}'
-                    }
+                        format: '{point.y:.0f}',
+                        style: {
+                            fontSize: 13,
+                            borderWidth: 0
+                            //display: 'none'
+                        }
+                    },
+                    
                 },
                 pie: {
                     allowPointSelect: true,
@@ -651,16 +684,17 @@
                         ? this.point.options.total
                         : this.point.y;
 
-                    return `<span style="font-size:11px">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
+                    return `<span style="font-size:13px">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
                         `<span style="color:${this.point.color}">${this.point.name ? this.point.name : this.x}</span>: ` +
                         `<b>${value}</b><br/>`;
                 }
             },
-            //colors: colors,
+            colors: colors,
             xAxis: {
                 categories: categories,
                 labels: {
                     style: {
+                        fontSize: 13
                         //color: '#fff'
                     },
                 },
@@ -668,12 +702,14 @@
             yAxis: {
                 labels: {
                     style: {
+                        fontSize: 13
                         //color: '#fff'
                     },
                 },
                 title: {
                     text: yAxis,
                     style: {
+                        fontSize: 13
                         //color: '#fff'
                     },
                 }
