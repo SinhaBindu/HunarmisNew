@@ -160,6 +160,8 @@ namespace Hunarmis.Models
         public string TrainingAgencyName { get; set; }
         [Display(Name = DplyPartCalName.TrainingCenter)]
         public string TrainingCenter { get; set; }
+        [Display(Name = DplyPartCalName.CourseName)]
+        public string CourseName { get; set; }
         [Display(Name = DplyPartCalName.ReportedBy)]
         public string ReportedBy { get; set; }
         [Display(Name = DplyPartCalName.ReportedOn)]

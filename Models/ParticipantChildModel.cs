@@ -119,6 +119,7 @@ namespace Hunarmis.Models
         public const string BatchName = "Batch Name";
         public const string SBatchDt = "Batch Start Date";
         public const string EBatchDt = "Batch End Date";
+        public const string CourseName = "Course Name";
         public const string QuesMonth = "Month";
         public const string QuesYear = "Year";
         public const string CallType = "Participant Available";

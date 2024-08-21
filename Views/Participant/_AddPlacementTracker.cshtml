@@ -28,7 +28,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">@ViewBag.Title: <span class="regis">@Model.modelbasicpart.RegID</span></h5>
+                <h5 class="modal-title" id="myModalLabel">@ViewBag.Title : <span class="regis">@Model.modelbasicpart.FullName</span></h5>
                 <button type="button" class="clos-btn" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-times"></i>
                 </button>
@@ -63,8 +63,7 @@
                                                     <div class=""><p>End Batch Name  <span> : @Model.modelbasicpart.EBatchDt</span></p></div>
                                                     <div class=""><p>Training Agency Name  <span> : @Model.modelbasicpart.TrainingAgencyName</span></p></div>
                                                     <div class=""><p>Training Center  <span> : @Model.modelbasicpart.TrainingCenter</span></p></div>
-                                                    <div class=""><p>Reported By  <span> : @Model.modelbasicpart.ReportedBy</span></p></div>
-                                                    <div class=""><p>Reported On  <span> : @Model.modelbasicpart.ReportedOn</span></p></div>
+                                                    <div class=""><p>Course Name  <span> @Model.modelbasicpart.CourseName</span></p></div>
                                                 </div>
                                             </div>
                                             @if (Model.PlacementTrackerId_pk != Guid.Empty)
@@ -194,15 +193,13 @@
                                                             @Html.LabelFor(model => model.DOJEndDate, htmlAttributes: new { @class = "control-label col-lg-12" })
                                                             <div class="col-lg-12">
                                                                 @Html.EditorFor(model => model.DOJEndDate, new
-                                                                    {
-                                                                        htmlAttributes = new
-                                                                        {
-                                                                            @class = "form-control datepickermonth",
-                                                                            @maxlength = "11",
-                                                                            @placeholder = "dd-mmm-yyyy",
-                                                                            @Value = Model.DOJEndDate != null ? Model.DOJEndDate.Value.Date.ToString("dd-MMM-yyyy") : null
-                                                                        }
-                                                                    })
+                                                           {
+                                                               @class = "form-control datepickermonth",
+                                                               @maxlength = "11",
+                                                               @placeholder = "dd-mmm-yyyy",
+                                                               @Value = Model.DOJEndDate != null ? Model.DOJEndDate.Value.Date.ToString("dd-MMM-yyyy") : null
+
+                                                                })
                                                                 @Html.ValidationMessageFor(model => model.DOJEndDate, "", new { @class = "text-danger" })
                                                             </div>
                                                             <div class="mark-devide"></div>
@@ -212,8 +209,16 @@
                                                         <div class="form-group ">
                                                             @Html.LabelFor(model => model.UploadOfferLetter, htmlAttributes: new { @class = "control-label col-lg-12" })
                                                             <div class="col-lg-12">
-                                                                <input type="file" class="UploadCheckFile" name="UploadOfferLetter" id="UploadOfferLetter" required accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
-                                                                @Html.ValidationMessageFor(model => model.UploadOfferLetter, "", new { @class = "text-danger" })
+                                                                @if (Model.PlacementTrackerId_pk == Guid.Empty)
+                                                                {
+                                                                    <input type="file" class="UploadCheckFile" name="UploadOfferLetter" id="UploadOfferLetter" required accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+                                                                    @Html.ValidationMessageFor(model => model.UploadOfferLetter, "", new { @class = "text-danger" })
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="file" class="UploadCheckFile" name="UploadOfferLetter" id="UploadOfferLetter" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+                                                                }
+
                                                             </div>
                                                             <div class="mark-devide"></div>
                                                         </div>
@@ -280,7 +285,7 @@
     <script>
         $(document).ready(function () {
 
-          
+
             if ('@Model' != 'null') {
 
                   if ('@Model.PlacementTrackerId_pk' != '@Guid.Empty') {

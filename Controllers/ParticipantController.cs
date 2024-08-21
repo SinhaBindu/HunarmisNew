@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.EMMA;
 using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Hunarmis.Helpers;
 using Hunarmis.Manager;
 using Hunarmis.Models;
 using Microsoft.Ajax.Utilities;
@@ -256,6 +257,8 @@ namespace Hunarmis.Controllers
                     && x.TrainingAgencyID_fk == tbl.TrainingAgencyID && x.DistrictID_fk == tbl.DistrictID)?.FirstOrDefault();
                     model.modelbasicpart.TrainingAgencyName = TrainAcy != null ? TrainAcy.TrainingAgencyName : null;
                     model.modelbasicpart.TrainingCenter = TrainCen != null ? TrainCen.TrainingCenter : null;
+                    var Cname = db_.Courses_Master.Where(x => x.Id == tbl.CourseEnrolledID)?.FirstOrDefault();
+                    model.modelbasicpart.CourseName = Cname != null ? Cname.CourseName : null;
 
                     var tblPlaceTrackerId = db_.tbl_PlacementTracker.Find(Id);
                     if (tblPlaceTrackerId != null && Id != Guid.Empty)
@@ -324,8 +327,8 @@ namespace Hunarmis.Controllers
                     {
                         tbl.EmployeeTypeId = model.EmployeeTypeId;
                         tbl.IndustryId = model.IndustryId;
-                        tbl.CompanyName = model.CompanyName;
-                        tbl.Designation = model.Designation;
+                        tbl.CompanyName = !string.IsNullOrWhiteSpace(model.CompanyName) ? model.CompanyName.Trim().Replace("+"," "):null;
+                        tbl.Designation = !string.IsNullOrWhiteSpace(model.Designation) ? model.Designation.Trim().Replace("+", " ") : null;
                         tbl.Salary = model.Salary;
                         tbl.StateId = model.StateId;
                         tbl.DistrictId = model.DistrictId;

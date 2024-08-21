@@ -71,5 +71,8 @@ namespace Hunarmis.Models
         public string EmailId { get; set; }
         public string Password { get; set; }
         public string RandomValue { get; set; }
+
+        [Display(Name = "Placement Tracker")]
+        public int IsPlacementTracker { get; set; }
     }
 }

@@ -734,6 +734,14 @@ namespace Hunarmis.Manager
             list.Add(new SelectListItem { Value = "Female", Text = "Female" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetddlPlacementTracker()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            list.Add(new SelectListItem { Value = "0", Text = "All" });
+            list.Add(new SelectListItem { Value = "1", Text = "Placement Tracker" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetRoleList(bool IsAll = false)
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();

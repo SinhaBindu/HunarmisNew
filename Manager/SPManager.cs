@@ -120,11 +120,12 @@ namespace Hunarmis.Manager
         {
             //model.CallStatus = !string.IsNullOrEmpty(model.CallStatus) ? model.CallStatus :"";
             model.UserId = string.IsNullOrEmpty(model.UserId) || model.UserId == "-1" || model.UserId == "0" ? "" : model.UserId;
-            model.CallStatus = string.IsNullOrEmpty(model.CallStatus) || model.CallStatus == "-1" ? "" : model.CallStatus;
-            StoredProcedure sp = new StoredProcedure("SP_RawDataParticipantList");
-            sp.Command.AddParameter("@Type", model.Type, DbType.Int32);
-            sp.Command.AddParameter("@Search", model.Search, DbType.String);
-            sp.Command.AddParameter("@CallStatus", model.CallStatus, DbType.String);
+            //model.CallStatus = string.IsNullOrEmpty(model.CallStatus) || model.CallStatus == "-1" ? "" : model.CallStatus;
+            StoredProcedure sp = new StoredProcedure("SP_RawParticipantList");
+            //sp.Command.AddParameter("@Type", model.Type, DbType.Int32);
+            //sp.Command.AddParameter("@Search", model.Search, DbType.String);
+            //sp.Command.AddParameter("@CallStatus", model.CallStatus, DbType.String);
+            sp.Command.AddParameter("@IsPlacementTracker", model.IsPlacementTracker, DbType.Int16);
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
             sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
             sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
@@ -161,9 +162,10 @@ namespace Hunarmis.Manager
             var ds = sp.ExecuteDataSet().Tables[0];
             return ds;
         }
-        public static DataTable SP_Dashboard_Graphs()
+        public static DataTable SP_Dashboard_Graphs(int mode)
         {
             StoredProcedure sp = new StoredProcedure("SP_Dashboard_Graphs");
+            sp.Command.AddParameter("@mode", mode, DbType.Int32);
             var ds = sp.ExecuteDataSet().Tables[0];
             return ds;
         }

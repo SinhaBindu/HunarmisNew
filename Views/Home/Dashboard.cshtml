@@ -4,7 +4,7 @@
 
     var dt = SPManager.SP_Dashboard_TopLegend();
 
-    var dtGraph = SPManager.SP_Dashboard_Graphs();
+    //var dtGraph = SPManager.SP_Dashboard_Graphs();
 
 }
 @using Hunarmis.Helpers
@@ -270,7 +270,7 @@
             <h3 class="count">@dt.Rows[0]["Placements"]</h3>
             <span>Placements</span>
         </div>
-        <div class="d-box">
+        <div class="d-box" style="display:none">
             <p class="bgr5">
                 <img src="~/Content/images/center.png" alt="center" class="bgr-icon" />
             </p>
@@ -287,103 +287,114 @@
 </div>
 
 <div class="data-box-2">
-    <div class="boxe flx2">
-        <h2>Location</h2>
+    <div class="boxe flx1">
+        <h2>
+            Number of participants
+        </h2>
+        <select id="ddlSection1" class="form-control">
+            <option value="Location">Location</option>
+            <option value="Course">Course</option>
+        </select>
         <div>
-            <figure class="highcharts-figure">
+            <figure class="highcharts-figure" id="figureSection1_Location">
                 <div id="parent-container">
-                    <div id="containerLocation"></div>
+                    <div id="containerSection1_Location"></div>
+                </div>
+            </figure>
+            <figure class="highcharts-figure" id="figureSection1_Course" style="display:none">
+                <div id="parent-container">
+                    <div id="containerSection1_Course"></div>
                 </div>
             </figure>
         </div>
-
     </div>
+
     <div class="boxe flx1">
         <h2>
             Gender
         </h2>
+        <select id="ddlSection2" class="form-control">
+            <option value="Location">Location</option>
+            <option value="Course">Course</option>
+        </select>
         <div>
-            <figure class="highcharts-figure">
+            <figure class="highcharts-figure" id="figureSection2_Location">
                 <div id="parent-container">
-                    <div id="containerGender"></div>
+                    <div id="containerSection2_Location"></div>
+                </div>
+            </figure>
+            <figure class="highcharts-figure" id="figureSection2_Course" style="display:none">
+                <div id="parent-container">
+                    <div id="containerSection2_Course"></div>
                 </div>
             </figure>
         </div>
     </div>
 </div>
+
 
 
 <div class="data-box-2">
     <div class="boxe flx2">
         <h2>
-            Course
-            @*<div class="tabber">
-                    <a href="javascript:void(0)" class="tab-btn">Monthly</a>
-                    <a href="javascript:void(0)" class="tab-btn act">Weekly</a>
-                    <a href="javascript:void(0)" class="tab-btn">Today</a>
-                </div>*@
+            Avarge Salary
         </h2>
-        @*<p>
-                <img src="~/Content/images/dummy-graph/graph1.png" alt="" />
-            </p>*@
+        <select id="ddlSection3" class="form-control">
+            <option value="Location">Location</option>
+            <option value="Course">Course</option>
+        </select>
+
         <div>
-            <figure class="highcharts-figure">
+            <figure class="highcharts-figure" id="figureSection3_Location">
                 <div id="parent-container">
-                    <div id="containerCourse"></div>
+                    <div id="containerSection3_Location"></div>
                 </div>
             </figure>
-        </div>
-    </div>
-
-    <div class="boxe flx2">
-        <h2>Batch</h2>
-        @*<p>
-                <img src="~/Content/images/dummy-graph/graph3.png" alt="" />
-            </p>*@
-        <div>
-            <figure class="highcharts-figure">
+            <figure class="highcharts-figure" id="figureSection3_Course" style="display:none">
                 <div id="parent-container">
-                    <div id="containerBatchLine"></div>
-                </div>
-            </figure>
-        </div>
-
-    </div>
-
-</div>
-
-<div class="data-box-1">
-    <div class="boxe flx1">
-        <h2>Batch</h2>
-        @*<p>
-                <img src="~/Content/images/dummy-graph/graph3.png" alt="" />
-            </p>*@
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerBatch"></div>
+                    <div id="containerSection3_Course"></div>
                 </div>
             </figure>
         </div>
     </div>
 </div>
 
+<div>
+    Participant Profile
+</div>
+<hr />
 <div class="data-box-2">
+
     <div class="boxe flx2">
         <h2>
-            Qualification
+            Age Group
         </h2>
+
         <div>
             <figure class="highcharts-figure">
                 <div id="parent-container">
-                    <div id="containerQualification"></div>
+                    <div id="containerSection4_AgeGroup"></div>
                 </div>
             </figure>
         </div>
     </div>
 
-    
+    <div class="boxe flx2">
+        <h2>
+            Location
+        </h2>
+
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerSection4_Location"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+
 </div>
+
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
@@ -405,10 +416,45 @@
             $('.tab-btn').removeClass('act');
             $(this).addClass('act');
         })
-    });
-</script>
 
-<script>
+
+        $("#ddlSection1").change(function (e) {
+            if ($(this).val() == 'Location') {
+                $('#figureSection1_Course').hide();
+                $('#figureSection1_Location').show();
+            } else {
+                $('#figureSection1_Course').show();
+                $('#figureSection1_Location').hide();
+            }
+        });
+
+        $("#ddlSection2").change(function (e) {
+            if ($(this).val() == 'Location') {
+                $('#figureSection2_Course').hide();
+                $('#figureSection2_Location').show();
+            } else {
+                $('#figureSection2_Course').show();
+                $('#figureSection2_Location').hide();
+            }
+        });
+
+        $("#ddlSection3").change(function (e) {
+            if ($(this).val() == 'Location') {
+                $('#figureSection3_Course').hide();
+                $('#figureSection3_Location').show();
+            } else {
+                $('#figureSection3_Course').show();
+                $('#figureSection3_Location').hide();
+            }
+        });
+
+
+        section1();
+        section2();
+        section3();
+        section4();
+    });
+
     function escapeRegExp(str) {
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
     }
@@ -417,89 +463,229 @@
         return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
     }
 
-    function courseGraph() {
-        jsonData = JSON.parse(replaceAll('@dtGraph.Rows[0]["CourseJsonData"]', '&quot;', '"'));
+    function section1() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 1 },
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection1_Course', 'column', '', 'Course', 'number of participants', 'CourseName');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection1_Location','column', '', 'Location', 'number of participants', 'DistrictName');
+
+                }
+            }
+        });
+    }
+
+    function section2() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 2},
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection2_Course', 'column-group', '', 'Course', 'number of participants', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection2_Location', 'column-group', '', 'Location', 'number of participants', 'DistrictName', 'Gender');
+                }
+            }
+        });
+    }
+
+    function section3() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 3},
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection3_Course', 'column-group', 'Course wise average salary', 'Course', 'Average salary', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection3_Location', 'column-group', 'Location wise average salary', 'Location', 'Average salary', 'DistrictName', 'Gender');
+                }
+            }
+        });
+    }
+
+    function section4() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 4},
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', 'number of participants', 'AgeRange', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', 'number of participants', 'DistrictName', '');
+                }
+            }
+        });
+    }
+
+    function Graph(jsonData, selector, graphType ='column', title, xAxis, yAxis, property, groupProperty) {
         console.log(jsonData);
         var data = [];
-        for (var i = 0; i < jsonData.length; i++) {
-            data.push({
-                name: jsonData[i].CourseName,
-                y: jsonData[i].Percentage,
-                value: jsonData[i].Total
+        var categories = [];
+        var series = [];
+        if (graphType == 'bar-group') {
+            graphType = 'bar';
 
-            });
+            categories = [...new Set(jsonData.map(item => item[property]))];
+            const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
+
+            series = groups.map(key => ({
+                name: key,
+                data: categories.map(category => {
+                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+                    return item ? item.Total : null;
+                })
+            }));
+
+        }
+        else if(graphType == 'column-group') {
+            graphType = 'column';
+
+
+            categories = [...new Set(jsonData.map(item => item[property]))];
+            const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
+
+            series = groups.map(key => ({
+                name: key,
+                data: categories.map(category => {
+                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+                    return item ? item.Total : null;
+                })
+            }));
+            console.log(series);
+        } else if (graphType =='pie')  {
+
+            categories = jsonData.map(item => item[property]);
+            const totals = jsonData.map(item => item.Total);
+
+            var seriesData = jsonData.map(item => ({
+                name: item[property],
+                y: item.Percentage,
+                total: item.Total // Add total to each data point
+            }));
+            series = [{
+                name: 'Percentage',
+                colorByPoint: true,
+                data: seriesData
+            }];
+
+            console.log(series);
+        }
+        else {
+
+            categories = jsonData.map(item => item[property]);
+            const totals = jsonData.map(item => item.Total);
+
+            series = [{
+                showInLegend: false,
+                name: property,
+                data: totals
+            }];
+            console.log(series);
         }
 
-        Highcharts.chart('containerCourse', {
+        //for (var i = 0; i < jsonData.length; i++) {
+        //    data.push({
+        //        name: jsonData[i][property],
+        //        y: jsonData[i].Total
+        //    });
+        //}
+
+        Highcharts.chart(selector, {
             chart: {
-                type: 'pie'
+                type: graphType,
+                backgroundColor: 'rgba(0,0,0,0)',
+                color: '#fff',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                innerSize: '50%' // Make it a donut chart
             },
             title: {
-                text: 'Course',
+                text: title,
                 align: 'left',
                 style: {
-                    display: 'none'
+                    //display: 'none'
                 }
             },
             credits: {
                 enabled: false
             },
-            //subtitle: {
-            //    text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>',
-            //    align: 'left'
-            //},
-
-            accessibility: {
-                announceNewData: {
-                    enabled: true
-                },
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-
             plotOptions: {
                 series: {
-                    borderRadius: 5,
-                    dataLabels: [{
+                    borderWidth: 0,
+                    dataLabels: {
                         enabled: true,
-                        distance: 15,
-                        format: '{point.name}'
-                    }, {
+                        format: '{point.y:.0f}'
+                    }
+                },
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
                         enabled: true,
-                        distance: '-30%',
-                        filter: {
-                            property: 'percentage',
-                            operator: '>',
-                            value: 5
-                        },
-                        format: '{point.y:.1f}%',
-                        style: {
-                            fontSize: '0.9em',
-                            textOutline: 'none'
-                        }
-                    }]
+                        format: '{point.name}: {point.y}%'
+                    },
+                    showInLegend: true
                 }
             },
-
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
-                    '<b>{point.value:.2f}({point.y:.2f}%)</b> of total<br/>'
-            },
-            colors: ['#ea599f', '#6ec9ee', '#8a80bc','#f7c9de'],
-            series: [
-                {
-                    name: 'Courses',
-                    colorByPoint: true,
-                    data: data
+                //pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +               '<b>{point.y:.0f}</b><br/>'
+                formatter: function () {
+                    console.log(this);
+                    // Check if point.total is not null or undefined
+                    const value = this.point.options && this.point.options.total
+                        ? this.point.options.total
+                        : this.point.y;
+
+                    return `<span style="font-size:11px">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
+                        `<span style="color:${this.point.color}">${this.point.name ? this.point.name : this.x}</span>: ` +
+                        `<b>${value}</b><br/>`;
                 }
-            ]
+            },
+            //colors: colors,
+            xAxis: {
+                categories: categories,
+                labels: {
+                    style: {
+                        //color: '#fff'
+                    },
+                },
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        //color: '#fff'
+                    },
+                },
+                title: {
+                    text: yAxis,
+                    style: {
+                        //color: '#fff'
+                    },
+                }
+            },
+            series: series
         });
+
     }
 
     function genderGraph() {
-        jsonData = JSON.parse(replaceAll('@dtGraph.Rows[0]["GenderJsonData"]', '&quot;', '"'));
+        @*jsonData = JSON.parse(replaceAll('@dtGraph.Rows[0]["GenderJsonData"]', '&quot;', '"'));*@
+        jsonData = [];
         console.log(jsonData);
         var data = [];
         for (var i = 0; i < jsonData.length; i++) {
@@ -567,299 +753,7 @@
 
     }
 
-    function locationGraph() {
-        jsonData = JSON.parse(replaceAll('@dtGraph.Rows[0]["LocationJsonData"]', '&quot;', '"'));
-        console.log(jsonData);
-        var data = [];
-        for (var i = 0; i < jsonData.length; i++) {
-            data.push({
-                name: jsonData[i].DistrictName,
-                y: jsonData[i].Total,
-                value: jsonData[i].Percentage
 
-            });
-        }
-
-        Highcharts.chart('containerLocation', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                align: 'left',
-                text: 'Location',
-                style: {
-                    display: 'none'
-                }
-            },
-            //subtitle: {
-            //    align: 'left',
-            //    text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-            //},
-            accessibility: {
-                announceNewData: {
-                    enabled: true
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'No of locations'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y:.1f}'
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
-                    '<b>{point.y:.2f}({point.value:.2f}%)</b> of total<br/>'
-            },
-            colors: ['#ea599f', '#6ec9ee', '#8a80bc'],
-            series: [
-                {
-                    name: 'Locations',
-                    colorByPoint: true,
-                    data: data
-                }
-            ]
-
-        });
-    }
-
-    function batchGraph() {
-        jsonData = JSON.parse(replaceAll('@dtGraph.Rows[0]["BatchJsonData"]', '&quot;', '"'));
-        console.log(jsonData);
-        var data = [], dataLine = [], categories = [];
-        for (var i = 0; i < jsonData.length; i++) {
-            data.push({
-                name: jsonData[i].MonthName + '-' + jsonData[i].Year,
-                y: jsonData[i].Total,
-            });
-            categories.push(jsonData[i].MonthName + '-' + jsonData[i].Year);
-            dataLine.push(jsonData[i].Total);
-        }
-
-        Highcharts.chart('containerBatch', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                align: 'left',
-                text: 'Batch',
-                style: {
-                    display: 'none'
-                }
-            },
-            //subtitle: {
-            //    align: 'left',
-            //    text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-            //},
-            accessibility: {
-                announceNewData: {
-                    enabled: true
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'No of participants '
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y:.1f}'
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
-                    '<b>{point.y:.2f}</b> of total<br/>'
-            },
-            colors: ['#6ec9ee'],
-            series: [
-                {
-                    name: 'Participants',
-                    colorByPoint: true,
-                    data: data
-                }
-            ]
-
-        });
-
-        Highcharts.chart('containerBatchLine', {
-            chart: {
-                //type: 'column'
-                type: 'line'
-            },
-            title: {
-                align: 'left',
-                text: 'Batch',
-                style: {
-                    display: 'none'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            //subtitle: {
-            //    align: 'left',
-            //    text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-            //},
-            accessibility: {
-                announceNewData: {
-                    enabled: true
-                }
-            },
-            xAxis: {
-                //type: 'category'
-                categories: categories
-            },
-            yAxis: {
-                title: {
-                    text: 'No of participants '
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y:.1f}'
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
-                    '<b>{point.y:.2f}</b> of total<br/>'
-            },
-            colors: ['#ea599f'],
-            series: [
-                {
-                    name: 'Participants',
-                    colorByPoint: true,
-                    data: dataLine
-                }
-            ]
-
-        });
-    }
-
-
-    function qualificationGraph() {
-         jsonData = JSON.parse(replaceAll('@dtGraph.Rows[0]["QualificationJsonData"]', '&quot;', '"'));
-        console.log(jsonData);
-        var data = [], dataLine = [], categories = [];
-            for (var i = 0; i < jsonData.length; i++) {
-            data.push({
-                name: jsonData[i].QualificationName,
-                y: jsonData[i].Total,
-            });
-        }
-        //containerQualification
-
-        Highcharts.chart('containerQualification', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                align: 'left',
-                text: 'Qualification',
-                style: {
-                    display: 'none'
-                }
-            },
-            //subtitle: {
-            //    align: 'left',
-            //    text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-            //},
-            accessibility: {
-                announceNewData: {
-                    enabled: true
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'No of participants '
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y:.1f}'
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
-                    '<b>{point.y:.2f}</b> of total<br/>'
-            },
-            //colors: ['#ea599f', '#6ec9ee', '#8a80bc'],
-            colors: ['#6ec9ee'],
-            series: [
-                {
-                    name: 'Participants',
-                    colorByPoint: true,
-                    data: data
-                }
-            ]
-
-        });
-
-    }
-
-
-
-    courseGraph();
-
-    genderGraph();
-
-    locationGraph();
-
-    batchGraph();
-
-    qualificationGraph();
 
 
 

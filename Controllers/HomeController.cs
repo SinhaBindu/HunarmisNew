@@ -28,6 +28,31 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
+        public ActionResult GetDashboard(int mode)
+        {
+            bool IsCheck = false;
+            try
+            {
+                DataTable dt = SPManager.SP_Dashboard_Graphs(mode);
+                if (dt.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    var data = JsonConvert.SerializeObject(dt);
+                    var res1 = Json(new { IsSuccess = IsCheck, Data = data }, JsonRequestBehavior.AllowGet);
+                    res1.MaxJsonLength = int.MaxValue;
+                    return res1;
+                }
+                var datares = JsonConvert.SerializeObject(dt);
+                var res = Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.RecordNotFound), resData = "" }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
         public ActionResult GetIndex(FilterModel model)
         {
             bool IsCheck = false;

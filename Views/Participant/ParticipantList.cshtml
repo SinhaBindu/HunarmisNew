@@ -166,17 +166,24 @@
                                 <div class="bg-light rounded h-100 p-4">
                                     <div class="row mb-3">
                                         <div class="position-relative">
-                                            @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-1 col-lg-offset-1" })
-                                            <div class="col-md-4">
+                                            @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-3">
                                                 @Html.DropDownListFor(m => m.CourseId, CommonModel.GetCourses(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="position-relative">
                                             @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-md-1" })
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="position-relative">
+                                            @Html.LabelFor(model => model.IsPlacementTracker, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-2">
+                                                @Html.DropDownListFor(m => m.IsPlacementTracker, CommonModel.GetddlPlacementTracker(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @Html.ValidationMessageFor(model => model.IsPlacementTracker, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
@@ -225,6 +232,7 @@
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
 
             $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
+            BindModuleWiseBatches("BatchId", "", 2, '0', $('#CourseId').val(), 0)
             $('#BatchId').change(function (e) {
                 e.preventDefault();
                 BindData();
@@ -233,6 +241,10 @@
                 e.preventDefault();
                 debugger;
                 BindModuleWiseBatches("BatchId", "", 2, '0', $(this).val(), 0)
+                BindData();
+            });
+            $('#IsPlacementTracker').change(function (e) {
+                e.preventDefault();
                 BindData();
             });
             BindData();
@@ -339,6 +351,7 @@
                 });
             });
 
+
            // $(document).on('click', "#btnsubmitpop #formidpop ", function (event) {
             $(document).on('submit', "#formidpop", function (event) {
                 //button[type='submit']
@@ -366,6 +379,7 @@
                   if ($('#UploadAppointmentLetter').get(0).files.length != 0) {
                       formData.append('UploadAppointmentLetter', $('#UploadAppointmentLetter')[0].files[0]);
                 }
+                console.log(formData)
 
             if (isvalid) {
                 $('#btnsubmitpop').attr('disabled', true);
@@ -377,7 +391,7 @@
                     contentType: false,
                      processData: false,
                     dataType: 'json',
-                    //contentType: "application/json; charset=utf-8",
+                   //contentType: "application/json; charset=utf-8",
                     success: function (resp) {
                         if (resp.StatusType == "success") {
                             toastr.success("Success", resp.Message);
@@ -426,6 +440,7 @@
             var filtermodel = new Object();
             filtermodel.Type = 0;//$('#Type').val() == '' ? '' : $('#Type').val();
             filtermodel.Search = ""; //$('#Search').val() == '' ? '' : $('#Search').val();
+            filtermodel.IsPlacementTracker = $('#IsPlacementTracker').val() == '' ? "0" : $('#IsPlacementTracker').val();
             filtermodel.BatchId = $('#BatchId').val() == '' ? "0" : $('#BatchId').val();
             filtermodel.CourseId = $('#CourseId').val() == '' ? "0" : $('#CourseId').val();
             //filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
