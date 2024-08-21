@@ -1833,6 +1833,7 @@
     <Content Include="Views\Attendance\AttendanceSummary.cshtml" />
     <Content Include="Views\Participant\_AddPlacementTracker.cshtml" />
     <Content Include="Views\Participant\_ViewPlacementTracker.cshtml" />
+    <Content Include="Views\Participant\ParticipantProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
