@@ -7,13 +7,19 @@
 
 });
 $(document).ready(function () {
+    $("#mainnav-menu li.treeview a[data-target-url]").click(function (e) {
+        var url = $(this).attr('data-target-url');
+        if (url != '#') {
+            location.href = url;
+        }
+    });
 
     $(".treeview li.active-link").each(function (i, e) {
         $(this).parent('ul').addClass('in');
         $(this).parents('li.treeview').removeClass('active').addClass('active-sub');
     });
     $("#mainnav-menu li.active-link").removeClass('active').addClass('active-sub');
-    
+
 });
 
 $(function () {
@@ -52,11 +58,11 @@ $("form.loader").on('submit', function () {
 
 $(function () {
     $(".req").append(" <em>*<em>");
-    $("#ListDataTable").DataTable(); 
-   
+    $("#ListDataTable").DataTable();
+
 });
 
-$(document).ready(function () { 
+$(document).ready(function () {
 
     $('.namevalid').on('keypress', function (e) {
         var regex = new RegExp("^[a-zA-Z ]*$");
@@ -146,8 +152,8 @@ function aesauth(element) {
     element.val(dnum.toString() + encryptedpassword + dnum2.toString());
 
 }
- 
-$(document).ready(function () { 
+
+$(document).ready(function () {
     $(document).on('focus', '.datetimepic', function () {
 
         $(this).datetimepicker({
@@ -158,7 +164,7 @@ $(document).ready(function () {
             timeFormat: 'hh:mm TT'
         });
     });
-   
+
     $(".datepicker").datepicker({
         dateFormat: 'dd-M-yy',
         changeMonth: true,
@@ -270,10 +276,9 @@ function isDecimal(evt, value) {
 function AddNewRow(tblid) {
 
     var $tableBody = $('#' + tblid);
-  
-    if ($tableBody.find('tr').length > 30)
-    {
-        return false; 
+
+    if ($tableBody.find('tr').length > 30) {
+        return false;
     }
     //var $trFirst = $("#first-sub-row");
     var $trLast = $tableBody.find("tr:last");
@@ -329,9 +334,9 @@ function AddNewRow(tblid) {
             console.err(err);
         }
     });
-     
 
-    $trLast.after($trNew); 
+
+    $trLast.after($trNew);
     //Re-assign Validation
     var form = $("form")
         .removeData("validator")

@@ -1,6 +1,6 @@
 ﻿@using Hunarmis.Manager
 @{
-    ViewBag.Title = "Dashboard";
+    ViewBag.Title = "Participant Profile";
 
     var dt = SPManager.SP_Dashboard_TopLegend();
 
@@ -305,87 +305,7 @@
     }
 </div>
 
-<div class="data-box-1">
-    @*<div class="boxe flx1">
-            <div class="form-box-select">
-                <h2 style="max-width: 66%;width: 100%;font-size:17px;">
-                    Number of participants
-                </h2>
-                <select id="ddlSection1" class="form-control">
-                    <option value="Location">Location</option>
-                    <option value="Course">Course</option>
-                </select>
-            </div>
-
-            <div>
-                <figure class="highcharts-figure" id="figureSection1_Location">
-                    <div id="parent-container">
-                        <div id="containerSection1_Location"></div>
-                    </div>
-                </figure>
-                <figure class="highcharts-figure" id="figureSection1_Course" style="display:none">
-                    <div id="parent-container">
-                        <div id="containerSection1_Course"></div>
-                    </div>
-                </figure>
-            </div>
-        </div>*@
-
-    <div class="boxe flx1">
-        <div class="form-box-select">
-            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
-                Number of participants
-            </h2>
-            <select id="ddlSection2" class="form-control">
-                <option value="Location">Location</option>
-                <option value="Course">Course</option>
-            </select>
-        </div>
-        <div>
-            <figure class="highcharts-figure" id="figureSection2_Location">
-                <div id="parent-container">
-                    <div id="containerSection2_Location"></div>
-                </div>
-            </figure>
-            <figure class="highcharts-figure" id="figureSection2_Course" style="display:none">
-                <div id="parent-container">
-                    <div id="containerSection2_Course"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="data-box-2">
-    <div class="boxe flx2">
-        <div class="form-box-select">
-            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
-                Average Salary
-            </h2>
-            <select id="ddlSection3" class="form-control">
-                <option value="Location">Location</option>
-                <option value="Course">Course</option>
-            </select>
-        </div>
-        <div>
-            <figure class="highcharts-figure" id="figureSection3_Location">
-                <div id="parent-container">
-                    <div id="containerSection3_Location"></div>
-                </div>
-            </figure>
-            <figure class="highcharts-figure" id="figureSection3_Course" style="display:none">
-                <div id="parent-container">
-                    <div id="containerSection3_Course"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-</div>
-
-
-@*<div style="padding: 0px 20px 20px;">
+<div style="padding: 0px 20px 20px;">
     <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
         Participant Profile
     </div>
@@ -396,7 +316,7 @@
 
     <div class="boxe flx2">
         <h2>
-            Age Group Wise Distribution
+            Age Group
         </h2>
 
         <div>
@@ -410,7 +330,7 @@
 
     <div class="boxe flx2">
         <h2>
-            Location Wise Distribution
+            Location
         </h2>
 
         <div>
@@ -422,7 +342,7 @@
         </div>
     </div>
 
-</div>*@
+</div>
 
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -479,9 +399,9 @@
 
 
         //section1();
-        section2();
-        section3();
-        //section4();
+        //section2();
+        //section3();
+        section4();
     });
 
     function escapeRegExp(str) {
