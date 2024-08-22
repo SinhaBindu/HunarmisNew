@@ -255,7 +255,7 @@
 
     .highcharts-text-outline {
         stroke: none !important;
-        fill:#000 !important;
+        fill: #000 !important;
     }
 </style>
 <div class="dashboard-box">
@@ -305,12 +305,12 @@
     }
 </div>
 
-<div style="padding: 0px 20px 20px;">
+@*<div style="padding: 0px 20px 20px;">
     <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
         Participant Profile
     </div>
     <hr style="border: 4px double #f9841b; margin: 0px; " />
-</div>
+</div>*@
 
 <div class="data-box-2">
 
@@ -343,6 +343,57 @@
     </div>
 
 </div>
+
+<div class="data-box-2">
+
+    <div class="boxe flx2">
+        <h2>
+            Average No. of Family Members per household
+        </h2>
+
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerSection5_FamilyMembers"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+
+    <div class="boxe flx2">
+        <h2>
+            Average Annual Household Income
+        </h2>
+
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerSection5_AnnualHousehold"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+
+</div>
+
+<div class="data-box-2">
+
+    <div class="boxe flx1">
+        <h2>
+            Education Qualification
+        </h2>
+
+        <div>
+            <figure class="highcharts-figure">
+                <div id="parent-container">
+                    <div id="containerSection5_Qualification"></div>
+                </div>
+            </figure>
+        </div>
+    </div>
+
+</div>
+
 
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -402,6 +453,7 @@
         //section2();
         //section3();
         section4();
+        section5();
     });
 
     function escapeRegExp(str) {
@@ -475,6 +527,22 @@
                     var data = JSON.parse(result.Data)[0];
                     Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', 'number of participants', 'AgeRange', 'Gender');
                     Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', 'number of participants', 'DistrictName', '');
+                }
+            }
+        });
+    }
+    function section5() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 5},
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    Graph(JSON.parse(data.FamilyMembersJsonData), 'containerSection5_FamilyMembers', 'column-group', '', 'Location', 'number of participants', 'NoofFamilyMembers', 'DistrictName');
+                    Graph(JSON.parse(data.AnnualHouseholdJsonData), 'containerSection5_AnnualHousehold', 'column-group', '', 'Location', 'number of participants', 'AnnualHouseholdincome', 'DistrictName');
+                    Graph(JSON.parse(data.QualificationJsonData), 'containerSection5_Qualification', 'pie', '', 'Qualification', 'number of participants', 'QualificationName', '');
                 }
             }
         });
