@@ -380,7 +380,7 @@
 
     <div class="boxe flx1">
         <h2>
-            Education Qualification
+            Educational Qualification
         </h2>
 
         <div>
@@ -474,8 +474,8 @@
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
 
-                    Graph(JSON.parse(data.CourseJsonData), 'containerSection1_Course', 'column', '', 'Course', 'number of participants', 'CourseName');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection1_Location','column', '', 'Location', 'number of participants', 'DistrictName');
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection1_Course', 'column', '', 'Course', '', 'CourseName');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection1_Location','column', '', 'Location', '', 'DistrictName');
 
                 }
             }
@@ -493,8 +493,8 @@
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
 
-                    Graph(JSON.parse(data.CourseJsonData), 'containerSection2_Course', 'stack-bar', '', 'Course', 'number of participants', 'CourseName', 'Gender');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection2_Location', 'stack-bar', '', 'Location', 'number of participants', 'DistrictName', 'Gender');
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection2_Course', 'stack-bar', '', 'Course', '', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection2_Location', 'stack-bar', '', 'Location', '', 'DistrictName', 'Gender');
                 }
             }
         });
@@ -509,8 +509,8 @@
                 console.log(result);
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.CourseJsonData), 'containerSection3_Course', 'column-group', '', 'Course', 'Average salary', 'CourseName', 'Gender');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection3_Location', 'column-group', '', 'Location', 'Average salary', 'DistrictName', 'Gender');
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection3_Course', 'column-group', '', 'Course', '', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection3_Location', 'column-group', '', 'Location', '', 'DistrictName', 'Gender');
                 }
             }
         });
@@ -525,8 +525,8 @@
                 console.log(result);
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', 'number of participants', 'AgeRange', 'Gender');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', 'number of participants', 'DistrictName', '');
+                    Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', '', 'AgeRange', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', '', 'DistrictName', '');
                 }
             }
         });
@@ -540,9 +540,9 @@
                 console.log(result);
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.FamilyMembersJsonData), 'containerSection5_FamilyMembers', 'column-group', '', 'Location', 'number of participants', 'NoofFamilyMembers', 'DistrictName');
-                    Graph(JSON.parse(data.AnnualHouseholdJsonData), 'containerSection5_AnnualHousehold', 'column-group', '', 'Location', 'number of participants', 'AnnualHouseholdincome', 'DistrictName');
-                    Graph(JSON.parse(data.QualificationJsonData), 'containerSection5_Qualification', 'pie', '', 'Qualification', 'number of participants', 'QualificationName', '');
+                    Graph(JSON.parse(data.FamilyMembersJsonData), 'containerSection5_FamilyMembers', 'column-group', '', 'Location', '', 'NoofFamilyMembers', 'DistrictName');
+                    Graph(JSON.parse(data.AnnualHouseholdJsonData), 'containerSection5_AnnualHousehold', 'column-group', '', 'Location', '', 'AnnualHouseholdincome', 'DistrictName');
+                    Graph(JSON.parse(data.QualificationJsonData), 'containerSection5_Qualification', 'pie', '', 'Qualification', '', 'QualificationName', '');
                 }
             }
         });
@@ -656,7 +656,7 @@
         //        y: jsonData[i].Total
         //    });
         //}
-        colors = ['#f9841b', '#0d71c9', '#d73447', '#019968' ]
+        colors = ['#f9841b', '#0d71c9', '#d73447', '#019968', '#5f0f40', '#023e8a', '#003566', '#2ec4b6', '#f4978e', '#2c6e49', '#ffba08', '#f95738', '#d4d700'];
         Highcharts.chart(selector, {
             chart: {
                 type: graphType,

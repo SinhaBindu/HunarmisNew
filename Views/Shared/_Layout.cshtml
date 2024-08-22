@@ -26,6 +26,19 @@
     <script src="~/Scripts/jquery-2.2.0.min.js"></script>
     <script src="~/Scripts/Custom/bootstrap-multiselect.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            // Show loader on AJAX start
+            $(document).ajaxStart(function () {
+                $('#global-loader').css('background', 'transparent').css('display', 'block');
+            });
+
+            // Hide loader on AJAX stop
+            $(document).ajaxStop(function () {
+                $('#global-loader').css('background', 'transparent').css('display', 'none');
+            });
+        });
+    </script>
     <base href="@Hunarmis.Manager.CommonModel.GetBaseUrl()" />
     <style>
         .icontxtClr {

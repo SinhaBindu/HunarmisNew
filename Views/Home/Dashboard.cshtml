@@ -367,6 +367,7 @@
             <select id="ddlSection3" class="form-control">
                 <option value="Location">Location</option>
                 <option value="Course">Course</option>
+                <option value="Industry">Industry</option>
             </select>
         </div>
         <div>
@@ -378,6 +379,11 @@
             <figure class="highcharts-figure" id="figureSection3_Course" style="display:none">
                 <div id="parent-container">
                     <div id="containerSection3_Course"></div>
+                </div>
+            </figure>
+            <figure class="highcharts-figure" id="figureSection3_Industry" style="display:none">
+                <div id="parent-container">
+                    <div id="containerSection3_Industry"></div>
                 </div>
             </figure>
         </div>
@@ -469,11 +475,17 @@
 
         $("#ddlSection3").change(function (e) {
             if ($(this).val() == 'Location') {
-                $('#figureSection3_Course').hide();
+                $('#figureSection3_Course').hide();                
                 $('#figureSection3_Location').show();
-            } else {
+                $('#figureSection3_Industry').hide();
+            } else if ($(this).val() == 'Course') {
                 $('#figureSection3_Course').show();
                 $('#figureSection3_Location').hide();
+                $('#figureSection3_Industry').hide();
+            } else {
+                $('#figureSection3_Course').hide();
+                $('#figureSection3_Location').hide();
+                $('#figureSection3_Industry').show();
             }
         });
 
@@ -502,8 +514,8 @@
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
 
-                    Graph(JSON.parse(data.CourseJsonData), 'containerSection1_Course', 'column', '', 'Course', 'number of participants', 'CourseName');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection1_Location','column', '', 'Location', 'number of participants', 'DistrictName');
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection1_Course', 'column', '', 'Course', '', 'CourseName');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection1_Location','column', '', 'Location', '', 'DistrictName');
 
                 }
             }
@@ -521,8 +533,8 @@
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
 
-                    Graph(JSON.parse(data.CourseJsonData), 'containerSection2_Course', 'stack-bar', '', 'Course', 'number of participants', 'CourseName', 'Gender');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection2_Location', 'stack-bar', '', 'Location', 'number of participants', 'DistrictName', 'Gender');
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection2_Course', 'stack-bar', '', 'Course', '', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection2_Location', 'stack-bar', '', 'Location', '', 'DistrictName', 'Gender');
                 }
             }
         });
@@ -537,8 +549,9 @@
                 console.log(result);
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.CourseJsonData), 'containerSection3_Course', 'column-group', '', 'Course', 'Average salary', 'CourseName', 'Gender');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection3_Location', 'column-group', '', 'Location', 'Average salary', 'DistrictName', 'Gender');
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection3_Course', 'column-group', '', 'Course', '', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection3_Location', 'column-group', '', 'Location', '', 'DistrictName', 'Gender');
+                    Graph(JSON.parse(data.IndustryJsonData), 'containerSection3_Industry', 'column-group', '', 'Industry', '', 'IndustryName', 'Gender');
                 }
             }
         });
@@ -553,8 +566,8 @@
                 console.log(result);
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', 'number of participants', 'AgeRange', 'Gender');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', 'number of participants', 'DistrictName', '');
+                    Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', '', 'AgeRange', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', '', 'DistrictName', '');                   
                 }
             }
         });
@@ -567,10 +580,12 @@
         var series = [];
         var totals = [];
         var originalGraphType = graphType;
+        categories = [...new Set(jsonData.map(item => item[property]))];
+
         if (graphType == 'bar-group') {
             graphType = 'bar';
 
-            categories = [...new Set(jsonData.map(item => item[property]))];
+            //categories = [...new Set(jsonData.map(item => item[property]))];
             const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
 
             series = groups.map(key => ({
@@ -586,7 +601,8 @@
             graphType = 'bar';
             // Prepare the series data
             const seriesData = {};
-            categories = jsonData.map(item => item[property]);
+            //categories = [...new Set(jsonData.map(item => item[property]))];
+            console.log(categories);
             jsonData.forEach(item => {
                 if (!seriesData[item[groupProperty]]) {
                     seriesData[item[groupProperty]] = [];
@@ -619,7 +635,7 @@
             graphType = 'column';
 
 
-            categories = [...new Set(jsonData.map(item => item[property]))];
+            //categories = [...new Set(jsonData.map(item => item[property]))];
             const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
 
             series = groups.map(key => ({
@@ -633,7 +649,7 @@
         }
         else if (graphType == 'pie') {
 
-            categories = jsonData.map(item => item[property]);
+            //categories = jsonData.map(item => item[property]);
             const totals = jsonData.map(item => item.Total);
 
             var seriesData = jsonData.map(item => ({
@@ -651,7 +667,7 @@
         }
         else {
 
-            categories = jsonData.map(item => item[property]);
+            //categories = jsonData.map(item => item[property]);
             const totals = jsonData.map(item => item.Total);
 
             series = [{
@@ -668,7 +684,7 @@
         //        y: jsonData[i].Total
         //    });
         //}
-        colors = ['#f9841b', '#0d71c9', '#d73447', '#019968' ]
+        colors = ['#f9841b', '#0d71c9', '#d73447', '#019968', '#5f0f40', '#023e8a', '#003566', '#2ec4b6', '#f4978e', '#2c6e49', '#ffba08', '#f95738', '#d4d700'];
         Highcharts.chart(selector, {
             chart: {
                 type: graphType,
