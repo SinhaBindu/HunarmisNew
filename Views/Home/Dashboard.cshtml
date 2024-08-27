@@ -255,185 +255,212 @@
 
     .highcharts-text-outline {
         stroke: none !important;
-        fill:#000 !important;
+        fill: #000 !important;
     }
 </style>
-<div class="dashboard-box">
-    @if (dt != null && dt.Rows.Count > 0)
-    {
-        <div class="d-box">
-            <p class="bgr1">
-                <img src="~/Content/images/enrollment.png" alt="Enrollments" class="bgr-icon" />
-            </p>
-            <h3 class="count">@dt.Rows[0]["Enrollments"]</h3>
-            <span>Enrollments</span>
-        </div>
-        <div class="d-box">
-            <p class="bgr2">
-                <img src="~/Content/images/trainign.png" alt="Training Completions" class="bgr-icon" />
-            </p>
-            <h3 class="count">@dt.Rows[0]["TrainingCompletions"]</h3>
-            <span>Training Completions</span>
-        </div>
-        <div class="d-box">
-            <p class="bgr3">
-                <img src="~/Content/images/certified.png" alt="Learners certified" class="bgr-icon" />
-            </p>
-            <h3 class="count">@dt.Rows[0]["LearnersCertified"]</h3>
-            <span>Learners certified</span>
-        </div>
-        <div class="d-box">
-            <p class="bgr4">
-                <img src="~/Content/images/placement.png" alt="placement" class="bgr-icon" />
-            </p>
-            <h3 class="count">@dt.Rows[0]["Placements"]</h3>
-            <span>Placements</span>
-        </div>
-        @*<div class="d-box" style="display:none">
-                <p class="bgr5">
-                    <img src="~/Content/images/center.png" alt="center" class="bgr-icon" />
-                </p>
-                <div class="count-box">
-                    <h3 class="count">
-                        @dt.Rows[0]["TrainingCenters"]
-                    </h3>
-                    <h3>/</h3>
-                    <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="card card-box p-0">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex gap-2">
+                                <h5 class="f-18 font-light">Enrollments</h5>
+                            </div>
+                            <h3 class="f-26 f-w-600 mt-3">@dt.Rows[0]["Enrollments"]</h3>
+                        </div>
+                        <div class="flex-shrink-0 bg-light-primary">
+                            <svg class="fill-primary"><img src="~/Content/images/enrollment.png" alt="Enrollments" /></svg>
+                        </div>
+                    </div>
                 </div>
-                <span>Centers</span>
-            </div>*@
-    }
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            asddas
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            asddas
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            asddas
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Number of participants</div>
+                    <div class="tools">
+                        <select id="ddlSection2" class="form-control form-control-custom">
+                            <option value="Location">Location</option>
+                            <option value="Course">Course</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure" id="figureSection2_Location">
+                                <div id="parent-container">
+                                    <div id="containerSection2_Location"></div>
+                                </div>
+                            </figure>
+                            <figure class="highcharts-figure" id="figureSection2_Course" style="display:none">
+                                <div id="parent-container">
+                                    <div id="containerSection2_Course"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Average Salary</div>
+                    <div class="tools">
+                        <select id="ddlSection3" class="form-control form-control-custom">
+                            <option value="Location">Location</option>
+                            <option value="Course">Course</option>
+                            <option value="Industry">Industry</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure" id="figureSection3_Location">
+                                <div id="parent-container">
+                                    <div id="containerSection3_Location"></div>
+                                </div>
+                            </figure>
+                            <figure class="highcharts-figure" id="figureSection3_Course" style="display:none">
+                                <div id="parent-container">
+                                    <div id="containerSection3_Course"></div>
+                                </div>
+                            </figure>
+                            <figure class="highcharts-figure" id="figureSection3_Industry" style="display:none">
+                                <div id="parent-container">
+                                    <div id="containerSection3_Industry"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+    <div class="dashboard-box">
+        @if (dt != null && dt.Rows.Count > 0)
+        {
+            <div class="d-box">
+                <p class="bgr1">
+                    <img src="~/Content/images/enrollment.png" alt="Enrollments" class="bgr-icon" />
+                </p>
+                <h3 class="count">@dt.Rows[0]["Enrollments"]</h3>
+                <span>Enrollments</span>
+            </div>
+            <div class="d-box">
+                <p class="bgr2">
+                    <img src="~/Content/images/trainign.png" alt="Training Completions" class="bgr-icon" />
+                </p>
+                <h3 class="count">@dt.Rows[0]["TrainingCompletions"]</h3>
+                <span>Training Completions</span>
+            </div>
+            <div class="d-box">
+                <p class="bgr3">
+                    <img src="~/Content/images/certified.png" alt="Learners certified" class="bgr-icon" />
+                </p>
+                <h3 class="count">@dt.Rows[0]["LearnersCertified"]</h3>
+                <span>Learners certified</span>
+            </div>
+            <div class="d-box">
+                <p class="bgr4">
+                    <img src="~/Content/images/placement.png" alt="placement" class="bgr-icon" />
+                </p>
+                <h3 class="count">@dt.Rows[0]["Placements"]</h3>
+                <span>Placements</span>
+            </div>
+            @*<div class="d-box" style="display:none">
+                    <p class="bgr5">
+                        <img src="~/Content/images/center.png" alt="center" class="bgr-icon" />
+                    </p>
+                    <div class="count-box">
+                        <h3 class="count">
+                            @dt.Rows[0]["TrainingCenters"]
+                        </h3>
+                        <h3>/</h3>
+                        <h3 class="count">@dt.Rows[0]["TrainersEngaged"]</h3>
+                    </div>
+                    <span>Centers</span>
+                </div>*@
+        }
+    </div>
 
-<div class="data-box-1">
-    @*<div class="boxe flx1">
+    <div class="data-box-2">
+        <div class="boxe flx1">
             <div class="form-box-select">
                 <h2 style="max-width: 66%;width: 100%;font-size:17px;">
-                    Number of participants
+                    
                 </h2>
-                <select id="ddlSection1" class="form-control">
-                    <option value="Location">Location</option>
-                    <option value="Course">Course</option>
-                </select>
+                
+            </div>
+            <div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    @*<div style="padding: 0px 20px 20px;">
+            <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
+                Participant Profile
+            </div>
+            <hr style="border: 4px double #f9841b; margin: 0px; " />
+        </div>
+
+        <div class="data-box-2">
+
+            <div class="boxe flx2">
+                <h2>
+                    Age Group Wise Distribution
+                </h2>
+
+                <div>
+                    <figure class="highcharts-figure">
+                        <div id="parent-container">
+                            <div id="containerSection4_AgeGroup"></div>
+                        </div>
+                    </figure>
+                </div>
             </div>
 
-            <div>
-                <figure class="highcharts-figure" id="figureSection1_Location">
-                    <div id="parent-container">
-                        <div id="containerSection1_Location"></div>
-                    </div>
-                </figure>
-                <figure class="highcharts-figure" id="figureSection1_Course" style="display:none">
-                    <div id="parent-container">
-                        <div id="containerSection1_Course"></div>
-                    </div>
-                </figure>
+            <div class="boxe flx2">
+                <h2>
+                    Location Wise Distribution
+                </h2>
+
+                <div>
+                    <figure class="highcharts-figure">
+                        <div id="parent-container">
+                            <div id="containerSection4_Location"></div>
+                        </div>
+                    </figure>
+                </div>
             </div>
+
         </div>*@
 
-    <div class="boxe flx1">
-        <div class="form-box-select">
-            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
-                Number of participants
-            </h2>
-            <select id="ddlSection2" class="form-control">
-                <option value="Location">Location</option>
-                <option value="Course">Course</option>
-            </select>
-        </div>
-        <div>
-            <figure class="highcharts-figure" id="figureSection2_Location">
-                <div id="parent-container">
-                    <div id="containerSection2_Location"></div>
-                </div>
-            </figure>
-            <figure class="highcharts-figure" id="figureSection2_Course" style="display:none">
-                <div id="parent-container">
-                    <div id="containerSection2_Course"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-</div>
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 
-
-<div class="data-box-2">
-    <div class="boxe flx1">
-        <div class="form-box-select">
-            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
-                Average Salary
-            </h2>
-            <select id="ddlSection3" class="form-control">
-                <option value="Location">Location</option>
-                <option value="Course">Course</option>
-                <option value="Industry">Industry</option>
-            </select>
-        </div>
-        <div>
-            <figure class="highcharts-figure" id="figureSection3_Location">
-                <div id="parent-container">
-                    <div id="containerSection3_Location"></div>
-                </div>
-            </figure>
-            <figure class="highcharts-figure" id="figureSection3_Course" style="display:none">
-                <div id="parent-container">
-                    <div id="containerSection3_Course"></div>
-                </div>
-            </figure>
-            <figure class="highcharts-figure" id="figureSection3_Industry" style="display:none">
-                <div id="parent-container">
-                    <div id="containerSection3_Industry"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-</div>
-
-
-@*<div style="padding: 0px 20px 20px;">
-    <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
-        Participant Profile
-    </div>
-    <hr style="border: 4px double #f9841b; margin: 0px; " />
-</div>
-
-<div class="data-box-2">
-
-    <div class="boxe flx2">
-        <h2>
-            Age Group Wise Distribution
-        </h2>
-
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerSection4_AgeGroup"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-
-    <div class="boxe flx2">
-        <h2>
-            Location Wise Distribution
-        </h2>
-
-        <div>
-            <figure class="highcharts-figure">
-                <div id="parent-container">
-                    <div id="containerSection4_Location"></div>
-                </div>
-            </figure>
-        </div>
-    </div>
-
-</div>*@
-
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-
-<script>
+    <script>
     $('.count').each(function () {
         $(this).prop('Counter', 0).animate({
             Counter: $(this).text()
@@ -475,7 +502,7 @@
 
         $("#ddlSection3").change(function (e) {
             if ($(this).val() == 'Location') {
-                $('#figureSection3_Course').hide();                
+                $('#figureSection3_Course').hide();
                 $('#figureSection3_Location').show();
                 $('#figureSection3_Industry').hide();
             } else if ($(this).val() == 'Course') {
@@ -567,7 +594,7 @@
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
                     Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', '', 'AgeRange', 'Gender');
-                    Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', '', 'DistrictName', '');                   
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', '', 'DistrictName', '');
                 }
             }
         });
@@ -684,7 +711,7 @@
         //        y: jsonData[i].Total
         //    });
         //}
-        colors = ['#f9841b', '#0d71c9', '#d73447', '#019968', '#5f0f40', '#023e8a', '#003566', '#2ec4b6', '#f4978e', '#2c6e49', '#ffba08', '#f95738', '#d4d700'];
+        colors = ['#A78BFA', '#C4B5FD', '#43b9b2', '#fd7e40', '#5f0f40', '#023e8a', '#003566', '#2ec4b6', '#f4978e', '#2c6e49', '#ffba08', '#f95738', '#d4d700'];
         Highcharts.chart(selector, {
             chart: {
                 type: graphType,
@@ -883,4 +910,4 @@
 
 
 
-</script>
+    </script>
