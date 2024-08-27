@@ -306,11 +306,11 @@
 </div>
 
 @*<div style="padding: 0px 20px 20px;">
-    <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
-        Participant Profile
-    </div>
-    <hr style="border: 4px double #f9841b; margin: 0px; " />
-</div>*@
+        <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
+            Participant Profile
+        </div>
+        <hr style="border: 4px double #f9841b; margin: 0px; " />
+    </div>*@
 
 <div class="data-box-2">
 
@@ -347,9 +347,13 @@
 <div class="data-box-2">
 
     <div class="boxe flx2">
-        <h2>
-            Average No. of Family Members per household
-        </h2>
+        <div class="form-box-select">
+            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
+                Average No. of Family Members per household
+            </h2>
+            <select id="ddlSection5FamilyMembers" class="form-control">
+            </select>
+        </div>
 
         <div>
             <figure class="highcharts-figure">
@@ -361,9 +365,13 @@
     </div>
 
     <div class="boxe flx2">
-        <h2>
-            Average Annual Household Income
-        </h2>
+        <div class="form-box-select">
+            <h2 style="max-width: 66%;width: 100%;font-size:17px;">
+                Average Annual Household Income
+            </h2>
+            <select id="ddlSection5AnnualHousehold" class="form-control">
+            </select>
+        </div>
 
         <div>
             <figure class="highcharts-figure">
@@ -448,6 +456,12 @@
             }
         });
 
+        $("#ddlSection5FamilyMembers").change(function (e) {
+            Section5FamilyMembers($(this).val());
+        });
+        $("#ddlSection5AnnualHousehold").change(function (e) {
+            Section5AnnualHousehold($(this).val());
+        });
 
         //section1();
         //section2();
@@ -531,6 +545,8 @@
             }
         });
     }
+    familyMembersJsonDataSection5 = [];
+    annualHouseholdJsonDataSection5 = [];
     function section5() {
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
@@ -540,12 +556,48 @@
                 console.log(result);
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.FamilyMembersJsonData), 'containerSection5_FamilyMembers', 'column-group', '', 'Location', '', 'NoofFamilyMembers', 'DistrictName');
-                    Graph(JSON.parse(data.AnnualHouseholdJsonData), 'containerSection5_AnnualHousehold', 'column-group', '', 'Location', '', 'AnnualHouseholdincome', 'DistrictName');
+
+                    familyMembersJsonDataSection5 = JSON.parse(data.FamilyMembersJsonData);
+                    var familyMemberDistricts = [...new Set(familyMembersJsonDataSection5.map(item => item.DistrictName))];
+                    var familyMemberSelectedDistrict = familyMemberDistricts[0];
+                    var ddlSection5FamilyMembers = $('#ddlSection5FamilyMembers');
+                    $.each(familyMemberDistricts, function (index, text) {
+                        ddlSection5FamilyMembers.append($('<option></option>').val(text).html(text));
+                    });
+                    ddlSection5FamilyMembers.val(familyMemberSelectedDistrict);
+                    Section5FamilyMembers(familyMemberSelectedDistrict);
+
+                    annualHouseholdJsonDataSection5 = JSON.parse(data.AnnualHouseholdJsonData);
+                    var annualHouseholdDistricts = [...new Set( annualHouseholdJsonDataSection5.map(item => item.DistrictName))];
+                    var annualHouseholdSelectedDistrict =  annualHouseholdDistricts[0];
+                    var ddlSection5AnnualHousehold = $('#ddlSection5AnnualHousehold');
+                    $.each(annualHouseholdDistricts, function (index, text) {
+                        ddlSection5AnnualHousehold.append($('<option></option>').val(text).html(text));
+                    });
+                    ddlSection5AnnualHousehold.val(annualHouseholdSelectedDistrict);
+                    Section5AnnualHousehold(annualHouseholdSelectedDistrict);
+
+
                     Graph(JSON.parse(data.QualificationJsonData), 'containerSection5_Qualification', 'pie', '', 'Qualification', '', 'QualificationName', '');
+
+
+
+
                 }
             }
         });
+    }
+
+    function Section5FamilyMembers(selectedDistrict) {
+
+        var familyMembersJsonData = familyMembersJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
+        Graph(familyMembersJsonData, 'containerSection5_FamilyMembers', 'column-group', '', 'Location', '', 'NoofFamilyMembers', 'DistrictName');
+    }
+    function Section5AnnualHousehold(selectedDistrict) {
+
+        var annualHouseholdJsonData = annualHouseholdJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
+        Graph(annualHouseholdJsonData, 'containerSection5_AnnualHousehold', 'column-group', '', 'Location', '', 'AnnualHouseholdincome', 'DistrictName');
+
     }
 
     function Graph(jsonData, selector, graphType ='column', title, xAxis, yAxis, property, groupProperty) {
@@ -750,10 +802,12 @@
                 },
             },
             yAxis: {
+                visible: false,
                 labels: {
-                    //style: {
-                    //    fontSize: 12
-                    //},
+                    style: {
+                        //fontSize: 12
+                        display: 'none'
+                    },
                 },
                 title: {
                     text: yAxis,

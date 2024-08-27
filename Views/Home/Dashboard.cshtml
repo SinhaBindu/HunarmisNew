@@ -798,6 +798,7 @@
             colors: colors,
             xAxis: {
                 categories: categories,
+                //visible: false,
                 labels: {
                     //style: {
                     //    fontSize: 12
@@ -805,10 +806,12 @@
                 },
             },
             yAxis: {
+                visible: false,
                 labels: {
-                    //style: {
-                    //    fontSize: 12
-                    //},
+                    style: {
+                        //fontSize: 12
+                        display:'none'
+                    },
                 },
                 title: {
                     text: yAxis,
