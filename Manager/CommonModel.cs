@@ -229,11 +229,11 @@ namespace Hunarmis.Manager
 
                 if (IsAll == 0)
                 {
-                    list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                    list.Insert(0, new SelectListItem { Value = "0", Selected = true });
                 }
                 else if (IsAll == 1)
                 {
-                    list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                 }
                 return list;
             }
@@ -263,11 +263,11 @@ namespace Hunarmis.Manager
                             }
                             if (IsAll == 0)
                             {
-                                list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                                list.Insert(0, new SelectListItem { Value = "0", Selected = true });
                             }
                             else if (IsAll == 1)
                             {
-                                list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                                list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                             }
                             return list;
                         }
@@ -324,11 +324,11 @@ namespace Hunarmis.Manager
 
                 if (IsAll == 0)
                 {
-                    list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                    list.Insert(0, new SelectListItem { Value = "0", Selected = true });
                 }
                 else if (IsAll == 1)
                 {
-                    list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                 }
                 return list;
             }
@@ -358,11 +358,11 @@ namespace Hunarmis.Manager
 
                 if (IsAll == 0)
                 {
-                    list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                    list.Insert(0, new SelectListItem { Value = "0", Selected = true });
                 }
                 else if (IsAll == 1)
                 {
-                    list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                 }
                 return list;
             }
@@ -390,11 +390,11 @@ namespace Hunarmis.Manager
 
                             if (IsAll == 0)
                             {
-                                list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                                list.Insert(0, new SelectListItem { Value = "0", Selected = true });
                             }
                             else if (IsAll == 1)
                             {
-                                list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                                list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                             }
                             return list;
                         }
@@ -425,11 +425,11 @@ namespace Hunarmis.Manager
 
                         if (IsAll == 0)
                         {
-                            list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                            list.Insert(0, new SelectListItem { Value = "0", Selected = true });
                         }
                         else if (IsAll == 1)
                         {
-                            list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                            list.Insert(0, new SelectListItem { Value = "0", Text = "All" , Selected = true });
                         }
                         return list;
                     }
@@ -458,11 +458,11 @@ namespace Hunarmis.Manager
                     list = new SelectList(dt.AsDataView(), "Value", "Text").OrderBy(x => x.Text).ToList();
                     if (IsAll == 0)
                     {
-                        list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                        list.Insert(0, new SelectListItem { Value = "0", Selected = true });
                     }
                     else if (IsAll == 1)
                     {
-                        list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                        list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                     }
                     return list;
                     //}
@@ -489,11 +489,11 @@ namespace Hunarmis.Manager
                     list = new SelectList(dt.AsDataView(), "SessionPlanTPId_pk", "Text").OrderBy(x => x.Text).ToList();
                     if (IsAll == 0)
                     {
-                        list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                        list.Insert(0, new SelectListItem { Value = "0", Selected = true });
                     }
                     else if (IsAll == 1)
                     {
-                        list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                        list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                     }
                     return list;
                 }
@@ -582,10 +582,10 @@ namespace Hunarmis.Manager
         {
             List<SelectListItem> list = new List<SelectListItem>();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "0", Text = "Select" });
+                list.Add(new SelectListItem { Value = "0", Text = "Select", Selected = true });
             else if (IsSelect == 1)
             {
-                list.Add(new SelectListItem { Value = "All", Text = "Select" });
+                list.Add(new SelectListItem { Value = "All", Text = "Select", Selected = true });
             }
             list.Add(new SelectListItem { Value = "1", Text = "Unmarried" });
             list.Add(new SelectListItem { Value = "2", Text = "Married" });
@@ -599,9 +599,9 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.PreTraining_Master.Select(course => new SelectListItem { Value = course.PreTrainingId_pk.ToString(), Text = course.PreTrainingName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "0", Text = "Select" });
+                list.Add(new SelectListItem { Value = "0", Text = "Select", Selected = true });
             else if (IsSelect == 1)
-                list.Add(new SelectListItem { Value = "", Text = "All" });
+                list.Add(new SelectListItem { Value = "", Text = "All", Selected = true });
             return list.OrderBy(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetTargetGroup(int IsSelect = 0)
@@ -610,9 +610,9 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.TargetGroup_Master.Select(course => new SelectListItem { Value = course.TargetGroupId_pk.ToString(), Text = course.TargetGroupName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "0", Text = "Select" });
+                list.Add(new SelectListItem { Value = "0", Selected = true });
             else if (IsSelect == 1)
-                list.Add(new SelectListItem { Value = "", Text = "All" });
+                list.Add(new SelectListItem { Value = "", Text = "All", Selected = true });
             return list.OrderBy(x => x.Text).ToList();
         }
         public static List<SelectListItem> GetEmployeeType(int IsSelect = 0)
@@ -621,7 +621,7 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.EmployeeType_Master.OrderBy(x => x.OrderBy).Select(course => new SelectListItem { Value = course.EmployeeTypeId_pk.ToString(), Text = course.EmployeeTypeName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "", Text = "Select" });
+                list.Add(new SelectListItem { Value = "",  });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
             return list.ToList();
@@ -632,7 +632,7 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.Industry_Master.OrderBy(x=>x.OrderBy).Select(course => new SelectListItem { Value = course.IndustryId_pk.ToString(), Text = course.IndustryName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "", Text = "Select" });
+                list.Add(new SelectListItem { Value = "",  });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
             return list.OrderBy(x => x.Text).ToList();
@@ -675,7 +675,7 @@ namespace Hunarmis.Manager
                 //}
                 //if (IsAll == 1)
                 //{
-                //    items.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                //    items.Insert(0, new SelectListItem { Value = "0",  });
                 //}
                 return items;
             }
@@ -696,7 +696,7 @@ namespace Hunarmis.Manager
         public static List<SelectListItem> GetYesNo()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             list.Add(new SelectListItem { Value = "Yes", Text = "Yes" });
             list.Add(new SelectListItem { Value = "No", Text = "No" });
             return list.OrderByDescending(x => x.Text).ToList();
@@ -704,7 +704,7 @@ namespace Hunarmis.Manager
         public static List<SelectListItem> GetYesNoValue()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             list.Add(new SelectListItem { Value = "1", Text = "Yes" });
             list.Add(new SelectListItem { Value = "0", Text = "No" });
             return list.OrderByDescending(x => x.Text).ToList();
@@ -712,7 +712,7 @@ namespace Hunarmis.Manager
         public static List<SelectListItem> GetBoolYesNo()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             list.Add(new SelectListItem { Value = "1", Text = "Yes" });
             list.Add(new SelectListItem { Value = "0", Text = "No" });
             return list.OrderByDescending(x => x.Text).ToList();
@@ -720,7 +720,7 @@ namespace Hunarmis.Manager
         public static List<SelectListItem> GetCalling()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             list.Add(new SelectListItem { Value = "Yes", Text = "Yes" });
             list.Add(new SelectListItem { Value = "No", Text = "No" });
             //list.Add(new SelectListItem { Value = "Other", Text = "Other" });
@@ -729,7 +729,7 @@ namespace Hunarmis.Manager
         public static List<SelectListItem> GetGender()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             list.Add(new SelectListItem { Value = "Male", Text = "Male" });
             list.Add(new SelectListItem { Value = "Female", Text = "Female" });
             return list.OrderByDescending(x => x.Text).ToList();
@@ -737,7 +737,7 @@ namespace Hunarmis.Manager
         public static List<SelectListItem> GetddlPlacementTracker()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             list.Add(new SelectListItem { Value = "0", Text = "All" });
             list.Add(new SelectListItem { Value = "1", Text = "Placement Tracker" });
             return list.OrderByDescending(x => x.Text).ToList();
@@ -758,7 +758,7 @@ namespace Hunarmis.Manager
                 //}
                 if (IsAll)
                 {
-                    items.Insert(0, new SelectListItem { Value = "", Text = "Select", Selected = true });
+                    items.Insert(0, new SelectListItem { Value = "", Selected = true });
                 }
                 return items;
             }
@@ -811,7 +811,7 @@ namespace Hunarmis.Manager
                 }
                 if (IsSelectAll == "1")
                 {
-                    listitem.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+                    listitem.Insert(0, new SelectListItem { Value = "",  });
                 }
                 return listitem;
             }
@@ -976,12 +976,19 @@ namespace Hunarmis.Manager
             {
                 DataTable dt = SPManager.SP_GetDTACMasterList();
                 var lists = new List<SelectListItem>();
-                lists.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                if (IsAll)
+                {
+                    lists.Insert(0, new SelectListItem { Value = "0", Selected = true });
+                }
+                else
+                {
+                    lists.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
+                }
                 if (dt.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dt.Rows)
                     {
-                        lists.Add(new SelectListItem { Value = dr["TrainingCenterId"].ToString(), Text = dr["DistTrainingAgencyCenter"].ToString(), Selected = true });
+                        lists.Add(new SelectListItem { Value = dr["TrainingCenterId"].ToString(), Text = dr["DistTrainingAgencyCenter"].ToString() });
                     }
                     return lists.OrderBy(x => x.Text).ToList();
                 }
@@ -1010,7 +1017,7 @@ namespace Hunarmis.Manager
                 throw;
             }
             //List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             //list.Add(new SelectListItem { Value = "1", Text = "Less than 10Km" });
             //list.Add(new SelectListItem { Value = "2", Text = "10 Km - 25 Km" });
             //list.Add(new SelectListItem { Value = "3", Text = "25 Km - 50 Km" });
@@ -1034,7 +1041,7 @@ namespace Hunarmis.Manager
                 throw;
             }
             //List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             //list.Add(new SelectListItem { Value = "1", Text = "Food" });
             //list.Add(new SelectListItem { Value = "2", Text = "Accommodation" });
             //list.Add(new SelectListItem { Value = "3", Text = "Travel allowance" });
@@ -1050,7 +1057,7 @@ namespace Hunarmis.Manager
                 var items = new SelectList(_db.JobEmployed_Master, "ID", "JobInterest").OrderBy(x => Convert.ToInt32(x.Value)).ToList();
                 if (IsAll)
                 {
-                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                 }
                 return items;
             }
@@ -1059,7 +1066,7 @@ namespace Hunarmis.Manager
                 throw;
             }
             //List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "", Text = "Select" });
+            //list.Add(new SelectListItem { Value = "",  });
             //list.Add(new SelectListItem { Value = "1", Text = "Didn't get selected in interviews" });
             //list.Add(new SelectListItem { Value = "2", Text = "Not interested to work" });
             //list.Add(new SelectListItem { Value = "3", Text = "Other" });
@@ -1517,11 +1524,11 @@ namespace Hunarmis.Manager
                 var items = new SelectList(monthlist, "ID", "MonthName", countm).OrderBy(x => Convert.ToInt32(x.Value)).ToList();
                 if (IsAll == 0)
                 {
-                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                 }
                 if (IsAll == 1)
                 {
-                    items.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                    items.Insert(0, new SelectListItem { Value = "0", Selected = true });
                 }
                 return items;
             }
@@ -1540,11 +1547,11 @@ namespace Hunarmis.Manager
                 var items = new SelectList(yearlist, "ID", "Year", county).OrderByDescending(x => Convert.ToInt32(x.Value)).ToList();
                 if (IsAll == 0)
                 {
-                    items.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                    items.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                 }
                 if (IsAll == 1)
                 {
-                    items.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                    items.Insert(0, new SelectListItem { Value = "0", Selected = true });
                 }
                 return items;
             }
@@ -1562,11 +1569,11 @@ namespace Hunarmis.Manager
             list.Add(new SelectListItem { Value = "3", Text = "Call In Progress" });
             if (IsAll)
             {
-                list.Insert(0, new SelectListItem { Value = "-1", Text = "All" });
+                list.Insert(0, new SelectListItem { Value = "-1", Text = "All", Selected = true });
             }
             else if (!IsAll)
             {
-                list.Insert(0, new SelectListItem { Value = "-1", Text = "Select" });
+                list.Insert(0, new SelectListItem { Value = "-1", Selected = true });
             }
             return list.OrderBy(x => Convert.ToInt16(x.Value)).ToList();
         }
@@ -1581,11 +1588,11 @@ namespace Hunarmis.Manager
             list.Add(new SelectListItem { Value = "Other", Text = "Other" });
             if (IsAll)
             {
-                list.Insert(0, new SelectListItem { Value = "-1", Text = "All" });
+                list.Insert(0, new SelectListItem { Value = "-1", Text = "All", Selected = true });
             }
             else if (!IsAll)
             {
-                list.Insert(0, new SelectListItem { Value = "-1", Text = "Select" });
+                list.Insert(0, new SelectListItem { Value = "-1", Selected = true });
             }
             return list.OrderBy(x => x.Value).ToList();
         }

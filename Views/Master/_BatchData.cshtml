@@ -14,6 +14,7 @@
                     <th class="text-center tblth">Batch Name</th>
                     <th class="text-center tblth">Batch Start Date</th>
                     <th class="text-center tblth">Batch End Date</th>
+                    <th class="text-center tblth">No Of Participant</th>
                     <th style="width: 80px" class="text-center tblth">Edit</th>
                 </tr>
             </thead>
@@ -24,15 +25,16 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                            <tr class="text-center">
-                                <td>@(srno++)</td>
-                                <td>@dr["BatchName"]</td>
-                                <td>@CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString())</td>
-                                <td>@CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</td>
-                                <td>
-                                    <a href="~/Master/BatchMaster?Id=@dr["Id"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                                </td>
-                            </tr>
+                                <tr class="text-center">
+                                    <td>@(srno++)</td>
+                                    <td>@dr["BatchName"]</td>
+                                    <td>@CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString())</td>
+                                    <td>@CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</td>
+                                    <td>@dr["NoOfParticipant"]</td>
+                                    <td>
+                                        <a href="~/Master/BatchMaster?Id=@dr["Id"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                </tr>
                         }
                     }
                     else
@@ -43,6 +45,13 @@
                     }
                 }
             </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-right" colspan="4"><strong>Grand Total :</strong> </td>
+                    <td class="text-center"><b>@dt.Compute("sum(NoOfParticipant)",string.Empty)</b></td>
+                    <td></td>
+                </tr>
+            </tfoot>
 
         </table>
     </div>

@@ -17,7 +17,8 @@
                 <div class="panel">
                     <div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
-                            @ViewBag.Title
+                            @*@ViewBag.Title*@
+                            <span class="downs-btn" id="div-download"></span>
                         </p>
                     </div>
                     @using (Html.BeginForm("BatchMaster", "Master", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", @id = "formid" }))
@@ -57,7 +58,7 @@
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(m => m.TrainingCenterId, new { @class = "Col-md-2 col-form-label" })<em>*</em>
-                                                @Html.DropDownListFor(model => model.TrainingCenterId, Hunarmis.Manager.CommonModel.GetDistTrainingAyCentersList(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @Html.DropDownListFor(model => model.TrainingCenterId, Hunarmis.Manager.CommonModel.GetDistTrainingAyCentersList(true), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(m => m.TrainingCenterId, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="col-md-12" style="padding-top: 10px !important;">
@@ -69,8 +70,8 @@
                                     </div>
 
                                     <div class="col-sm-7">
-                                       <div class="downoad-excel-btn" id="div-download"></div>
-                                        <div id="subdata" style="height:500px; overflow:scroll;"></div>
+                                        @*<div class="downoad-excel-btn" id="div-download"></div>*@
+                                        <div id="subdata"></div>
                                     </div>
                                 </div>
 
@@ -88,7 +89,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @*<script src="~/Scripts/Custom/Master.js"></script>*@
 
-<script>
+    <script>
         $(document).ready(function () {
 
         var dateFormat = "dd-M-yy",
@@ -123,19 +124,17 @@
                 return date;
             }
 
-
             if ('@Model.Id' != '0') {
                 $('#Id').val('@Model.Id');
                 $('#BatchName').val('@Model.BatchName');
                 $('#BatchStartDate').val(moment('@Model.BatchStartDate').format("DD-MMM-YYYY"));
                 $('#BatchEndDate').val(moment('@Model.BatchEndDate').format("DD-MMM-YYYY"));
             }
-
+            BindData();
             $("#btnsubmit").click(function (e) {
                 e.preventDefault();
                 CUOPT();
             });
-            BindData();
 
         });
 
@@ -144,7 +143,7 @@
                 type: "GET",
                 url: document.baseURI + "/Master/GetBatchMasterllist",
                 data: '',//JSON.stringify({}),// 'BatchName': $('#BatchName').val()
-                cache: false,
+               // cache: false,
                 success: function (res) {
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
@@ -153,11 +152,11 @@
                             $("#tbl").dataTable().fnDestroy();
                         }
                         table = $('#tbl').DataTable({
-                            //scrollY: "400px",
-                            //scrollX: true,
-                            //scrollCollapse: true,
-                            //paging: false,
-                           // pageLength: 100,
+                            scrollY: "400px",
+                            scrollX: true,
+                            scrollCollapse: true,
+                            paging: true,
+                            pageLength: 100,
                             //fixedColumns: {
                             //    leftColumns: 1,
                             //    rightColumns: 1
@@ -165,7 +164,7 @@
                             "dom": '<"pull-left"f><"pull-right"l>tip',
                             order: [[0, 'asc']],
                             buttons: [{
-                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export</span>', title: 'Batches List',//$('#IDDistrict option:selected').text() +
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i> Download</span>', title: 'Batches List',//$('#IDDistrict option:selected').text() +
                                 className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
                                 filename: 'Batches List',
                                 exportOptions: { modifier: { page: 'all' } }
@@ -246,5 +245,5 @@
 
         }
 
-</script>
+    </script>
 }

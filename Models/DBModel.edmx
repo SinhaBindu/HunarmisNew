@@ -431,6 +431,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="EndDate" Type="date" />
           <Property Name="StartTime" Type="time" Precision="7" />
           <Property Name="EndTime" Type="time" Precision="7" />
+          <Property Name="AttendanceImagePath" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -1111,7 +1112,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <EntitySet Name="tbl_FileUpload" EntityType="Hunar_DBModel.tbl_FileUpload" />
           <EntitySet Name="Tbl_ExceptionHandle" EntityType="Hunar_DBModel.Tbl_ExceptionHandle" />
           <EntitySet Name="tbl_LogBatchTrainer" EntityType="Hunar_DBModel.tbl_LogBatchTrainer" />
-          <EntitySet Name="tbl_AttendanceParticipant" EntityType="Hunar_DBModel.tbl_AttendanceParticipant" />
           <EntitySet Name="tbl_AttendParticipant" EntityType="Hunar_DBModel.tbl_AttendParticipant" />
           <EntitySet Name="SessionPlanTopic_Master" EntityType="Hunar_DBModel.SessionPlanTopic_Master" />
           <EntitySet Name="tbl_AttendPartTopic" EntityType="Hunar_DBModel.tbl_AttendPartTopic" />
@@ -1151,6 +1151,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
             <End Role="tbl_Participant" EntitySet="tbl_Participant" />
             <End Role="tbl_PlacementTracker" EntitySet="tbl_PlacementTracker" />
           </AssociationSet>
+          <EntitySet Name="tbl_AttendanceParticipant" EntityType="Hunar_DBModel.tbl_AttendanceParticipant" />
           </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -1505,26 +1506,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tbl_AttendanceParticipant">
-          <Key>
-            <PropertyRef Name="AttendanceId_pk" />
-          </Key>
-          <Property Name="AttendanceId_pk" Type="Guid" Nullable="false" />
-          <Property Name="BatchId" Type="Int32" />
-          <Property Name="CourseIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TopicesIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Long" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartDate" Type="DateTime" Precision="0" />
-          <Property Name="EndDate" Type="DateTime" Precision="0" />
-          <Property Name="StartTime" Type="Time" Precision="7" />
-          <Property Name="EndTime" Type="Time" Precision="7" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_AttendParticipant">
           <Key>
@@ -2104,6 +2085,27 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_AttendanceParticipant">
+          <Key>
+            <PropertyRef Name="AttendanceId_pk" />
+          </Key>
+          <Property Name="AttendanceId_pk" Type="Guid" Nullable="false" />
+          <Property Name="BatchId" Type="Int32" />
+          <Property Name="CourseIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TopicesIds" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Long" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <Property Name="AttendanceImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2448,27 +2450,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
                 <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
                 <ScalarProperty Name="BatchId" ColumnName="BatchId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_AttendanceParticipant">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AttendanceParticipant">
-              <MappingFragment StoreEntitySet="tbl_AttendanceParticipant">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Long" ColumnName="Long" />
-                <ScalarProperty Name="Lat" ColumnName="Lat" />
-                <ScalarProperty Name="TopicesIds" ColumnName="TopicesIds" />
-                <ScalarProperty Name="CourseIds" ColumnName="CourseIds" />
-                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-                <ScalarProperty Name="AttendanceId_pk" ColumnName="AttendanceId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3050,6 +3031,28 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
                 <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
                 <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
                 <ScalarProperty Name="PlacementTrackerId_pk" ColumnName="PlacementTrackerId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AttendanceParticipant">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AttendanceParticipant">
+              <MappingFragment StoreEntitySet="tbl_AttendanceParticipant">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AttendanceImagePath" ColumnName="AttendanceImagePath" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="TopicesIds" ColumnName="TopicesIds" />
+                <ScalarProperty Name="CourseIds" ColumnName="CourseIds" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="AttendanceId_pk" ColumnName="AttendanceId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
