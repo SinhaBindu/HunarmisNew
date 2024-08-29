@@ -44,7 +44,6 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_FileUpload> tbl_FileUpload { get; set; }
         public virtual DbSet<Tbl_ExceptionHandle> Tbl_ExceptionHandle { get; set; }
         public virtual DbSet<tbl_LogBatchTrainer> tbl_LogBatchTrainer { get; set; }
-        public virtual DbSet<tbl_AttendanceParticipant> tbl_AttendanceParticipant { get; set; }
         public virtual DbSet<tbl_AttendParticipant> tbl_AttendParticipant { get; set; }
         public virtual DbSet<SessionPlanTopic_Master> SessionPlanTopic_Master { get; set; }
         public virtual DbSet<tbl_AttendPartTopic> tbl_AttendPartTopic { get; set; }
@@ -76,5 +75,6 @@ namespace Hunarmis.Models
         public virtual DbSet<Year_Master> Year_Master { get; set; }
         public virtual DbSet<MaritalStatus_Master> MaritalStatus_Master { get; set; }
         public virtual DbSet<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
+        public virtual DbSet<tbl_AttendanceParticipant> tbl_AttendanceParticipant { get; set; }
     }
 }

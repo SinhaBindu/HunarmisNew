@@ -238,6 +238,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_AttendanceParticipantList");
             sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
+            sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
+            sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

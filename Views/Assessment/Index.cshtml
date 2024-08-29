@@ -116,8 +116,13 @@
             //    }]
             //});
 
-             BindGetCourses("FormId", "", 0, 0);
-             //BindModuleWiseBatches("BatchId","",2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(),0)
+            BindGetCourses("FormId", "", 0, 0);
+            $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
+            BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+            $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+            LoadReport();
+
+
              txtf = $('option:selected', $('#FormId')).text();
              txtb = $('option:selected', $('#BatchId')).text();
              $('#sg-title').html(txtf + " : " + txtb);

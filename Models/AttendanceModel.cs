@@ -50,6 +50,11 @@ namespace Hunarmis.Models
         public virtual AttendPartTopicModel Topiclist { get; set; }
         [DisplayName("Other")]
         public string TopicOther { get; set; }
+        public string AttendanceImagePath { get; set; }
+        //[Required]
+        [DisplayName("Upload Image")]
+        public HttpPostedFileBase AttendanceImage { get; set; } 
+
     }
     public class AttendPartModel
     {

@@ -89,6 +89,12 @@
      $(document).ready(function () {
 
         BindGetCourses("FormId", "", 0, 0);
+        $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
+        BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+        $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+        GetSummaryData();
+
+
         var txt = $('option:selected', $('#FormId')).text();
         $('#sg-title').html(txt);
           //  GetSummaryData();

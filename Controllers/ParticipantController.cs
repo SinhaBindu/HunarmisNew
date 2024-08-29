@@ -34,7 +34,7 @@ namespace Hunarmis.Controllers
             //DataTable dt = excelut.GetData(physicalFilePath);
             return View();
         }
-        
+
         public ActionResult ParticipantProfile()
         {
             return View();
@@ -348,8 +348,28 @@ namespace Hunarmis.Controllers
                         resResponse3.MaxJsonLength = int.MaxValue;
                         return resResponse3;
                     }
-
                 }
+                if (model.DOJStartDate != null)
+                {
+                    if (model.DateofOffer >= model.DOJStartDate)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Date of offer greater than date of joining start date.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                    if (model.DOJStartDate != null && model.DOJEndDate != null)
+                    {
+                        if (model.DOJStartDate > model.DOJEndDate)
+                        {
+                            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Date of offer greater than date of joining start date.", Data = null };
+                            var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse3.MaxJsonLength = int.MaxValue;
+                            return resResponse3;
+                        }
+                    }
+                }
+
                 var tbl = (model.ParticipantId_fk != Guid.Empty && model.PlacementTrackerId_pk != Guid.Empty) ? db_.tbl_PlacementTracker.Find(model.PlacementTrackerId_pk) : new tbl_PlacementTracker();
                 if (tbl != null && MvcApplication.CUser != null)
                 {
@@ -357,7 +377,7 @@ namespace Hunarmis.Controllers
                     {
                         tbl.EmployeeTypeId = model.EmployeeTypeId;
                         tbl.IndustryId = model.IndustryId;
-                        tbl.CompanyName = !string.IsNullOrWhiteSpace(model.CompanyName) ? model.CompanyName.Trim().Replace("+"," "):null;
+                        tbl.CompanyName = !string.IsNullOrWhiteSpace(model.CompanyName) ? model.CompanyName.Trim().Replace("+", " ") : null;
                         tbl.Designation = !string.IsNullOrWhiteSpace(model.Designation) ? model.Designation.Trim().Replace("+", " ") : null;
                         tbl.Salary = model.Salary;
                         tbl.StateId = model.StateId;

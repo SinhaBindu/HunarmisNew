@@ -26,7 +26,11 @@ namespace Hunarmis.Controllers
             return View();
         }
         #region Attendance Form Submitted
-        public ActionResult CreatedAttend() { return View(); }
+        public ActionResult CreatedAttend()
+        {
+            AttendanceModel model = new AttendanceModel();
+            return View(model);
+        }
         public ActionResult GetPartList(FilterModel model)
         {
             DataTable tbllist = new DataTable();
@@ -105,9 +109,15 @@ namespace Hunarmis.Controllers
                     tbl.StartTime = durst;
                     tbl.EndTime = duret;
                     tbl.IsActive = true;
-                    if (model.AttendanceId_pk==Guid.Empty)
+                    if (model.AttendanceId_pk == Guid.Empty)
                     {
                         tbl.AttendanceId_pk = Guid.NewGuid();
+                        if (model.AttendanceImage != null)
+                        {
+                            var filePathUOL = CommonModel.SaveSingleFile(model.AttendanceImage, tbl.AttendanceId_pk.ToString(), "AttendanceImage");
+                            var physicalFilePathhUOL = Server.MapPath(filePathUOL);
+                            tbl.AttendanceImagePath = filePathUOL;
+                        }
                     }
                     var reslist = this.Request.Unvalidated.Form["PARTModel"];
                     if (reslist != null)
@@ -164,7 +174,7 @@ namespace Hunarmis.Controllers
                                     tblattparttp.AttendanceId_fk = tbl.AttendanceId_pk;
                                     tblattparttp.CouresId = CourseId;
                                     tblattparttp.TopicId = sessiontopiceid;
-                                    if (sessiontopiceid==261)
+                                    if (sessiontopiceid == 261)
                                     {
                                         tblattparttp.TopicOther = model.TopicOther;
                                     }
@@ -183,7 +193,7 @@ namespace Hunarmis.Controllers
                     }
                     if (model.AttendanceId_pk == Guid.Empty)
                     {
-                        
+
                         tbl.CreatedBy = MvcApplication.CUser.UserId;
                         tbl.CreatedOn = DateTime.Now;
                         _db.tbl_AttendanceParticipant.Add(tbl);
@@ -320,7 +330,7 @@ namespace Hunarmis.Controllers
                 {
                     IsCheck = true;
                     html = ConvertViewToString("_AttendanceSummaryData", tbllist);
-                    var res = Json(new { IsSuccess = IsCheck, Data = html}, JsonRequestBehavior.AllowGet);
+                    var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
                     res.MaxJsonLength = int.MaxValue;
                     return res;
                 }
@@ -353,7 +363,7 @@ namespace Hunarmis.Controllers
                 if (tbllist.Rows.Count > 0)
                 {
                     IsCheck = true;
-                    Is_Disable = Convert.ToInt32(tbllist.Compute("sum(IsAssessmentExamDone)", string.Empty))== tbllist.Rows.Count?true:false;
+                    Is_Disable = Convert.ToInt32(tbllist.Compute("sum(IsAssessmentExamDone)", string.Empty)) == tbllist.Rows.Count ? true : false;
                     html = ConvertViewToString("_ParticipantSendData", tbllist);
                     var res = Json(new { IsSuccess = IsCheck, Data = html, IsDisable = Is_Disable }, JsonRequestBehavior.AllowGet);
                     res.MaxJsonLength = int.MaxValue;
@@ -420,70 +430,85 @@ namespace Hunarmis.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
-                if (model.BatchId_fk == 0 || string.IsNullOrWhiteSpace(model.Date.ToString()) || string.IsNullOrWhiteSpace(model.StrStartTime) || string.IsNullOrWhiteSpace(model.StrEndTime))
-                {
-                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All fields are required !!", Data = null };
-                    var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
-                    resResponseal.MaxJsonLength = int.MaxValue;
-                    return resResponseal;
-                }
-                if (_db.tbl_AssessmentSchedule.Any(x => x.BatchId_fk == model.BatchId_fk && x.Date == model.Date && model.AssessmentScheduleId_pk == Guid.Empty))
-                {
-                    var getbatch = _db.Batch_Master.Where(x => x.Id == model.BatchId_fk)?.FirstOrDefault().BatchName;
-                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this Batch" + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
-                    var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
-                    resResponseal.MaxJsonLength = int.MaxValue;
-                    return resResponseal;
-                }
-                //if (_db.tbl_AssessmentSchedule.Any(x => x.BatchId_fk == model.BatchId_fk && model.AssessmentScheduleId_pk == Guid.Empty))
-                //{
-                //    var getbatch = _db.Batch_Master.Where(x => x.Id == model.BatchId_fk)?.FirstOrDefault().BatchName;
-                //    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this Batch" + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
-                //    var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
-                //    resResponseal.MaxJsonLength = int.MaxValue;
-                //    return resResponseal;
-                //}
-                //  DataTable dt = SPManager.SP_GetBatchForPart(TCenterIds);
-                var tbl = model.AssessmentScheduleId_pk != Guid.Empty ? _db.tbl_AssessmentSchedule.Find(model.AssessmentScheduleId_pk) : new tbl_AssessmentSchedule();
-                if (tbl != null && model != null)
+                if (!string.IsNullOrWhiteSpace(model.StrStartTime) && !string.IsNullOrWhiteSpace(model.StrEndTime))
                 {
                     DateTime durst = DateTime.Parse(model.StrStartTime);
                     DateTime duret = DateTime.Parse(model.StrEndTime);
-                    // TimeSpan durst = CommonModel.GetTimeSpanValue(model.StrStartTime);
-                    // TimeSpan duret = CommonModel.GetTimeSpanValue(model.StrEndTime);
-                    tbl.Date = model.Date;
-                    tbl.StartTime = durst.TimeOfDay;
-                    tbl.EndTime = duret.TimeOfDay;
-                    tbl.AssessmentSchedule = false;
-                    tbl.IsActive = true;
-
-                    if (model.AssessmentScheduleId_pk == Guid.Empty)
+                    if (model.BatchId_fk == 0 || string.IsNullOrWhiteSpace(model.Date.ToString()) || string.IsNullOrWhiteSpace(model.StrStartTime) || string.IsNullOrWhiteSpace(model.StrEndTime))
                     {
-                        tbl.AssessmentScheduleId_pk = Guid.NewGuid();
-                        FilterModel filterModel = new FilterModel();
-                        filterModel.BatchId = model.BatchId_fk.Value.ToString();
-                        DataTable tcid = SPManager.SP_GetParticipant(filterModel).AsEnumerable().CopyToDataTable();
-                        tbl.TrainingCenterId_fk = Convert.ToInt32(tcid.Rows[0]["TrainingCenterId"].ToString());
-                        tbl.CourseId_fk = Convert.ToInt32(tcid.Rows[0]["CourseId"].ToString());
-                        tbl.BatchId_fk = model.BatchId_fk;
-                        tbl.CreatedBy = MvcApplication.CUser.UserId;
-                        tbl.CreatedOn = DateTime.Now;
-                        _db.tbl_AssessmentSchedule.Add(tbl);
-                        // var resmail = CommonModel.SendMailForParticipants(tbl.BatchId_fk.ToString());
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All fields are required !!", Data = null };
+                        var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponseal.MaxJsonLength = int.MaxValue;
+                        return resResponseal;
                     }
-                    else
+                    if (_db.tbl_AssessmentSchedule.Any(x => x.BatchId_fk == model.BatchId_fk && x.Date == model.Date && model.AssessmentScheduleId_pk == Guid.Empty))
                     {
-                        tbl.UpdatedBy = MvcApplication.CUser.UserId;
-                        tbl.UpdatedOn = DateTime.Now;
+                        var getbatch = _db.Batch_Master.Where(x => x.Id == model.BatchId_fk)?.FirstOrDefault().BatchName;
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this Batch" + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
+                        var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponseal.MaxJsonLength = int.MaxValue;
+                        return resResponseal;
                     }
-                    int res = _db.SaveChanges();
-                    if (res > 0)
+                    if (durst > duret)
                     {
-                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Start Time is greater than end time.", Data = null };
                         var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse3.MaxJsonLength = int.MaxValue;
                         return resResponse3;
                     }
+                    //if (_db.tbl_AssessmentSchedule.Any(x => x.BatchId_fk == model.BatchId_fk && model.AssessmentScheduleId_pk == Guid.Empty))
+                    //{
+                    //    var getbatch = _db.Batch_Master.Where(x => x.Id == model.BatchId_fk)?.FirstOrDefault().BatchName;
+                    //    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Assessment Schedule is already submitted this Batch" + getbatch + " " + CommonModel.FormateDtDMY(model.Date.ToString()), Data = null };
+                    //    var resResponseal = Json(response, JsonRequestBehavior.AllowGet);
+                    //    resResponseal.MaxJsonLength = int.MaxValue;
+                    //    return resResponseal;
+                    //}
+                    //  DataTable dt = SPManager.SP_GetBatchForPart(TCenterIds);
+                    var tbl = model.AssessmentScheduleId_pk != Guid.Empty ? _db.tbl_AssessmentSchedule.Find(model.AssessmentScheduleId_pk) : new tbl_AssessmentSchedule();
+                    if (tbl != null && model != null)
+                    {
+
+                        // TimeSpan durst = CommonModel.GetTimeSpanValue(model.StrStartTime);
+                        // TimeSpan duret = CommonModel.GetTimeSpanValue(model.StrEndTime);
+                        tbl.Date = model.Date;
+                        tbl.StartTime = durst.TimeOfDay;
+                        tbl.EndTime = duret.TimeOfDay;
+                        tbl.AssessmentSchedule = false;
+                        tbl.IsActive = true;
+
+                        if (model.AssessmentScheduleId_pk == Guid.Empty)
+                        {
+                            tbl.AssessmentScheduleId_pk = Guid.NewGuid();
+                            FilterModel filterModel = new FilterModel();
+                            filterModel.BatchId = model.BatchId_fk.Value.ToString();
+                            DataTable tcid = SPManager.SP_GetParticipant(filterModel).AsEnumerable().CopyToDataTable();
+                            tbl.TrainingCenterId_fk = Convert.ToInt32(tcid.Rows[0]["TrainingCenterId"].ToString());
+                            tbl.CourseId_fk = Convert.ToInt32(tcid.Rows[0]["CourseId"].ToString());
+                            tbl.BatchId_fk = model.BatchId_fk;
+                            tbl.CreatedBy = MvcApplication.CUser.UserId;
+                            tbl.CreatedOn = DateTime.Now;
+                            _db.tbl_AssessmentSchedule.Add(tbl);
+                            // var resmail = CommonModel.SendMailForParticipants(tbl.BatchId_fk.ToString());
+                        }
+                        else
+                        {
+                            tbl.UpdatedBy = MvcApplication.CUser.UserId;
+                            tbl.UpdatedOn = DateTime.Now;
+                        }
+                        int res = _db.SaveChanges();
+                        if (res > 0)
+                        {
+                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = null };
+                            var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse3.MaxJsonLength = int.MaxValue;
+                            return resResponse3;
+                        }
+                    }
+                }
+                else
+                {
+
                 }
             }
             catch (Exception)
@@ -499,7 +524,6 @@ namespace Hunarmis.Controllers
             return resResponse4;
         }
         #endregion
-
 
         private string ConvertViewToString(string viewName, object model)
         {

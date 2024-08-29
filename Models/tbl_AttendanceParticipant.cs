@@ -24,6 +24,7 @@ namespace Hunarmis.Models
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<System.TimeSpan> StartTime { get; set; }
         public Nullable<System.TimeSpan> EndTime { get; set; }
+        public string AttendanceImagePath { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
