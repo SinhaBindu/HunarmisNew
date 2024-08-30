@@ -644,6 +644,7 @@
     <Content Include="Content\css\settings4361.css" />
     <Content Include="Content\css\smartphoto.min.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\style.min.css" />
     <Content Include="Content\css\themes\type-a\theme-coffee.min.css" />
     <Content Include="Content\css\themes\type-a\theme-dark.min.css" />
     <Content Include="Content\css\themes\type-a\theme-dust.min.css" />
@@ -708,6 +709,7 @@
     <Content Include="Content\images\arrows-32-32-3.png" />
     <Content Include="Content\images\blue-angle-bg.png" />
     <Content Include="Content\images\blue-left.png" />
+    <Content Include="Content\images\cardBGLink.png" />
     <Content Include="Content\images\care-white-logo.png" />
     <Content Include="Content\images\center.png" />
     <Content Include="Content\images\certificate-bg.PNG" />
