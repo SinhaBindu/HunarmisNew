@@ -35,6 +35,7 @@ namespace Hunarmis.Controllers
             return View();
         }
 
+        #region Dashboard and Add Participant
         public ActionResult ParticipantProfile()
         {
             return View();
@@ -263,6 +264,7 @@ namespace Hunarmis.Controllers
             }
             return View();
         }
+        #endregion
 
         #region Placement Tracker 
         public ActionResult AddPlacementTracker(Guid PartId, Guid? Id)
