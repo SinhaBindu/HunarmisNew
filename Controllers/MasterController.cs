@@ -353,11 +353,11 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetModuleWiseBatches(int SelectAll, int ModuleType = 0, int CourseId = 0, int BatchId = 0)
+        public ActionResult GetModuleWiseBatches(int SelectAll, int ModuleType = 0, int CourseId = 0, int BatchId = 0, int TrainingCenterId = 0)
         {
             try
             {
-                var items = CommonModel.GetSPModuleWiseBatches(SelectAll, ModuleType, CourseId, BatchId);
+                var items = CommonModel.GetSPModuleWiseBatches(SelectAll, ModuleType, CourseId, BatchId, TrainingCenterId);
                 if (items != null)
                 {
                     if (items.Count > 0)

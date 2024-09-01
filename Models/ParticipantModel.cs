@@ -167,4 +167,7 @@ namespace Hunarmis.Models
         [Display(Name = DplyPartCalName.ReportedOn)]
         public string ReportedOn { get; set; }
     }
+
+   
+
 }

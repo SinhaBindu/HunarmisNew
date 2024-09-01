@@ -34,4 +34,6 @@ namespace Hunarmis.Models
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
     }
+
+
 }

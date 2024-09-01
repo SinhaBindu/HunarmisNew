@@ -401,6 +401,7 @@
     </Compile>
     <Compile Include="Models\AssessmentScheduleModel.cs" />
     <Compile Include="Models\AttendanceModel.cs" />
+    <Compile Include="Models\BatchAssignModel.cs" />
     <Compile Include="Models\BatchModel.cs" />
     <Compile Include="Models\Benefit_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
@@ -1836,6 +1837,8 @@
     <Content Include="Views\Participant\_AddPlacementTracker.cshtml" />
     <Content Include="Views\Participant\_ViewPlacementTracker.cshtml" />
     <Content Include="Views\Participant\ParticipantProfile.cshtml" />
+    <Content Include="Views\Attendance\BatchAssign.cshtml" />
+    <Content Include="Views\Attendance\_PartlistBatchNoAssign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

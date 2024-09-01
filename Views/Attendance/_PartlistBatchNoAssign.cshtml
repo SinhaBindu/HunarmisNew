@@ -1,0 +1,92 @@
+﻿@using System.Data
+@using Hunarmis.Models;
+@{
+    ViewBag.Title = "User List";
+    DataTable dt = new DataTable();
+    Hunar_DBEntities _db = new Hunar_DBEntities();
+    if (Model != null)
+    {
+        dt = Model;
+    }
+    var tblmc = _db.tbl_MappedTrainCenter.ToList();
+    //var tblmapc = new List<tbl_MappedTrainCenter>();
+    DataTable dtcen = Hunarmis.Manager.SPManager.SP_GetDTACMasterList();
+}
+
+<div class="row row-deck">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table card-table table-vcenter text-nowrap" id="tbl">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" name="selectAll" id="selectAll" onchange="CheckUnchecked(this)"></th>
+                            <th>SrNo.</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone No</th>
+                            <th>Qualification</th>
+                            <th>Course</th>
+                            <th>Training Agency</th>
+                            <th>Training Center</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0, index = 0;
+                            if (Model != null)
+                            {
+                                foreach (DataRow dr in dt.Rows)
+                                {
+                                    sno++;
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="check" name="chcksinglsel@(sno)" id="chcksinglsel@(sno)"
+                                                   data-partid="@dr["ParticipantId"]" onchange="CheckUnchecked(this)">
+                                        </td>
+                                        <td class="text-center">@(sno)</td>
+                                        <td class="text-left">@dr["Name"]</td>
+                                        <td class="text-left">@dr["EmailID"]</td>
+                                        <td class="text-center">@dr["PhoneNo"]</td>
+                                        <td class="text-left">@dr["QualificationName"]</td>
+                                        <td class="text-left">@dr["CourseName"]</td>
+                                        <td class="text-left">@dr["TrainingAgencyName"]</td>
+                                        <td class="text-left">@dr["TrainingCenter"]</td>
+                                    </tr>
+                                    index++;
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="10" class="text-danger"><strong> Record Not Found !!</strong></td></tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            //$('.multiple').multiselect({
+            //    includeSelectAllOption: true
+            //});
+
+            //$('#DataList tbody tr').each(function (i, item) {
+            //    debugger;
+            //    var rowLength = table.rows.length;
+            //    for (var i = 0; i < rowLength; i += 1) {
+            //        var row = table.rows[i];
+
+            //    }
+            //    //$('#multipleSelect').val(['1', '2']);
+            //});
+
+        });
+    </script>
+}

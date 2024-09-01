@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="12f0fe8778d24a76b3f05eadbe39ab8d" Name="Diagram1" ZoomLevel="46" >
+      <Diagram DiagramId="12f0fe8778d24a76b3f05eadbe39ab8d" Name="Diagram1" ZoomLevel="52" >
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="false" />
@@ -39,7 +39,6 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ExcelParticipantData" Width="1.5" PointX="8.375" PointY="15.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="15.75" PointY="16.375" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AnnualHousehold_Master" Width="1.5" PointX="3.75" PointY="5.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.Courses_Master" Width="1.5" PointX="5.75" PointY="5.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.District_Master" Width="1.5" PointX="9.75" PointY="2.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.Educational_Master" Width="1.5" PointX="0.75" PointY="10.75" />
@@ -61,6 +60,7 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_PlacementTracker" Width="1.5" PointX="18" PointY="15.625" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendanceParticipant" Width="1.5" PointX="10.375" PointY="20.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="20.375" PointY="12.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
