@@ -9,323 +9,358 @@
 }
 @using Hunarmis.Helpers
 <style>
-    body {
-        background: #F5F5F5 !important;
-        height: 100vh;
-    }
+        body {
+            background: #F5F5F5 !important;
+            height: 100vh;
+        }
 
-    img {
-        width: 100%;
-        height: auto
-    }
+        img {
+            width: 100%;
+            height: auto
+        }
 
-    .bgr-icon {
-        width: 26px;
-        margin-top: -4px
-    }
+        .bgr-icon {
+            width: 26px;
+            margin-top: -4px
+        }
 
-    .dashboard-box {
-        margin: 15px 15px 5px;
-        display: flex;
-        gap: 2%;
-        flex-wrap: wrap;
-    }
+        .dashboard-box {
+            margin: 15px 15px 5px;
+            display: flex;
+            gap: 2%;
+            flex-wrap: wrap;
+        }
 
-    .d-box {
-        flex-basis: 23.4%;
-        border-radius: 6px;
-        background: #fff;
-        padding-bottom: 12px;
-        margin-bottom: 10px;
-        box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
-    }
-
-        .d-box p, .txt-white p {
-            float: right;
-            margin: 13px 10px 0 0;
-            font-size: 22px;
-            padding: 6px 10px;
-            color: #242424;
-            width: 45px;
-            text-align: center;
+        .d-box {
+            flex-basis: 23.4%;
             border-radius: 6px;
+            background: #fff;
+            padding-bottom: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
         }
 
-        .d-box h3 {
-            margin: 15px 10px 19px;
-            font-size: 30px;
-            color: #495057;
+            .d-box p, .txt-white p {
+                float: right;
+                margin: 13px 10px 0 0;
+                font-size: 22px;
+                padding: 6px 10px;
+                color: #242424;
+                width: 45px;
+                text-align: center;
+                border-radius: 6px;
+            }
+
+            .d-box h3 {
+                margin: 15px 10px 19px;
+                font-size: 30px;
+                color: #495057;
+            }
+
+            .d-box span {
+                padding-left: 10px;
+                font-size: 14px;
+                color: #9E9AA3;
+                text-transform: uppercase;
+            }
+
+        .dbg1 {
+            background: #8673F6
         }
 
-        .d-box span {
-            padding-left: 10px;
-            font-size: 14px;
-            color: #9E9AA3;
-            text-transform: uppercase;
+        .dbg2 {
+            background: #6A4566
         }
 
-    .dbg1 {
-        background: #8673F6
-    }
-
-    .dbg2 {
-        background: #6A4566
-    }
-
-    .dbg3 {
-        background: #4397C7
-    }
-
-    .dbg4 {
-        background: #D89428
-    }
-
-    .dbg5 {
-        background: #4765CA
-    }
-
-    .bgr1 {
-        background: #E5E2F6;
-        color: #8A77F4 !important
-    }
-
-    .bgr2 {
-        background: #D6F0ED;
-        color: #3EB7A1 !important
-    }
-
-    .bgr3 {
-        background: #DAECFA;
-        color: #299CDB !important;
-    }
-
-    .bgr4 {
-        background: #FFF2DB;
-        color: #F7B84B !important;
-    }
-
-    .bgr5 {
-        background: #DBE0EF;
-        color: #405189 !important;
-    }
-
-    .data-box-1, .data-box-2, .data-box-3 {
-        display: flex;
-        gap: 25px;
-        margin: 0 15px 15px;
-    }
-
-    .boxe {
-        background: #fff;
-        border-radius: 10px;
-        flex: 1;
-        box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
-    }
-
-    .data-box-1 h2, .data-box-2 h2, .data-box-3 h2 {
-        font-size: 19px;
-        font-weight: bold;
-        text-transform: capitalize;
-        color: #6A4566;
-        padding: 0 15px
-    }
-
-    .data-box-1 p, .data-box-2 p, .data-box-3 p {
-        padding: 0 15px;
-    }
-
-    .flx2 {
-        flex: 2
-    }
-
-    .flx1 {
-        flex: 1
-    }
-
-    .tabber {
-        float: right;
-        background: #F4F4F4;
-        border-radius: 20px;
-        margin-top: -6px;
-    }
-
-        .tabber a {
-            display: inline-block;
-            padding: 12px 14px;
-            color: #000000;
-            font-weight: normal;
-            font-size: 14px;
+        .dbg3 {
+            background: #4397C7
         }
 
-    .act {
-        background: #8A77F4;
-        color: #fff !important;
-        border-radius: 20px;
-    }
+        .dbg4 {
+            background: #D89428
+        }
 
-    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
-        color: #040404
-    }
+        .dbg5 {
+            background: #4765CA
+        }
 
-    #page-head {
-        display: none;
-    }
+        .bgr1 {
+            background: #E5E2F6;
+            color: #8A77F4 !important
+        }
 
-    #navbar-container {
-        background-color: #fff;
-    }
+        .bgr2 {
+            background: #D6F0ED;
+            color: #3EB7A1 !important
+        }
 
-    .navbar-top-links > li > a {
-        color: #040404;
-        border-left: 1px solid #ECF0F5 !important;
-    }
+        .bgr3 {
+            background: #DAECFA;
+            color: #299CDB !important;
+        }
 
-    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
-        color: #040404;
-    }
+        .bgr4 {
+            background: #FFF2DB;
+            color: #F7B84B !important;
+        }
 
-        .navbar-top-links .tgl-menu-btn > a:focus {
+        .bgr5 {
+            background: #DBE0EF;
+            color: #405189 !important;
+        }
+
+        .data-box-1, .data-box-2, .data-box-3 {
+            display: flex;
+            gap: 25px;
+            margin: 0 15px 15px;
+        }
+
+        .boxe {
+            background: #fff;
+            border-radius: 10px;
+            flex: 1;
+            box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
+        }
+
+        .data-box-1 h2, .data-box-2 h2, .data-box-3 h2 {
+            font-size: 19px;
+            font-weight: bold;
+            text-transform: capitalize;
+            color: #6A4566;
+            padding: 0 15px
+        }
+
+        .data-box-1 p, .data-box-2 p, .data-box-3 p {
+            padding: 0 15px;
+        }
+
+        .flx2 {
+            flex: 2
+        }
+
+        .flx1 {
+            flex: 1
+        }
+
+        .tabber {
+            float: right;
+            background: #F4F4F4;
+            border-radius: 20px;
+            margin-top: -6px;
+        }
+
+            .tabber a {
+                display: inline-block;
+                padding: 12px 14px;
+                color: #000000;
+                font-weight: normal;
+                font-size: 14px;
+            }
+
+        .act {
+            background: #8A77F4;
+            color: #fff !important;
+            border-radius: 20px;
+        }
+
+        .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+            color: #040404
+        }
+
+        #page-head {
+            display: none;
+        }
+
+        #navbar-container {
+            background-color: #fff;
+        }
+
+        .navbar-top-links > li > a {
+            color: #040404;
+            border-left: 1px solid #ECF0F5 !important;
+        }
+
+        .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
             color: #040404;
         }
 
-    .navbar-top-links:first-child {
-        margin-left: 0px !important;
-    }
+            .navbar-top-links .tgl-menu-btn > a:focus {
+                color: #040404;
+            }
 
-    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
-        color: #040404;
-    }
+        .navbar-top-links:first-child {
+            margin-left: 0px !important;
+        }
 
-    #container .badge:not(.badge-default) {
-        color: #040404;
-    }
+        .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
+            color: #040404;
+        }
 
-    .navbar-top-links > .open > a, .navbar-top-links > .open > a:focus {
-        background: #8A77F4 !important
-    }
+        #container .badge:not(.badge-default) {
+            color: #040404;
+        }
 
-    .navbar-top-links > li > a:hover {
-        background: #8A77F4 !important
-    }
+        .navbar-top-links > .open > a, .navbar-top-links > .open > a:focus {
+            background: #8A77F4 !important
+        }
 
-    .navbar-brand {
-        padding: 0 5px;
-    }
+        .navbar-top-links > li > a:hover {
+            background: #8A77F4 !important
+        }
 
-    .dashboard-title {
-        font-size: 24px;
-        position: absolute;
-        top: 13px;
-        z-index: 999;
-        left: 55px;
-        color: #5A3653
-    }
+        .navbar-brand {
+            padding: 0 5px;
+        }
 
-    .brand-text {
-        color: #454845;
-        margin-left: 10px;
-    }
+        .dashboard-title {
+            font-size: 24px;
+            position: absolute;
+            top: 13px;
+            z-index: 999;
+            left: 55px;
+            color: #5A3653
+        }
 
-    .navbar-header:before {
-        background: #fff !important
-    }
+        .brand-text {
+            color: #454845;
+            margin-left: 10px;
+        }
 
-    .count-box {
-        display: flex;
-        margin-left: 10px
-    }
+        .navbar-header:before {
+            background: #fff !important
+        }
 
-    .d-box .count-box h3 {
-        margin: 15px 2px 19px;
-    }
+        .count-box {
+            display: flex;
+            margin-left: 10px
+        }
 
-    .form-box-select {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0px 10px;
-    }
+        .d-box .count-box h3 {
+            margin: 15px 2px 19px;
+        }
+
+        .form-box-select {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 10px;
+        }
 
 
-   .highcharts-label text {
-        color: #000 !important;
-        font-size: 12px !important;
-        font-weight: 600 !important;
-        fill: #000 !important;
-    }
-    .highcharts-text-outline {
-        stroke: none !important;
-        fill: #000 !important;
-    }
-    .highcharts-legend-item text {
-        color: #000 !important;
-        font-size: 12px !important;
-        font-weight: normal !important;
-        fill: #000 !important;
-    }
+        .highcharts-label text {
+            color: #fff !important;
+            font-size: 12px !important;
+            font-weight: 500 !important;
+            fill: #333 !important;
+        }
+        .highcharts-text-outline {
+            stroke: none !important;
+            fill: #000 !important;
+        }
+        .highcharts-legend-item text {
+            color: #000 !important;
+            font-size: 12px !important;
+            font-weight: normal !important;
+            fill: #000 !important;
+        }
 
-    .highcharts-axis-labels text {
-        color: #000 !important;
-        font-size: 12px !important;
-        font-weight: normal !important;
-        fill: #000 !important;
-    }
-    .card-box .f-26 {
-        color: #000;
-        background: -webkit-linear-gradient(#000, #A1D6B2, #000);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .main-content-card {
-        background: linear-gradient(45deg, #fdfdfd 5%, #fff 10%, #ccc 30%, #ddd 50%, #ccc 70%, #fff 80%, #999 95%);
-        border-radius: 10px;
-        box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
-    }
-    .bg-light-primary {
-        background: #fff !important;
-    }
-    .bg-light-secondary {
-        background: #fff !important;
-    }
-    .bg-light-tertiary {
-        background: #fff !important;
-    }
-    .bg-light-ifno {
-        background: #fff !important;
-    }
-    .flex-shrink-0 {
-        align-items: center;
-        display: flex;
-        height: 60px;
-        justify-content: center;
-        width: 60px;
-        border-radius: 15% 35%;
-        -webkit-box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
-        box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
-    }
-    .nano-content .profile-wrap {
-        padding: 10px !important;
-        font-size: 18px;
-        color: #000;
-        border-top: none;
-        border-bottom: none;
-        font-weight: 600;
-        line-height: 22px;
-        background: linear-gradient(45deg, #fdfdfd 5%, #fff 10%, #ccc 30%, #ddd 50%, #ccc 70%, #fff 80%, #999 95%) !important;
-    }
-    .nano-content .semi-titles {
-        font-size: 14px;
-        color: #333;
-        font-weight: 500;
-    }
+        .highcharts-axis-labels text {
+            color: #000 !important;
+            font-size: 12px !important;
+            font-weight: normal !important;
+            fill: #000 !important;
+        }
+        .card-box .f-26, .card-box .f-14 {
+            color: #fff;
+        }
 
+        .main-content-card {
+            border-radius: 10px;
+            box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
+        }
+        .bg-light-primary {
+            background: #fff !important;
+        }
+        .bg-light-secondary {
+            background: #fff !important;
+        }
+        .bg-light-tertiary {
+            background: #fff !important;
+        }
+        .bg-light-ifno {
+            background: #fff !important;
+        }
+        .flex-shrink-0 {
+            align-items: center;
+            display: flex;
+            height: 60px;
+            justify-content: center;
+            width: 60px;
+            border-radius: 15% 35%;
+            -webkit-box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
+            box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
+        }
+        .flex-shrink-0 {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            font-size: 50px;
+            background-color: #ffffff69;
+            text-align: center;
+            border-radius: 0 3px 3px 0;
+            position: absolute;
+            min-width: 76px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+        }
+        .nano-content .profile-wrap {
+            padding: 10px !important;
+            font-size: 18px;
+            color: #fff;
+            border-top: none;
+            border-bottom: none;
+            font-weight: 600;
+            line-height: 22px;
+            background: -webkit-linear-gradient(270deg, #9b318f, #d11dbc) !important;
+            background: linear-gradient(270deg, #9b318f, #d11dbc) !important;
+        }
+        .nano-content .semi-titles {
+            font-size: 14px;
+            color: #f1f1f1;
+            font-weight: 500;
+        }
+        .bg-light-primary {
+            color: #fff !important;
+            background-color: RGBA(242, 79, 124) !important;
+        }
+        .bg-light-secondary {
+            color: #fff !important;
+            background-color: RGBA(113, 108, 176) !important;
+        }
+        .bg-light-tertiary {
+            color: #fff !important;
+            background-color: RGBA(51, 176, 224) !important;
+        }
+        .text-bg-info {
+            color: #fff !important;
+            background-color: RGBA(59, 192, 195) !important;
+        }
+        .main-content-card:before {
+            content: none;
+        }
+    #footer, .bootom-fixed {
+        background: linear-gradient(270deg, #9b318f, #d11dbc) !important;
+        height: 43px;
+    }
 </style>
 <div class="container-fluid">
     <div class="row mt-20">
         @if (dt != null && dt.Rows.Count > 0)
         {
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card">
+                <div class="card card-box p-0 main-content-card bg-light-primary">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -334,15 +369,16 @@
                                 </div>
                                 <h3 class="f-26 count">@dt.Rows[0]["Enrollments"]</h3>
                             </div>
-                            <div class="flex-shrink-0 bg-light-primary">
-                                <img src="~/Content/images/enrollment.png" alt="Enrollments" />
+                            <div class="flex-shrink-0">
+                                @*<img src="~/Content/images/enrollment.png" alt="Enrollments" />*@
+                                <i class="fa fa-pencil-square-o"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card">
+                <div class="card card-box p-0 main-content-card bg-light-secondary">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -351,15 +387,16 @@
                                 </div>
                                 <h3 class="f-26 count">@dt.Rows[0]["TrainingCompletions"]</h3>
                             </div>
-                            <div class="flex-shrink-0 bg-light-secondary">
-                                <img src="~/Content/images/trainign.png" alt="Training Completions" />
+                            <div class="flex-shrink-0">
+                                @*<img src="~/Content/images/trainign.png" alt="Training Completions" />*@
+                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card">
+                <div class="card card-box p-0 main-content-card bg-light-tertiary">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -368,15 +405,16 @@
                                 </div>
                                 <h3 class="f-26 count">@dt.Rows[0]["LearnersCertified"]</h3>
                             </div>
-                            <div class="flex-shrink-0 bg-light-tertiary">
-                                <img src="~/Content/images/certified.png" alt="Learners certified" />
+                            <div class="flex-shrink-0">
+                                @*<img src="~/Content/images/certified.png" alt="Learners certified" />*@
+                                <i class="fa fa-certificate"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card">
+                <div class="card card-box p-0 main-content-card text-bg-info">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -385,8 +423,8 @@
                                 </div>
                                 <h3 class="f-26 count">@dt.Rows[0]["Placements"]</h3>
                             </div>
-                            <div class="flex-shrink-0 bg-light-primary">
-                                <img src="~/Content/images/placement.png" alt="placement" />
+                            <div class="flex-shrink-0 ">
+                                <i class="fa fa-recycle"></i>
                             </div>
                         </div>
                     </div>
@@ -813,7 +851,7 @@
         //        y: jsonData[i].Total
         //    });
         //}
-        colors = ['#A1D6B2', '#FF8A8A', '#F0A8D0', '#D1E9F6', '#E0E5B6', '#FEFFD2', '#CAF4FF', '#D0BFFF'];
+        colors = ['#6a4566', '#f24f7c', '#716cb0', '#33b0e0', '#3bc0c3', '#e6ce00', '#03c6f9', '#3a08c6'];
         Highcharts.chart(selector, {
             chart: {
                 type: graphType,
@@ -839,7 +877,7 @@
                 series: {
                     stacking: originalGraphType=='stack-bar' ? 'normal' : null,
                     shadow: false,
-                    borderRadius: '50%',
+                    borderRadius: graphType == 'pie'?'0%':'40%',
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
