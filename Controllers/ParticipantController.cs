@@ -35,6 +35,7 @@ namespace Hunarmis.Controllers
             return View();
         }
 
+        #region Dashboard and Add Participant
         public ActionResult ParticipantProfile()
         {
             return View();
@@ -279,6 +280,7 @@ namespace Hunarmis.Controllers
             }
             return View();
         }
+        #endregion
 
         #region Placement Tracker 
         public ActionResult AddPlacementTracker(Guid PartId, Guid? Id)
@@ -1166,8 +1168,8 @@ namespace Hunarmis.Controllers
 
                                                 var bName = Convert.ToString(dr["BatchName"]);
                                                 var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName.Trim()).FirstOrDefault() : null;
-                                                tblpart.BatchId = GetBatchdata.Id;
-                                                tblpart.TrainerId = GetBatchdata.TrainerId;
+                                                tblpart.BatchId = GetBatchdata != null ? GetBatchdata.Id : tblpart.BatchId;
+                                                tblpart.TrainerId = GetBatchdata != null ? GetBatchdata.TrainerId : tblpart.TrainerId;
 
                                                 var qName = Convert.ToString(dr["QualificationName"]);
                                                 var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName.Trim()).FirstOrDefault()?.Id : null;

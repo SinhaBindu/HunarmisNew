@@ -187,7 +187,7 @@ namespace Hunarmis.Manager
             }
             return "all";
         }
-        public static List<SelectListItem> GetSPModuleWiseBatches(int IsAll = 2, int ModuleType = 0, int CourseId = 0, int BatchId = 0)
+        public static List<SelectListItem> GetSPModuleWiseBatches(int IsAll = 2, int ModuleType = 0, int CourseId = 0, int BatchId = 0, int TrainingCenterId = 0)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
@@ -198,8 +198,10 @@ namespace Hunarmis.Manager
                 {
                     if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer))
                     {
+
                         TrainerId = MvcApplication.CUser.UserId;
                         TCenterIds = MvcApplication.CUser.MappedTCenterIds;
+                        TCenterIds = TrainingCenterId != 0 ? TrainingCenterId.ToString() : TCenterIds;
 
                         if (!string.IsNullOrWhiteSpace(TCenterIds))
                         {
@@ -216,6 +218,7 @@ namespace Hunarmis.Manager
                     {
                         if (!HttpContext.Current.User.IsInRole(RoleNameCont.Trainer) || !HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer) || !HttpContext.Current.User.IsInRole(RoleNameCont.User))
                         {
+                            TCenterIds = TrainingCenterId != 0 ? TrainingCenterId.ToString() : TCenterIds;
                             DataTable dt = SPManager.SP_GetModuleWiseBatches(ModuleType, CourseId, TrainerId, TCenterIds, BatchId);
                             list = dt.AsEnumerable().Select(x => new SelectListItem()
                             {
@@ -429,7 +432,7 @@ namespace Hunarmis.Manager
                         }
                         else if (IsAll == 1)
                         {
-                            list.Insert(0, new SelectListItem { Value = "0", Text = "All" , Selected = true });
+                            list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
                         }
                         return list;
                     }
@@ -621,7 +624,7 @@ namespace Hunarmis.Manager
             List<SelectListItem> list = new List<SelectListItem>();
             list = _db.EmployeeType_Master.OrderBy(x => x.OrderBy).Select(course => new SelectListItem { Value = course.EmployeeTypeId_pk.ToString(), Text = course.EmployeeTypeName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "",  });
+                list.Add(new SelectListItem { Value = "", });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
             return list.ToList();
@@ -630,9 +633,9 @@ namespace Hunarmis.Manager
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();
             List<SelectListItem> list = new List<SelectListItem>();
-            list = _db.Industry_Master.OrderBy(x=>x.OrderBy).Select(course => new SelectListItem { Value = course.IndustryId_pk.ToString(), Text = course.IndustryName }).OrderBy(x => x.Text).ToList();
+            list = _db.Industry_Master.OrderBy(x => x.OrderBy).Select(course => new SelectListItem { Value = course.IndustryId_pk.ToString(), Text = course.IndustryName }).OrderBy(x => x.Text).ToList();
             if (IsSelect == 0)
-                list.Add(new SelectListItem { Value = "",  });
+                list.Add(new SelectListItem { Value = "", });
             else if (IsSelect == 1)
                 list.Add(new SelectListItem { Value = "", Text = "All" });
             return list.OrderBy(x => x.Text).ToList();
@@ -811,7 +814,7 @@ namespace Hunarmis.Manager
                 }
                 if (IsSelectAll == "1")
                 {
-                    listitem.Insert(0, new SelectListItem { Value = "",  });
+                    listitem.Insert(0, new SelectListItem { Value = "", });
                 }
                 return listitem;
             }

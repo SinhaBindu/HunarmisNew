@@ -28,5 +28,9 @@ namespace Hunarmis.Models
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> Updated { get; set; }
         public Nullable<int> orderBy { get; set; }
+        public Nullable<System.DateTime> BatchAssignDate { get; set; }
+        public Nullable<int> BatchAssignNoOfParticipant { get; set; }
+        public string BatchAssignCreatedBy { get; set; }
+        public Nullable<System.DateTime> BatchAssignCreatedOn { get; set; }
     }
 }

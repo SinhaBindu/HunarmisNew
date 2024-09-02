@@ -525,6 +525,97 @@ namespace Hunarmis.Controllers
         }
         #endregion
 
+        #region Batch Assign For Participant
+        public ActionResult BatchAssign()
+        {
+            FilterModel model = new FilterModel();
+            return View(model);
+        }
+        public ActionResult GetPartlistBatchNoAssign(FilterModel model)
+        {
+            try
+            {
+                bool IsCheck = false;
+                var tbllist = SPManager.SP_GetPartlistBatchNoAssign(model);
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                }
+                var html = ConvertViewToString("_PartlistBatchNoAssign", tbllist);
+                var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                res.MaxJsonLength = int.MaxValue;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "There was a communication error." }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
+
+        [HttpPost]
+        public JsonResult BatchAssign(int BatchId, string ParticipantIds)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            JsonResponseData response = new JsonResponseData();
+            int res = 0;
+            try
+            {
+                if (BatchId > 0 && !string.IsNullOrWhiteSpace(ParticipantIds))
+                {
+                    var spllist = ParticipantIds.Split(',');
+                    var tblbatch = _db.Batch_Master.Find(BatchId);
+                    if (spllist.Count() > 50)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Maximum 50 Participants Batch Assign.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                    foreach (var item in spllist)
+                    {
+                        var partguid = Guid.Parse(item);
+                        var tbl = _db.tbl_Participant.Find(partguid);
+                        tbl.BatchId = BatchId;
+                        tbl.TrainerId = tblbatch.TrainerId;
+                        res += _db.SaveChanges();
+                    }
+                    if (res > 0)
+                    {
+                        tblbatch.BatchAssignNoOfParticipant = res;
+                        tblbatch.BatchAssignCreatedBy = MvcApplication.CUser.UserId;
+                        tblbatch.BatchAssignCreatedOn = DateTime.Now;
+                        tblbatch.BatchAssignDate = DateTime.Now.Date;
+                        _db.SaveChanges();
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Update), Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
+                else
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.AllFieldsRequired), Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                }
+            }
+            catch (Exception)
+            {
+                response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error.", Data = null };
+                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                resResponse3.MaxJsonLength = int.MaxValue;
+                return resResponse3;
+            }
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "There was a communication error..", Data = null };
+            var resResponse4 = Json(response, JsonRequestBehavior.AllowGet);
+            resResponse4.MaxJsonLength = int.MaxValue;
+            return resResponse4;
+        }
+        #endregion
+
+
         private string ConvertViewToString(string viewName, object model)
         {
             ViewData.Model = model;

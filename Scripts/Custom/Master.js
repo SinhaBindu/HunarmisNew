@@ -509,7 +509,7 @@ function BindCourseSessionTopices(ElementId, SelectedValue, SelectAll, Para) {
     //console.log('select value-'+SelectedValue);
     $('#' + ElementId).trigger("chosen:updated");
 }
-function BindModuleWiseBatches(ElementId, SelectedValue, SelectAll, Para1,Para2,Para3) {
+function BindModuleWiseBatches(ElementId, SelectedValue, SelectAll, Para1,Para2,Para3,Para4) {
     debugger;
     $('#' + ElementId).empty();
     $('#' + ElementId).prop("disabled", false);
@@ -518,7 +518,7 @@ function BindModuleWiseBatches(ElementId, SelectedValue, SelectAll, Para1,Para2,
         //url: document.baseURI + "/Master/GetHSCDistrict",
         url: document.baseURI + "Master/GetModuleWiseBatches",
         type: "Post",
-        data: JSON.stringify({ 'SelectAll': SelectAll, 'ModuleType': Para1, 'CourseId': Para2, 'BatchId': Para3 }),
+        data: JSON.stringify({ 'SelectAll': SelectAll, 'ModuleType': Para1, 'CourseId': Para2, 'BatchId': Para3, 'TrainingCenterId': Para4 }),
         contentType: "application/json; charset=utf-8",
         //global: false,
         async: false,

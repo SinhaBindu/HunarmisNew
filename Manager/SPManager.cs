@@ -262,6 +262,17 @@ namespace Hunarmis.Manager
             return dt;
         }
         #endregion
+        #region Batch Assign
+        public static DataTable SP_GetPartlistBatchNoAssign(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_GetPartlistBatchNoAssign");
+            sp.Command.AddParameter("@CourseId", Convert.ToInt32(model.CourseId), DbType.Int32);
+            sp.Command.AddParameter("@TrainingCenterId",Convert.ToInt32(model.TrainingCenterID), DbType.Int32);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        #endregion
+
         #region Login For Participant
         public static DataTable SP_LoginForParticipantCheck(ParticipantLoginModel model)
         {
