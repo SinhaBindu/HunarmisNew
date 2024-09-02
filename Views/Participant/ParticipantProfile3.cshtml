@@ -247,18 +247,16 @@
     }
 
 
-    .highcharts-label text {
+   .highcharts-label text {
         color: #000 !important;
         font-size: 12px !important;
         font-weight: 600 !important;
         fill: #000 !important;
     }
-
     .highcharts-text-outline {
         stroke: none !important;
         fill: #000 !important;
     }
-
     .highcharts-legend-item text {
         color: #000 !important;
         font-size: 12px !important;
@@ -272,31 +270,28 @@
         font-weight: normal !important;
         fill: #000 !important;
     }
-
     .card-box .f-26 {
-        color: #e43949;
-        background: -webkit-linear-gradient(#e43949, #FFD86F);
+        color: #000;
+        background: -webkit-linear-gradient(#000, #A1D6B2, #000);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    .bg-light-primary {
-        background: -webkit-linear-gradient(180deg, #FFD86F, #e43949) !important;
-        background: linear-gradient(180deg, #FFD86F, #e43949) !important;
+    .main-content-card {
+        background: linear-gradient(45deg, #fdfdfd 5%, #fff 10%, #ccc 30%, #ddd 50%, #ccc 70%, #fff 80%, #999 95%);
+        border-radius: 10px;
+        box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
     }
-    .bg-light-secondary{
-        background: -webkit-linear-gradient(50deg, #45cafc, #303f9f) !important;
-        background: linear-gradient(40deg, #45cafc, #303f9f) !important;
+    .bg-light-primary {
+        background: #fff !important;
+    }
+    .bg-light-secondary {
+        background: #fff !important;
     }
     .bg-light-tertiary {
-        background: -webkit-linear-gradient(50deg, #2096ff, #05ffa3) !important;
-        background: linear-gradient(40deg, #2096ff, #05ffa3) !important;
+        background: #fff !important;
     }
     .bg-light-ifno {
-        background: -webkit-linear-gradient(50deg, #ff6ec4, #7873f5) !important;
-        background: linear-gradient(40deg, #ff6ec4, #7873f5) !important;
-    }
-    .rounded{
-        border-radius:10px !important;
+        background: #fff !important;
     }
     .flex-shrink-0 {
         align-items: center;
@@ -304,18 +299,33 @@
         height: 60px;
         justify-content: center;
         width: 60px;
-        border-radius: 15px;
-        -webkit-box-shadow: 0 4px 20px 1px rgba(0, 0, 0, .06), 0 1px 4px rgba(0, 0, 0, .08);
-        box-shadow: 0 4px 20px 1px rgba(0, 0, 0, .06), 0 1px 4px rgba(0, 0, 0, .08);
-        padding: 10px;
+        border-radius: 15% 35%;
+        -webkit-box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
+        box-shadow: 5px 5px 1px rgb(0 0 0 / 8%);
     }
+    .nano-content .profile-wrap {
+        padding: 10px !important;
+        font-size: 18px;
+        color: #000;
+        border-top: none;
+        border-bottom: none;
+        font-weight: 600;
+        line-height: 22px;
+        background: linear-gradient(45deg, #fdfdfd 5%, #fff 10%, #ccc 30%, #ddd 50%, #ccc 70%, #fff 80%, #999 95%) !important;
+    }
+    .nano-content .semi-titles {
+        font-size: 14px;
+        color: #333;
+        font-weight: 500;
+    }
+
 </style>
 <div class="container-fluid">
     <div class="row mt-20">
         @if (dt != null && dt.Rows.Count > 0)
         {
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card rounded">
+                <div class="card card-box p-0 main-content-card">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -325,15 +335,14 @@
                                 <h3 class="f-26 count">@dt.Rows[0]["Enrollments"]</h3>
                             </div>
                             <div class="flex-shrink-0 bg-light-primary">
-                                <img width="64" height="64" src="https://img.icons8.com/wired/64/FFFFFF/create-new.png" alt="create-new" />
-                                @*<img src="~/Content/images/enrollment.png" alt="Enrollments" />*@
+                                <img src="~/Content/images/enrollment.png" alt="Enrollments" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card rounded">
+                <div class="card card-box p-0 main-content-card">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -343,15 +352,14 @@
                                 <h3 class="f-26 count">@dt.Rows[0]["TrainingCompletions"]</h3>
                             </div>
                             <div class="flex-shrink-0 bg-light-secondary">
-                                @*<img src="~/Content/images/trainign.png" alt="Training Completions" />*@
-                                <img width="58" height="58" src="https://img.icons8.com/external-sbts2018-outline-sbts2018/58/FFFFFF/external-training-lean-thinking-sbts2018-outline-sbts2018.png" alt="external-training-lean-thinking-sbts2018-outline-sbts2018" />
+                                <img src="~/Content/images/trainign.png" alt="Training Completions" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card rounded">
+                <div class="card card-box p-0 main-content-card">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -361,15 +369,14 @@
                                 <h3 class="f-26 count">@dt.Rows[0]["LearnersCertified"]</h3>
                             </div>
                             <div class="flex-shrink-0 bg-light-tertiary">
-                                <img width="64" height="64" src="https://img.icons8.com/external-outline-lafs/64/FFFFFF/external-certified-distance-education-outline-part-1-outline-lafs.png" alt="external-certified-distance-education-outline-part-1-outline-lafs" />
-                                @*<img src="~/Content/images/certified.png" alt="Learners certified" />*@
+                                <img src="~/Content/images/certified.png" alt="Learners certified" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card rounded">
+                <div class="card card-box p-0 main-content-card">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -378,9 +385,8 @@
                                 </div>
                                 <h3 class="f-26 count">@dt.Rows[0]["Placements"]</h3>
                             </div>
-                            <div class="flex-shrink-0 bg-light-ifno">
-                                <img width="64" height="64" src="https://img.icons8.com/external-solid-design-circle/64/FFFFFF/external-Users-web-design-and-development-solid-design-circle.png" alt="external-Users-web-design-and-development-solid-design-circle" />
-                                @*<img src="~/Content/images/placement.png" alt="placement" />*@
+                            <div class="flex-shrink-0 bg-light-primary">
+                                <img src="~/Content/images/placement.png" alt="placement" />
                             </div>
                         </div>
                     </div>
@@ -699,69 +705,6 @@
 
     }
 
-    var colorsGradients = [{
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0.1, '#fcb60f'],
-            [0.7, '#ff0d22'],
-            [1, '#e73838']
-        ]
-    },
-        {
-            linearGradient: [0, 0, 0, 400],
-            stops: [
-                [0.2, '#0dcaf0'],
-                [0.4, '#45cafc'],
-                [1, '#303f9f']
-            ]
-        },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#408EC6'],
-            [0.2, '#1E2761'],
-            [1, '#7A2048']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#3950FF'],
-            [0.2, '#2e7dd9'],
-            [1, '#3874ba']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#757070'],
-            [1, '#515151']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#b01e8d'],
-            [0.5, '#da16ab'],
-            [1, '#ff3ed1']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#5cfd72'],
-            [0.5, '#3bb44b'],
-            [1, '#27a238']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, 'Amaranth purple'],
-            [0.5, 'Barn red'],
-            [1, 'red']
-        ]
-    }];
     function Graph(jsonData, selector, graphType ='column', title, xAxis, yAxis, property, groupProperty) {
         console.log(jsonData);
         var data = [];
@@ -775,34 +718,13 @@
             categories = [...new Set(jsonData.map(item => item[property]))];
             const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
 
-            //series = groups.map(key => ({
-            //    name: key,
-            //    color: {
-            //        linearGradient: [0, 0, 0, 400],
-            //        stops: [
-            //            [0, 'red'],
-            //            [0.5, 'orange'],
-            //            [1, 'green']
-            //        ]
-            //    },
-            //    data: categories.map(category => {
-            //        const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
-            //        return item ? item.Total : null;
-            //    })
-            //}));
-            var index = 0;
-            series = groups.map(key => {
-                var color = colorsGradients[index];
-                index++;
-                return {
-                    name: key,
-                    color: color,
-                    data: categories.map(category => {
-                        const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
-                        return item ? item.Total : null;
-                    })
-                };
-            });
+            series = groups.map(key => ({
+                name: key,
+                data: categories.map(category => {
+                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+                    return item ? item.Total : null;
+                })
+            }));
 
         }
         else if (graphType == 'stack-bar') {
@@ -820,17 +742,12 @@
                     percentage: item.Percentage
                 });
             });
-            var index = 0;
+
             // Convert series data into Highcharts format
-            series = Object.keys(seriesData).map(gender => {
-                var color = colorsGradients[index];
-                index++;
-                return  {
-                    name: gender,
-                    color: color,
-                    data: seriesData[gender]
-                };
-            });
+            series = Object.keys(seriesData).map(gender => ({
+                name: gender,
+                data: seriesData[gender]
+            }));
 
             // Calculate total per course
             totals = {};
@@ -849,36 +766,26 @@
 
             categories = [...new Set(jsonData.map(item => item[property]))];
             const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
-            var index = 0;
-            series = groups.map(key => {
-                var color = colorsGradients[index];
-                index++;
-                return {
-                    name: key,
-                    color: color,
-                    data: categories.map(category => {
-                        const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
-                        return item ? item.Total : null;
-                    })
-                };
-            });
+
+            series = groups.map(key => ({
+                name: key,
+                data: categories.map(category => {
+                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+                    return item ? item.Total : null;
+                })
+            }));
             console.log(series);
         }
         else if (graphType == 'pie') {
 
             categories = jsonData.map(item => item[property]);
             const totals = jsonData.map(item => item.Total);
-            var index = 0;
-            var seriesData = jsonData.map(item => {
-                var color = colorsGradients[index];
-                index++;
-                return {
-                    name: item[property],
-                    color: color,
-                    y: item.Percentage,
-                    total: item.Total // Add total to each data point
-                };
-            });
+
+            var seriesData = jsonData.map(item => ({
+                name: item[property],
+                y: item.Percentage,
+                total: item.Total // Add total to each data point
+            }));
             series = [{
                 name: 'Percentage',
                 colorByPoint: true,
@@ -906,7 +813,7 @@
         //        y: jsonData[i].Total
         //    });
         //}
-        colors = ['#de5300', '#fbbf07', '#3637e3', '#b640eb', '#1dba2f', '#b500a6', '#003566', '#2ec4b6', '#f4978e', '#2c6e49', '#ffba08', '#f95738', '#d4d700'];
+        colors = ['#A1D6B2', '#FF8A8A', '#F0A8D0', '#D1E9F6', '#E0E5B6', '#FEFFD2', '#CAF4FF', '#D0BFFF'];
         Highcharts.chart(selector, {
             chart: {
                 type: graphType,
@@ -932,7 +839,7 @@
                 series: {
                     stacking: originalGraphType=='stack-bar' ? 'normal' : null,
                     shadow: false,
-                    borderRadius: '0',
+                    borderRadius: '50%',
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,

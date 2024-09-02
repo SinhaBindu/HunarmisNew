@@ -39,6 +39,22 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
+        public ActionResult ParticipantProfile2()
+        {
+            return View();
+        }
+        public ActionResult ParticipantProfile3()
+        {
+            return View();
+        }
+        public ActionResult ParticipantProfile4()
+        {
+            return View();
+        }
+        public ActionResult ParticipantProfile5()
+        {
+            return View();
+        }
         public ActionResult GetDashboard(int mode)
         {
             bool IsCheck = false;
