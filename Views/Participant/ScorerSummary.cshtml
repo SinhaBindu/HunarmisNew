@@ -1,0 +1,187 @@
+﻿@model  Hunarmis.Models.FilterModel
+@using Hunarmis.Manager
+@{
+    ViewBag.Title = "Assessment Score Summary (Participant Wise)";
+    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.SemiTitle = "Score Summary";
+    ViewBag.SemiTitleLink = "/Assessment/ScorerSummary";
+}
+<style>
+    .panel-body {
+        padding: 0px 20px 5px;
+    }
+
+    #ListDataTable #tbl-body tr td {
+        padding: 11px 8px 0 8px !important;
+    }
+
+    .edit-icon .fa {
+        font-size: 17px;
+        color: #3FAEE2;
+    }
+
+    .dataTables_filter input[type="search"] {
+        width: 300px;
+        display: inline-block;
+    }
+</style>
+<div id="page-content">
+    <div class="genral-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-spacer">
+                        <p class="bord-btm pad-ver text-main text-bold">
+                            <i class="fa fa-list spacerright2"></i>
+                            @*@ViewBag.Title*@
+                            <strong id="sg-title" class="text-info"></strong>
+                        </p>
+                    </div>
+                    @using (Html.BeginForm("GetScorerSummary", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
+                    {
+                        <div class="panel-bodys">
+                            <div class="bg-light rounded h-100 p-4">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(m => m.FormId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.FormId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group">
+                                            @Html.LabelFor(m => m.BatchId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left:5%;padding-top:2%">
+                                        <div class="position-relative form-group">
+                                            <strong id="div-download"></strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                    <div class="panel-body">
+                        <div class="row" id="div-main">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Custom/Master.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            BindGetCourses("FormId", "", 0, 0);
+            $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
+            BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+            $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+            LoadReport();
+            //BindModuleWiseBatches("BatchId","",2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(),0)
+            txtf = $('option:selected', $('#FormId')).text();
+            txtb = $('option:selected', $('#BatchId')).text();
+            $('#sg-title').html(txtf + " : " + txtb);
+           // LoadReport();
+            $('#FormId').change(function () {
+                BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
+                txtf = $('option:selected', $(this)).text();
+                txtb = $('option:selected', $('#BatchId')).text();
+                $('#sg-title').html(txtf + " : " + txtb);
+               // LoadReport();
+            })
+            $('#BatchId').change(function () {
+                txtf = $('option:selected', $('#FormId')).text();
+                txtb = $('option:selected', $(this)).text();
+                $('#sg-title').html(txtf + " : " + txtb);
+                LoadReport();
+            })
+
+        });
+        function LoadReport() {
+            $('#div-main').html(""); $("#ListDataTable tbody").html("");
+            $('#div-main').removeClass("text-danger");
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            var id = '#tblList-frm'
+            var url = $(id).attr("action");
+            var User = 'all';
+            var FormId = $("#FormId").val();
+            var BatchId = $("#BatchId").val();
+            $.ajax({
+                // url: url,
+                url: document.baseURI + "/Participant/GetScorerSummary",
+                type: "POST",
+                data: { 'BatchId': BatchId, 'Course': FormId,'CallStatus':'', 'User': User, },
+                // contentType: "application/json",
+                success: function (resp) {
+                    if (resp.IsSuccess) {
+                        //$('#div-Chart').html(resp.Data); $('#div-Chart').addClass("text-black");
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        debugger;
+                        var Datalist = (resp.reshtml);
+                        if (Datalist != null && Datalist != undefined) {
+                            if (Datalist.length > 0) {
+                                $('#div-main').html(Datalist);
+                                //$("#ListDataTable").DataTable();
+                                if ($.fn.dataTable.isDataTable('#ListDataTable')) {
+                                    $("#ListDataTable").dataTable().fnDestroy();
+                                }
+                                table = $('#ListDataTable').DataTable({
+                                    //scrollY: "400px",
+                                    //scrollX: true,
+                                    //scrollCollapse: true,
+                                    "dom": '<"pull-left"f><"pull-right"l>tip',
+                                    paging: false,
+                                    pageLength: 100,
+                                    fixedColumns: {
+                                        leftColumns: 1,
+                                        rightColumns: 1
+                                    },
+                                    order: [[0, 'asc']],
+                                    buttons: [{
+                                        extend: 'excel', text: '<span><i class="fa fa-download"></i>Export To Excel</span>', title: $('#BatchId option:selected').text() + $('#FormId option:selected').text() +' Assessment Score Summary Lists',//$('#IDDistrict option:selected').text() +
+                                        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                        filename: 'Assessment Score Summary List',
+                                        exportOptions: { modifier: { page: 'all' } }
+                                    }],
+                                });
+                                $('#div-download').empty();
+                                table.buttons().container().appendTo($('#div-download'));
+                            }
+                            else {
+
+                                $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                            }
+                        }
+                        else {
+                            $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                        }
+                    }
+                    else {
+                        $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                        //  CreateToasterMessage("Error", response.Message, response.StatusType);
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    $('#div-Chart').html(errormsg); $('#div-Chart').addClass("text-danger");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                }
+            });
+        }
+    </script>
+}
