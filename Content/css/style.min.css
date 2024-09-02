@@ -220,7 +220,8 @@ h1, h2, h3, h4, h5, h6, svg {
 #mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
     color: #fff;
     font-weight: 600;
-    background-color: #A78BFA;
+    background: -webkit-linear-gradient(180deg, #FFD86F, #e43949) !important;
+    background: linear-gradient(180deg, #FFD86F, #e43949) !important;
     margin: 0px;
     padding-left: 13px;
     padding-right: 13px;
@@ -240,7 +241,8 @@ h1, h2, h3, h4, h5, h6, svg {
     border-bottom: none;
     font-weight: 600;
     line-height: 22px;
-    background: #9078d5;
+    background: -webkit-linear-gradient(180deg, #FFD86F, #e43949) !important;
+    background: linear-gradient(180deg, #FFD86F, #e43949) !important;
 }
 .nano-content .semi-titles {
     font-size: 14px;
