@@ -225,6 +225,16 @@ namespace Hunarmis.Manager
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
+        public static DataSet GetSP_ParticipantCallMonthWisematrix(string User,string BatchId,string Course,string CallStatus)
+        {
+            StoredProcedure sp = new StoredProcedure("Usp_ParticipantCallMonthWisematrix");
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.String);
+            sp.Command.AddParameter("@CourseEnrolledID", Course, DbType.String);
+            sp.Command.AddParameter("@AtPresentCallStatus", CallStatus, DbType.String);
+            sp.Command.AddParameter("@User", User, DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
         #endregion
         #region Attendance && Assessment Module
         public static DataTable SP_GetParticipant(FilterModel model)

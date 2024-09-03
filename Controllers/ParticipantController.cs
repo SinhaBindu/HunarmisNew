@@ -1323,6 +1323,38 @@ namespace Hunarmis.Controllers
                 return writer.ToString();
             }
         }
-
+        public ActionResult ScorerSummary()
+        {
+            return View();
+        }
+        public ActionResult GetScorerSummary(string BatchId = "",string Course="",string CallStatus="",string User="")
+        {
+            DataSet ds = new DataSet();
+            DataTable tbllist = new DataTable();
+            try
+            {
+                User = CommonModel.IsRoleLogin();
+                ds = SPManager.GetSP_ParticipantCallMonthWisematrix(User, BatchId,Course,CallStatus);
+                if (ds.Tables.Count > 0)
+                {
+                    tbllist = (ds.Tables[0]);
+                    var html = ConvertViewToString("_ScorerSummaryData", tbllist);
+                    var res = tbllist.Rows.Count > 0 ? Json(new { IsSuccess = true, reshtml = html }, JsonRequestBehavior.AllowGet)
+                        : Json(new { IsSuccess = false, reshtml = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = false, Data = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
     }
 }
