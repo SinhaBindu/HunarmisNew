@@ -42,29 +42,43 @@
                         <div class="panel-bodys">
                             <div class="bg-light rounded h-100 p-4">
                                 <div class="row mb-3">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(m => m.FormId, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.FormId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="position-relative form-group">
                                             @Html.LabelFor(m => m.BatchId, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-md-3" style="padding-left:5%;padding-top:2%">
+                                    <div class="col-md-3">
                                         <div class="position-relative form-group">
-                                            <strong id="div-download"></strong>
+                                            <label class="control-label" for="CallStatus">Total Calls</label>
+                                            <select id="CallStatus" class="form-control select2" required>
+                                                <option value="0">All Times</option>
+                                                <option value="1">One Times</option>
+                                                <option value="2">Two Times</option>
+                                                <option value="3">Three Times</option>
+                                                <option value="4">Four Times</option>
+                                                <option value="5">Five Times</option>
+                                                <option value="6">Six Times</option>
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
+                                            <div class="col-md-3" style="padding-left:5%;padding-top:2%">
+                                                <div class="position-relative form-group">
+                                                    <strong id="div-download"></strong>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
                     }
                     <div class="panel-body">
                         <div class="row" id="div-main">
@@ -109,7 +123,9 @@
                 $('#sg-title').html("Course - " + txtf + " : Batch - " + txtb);
                 LoadReport();
             })
-
+            $("#CallStatus").change(function () {
+                LoadReport();
+            });
         });
         function LoadReport() {
             $('#div-main').html(""); $("#ListDataTable tbody").html("");
@@ -124,7 +140,7 @@
                 // url: url,
                 url: document.baseURI + "/Participant/GetCallSummary",
                 type: "POST",
-                data: { 'BatchId': BatchId, 'Course': FormId,'CallStatus':'', 'User': User, },
+                data: { 'BatchId': BatchId, 'Course': FormId, 'CallStatus': $("#CallStatus").val(), 'User': User, },
                 // contentType: "application/json",
                 success: function (resp) {
                     if (resp.IsSuccess) {
