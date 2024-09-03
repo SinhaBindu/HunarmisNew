@@ -2,7 +2,7 @@
 @using Hunarmis.Manager
 @{
     ViewBag.Title = "Calling Summary (Participant Wise)";
-    ViewBag.TitleIcon = "fa fa-user";
+    ViewBag.TitleIcon = "fa fa-users";
     ViewBag.SemiTitle = "Calling Summary";
     ViewBag.SemiTitleLink = "/Participant/CallSummary";
 }
@@ -32,7 +32,7 @@
                 <div class="panel">
                     <div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>
+                            <i class="fa fa-users spacerright2"></i>
                             @*@ViewBag.Title*@
                             <strong id="sg-title" class="text-info"></strong>
                         </p>
@@ -93,20 +93,20 @@
             //BindModuleWiseBatches("BatchId","",2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(),0)
             txtf = $('option:selected', $('#FormId')).text();
             txtb = $('option:selected', $('#BatchId')).text();
-            $('#sg-title').html(txtf + " : " + txtb);
+            $('#sg-title').html("Course - "+ txtf + " : Batch -  " + txtb);
            // LoadReport();
             $('#FormId').change(function () {
                 BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
                 $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
                 txtf = $('option:selected', $(this)).text();
                 txtb = $('option:selected', $('#BatchId')).text();
-                $('#sg-title').html(txtf + " : " + txtb);
+                $('#sg-title').html("Course - " + txtf + " : Batch - " + txtb);
                // LoadReport();
             })
             $('#BatchId').change(function () {
                 txtf = $('option:selected', $('#FormId')).text();
                 txtb = $('option:selected', $(this)).text();
-                $('#sg-title').html(txtf + " : " + txtb);
+                $('#sg-title').html("Course - " + txtf + " : Batch - " + txtb);
                 LoadReport();
             })
 
