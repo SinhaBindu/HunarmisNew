@@ -1,10 +1,10 @@
 ﻿@model  Hunarmis.Models.FilterModel
 @using Hunarmis.Manager
 @{
-    ViewBag.Title = "Assessment Score Summary (Participant Wise)";
+    ViewBag.Title = "Calling Summary (Participant Wise)";
     ViewBag.TitleIcon = "fa fa-user";
-    ViewBag.SemiTitle = "Score Summary";
-    ViewBag.SemiTitleLink = "/Assessment/ScorerSummary";
+    ViewBag.SemiTitle = "Calling Summary";
+    ViewBag.SemiTitleLink = "/Participant/CallSummary";
 }
 <style>
     .panel-body {
@@ -37,7 +37,7 @@
                             <strong id="sg-title" class="text-info"></strong>
                         </p>
                     </div>
-                    @using (Html.BeginForm("GetScorerSummary", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
+                    @using (Html.BeginForm("GetCallSummary", "Participant", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
                     {
                         <div class="panel-bodys">
                             <div class="bg-light rounded h-100 p-4">
@@ -87,8 +87,8 @@
 
             BindGetCourses("FormId", "", 0, 0);
             $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
-            BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
-            $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+            BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+            $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
             LoadReport();
             //BindModuleWiseBatches("BatchId","",2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(),0)
             txtf = $('option:selected', $('#FormId')).text();
@@ -96,7 +96,8 @@
             $('#sg-title').html(txtf + " : " + txtb);
            // LoadReport();
             $('#FormId').change(function () {
-                BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
+                BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
+                $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
                 txtf = $('option:selected', $(this)).text();
                 txtb = $('option:selected', $('#BatchId')).text();
                 $('#sg-title').html(txtf + " : " + txtb);
@@ -121,7 +122,7 @@
             var BatchId = $("#BatchId").val();
             $.ajax({
                 // url: url,
-                url: document.baseURI + "/Participant/GetScorerSummary",
+                url: document.baseURI + "/Participant/GetCallSummary",
                 type: "POST",
                 data: { 'BatchId': BatchId, 'Course': FormId,'CallStatus':'', 'User': User, },
                 // contentType: "application/json",

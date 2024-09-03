@@ -749,7 +749,7 @@ namespace Hunarmis.Controllers
                                         results += db_.SaveChanges();
                                         var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
                                         var tblcal = db_.tbl_Participant_Calling.Where(x => x.ParticipantId_fk == model.ParticipantId_fk);
-                                        var noofcall = tblcal != null ? tblcal.Count() + 1 : 0;
+                                        var noofcall = tblcal != null ? tblcal.Count() + 1 : 1;
                                         tblpart.CallTempStatus = (int)Enums.eTempCallStatus.CallDone;
                                         tblpart.CallTempReportedBy = MvcApplication.CUser.UserId;
                                         tblpart.CallTempStatusDate = tbl.CreatedOn;
@@ -1323,11 +1323,11 @@ namespace Hunarmis.Controllers
                 return writer.ToString();
             }
         }
-        public ActionResult ScorerSummary()
+        public ActionResult CallSummary()
         {
             return View();
         }
-        public ActionResult GetScorerSummary(string BatchId = "",string Course="",string CallStatus="",string User="")
+        public ActionResult GetCallSummary(string BatchId = "",string Course="",string CallStatus="",string User="")
         {
             DataSet ds = new DataSet();
             DataTable tbllist = new DataTable();
@@ -1338,7 +1338,7 @@ namespace Hunarmis.Controllers
                 if (ds.Tables.Count > 0)
                 {
                     tbllist = (ds.Tables[0]);
-                    var html = ConvertViewToString("_ScorerSummaryData", tbllist);
+                    var html = ConvertViewToString("_CallSummaryData", tbllist);
                     var res = tbllist.Rows.Count > 0 ? Json(new { IsSuccess = true, reshtml = html }, JsonRequestBehavior.AllowGet)
                         : Json(new { IsSuccess = false, reshtml = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
                     res.MaxJsonLength = int.MaxValue;
