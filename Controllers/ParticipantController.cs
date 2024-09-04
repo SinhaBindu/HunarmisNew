@@ -56,6 +56,10 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
+        public ActionResult ParticipantProfile6()
+        {
+            return View();
+        }
         public ActionResult GetDashboard(int mode)
         {
             bool IsCheck = false;

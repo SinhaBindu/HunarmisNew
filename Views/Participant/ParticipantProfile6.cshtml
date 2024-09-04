@@ -1,0 +1,872 @@
+﻿@using Hunarmis.Manager
+@{
+    ViewBag.Title = "Participant Profile";
+
+    var dt = SPManager.SP_Dashboard_TopLegend();
+
+    //var dtGraph = SPManager.SP_Dashboard_Graphs();
+
+}
+@using Hunarmis.Helpers
+<style>
+    .highcharts-label text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-text-outline {
+        stroke: none !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-legend-item text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-axis-labels text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #555 !important;
+    }
+    .highcharts-axis .highcharts-axis-line {
+        stroke: #555 !important;
+        fill: #555 !important;
+    }
+    .bg-light-primary {
+        background: #4443a0 !important;
+    }
+
+    .bg-light-secondary {
+        background: #ae77b8 !important;
+    }
+
+    .bg-light-tertiary {
+        background: #4443a0 !important;
+    }
+
+    .bg-light-info {
+        background: #ae77b8 !important;
+    }
+
+    .nano-content .profile-wrap {
+        padding: 10px !important;
+        font-size: 18px;
+        color: #fff;
+        border-top: none;
+        border-bottom: none;
+        font-weight: 600;
+        line-height: 22px;
+        background: #4443a0 !important;
+    }
+
+    #mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
+        color: #6a4566 !important;
+        font-weight: 600;
+        background: #fff4de !important;
+        margin: 0px;
+        padding-left: 13px;
+        padding-right: 13px;
+        border-radius: 0px;
+    }
+
+    #mainnav-menu .active-sub .main-icon {
+        color: #6a4566 !important;
+    }
+
+    .nano-content .semi-titles {
+        font-size: 14px;
+        color: #f1f1f1;
+        font-weight: 500;
+    }
+
+    .main-content-card:before {
+        content: none;
+    }
+
+    #footer, .bootom-fixed {
+        background: #f59678 !important;
+        height: 43px;
+    }
+
+    .flex-shrink-0 {
+        align-items: center;
+        display: flex;
+        height: 60px;
+        justify-content: center;
+        width: 60px;
+        background: #fff;
+        border-radius: 50%;
+        font-size: 36px;
+        box-shadow: none;
+    }
+
+    .bg-light-primary .flex-shrink-0 i {
+        color: #4443a0;
+    }
+
+    .bg-light-secondary .flex-shrink-0 i {
+        color: #ae77b8;
+    }
+
+    .bg-light-tertiary .flex-shrink-0 i {
+        color: #4443a0;
+    }
+
+    .bg-light-info .flex-shrink-0 i {
+        color: #ae77b8;
+    }
+
+    .card-box .f-26 {
+        font-size: 32px;
+        color:#fff;
+    }
+
+    .card-box .f-14 {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase !important;
+        margin: 0px;
+        margin-bottom: 0px;
+        letter-spacing: 0.5px;
+        width: calc(100% - 49px);
+        text-align: left;
+        margin-left: 50px;
+        text-transform: capitalize;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+    }
+
+    .gap-2 {
+        gap: 10px;
+    }
+
+    .card-box {
+        border-radius: 0px;
+    }
+
+    .card-head {
+        color: #555;
+    }
+    .mb-0{
+        margin-bottom:0px !important;
+    }
+    .shadow-none {
+        box-shadow: none !important;
+    }
+    #footer, .bootom-fixed {
+        background: #4443a0 !important;
+        height: 43px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row mt-20">
+        <div class="col-xs-12 col-md-12">
+            <div class="card card-box mb-10">
+                <div class="row">
+                    @if (dt != null && dt.Rows.Count > 0)
+                    {
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card card-box p-0 main-content-card bg-light-primary mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">@dt.Rows[0]["Enrollments"]</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14">Enrollments</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card card-box p-0 main-content-card bg-light-secondary mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-newspaper-o"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">@dt.Rows[0]["TrainingCompletions"]</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14">Training Completions</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card card-box p-0 main-content-card bg-light-tertiary mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-check" aria-hidden="true" style="position: absolute;color: #fff;font-size: 15px;"></i>
+                                        <i class="fa fa-certificate"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">@dt.Rows[0]["LearnersCertified"]</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14">Learners certified</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card card-box p-0 main-content-card bg-light-info mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-briefcase"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">@dt.Rows[0]["Placements"]</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14">Placements</h5>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Age Group</div>
+                    <div class="tools">
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection4_AgeGroup"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Location</div>
+                    <div class="tools">
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection4_Location"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Average No. of Family Members per household</div>
+                    <div class="tools">
+                        <select id="ddlSection5FamilyMembers" class="form-control form-control-custom">
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection5_FamilyMembers"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Average Annual Household Income</div>
+                    <div class="tools">
+                        <select id="ddlSection5AnnualHousehold" class="form-control form-control-custom">
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection5_AnnualHousehold"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Educational Qualification</div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection5_Qualification"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div style="padding: 0px 20px 20px;">
+    <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
+        Participant Profile
+    </div>
+    <hr style="border: 4px double #f9841b; margin: 0px; " />
+</div>*@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script>
+    $('.count').each(function () {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('.tab-btn').on('click', function () {
+            $('.tab-btn').removeClass('act');
+            $(this).addClass('act');
+        })
+
+
+        $("#ddlSection1").change(function (e) {
+            if ($(this).val() == 'Location') {
+                $('#figureSection1_Course').hide();
+                $('#figureSection1_Location').show();
+            } else {
+                $('#figureSection1_Course').show();
+                $('#figureSection1_Location').hide();
+            }
+        });
+
+        $("#ddlSection2").change(function (e) {
+            if ($(this).val() == 'Location') {
+                $('#figureSection2_Course').hide();
+                $('#figureSection2_Location').show();
+            } else {
+                $('#figureSection2_Course').show();
+                $('#figureSection2_Location').hide();
+            }
+        });
+
+        $("#ddlSection3").change(function (e) {
+            if ($(this).val() == 'Location') {
+                $('#figureSection3_Course').hide();
+                $('#figureSection3_Location').show();
+            } else {
+                $('#figureSection3_Course').show();
+                $('#figureSection3_Location').hide();
+            }
+        });
+
+        $("#ddlSection5FamilyMembers").change(function (e) {
+            Section5FamilyMembers($(this).val());
+        });
+        $("#ddlSection5AnnualHousehold").change(function (e) {
+            Section5AnnualHousehold($(this).val());
+        });
+
+        //section1();
+        //section2();
+        //section3();
+        section4();
+        section5();
+    });
+
+    function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+
+    function replaceAll(str, find, replace) {
+        return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+    }
+
+    function section1() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 1 },
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection1_Course', 'column', '', 'Course', '', 'CourseName');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection1_Location', 'column', '', 'Location', '', 'DistrictName');
+
+                }
+            }
+        });
+    }
+
+    function section2() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 2 },
+
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection2_Course', 'stack-bar', '', 'Course', '', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection2_Location', 'stack-bar', '', 'Location', '', 'DistrictName', 'Gender');
+                }
+            }
+        });
+    }
+
+    function section3() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 3 },
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    Graph(JSON.parse(data.CourseJsonData), 'containerSection3_Course', 'column-group', '', 'Course', '', 'CourseName', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection3_Location', 'column-group', '', 'Location', '', 'DistrictName', 'Gender');
+                }
+            }
+        });
+    }
+
+    function section4() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 4 },
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', '', 'AgeRange', 'Gender');
+                    Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', '', 'DistrictName', '');
+                }
+            }
+        });
+    }
+    familyMembersJsonDataSection5 = [];
+    annualHouseholdJsonDataSection5 = [];
+    function section5() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 5 },
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+
+                    familyMembersJsonDataSection5 = JSON.parse(data.FamilyMembersJsonData);
+                    var familyMemberDistricts = [...new Set(familyMembersJsonDataSection5.map(item => item.DistrictName))];
+                    var familyMemberSelectedDistrict = familyMemberDistricts[0];
+                    var ddlSection5FamilyMembers = $('#ddlSection5FamilyMembers');
+                    $.each(familyMemberDistricts, function (index, text) {
+                        ddlSection5FamilyMembers.append($('<option></option>').val(text).html(text));
+                    });
+                    ddlSection5FamilyMembers.val(familyMemberSelectedDistrict);
+                    Section5FamilyMembers(familyMemberSelectedDistrict);
+
+                    annualHouseholdJsonDataSection5 = JSON.parse(data.AnnualHouseholdJsonData);
+                    var annualHouseholdDistricts = [...new Set(annualHouseholdJsonDataSection5.map(item => item.DistrictName))];
+                    var annualHouseholdSelectedDistrict = annualHouseholdDistricts[0];
+                    var ddlSection5AnnualHousehold = $('#ddlSection5AnnualHousehold');
+                    $.each(annualHouseholdDistricts, function (index, text) {
+                        ddlSection5AnnualHousehold.append($('<option></option>').val(text).html(text));
+                    });
+                    ddlSection5AnnualHousehold.val(annualHouseholdSelectedDistrict);
+                    Section5AnnualHousehold(annualHouseholdSelectedDistrict);
+
+
+                    Graph(JSON.parse(data.QualificationJsonData), 'containerSection5_Qualification', 'pie', '', 'Qualification', '', 'QualificationName', '');
+
+
+
+
+                }
+            }
+        });
+    }
+
+    function Section5FamilyMembers(selectedDistrict) {
+
+        var familyMembersJsonData = familyMembersJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
+        Graph(familyMembersJsonData, 'containerSection5_FamilyMembers', 'column-group', '', 'Location', '', 'NoofFamilyMembers', 'DistrictName');
+    }
+    function Section5AnnualHousehold(selectedDistrict) {
+
+        var annualHouseholdJsonData = annualHouseholdJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
+        Graph(annualHouseholdJsonData, 'containerSection5_AnnualHousehold', 'column-group', '', 'Location', '', 'AnnualHouseholdincome', 'DistrictName');
+
+    }
+
+    function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, property, groupProperty) {
+        console.log(jsonData);
+        var data = [];
+        var categories = [];
+        var series = [];
+        var totals = [];
+        var originalGraphType = graphType;
+        if (graphType == 'bar-group') {
+            graphType = 'bar';
+
+            categories = [...new Set(jsonData.map(item => item[property]))];
+            const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
+
+            series = groups.map(key => ({
+                name: key,
+                data: categories.map(category => {
+                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+                    return item ? item.Total : null;
+                })
+            }));
+
+        }
+        else if (graphType == 'stack-bar') {
+            graphType = 'bar';
+            // Prepare the series data
+            const seriesData = {};
+            categories = jsonData.map(item => item[property]);
+            jsonData.forEach(item => {
+                if (!seriesData[item[groupProperty]]) {
+                    seriesData[item[groupProperty]] = [];
+                }
+                seriesData[item.Gender].push({
+                    name: item[property],
+                    y: item.Total,
+                    percentage: item.Percentage
+                });
+            });
+
+            // Convert series data into Highcharts format
+            series = Object.keys(seriesData).map(gender => ({
+                name: gender,
+                data: seriesData[gender]
+            }));
+
+            // Calculate total per course
+            totals = {};
+            jsonData.forEach(item => {
+                if (!totals[item[property]]) {
+                    totals[item[property]] = 0;
+                }
+                totals[item[property]] += item.Total;
+            });
+
+            console.log(totals);
+        }
+        else if (graphType == 'column-group') {
+            graphType = 'column';
+
+
+            categories = [...new Set(jsonData.map(item => item[property]))];
+            const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
+
+            series = groups.map(key => ({
+                name: key,
+                data: categories.map(category => {
+                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+                    return item ? item.Total : null;
+                })
+            }));
+            console.log(series);
+        }
+        else if (graphType == 'pie') {
+
+            categories = jsonData.map(item => item[property]);
+            const totals = jsonData.map(item => item.Total);
+
+            var seriesData = jsonData.map(item => ({
+                name: item[property],
+                y: item.Percentage,
+                total: item.Total // Add total to each data point
+            }));
+            series = [{
+                name: 'Percentage',
+                colorByPoint: true,
+                data: seriesData
+            }];
+
+            console.log(series);
+        }
+        else {
+
+            categories = jsonData.map(item => item[property]);
+            const totals = jsonData.map(item => item.Total);
+
+            series = [{
+                showInLegend: false,
+                name: property,
+                data: totals
+            }];
+            console.log(series);
+        }
+
+        //for (var i = 0; i < jsonData.length; i++) {
+        //    data.push({
+        //        name: jsonData[i][property],
+        //        y: jsonData[i].Total
+        //    });
+        //}
+        colors = ['#4443a0', '#ae77b8', '#1D4E89', '#1C558E', '#1A5B92', '#16679A', '#0F80AA', '#2ec4b6'];
+        Highcharts.chart(selector, {
+            chart: {
+                type: graphType,
+                backgroundColor: 'rgba(0,0,0,0)',
+                color: '#fff',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                innerSize: '50%' // Make it a donut chart
+            },
+            title: {
+                text: title,
+                align: 'left',
+                style: {
+
+                    //display: 'none'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    stacking: originalGraphType == 'stack-bar' ? 'normal' : null,
+                    shadow: false,
+                    borderRadius: graphType == 'pie' ? '0%' : '0%',
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.0f}',
+                        inside: originalGraphType == 'stack-bar', // Set this to false to place labels outside
+                        crop: originalGraphType == 'stack-bar', // Prevent labels from being cropped
+                        overflow: 'none', // Prevent labels from overflowing the chart area
+                        format: '{point.y:.0f}',
+                        //formatter: function () {
+                        //    // Automatically place labels inside or outside
+                        //    if (this.y < 25) { // Threshold (you can adjust this)
+                        //        return `<span style="color:black;">${this.y}</span>`;
+                        //    } else {
+                        //        return `<span style="color:white;">${this.y}</span>`;
+                        //    }
+                        //},
+                        style: {
+                            fontSize: 12,
+                            borderWidth: 0
+                            //display: 'none'
+                        }
+                    },
+
+                },
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.y}%'
+                    },
+                    showInLegend: true
+                },
+                //column: {
+                //    dataLabels: {
+                //        enabled: true,
+                //        inside: false,
+                //        formatter: function () {
+                //            return this.y;
+                //        }
+                //    }
+                //}
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                //pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +               '<b>{point.y:.0f}</b><br/>'
+                formatter: function () {
+                    console.log(this);
+                    // Check if point.total is not null or undefined
+                    const value = this.point.options && this.point.options.total
+                        ? this.point.options.total
+                        : this.point.y;
+
+                    return `<span style="font-size:12px;color:${this.color}">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
+                        `<span style="color:${this.point.color}">${this.point.name ? this.point.name : this.x}</span>: ` +
+                        `<b style="color:${this.color}">${value}</b><br/>`;
+                }
+            },
+            colors: colors,
+            xAxis: {
+                categories: categories,
+                labels: {
+                    //style: {
+                    //    fontSize: 12
+                    //},
+                },
+            },
+            yAxis: {
+                visible: false,
+                labels: {
+                    style: {
+                        //fontSize: 12
+                        display: 'none'
+                    },
+                },
+                title: {
+                    text: yAxis,
+                    //style: {
+                    //    fontSize: 12
+                    //},
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: ( // theme
+                            Highcharts.defaultOptions.title.style &&
+                            Highcharts.defaultOptions.title.style.color
+                        ) || 'gray'
+                    },
+                    formatter: function () {
+                        console.log(this)
+                        return this.total;
+                    }
+                }
+            },
+            series: series
+        });
+
+    }
+
+    function genderGraph() {
+        @*jsonData = JSON.parse(replaceAll('@dtGraph.Rows[0]["GenderJsonData"]', '&quot;', '"'));*@
+            jsonData =[];
+        console.log(jsonData);
+        var data = [];
+        for (var i = 0; i < jsonData.length; i++) {
+            data.push([jsonData[i].Gender, jsonData[i].Total, jsonData[i].Percentage]);
+        }
+
+        chart = Highcharts.chart('containerGender', {
+            title: {
+                text: 'Gender',
+                align: 'center',
+                style: {
+                    display: 'none'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            //subtitle: {
+            //    useHTML: true,
+            //    text: getSubtitle(),
+            //    floating: true,
+            //    verticalAlign: 'middle',
+            //    y: 30
+            //},
+            legend: {
+                enabled: true
+            },
+            //tooltip: {
+            //    valueDecimals: 0,
+            //    valueSuffix: ' Participaints'
+            //},
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
+                    '<b>{point.y:.2f}({point.percentage:.2f}%)</b> of total<br/>'
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    colorByPoint: true,
+                    type: 'pie',
+                    size: '100%',
+                    //borderRadius: '50%',
+                    innerSize: '50%',
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        distance: '-10%',
+                        style: {
+                            fontWeight: 'bold',
+                            fontSize: '16px'
+                        },
+                        connectorWidth: 0
+                    }
+                }
+            },
+            colors: ['#ea599f', '#6ec9ee', '#8a80bc'],
+            series: [
+                {
+                    type: 'pie',
+                    name: 'Gender',
+                    data: data
+                }
+            ]
+        });
+
+    }
+
+
+
+
+
+</script>
