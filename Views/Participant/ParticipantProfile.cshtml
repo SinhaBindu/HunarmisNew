@@ -9,294 +9,81 @@
 }
 @using Hunarmis.Helpers
 <style>
-    body {
-        background: #F5F5F5 !important;
-        height: 100vh;
-    }
-
-    img {
-        width: 100%;
-        height: auto
-    }
-
-    .bgr-icon {
-        width: 26px;
-        margin-top: -4px
-    }
-
-    .dashboard-box {
-        margin: 15px 15px 5px;
-        display: flex;
-        gap: 2%;
-        flex-wrap: wrap;
-    }
-
-    .d-box {
-        flex-basis: 23.4%;
-        border-radius: 6px;
-        background: #fff;
-        padding-bottom: 12px;
-        margin-bottom: 10px;
-        box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
-    }
-
-        .d-box p, .txt-white p {
-            float: right;
-            margin: 13px 10px 0 0;
-            font-size: 22px;
-            padding: 6px 10px;
-            color: #242424;
-            width: 45px;
-            text-align: center;
-            border-radius: 6px;
-        }
-
-        .d-box h3 {
-            margin: 15px 10px 19px;
-            font-size: 30px;
-            color: #495057;
-        }
-
-        .d-box span {
-            padding-left: 10px;
-            font-size: 14px;
-            color: #9E9AA3;
-            text-transform: uppercase;
-        }
-
-    .dbg1 {
-        background: #8673F6
-    }
-
-    .dbg2 {
-        background: #6A4566
-    }
-
-    .dbg3 {
-        background: #4397C7
-    }
-
-    .dbg4 {
-        background: #D89428
-    }
-
-    .dbg5 {
-        background: #4765CA
-    }
-
-    .bgr1 {
-        background: #E5E2F6;
-        color: #8A77F4 !important
-    }
-
-    .bgr2 {
-        background: #D6F0ED;
-        color: #3EB7A1 !important
-    }
-
-    .bgr3 {
-        background: #DAECFA;
-        color: #299CDB !important;
-    }
-
-    .bgr4 {
-        background: #FFF2DB;
-        color: #F7B84B !important;
-    }
-
-    .bgr5 {
-        background: #DBE0EF;
-        color: #405189 !important;
-    }
-
-    .data-box-1, .data-box-2, .data-box-3 {
-        display: flex;
-        gap: 25px;
-        margin: 0 15px 15px;
-    }
-
-    .boxe {
-        background: #fff;
-        border-radius: 10px;
-        flex: 1;
-        box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
-    }
-
-    .data-box-1 h2, .data-box-2 h2, .data-box-3 h2 {
-        font-size: 19px;
-        font-weight: bold;
-        text-transform: capitalize;
-        color: #6A4566;
-        padding: 0 15px
-    }
-
-    .data-box-1 p, .data-box-2 p, .data-box-3 p {
-        padding: 0 15px;
-    }
-
-    .flx2 {
-        flex: 2
-    }
-
-    .flx1 {
-        flex: 1
-    }
-
-    .tabber {
-        float: right;
-        background: #F4F4F4;
-        border-radius: 20px;
-        margin-top: -6px;
-    }
-
-        .tabber a {
-            display: inline-block;
-            padding: 12px 14px;
-            color: #000000;
-            font-weight: normal;
-            font-size: 14px;
-        }
-
-    .act {
-        background: #8A77F4;
-        color: #fff !important;
-        border-radius: 20px;
-    }
-
-    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+   .navbar-top-links > li > a:not(.mainnav-toggle) > i {
         color: #040404
-    }
-
-    #page-head {
-        display: none;
-    }
-
-    #navbar-container {
-        background-color: #fff;
-    }
-
-    .navbar-top-links > li > a {
-        color: #040404;
-        border-left: 1px solid #ECF0F5 !important;
-    }
-
-    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
-        color: #040404;
-    }
-
-        .navbar-top-links .tgl-menu-btn > a:focus {
-            color: #040404;
-        }
-
-    .navbar-top-links:first-child {
-        margin-left: 0px !important;
-    }
-
-    .navbar-top-links .tgl-menu-btn > a, .navbar-top-links .tgl-menu-btn > a:hover {
-        color: #040404;
-    }
-
-    #container .badge:not(.badge-default) {
-        color: #040404;
-    }
-
-    .navbar-top-links > .open > a, .navbar-top-links > .open > a:focus {
-        background: #8A77F4 !important
-    }
-
-    .navbar-top-links > li > a:hover {
-        background: #8A77F4 !important
     }
 
     .navbar-brand {
         padding: 0 5px;
     }
 
-    .dashboard-title {
-        font-size: 24px;
-        position: absolute;
-        top: 13px;
-        z-index: 999;
-        left: 55px;
-        color: #5A3653
-    }
-
-    .brand-text {
-        color: #454845;
-        margin-left: 10px;
-    }
-
-    .navbar-header:before {
-        background: #fff !important
-    }
-
-    .count-box {
-        display: flex;
-        margin-left: 10px
-    }
-
-    .d-box .count-box h3 {
-        margin: 15px 2px 19px;
-    }
-
-    .form-box-select {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0px 10px;
-    }
-
 
     .highcharts-label text {
-        color: #000 !important;
+        color: #333 !important;
         font-size: 12px !important;
-        font-weight: 600 !important;
-        fill: #000 !important;
+        font-weight: 500 !important;
+        fill: #333 !important;
     }
 
     .highcharts-text-outline {
         stroke: none !important;
-        fill: #000 !important;
+        fill: #333 !important;
     }
 
     .highcharts-legend-item text {
-        color: #000 !important;
+        color: #333 !important;
         font-size: 12px !important;
         font-weight: normal !important;
-        fill: #000 !important;
+        fill: #333 !important;
     }
 
     .highcharts-axis-labels text {
-        color: #000 !important;
+        color: #333 !important;
         font-size: 12px !important;
         font-weight: normal !important;
-        fill: #000 !important;
+        fill: #333 !important;
     }
-
-    .card-box .f-26 {
-        color: #e43949;
-        background: -webkit-linear-gradient(#e43949, #FFD86F);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    .nano-content .profile-wrap {
+        background: #0d47a1 !important;
+    }
+    #mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
+        background: #1976d2 !important;
     }
     .bg-light-primary {
-        background: -webkit-linear-gradient(180deg, #FFD86F, #e43949) !important;
-        background: linear-gradient(180deg, #FFD86F, #e43949) !important;
+        background: #1976d2 !important;
     }
-    .bg-light-secondary{
-        background: -webkit-linear-gradient(50deg, #45cafc, #303f9f) !important;
-        background: linear-gradient(40deg, #45cafc, #303f9f) !important;
+    .bg-light-secondary {
+        background: #1976d2 !important;
     }
     .bg-light-tertiary {
-        background: -webkit-linear-gradient(50deg, #2096ff, #05ffa3) !important;
-        background: linear-gradient(40deg, #2096ff, #05ffa3) !important;
+        background: #1976d2 !important;
     }
-    .bg-light-ifno {
-        background: -webkit-linear-gradient(50deg, #ff6ec4, #7873f5) !important;
-        background: linear-gradient(40deg, #ff6ec4, #7873f5) !important;
+    .bg-light-info {
+        background: #1976d2 !important;
     }
-    .rounded{
-        border-radius:10px !important;
+    .card-box .f-26 {
+        color: #0d47a1;
+    }
+
+        .card-box .f-26.box2 {
+            color: #0d47a1;
+        }
+
+        .card-box .f-26.box3 {
+            color: #0d47a1;
+        }
+
+        .card-box .f-26.box4 {
+            color: #0d47a1;
+        }
+    .card-box .f-14 {
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0px;
+        margin-bottom: 10px;
+        letter-spacing: 0px;
+        color: #0d47a1;
     }
     .flex-shrink-0 {
         align-items: center;
@@ -304,14 +91,16 @@
         height: 60px;
         justify-content: center;
         width: 60px;
-        border-radius: 15px;
-        -webkit-box-shadow: 0 4px 20px 1px rgba(0, 0, 0, .06), 0 1px 4px rgba(0, 0, 0, .08);
-        box-shadow: 0 4px 20px 1px rgba(0, 0, 0, .06), 0 1px 4px rgba(0, 0, 0, .08);
-        padding: 10px;
+        background: #fff;
+        border-radius: 50%;
+        font-size: 36px;
+        box-shadow: none;
+    }
+    .flex-shrink-0 i{
+        color: #fff;
     }
     #footer, .bootom-fixed {
-       background: -webkit-linear-gradient(180deg, #FFD86F, #e43949) !important;
-        background: linear-gradient(180deg, #FFD86F, #e43949) !important;
+        background: #0d47a1 !important;
         height: 43px;
     }
 </style>
@@ -320,7 +109,7 @@
         @if (dt != null && dt.Rows.Count > 0)
         {
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card rounded">
+                <div class="card card-box p-0 main-content-card">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -330,62 +119,59 @@
                                 <h3 class="f-26 count">@dt.Rows[0]["Enrollments"]</h3>
                             </div>
                             <div class="flex-shrink-0 bg-light-primary">
-                                <img width="64" height="64" src="https://img.icons8.com/wired/64/FFFFFF/create-new.png" alt="create-new" />
-                                @*<img src="~/Content/images/enrollment.png" alt="Enrollments" />*@
+                                <i class="fa fa-pencil-square-o"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card rounded">
+                <div class="card card-box p-0 main-content-card">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <div class="d-flex gap-2">
                                     <h5 class="f-14">Training Completions</h5>
                                 </div>
-                                <h3 class="f-26 count">@dt.Rows[0]["TrainingCompletions"]</h3>
+                                <h3 class="f-26 count box2">@dt.Rows[0]["TrainingCompletions"]</h3>
                             </div>
                             <div class="flex-shrink-0 bg-light-secondary">
-                                @*<img src="~/Content/images/trainign.png" alt="Training Completions" />*@
-                                <img width="58" height="58" src="https://img.icons8.com/external-sbts2018-outline-sbts2018/58/FFFFFF/external-training-lean-thinking-sbts2018-outline-sbts2018.png" alt="external-training-lean-thinking-sbts2018-outline-sbts2018" />
+                                <i class="fa fa-newspaper-o"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card rounded">
+                <div class="card card-box p-0 main-content-card ">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <div class="d-flex gap-2">
                                     <h5 class="f-14">Learners certified</h5>
                                 </div>
-                                <h3 class="f-26 count">@dt.Rows[0]["LearnersCertified"]</h3>
+                                <h3 class="f-26 count box3">@dt.Rows[0]["LearnersCertified"]</h3>
                             </div>
                             <div class="flex-shrink-0 bg-light-tertiary">
-                                <img width="64" height="64" src="https://img.icons8.com/external-outline-lafs/64/FFFFFF/external-certified-distance-education-outline-part-1-outline-lafs.png" alt="external-certified-distance-education-outline-part-1-outline-lafs" />
-                                @*<img src="~/Content/images/certified.png" alt="Learners certified" />*@
+                                <i class="fa fa-check" aria-hidden="true" style="position: absolute; color: #2196f3; font-size: 15px;"></i>
+                                <i class="fa fa-certificate"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card card-box p-0 main-content-card rounded">
+                <div class="card card-box p-0 main-content-card ">
                     <div class="card-body" style="padding:15px;">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <div class="d-flex gap-2">
                                     <h5 class="f-14">Placements</h5>
                                 </div>
-                                <h3 class="f-26 count">@dt.Rows[0]["Placements"]</h3>
+                                <h3 class="f-26 count box4">@dt.Rows[0]["Placements"]</h3>
                             </div>
-                            <div class="flex-shrink-0 bg-light-ifno">
-                                <img width="64" height="64" src="https://img.icons8.com/external-solid-design-circle/64/FFFFFF/external-Users-web-design-and-development-solid-design-circle.png" alt="external-Users-web-design-and-development-solid-design-circle" />
-                                @*<img src="~/Content/images/placement.png" alt="placement" />*@
+                            <div class="flex-shrink-0 bg-light-info">
+                                <i class="fa fa-briefcase"></i>
                             </div>
                         </div>
                     </div>
@@ -704,69 +490,6 @@
 
     }
 
-    var colorsGradients = [{
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0.1, '#fcb60f'],
-            [0.7, '#ff0d22'],
-            [1, '#e73838']
-        ]
-    },
-        {
-            linearGradient: [0, 0, 0, 400],
-            stops: [
-                [0.2, '#0dcaf0'],
-                [0.4, '#45cafc'],
-                [1, '#303f9f']
-            ]
-        },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#408EC6'],
-            [0.2, '#1E2761'],
-            [1, '#7A2048']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#3950FF'],
-            [0.2, '#2e7dd9'],
-            [1, '#3874ba']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#757070'],
-            [1, '#515151']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#b01e8d'],
-            [0.5, '#da16ab'],
-            [1, '#ff3ed1']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, '#5cfd72'],
-            [0.5, '#3bb44b'],
-            [1, '#27a238']
-        ]
-    },
-    {
-        linearGradient: [0, 0, 0, 400],
-        stops: [
-            [0, 'Amaranth purple'],
-            [0.5, 'Barn red'],
-            [1, 'red']
-        ]
-    }];
     function Graph(jsonData, selector, graphType ='column', title, xAxis, yAxis, property, groupProperty) {
         console.log(jsonData);
         var data = [];
@@ -780,34 +503,13 @@
             categories = [...new Set(jsonData.map(item => item[property]))];
             const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
 
-            //series = groups.map(key => ({
-            //    name: key,
-            //    color: {
-            //        linearGradient: [0, 0, 0, 400],
-            //        stops: [
-            //            [0, 'red'],
-            //            [0.5, 'orange'],
-            //            [1, 'green']
-            //        ]
-            //    },
-            //    data: categories.map(category => {
-            //        const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
-            //        return item ? item.Total : null;
-            //    })
-            //}));
-            var index = 0;
-            series = groups.map(key => {
-                var color = colorsGradients[index];
-                index++;
-                return {
-                    name: key,
-                    color: color,
-                    data: categories.map(category => {
-                        const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
-                        return item ? item.Total : null;
-                    })
-                };
-            });
+            series = groups.map(key => ({
+                name: key,
+                data: categories.map(category => {
+                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+                    return item ? item.Total : null;
+                })
+            }));
 
         }
         else if (graphType == 'stack-bar') {
@@ -825,17 +527,12 @@
                     percentage: item.Percentage
                 });
             });
-            var index = 0;
+
             // Convert series data into Highcharts format
-            series = Object.keys(seriesData).map(gender => {
-                var color = colorsGradients[index];
-                index++;
-                return  {
-                    name: gender,
-                    color: color,
-                    data: seriesData[gender]
-                };
-            });
+            series = Object.keys(seriesData).map(gender => ({
+                name: gender,
+                data: seriesData[gender]
+            }));
 
             // Calculate total per course
             totals = {};
@@ -854,36 +551,26 @@
 
             categories = [...new Set(jsonData.map(item => item[property]))];
             const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
-            var index = 0;
-            series = groups.map(key => {
-                var color = colorsGradients[index];
-                index++;
-                return {
-                    name: key,
-                    color: color,
-                    data: categories.map(category => {
-                        const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
-                        return item ? item.Total : null;
-                    })
-                };
-            });
+
+            series = groups.map(key => ({
+                name: key,
+                data: categories.map(category => {
+                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+                    return item ? item.Total : null;
+                })
+            }));
             console.log(series);
         }
         else if (graphType == 'pie') {
 
             categories = jsonData.map(item => item[property]);
             const totals = jsonData.map(item => item.Total);
-            var index = 0;
-            var seriesData = jsonData.map(item => {
-                var color = colorsGradients[index];
-                index++;
-                return {
-                    name: item[property],
-                    color: color,
-                    y: item.Percentage,
-                    total: item.Total // Add total to each data point
-                };
-            });
+
+            var seriesData = jsonData.map(item => ({
+                name: item[property],
+                y: item.Percentage,
+                total: item.Total // Add total to each data point
+            }));
             series = [{
                 name: 'Percentage',
                 colorByPoint: true,
@@ -911,7 +598,9 @@
         //        y: jsonData[i].Total
         //    });
         //}
-        colors = ['#de5300', '#fbbf07', '#3637e3', '#b640eb', '#1dba2f', '#b500a6', '#003566', '#2ec4b6', '#f4978e', '#2c6e49', '#ffba08', '#f95738', '#d4d700'];
+        /*colors = ['#0d47a1', '#1565c0', '#1e88e5', '#42a5f5', '#90caf9', '#e3f2fd', '#20bac5', '#bfdbf7'];*/
+        /*colors = ['#0d47a1', '#1976d2', '#2196f3', '#64b5f6', '#bbdefb', '#e3f2fd', '#20bac5', '#bfdbf7'];*/
+        colors = ['#0d47a1', '#1565c0', '#1976d2', '#1e88e5', '#2196f3', '#42a5f5', '#64b5f6', '#90caf9'];
         Highcharts.chart(selector, {
             chart: {
                 type: graphType,
