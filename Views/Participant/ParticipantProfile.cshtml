@@ -286,6 +286,48 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Target Group</div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection6_TargetGroup" style="width: 100%; height: 400px;"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Pre-Training Status</div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection6_PreTrainingStatus" style="width: 100%; height: 400px;"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 @*<div style="padding: 0px 20px 20px;">
@@ -358,6 +400,7 @@
         //section3();
         section4();
         section5();
+        section6();
     });
 
     function escapeRegExp(str) {
@@ -490,6 +533,86 @@
 
     }
 
+    function section6() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 6},
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    Graph(JSON.parse(data.TargetGroupJsonData), 'containerSection6_TargetGroup', 'pie', '', 'Target Group', '', 'TargetGroup', '');
+                    Graph(JSON.parse(data.PreTrainingStatusJsonData), 'containerSection6_PreTrainingStatus', 'pie', '', 'Pre-Training Status', '', 'PreTrainingStatus', '');
+                }
+            }
+        });
+    }
+
+
+    var colorsGradients = [{
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+            [0.1, '#fcb60f'],
+            [0.7, '#ff0d22'],
+            [1, '#e73838']
+        ]
+    },
+        {
+            linearGradient: [0, 0, 0, 400],
+            stops: [
+                [0.2, '#0dcaf0'],
+                [0.4, '#45cafc'],
+                [1, '#303f9f']
+            ]
+        },
+    {
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+            [0, '#408EC6'],
+            [0.2, '#1E2761'],
+            [1, '#7A2048']
+        ]
+    },
+    {
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+            [0, '#3950FF'],
+            [0.2, '#2e7dd9'],
+            [1, '#3874ba']
+        ]
+    },
+    {
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+            [0, '#757070'],
+            [1, '#515151']
+        ]
+    },
+    {
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+            [0, '#b01e8d'],
+            [0.5, '#da16ab'],
+            [1, '#ff3ed1']
+        ]
+    },
+    {
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+            [0, '#5cfd72'],
+            [0.5, '#3bb44b'],
+            [1, '#27a238']
+        ]
+    },
+    {
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+            [0, 'Amaranth purple'],
+            [0.5, 'Barn red'],
+            [1, 'red']
+        ]
+    }];
     function Graph(jsonData, selector, graphType ='column', title, xAxis, yAxis, property, groupProperty) {
         console.log(jsonData);
         var data = [];
