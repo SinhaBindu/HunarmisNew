@@ -129,6 +129,9 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
             sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
             sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
+            sp.Command.AddParameter("@Gender", model.Gender, DbType.String);
+            sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
+            sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

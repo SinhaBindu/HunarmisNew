@@ -127,7 +127,7 @@
                                         <label class="col-lg-12">Gender</label>
                                         <div class="col-lg-12">
                                             <div class="checkbox">
-                                                @foreach (var item in CommonModel.GetGender())
+                                                @foreach (var item in CommonModel.GetGender(false))
                                                 {
                                                     <div class="check-box">
                                                         @Html.RadioButtonFor(model => model.Gender, item.Value, new { id = "Gender" + item.Value, @required = "required" }) @item.Text

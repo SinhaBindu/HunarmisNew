@@ -729,10 +729,13 @@ namespace Hunarmis.Manager
             //list.Add(new SelectListItem { Value = "Other", Text = "Other" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
-        public static List<SelectListItem> GetGender()
+        public static List<SelectListItem> GetGender(bool Sle = true)
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            //list.Add(new SelectListItem { Value = "",  });
+            if (Sle)
+            {
+                list.Add(new SelectListItem { Value = "0", Text = "All" });
+            }
             list.Add(new SelectListItem { Value = "Male", Text = "Male" });
             list.Add(new SelectListItem { Value = "Female", Text = "Female" });
             return list.OrderByDescending(x => x.Text).ToList();

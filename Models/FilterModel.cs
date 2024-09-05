@@ -74,5 +74,7 @@ namespace Hunarmis.Models
 
         [Display(Name = "Placement Tracker")]
         public int IsPlacementTracker { get; set; }
+        [Display(Name = "Gender")]
+        public string Gender { get; set; }
     }
 }

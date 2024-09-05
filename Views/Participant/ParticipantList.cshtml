@@ -162,24 +162,64 @@
                                         <div class="position-relative">
                                             @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-1" })
                                             <div class="col-md-3">
-                                                @Html.DropDownListFor(m => m.CourseId, CommonModel.GetCourses(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @Html.DropDownListFor(m => m.CourseId, CommonModel.GetCourses(true), "Select", htmlAttributes: new { @class = "form-control select2" })
                                                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="position-relative">
                                             @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-md-1" })
                                             <div class="col-md-3">
-                                                @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                                @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2" })
                                                 @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="position-relative">
                                             @Html.LabelFor(model => model.IsPlacementTracker, htmlAttributes: new { @class = "control-label col-md-1" })
-                                            <div class="col-md-2">
-                                                @Html.DropDownListFor(m => m.IsPlacementTracker, CommonModel.GetddlPlacementTracker(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                            <div class="col-md-3">
+                                                @Html.DropDownListFor(m => m.IsPlacementTracker, CommonModel.GetddlPlacementTracker(), "Select", htmlAttributes: new { @class = "form-control select2" })
                                                 @Html.ValidationMessageFor(model => model.IsPlacementTracker, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="position-relative">
+                                            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-2">
+                                                @Html.DropDownListFor(m => m.Gender, CommonModel.GetGender(true).OrderBy(x => x.Text), htmlAttributes: new { @class = "form-control select2" })
+                                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="position-relative">
+                                            @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-2">
+                                                @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @class = "form-control datepickermonth" } })
+                                                @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="position-relative">
+                                            @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label col-md-1" })
+                                            <div class="col-md-2">
+                                                @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @class = "form-control datepickermonth" } })
+                                                @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="position-relative form-group">
+                                                <span class="check-spacer">
+                                                    <input type="submit" name="btnsubmit" id="btnsubmit" class="btn-register" value="Filter" />
+                                                </span>
+                                                <span class="check-spacer">
+                                                    <a href="~/Participant/ParticipantList" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="breaker"></div>
+
                                     </div>
                                 </div>
                             </div>
@@ -225,25 +265,43 @@
             //    /* Role Wise */
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
 
-            $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
-            BindModuleWiseBatches("BatchId", "", 2, '0', $('#CourseId').val(), 0)
-            $('#BatchId').change(function (e) {
-                e.preventDefault();
-                BindData();
+            $("#FromDt").datepicker({
+                //defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                dateFormat: "dd-M-yy",
+                onClose: function (selectedDate) {
+                    $("#ToDt").datepicker("option", "minDate", selectedDate);
+                }
             });
+            $("#ToDt").datepicker({
+                //defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                dateFormat: "dd-M-yy",
+                onClose: function (selectedDate) {
+                    $("#FromDt").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+
+            $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
+            BindModuleWiseBatches("BatchId", "", 0, '0', $('#CourseId').val(), 0)
+            //$('#BatchId').change(function (e) {
+            //    e.preventDefault();
+            //    BindData();
+            //});
             $('#CourseId').change(function (e) {
                 e.preventDefault();
                 debugger;
-                BindModuleWiseBatches("BatchId", "", 2, '0', $(this).val(), 0)
-                BindData();
+                BindModuleWiseBatches("BatchId", "", 0, '0', $(this).val(), 0)
+                //BindData();
             });
-            $('#IsPlacementTracker').change(function (e) {
-                e.preventDefault();
-                BindData();
-            });
+            //$('#IsPlacementTracker').change(function (e) {
+            //    e.preventDefault();
+            //    BindData();
+            //});
             BindData();
             //setTimeout(function () {
-
             //    //$('select[name="BatchId"]').find('option[value="21"]').attr("selected", true).change();
             //    BindData();
             //}, 200);
@@ -251,6 +309,7 @@
                 e.preventDefault();
                 BindData();
             });
+
             $(document).on('change', '#Salary', function (e) {
                 var value = $(this).val();
                 var validValue = value.replace(/[^0-9.]/g, '');
@@ -285,7 +344,7 @@
                     success: function (result) {
                         $('#div-popmodel').html(result);
                         $("#myModal").modal({ backdrop: "static" });
-                       
+
 
                         BindDistrict("DistrictId", '', "1", $('#StateId').val(),2);
                         if (dataplacementrackerid != '@Guid.Empty') {
@@ -437,7 +496,9 @@
             filtermodel.IsPlacementTracker = $('#IsPlacementTracker').val() == '' ? "0" : $('#IsPlacementTracker').val();
             filtermodel.BatchId = $('#BatchId').val() == '' ? "0" : $('#BatchId').val();
             filtermodel.CourseId = $('#CourseId').val() == '' ? "0" : $('#CourseId').val();
-            //filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
+            filtermodel.Gender = $('#Gender').val() == '' ? '0' : $('#Gender').val();
+            filtermodel.FromDt = $('#FromDt').val() == '' ? '0' : $('#FromDt').val();
+            filtermodel.ToDt = $('#ToDt').val() == '' ? '0' : $('#ToDt').val();
             var formData = $('#formid').serialize();
             $('#global-loader').css('background', 'transparent').css('display', 'block');
             $.ajax({
@@ -480,7 +541,7 @@
                         table.buttons().container().appendTo($('#div-download'));
                     }
                     else {
-                        $("#subdata").html(res.Data);
+                        $("#subdata").html('<h4 class="text-danger text-center">' + res.Data +'</h4>');
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
                     }
                 },
