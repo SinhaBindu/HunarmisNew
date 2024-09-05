@@ -1,6 +1,6 @@
 ﻿@using Hunarmis.Manager
 @{
-    ViewBag.Title = "Participant Profile";
+    ViewBag.Title = "Participant Demographic Analysis";
 
     var dt = SPManager.SP_Dashboard_TopLegend();
 
@@ -9,7 +9,7 @@
 }
 @using Hunarmis.Helpers
 <style>
-   .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
         color: #040404
     }
 
@@ -43,24 +43,31 @@
         font-weight: normal !important;
         fill: #333 !important;
     }
+
     .nano-content .profile-wrap {
         background: #0d47a1 !important;
     }
+
     #mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
         background: #1976d2 !important;
     }
+
     .bg-light-primary {
         background: #1976d2 !important;
     }
+
     .bg-light-secondary {
         background: #1976d2 !important;
     }
+
     .bg-light-tertiary {
         background: #1976d2 !important;
     }
+
     .bg-light-info {
         background: #1976d2 !important;
     }
+
     .card-box .f-26 {
         color: #0d47a1;
     }
@@ -76,6 +83,7 @@
         .card-box .f-26.box4 {
             color: #0d47a1;
         }
+
     .card-box .f-14 {
         font-size: 14px;
         font-weight: 500;
@@ -85,6 +93,7 @@
         letter-spacing: 0px;
         color: #0d47a1;
     }
+
     .flex-shrink-0 {
         align-items: center;
         display: flex;
@@ -96,9 +105,11 @@
         font-size: 36px;
         box-shadow: none;
     }
-    .flex-shrink-0 i{
-        color: #fff;
-    }
+
+        .flex-shrink-0 i {
+            color: #fff;
+        }
+
     #footer, .bootom-fixed {
         background: #0d47a1 !important;
         height: 43px;
@@ -185,7 +196,8 @@
                 <div class="card-head">
                     <div class="title">Age Group</div>
                     <div class="tools">
-
+                        @*<select id="ddlSection4AgeGroup" class="form-control form-control-custom">
+                        </select>*@
                     </div>
                 </div>
                 <div class="card-body">
@@ -388,6 +400,10 @@
             }
         });
 
+        $("#ddlSection4AgeGroup").change(function (e) {
+            Section4AgeGroup($(this).val());
+        });
+
         $("#ddlSection5FamilyMembers").change(function (e) {
             Section5FamilyMembers($(this).val());
         });
@@ -462,7 +478,7 @@
             }
         });
     }
-
+    ageGroupJsonDataSection4 = [];
     function section4() {
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
@@ -473,11 +489,32 @@
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
                     Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', '', 'AgeRange', 'Gender');
+
+                    //ageGroupJsonDataSection4 = JSON.parse(data.AgeGroupJsonData);
+                    //var ageGroupDistricts = [...new Set(ageGroupJsonDataSection4.map(item => item.DistrictName))];
+                    //ageGroupDistricts.splice(0, 0, 'All');
+                    //var ageGroupSelectedDistrict = ageGroupDistricts[0];
+                    //var ddlSection4AgeGroup = $('#ddlSection4AgeGroup');
+                    //$.each(ageGroupDistricts, function (index, text) {
+                    //    ddlSection4AgeGroup.append($('<option></option>').val(text).html(text));
+                    //});
+                    //ddlSection4AgeGroup.val(ageGroupSelectedDistrict);
+                    //Section4AgeGroup(ageGroupSelectedDistrict);
+
+
                     Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', '', 'DistrictName', '');
                 }
             }
         });
     }
+    function Section4AgeGroup(selectedDistrict) {
+        var ageGroupJsonData = ageGroupJsonDataSection4;
+        if (selectedDistrict != 'All') {
+            ageGroupJsonData = ageGroupJsonDataSection4.filter(x => x.DistrictName == selectedDistrict);
+        }
+        Graph(ageGroupJsonData, 'containerSection4_AgeGroup', 'column-group', '', 'Age', '', 'AgeRange', 'Gender');
+    }
+
     familyMembersJsonDataSection5 = [];
     annualHouseholdJsonDataSection5 = [];
     function section5() {
@@ -492,6 +529,7 @@
 
                     familyMembersJsonDataSection5 = JSON.parse(data.FamilyMembersJsonData);
                     var familyMemberDistricts = [...new Set(familyMembersJsonDataSection5.map(item => item.DistrictName))];
+                    familyMemberDistricts.splice(0, 0, 'All');
                     var familyMemberSelectedDistrict = familyMemberDistricts[0];
                     var ddlSection5FamilyMembers = $('#ddlSection5FamilyMembers');
                     $.each(familyMemberDistricts, function (index, text) {
@@ -501,7 +539,8 @@
                     Section5FamilyMembers(familyMemberSelectedDistrict);
 
                     annualHouseholdJsonDataSection5 = JSON.parse(data.AnnualHouseholdJsonData);
-                    var annualHouseholdDistricts = [...new Set( annualHouseholdJsonDataSection5.map(item => item.DistrictName))];
+                    var annualHouseholdDistricts = [...new Set(annualHouseholdJsonDataSection5.map(item => item.DistrictName))];
+                    annualHouseholdDistricts.splice(0, 0, 'All');
                     var annualHouseholdSelectedDistrict =  annualHouseholdDistricts[0];
                     var ddlSection5AnnualHousehold = $('#ddlSection5AnnualHousehold');
                     $.each(annualHouseholdDistricts, function (index, text) {
@@ -513,24 +552,24 @@
 
                     Graph(JSON.parse(data.QualificationJsonData), 'containerSection5_Qualification', 'pie', '', 'Qualification', '', 'QualificationName', '');
 
-
-
-
                 }
             }
         });
     }
 
     function Section5FamilyMembers(selectedDistrict) {
-
-        var familyMembersJsonData = familyMembersJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
+        var familyMembersJsonData = familyMembersJsonDataSection5;
+        if (selectedDistrict != 'All') {
+             familyMembersJsonData = familyMembersJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
+        }
         Graph(familyMembersJsonData, 'containerSection5_FamilyMembers', 'column-group', '', 'Location', '', 'NoofFamilyMembers', 'DistrictName');
     }
     function Section5AnnualHousehold(selectedDistrict) {
-
-        var annualHouseholdJsonData = annualHouseholdJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
+        var annualHouseholdJsonData = annualHouseholdJsonDataSection5;
+        if (selectedDistrict != 'All') {
+            annualHouseholdJsonData = annualHouseholdJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
+        }
         Graph(annualHouseholdJsonData, 'containerSection5_AnnualHousehold', 'column-group', '', 'Location', '', 'AnnualHouseholdincome', 'DistrictName');
-
     }
 
     function section6() {
