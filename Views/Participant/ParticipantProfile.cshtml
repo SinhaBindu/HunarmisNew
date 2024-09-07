@@ -1,41 +1,129 @@
 ﻿@using Hunarmis.Manager
+@using Hunarmis.Helpers
 @{
     ViewBag.Title = "Participant Demographic Analysis";
 
     var dt = SPManager.SP_Dashboard_TopLegend();
 
     //var dtGraph = SPManager.SP_Dashboard_Graphs();
-
 }
-@using Hunarmis.Helpers
+
 <style>
+
+    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+        color: #040404
+    }
+
+    .navbar-brand {
+        padding: 0 5px;
+    }
+
+
+
     .highcharts-label text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: 500 !important;
         fill: #555 !important;
     }
+
     .highcharts-text-outline {
         stroke: none !important;
         fill: #555 !important;
     }
+
     .highcharts-legend-item text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
         fill: #555 !important;
     }
+
     .highcharts-axis-labels text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
         fill: #555 !important;
     }
+
     .highcharts-axis .highcharts-axis-line {
         stroke: #555 !important;
         fill: #555 !important;
+        .nano-content .profile-wrap
+
+    {
+        background: #0d47a1 !important;
+    }
+
+    #mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-primary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-secondary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-tertiary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-info {
+        background: #1976d2 !important;
+    }
+
+    .card-box .f-26 {
+        color: #0d47a1;
+    }
+
+        .card-box .f-26.box2 {
+            color: #0d47a1;
+        }
+
+        .card-box .f-26.box3 {
+            color: #0d47a1;
+        }
+
+        .card-box .f-26.box4 {
+            color: #0d47a1;
+        }
+
+    .card-box .f-14 {
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0px;
+        margin-bottom: 10px;
+        letter-spacing: 0px;
+        color: #0d47a1;
+    }
+
+    .flex-shrink-0 {
+        align-items: center;
+        display: flex;
+        height: 60px;
+        justify-content: center;
+        width: 60px;
+        background: #fff;
+        border-radius: 50%;
+        font-size: 36px;
+        box-shadow: none;
+    }
+
+        .flex-shrink-0 i {
+            color: #fff;
+        }
+
+    #footer, .bootom-fixed {
+        background: #0d47a1 !important;
+        height: 43px;
+        >>>>>>> Stashed changes
     }
 </style>
+
 <div class="container-fluid">
     <div class="row mt-20">
         <div class="col-xs-12 col-md-12">
@@ -112,7 +200,7 @@
                                 </div>
                             </div>
                         </div>
-                     }
+                    }
                 </div>
             </div>
         </div>
@@ -124,7 +212,7 @@
                     <div class="title">Age Group</div>
                     <div class="tools">
                         @*<select id="ddlSection4AgeGroup" class="form-control form-control-custom">
-                        </select>*@
+                            </select>*@
                     </div>
                 </div>
                 <div class="card-body">
@@ -267,17 +355,57 @@
             </div>
         </div>
 
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Location Map</div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containermap" style="width: 100%; height: 400px;" aria-hidden="true"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-@*<div style="padding: 0px 20px 20px;">
-        <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
-            Participant Profile
-        </div>
-        <hr style="border: 4px double #f9841b; margin: 0px; " />
-    </div>*@
-<script src="https://code.highcharts.com/highcharts.js"></script>
 
-<script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<div style="padding: 0px 20px 20px;">
+            <div style="font-size: 21px; color: #6a4566; font-weight: 700;">
+                Participant Profile
+            </div>
+            <hr style="border: 4px double #f9841b; margin: 0px; " />
+        </div>*@
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+
+
+    @*<script src="https://code.highcharts.com/highcharts.js"></script>*@
+    @*<script src="https://code.highcharts.com/modules/series-label.js"></script>*@
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+
+    <script src="~/Scripts/Map/india_st.js"></script>
+    <script src="~/Scripts/Map/maharashtra_district.js"></script>
+    <script src="~/Scripts/Map/District_shape_West_Bengal.js"></script>
+
+    <script>
     $('.count').each(function () {
         $(this).prop('Counter', 0).animate({
             Counter: $(this).text()
@@ -295,7 +423,6 @@
             $('.tab-btn').removeClass('act');
             $(this).addClass('act');
         })
-
 
         $("#ddlSection1").change(function (e) {
             if ($(this).val() == 'Location') {
@@ -888,8 +1015,180 @@
 
     }
 
+    </script>
 
+    <script>
 
+    $(document).ready(function () {
 
+        Load_DistrictMap();
+        //$('path[NAME_1^="Odisha"]').attr('fill', '#2ad00b');
+        //var spdata= $("path").attr("d", "M");
+    })
+    function Load_DistrictMap() {
+        debugger;
+        var jsonObject = [];//JSON.parse('[{"district":"Paschim Barddhaman","color":"#EC7063"}]');
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 4 },
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    var jsonObject = JSON.parse(data.LocationJsonData);
+                    console.log( jsonObject);
+                   // Graph(JSON.parse(data.AgeGroupJsonData), 'containerSection4_AgeGroup', 'column-group', '', 'Age', '', 'AgeRange', 'Gender');
+                    //Graph(JSON.parse(data.LocationJsonData), 'containerSection4_Location', 'pie', '', 'Location', '', 'DistrictName', '');
 
-</script>
+        //var jsonObject = JSON.parse('[{"district":"Paschim Barddhaman","color":"#EC7063"}]'); //JSON.parse(json_data);
+        var reportMapDivWidth = $("#containermapp").width();
+        var tooltipX = (reportMapDivWidth / 2) + 25;
+        // var MapHeight = reportMapDivWidth > 650 ? 500 : null;
+        var MapHeight = reportMapDivWidth > 620 ? 620 : null;
+        debugger;
+                    Highcharts.mapChart('containermap', {
+
+                        chart: {
+                            borderWidth: 1,
+                            borderColor: '#00000',
+                            height: MapHeight,
+                            //  map: topology
+                        },
+
+                        title: {
+                            text: '<span style="font-size:13px;font-weight:bold;"> India/District - Maharashtra/West Bengal </span>'
+                        },
+                        subtitle: {
+                            // text: '<span style="font-size:13px;"> <span  style="color: red; font-weight:bold; font-size:12px;"> ' + jsonObject[0].district + ' </span></span>'
+                        },
+                        //subtitle: {
+                        //    text: '<span style="font-size:13px;">(State Level Estimate :' + ' <span  style="color: red; font-weight:bold; font-size:12px;"> ' + Pc + ValType + ' ( Den = ' + Den + ')  </span>)</span>'
+                        //},
+                        credits: {
+                            enabled: false
+                        },
+                        legend: {
+                            enabled: true,
+                            align: 'center',
+                            //y: 60
+                        },
+                        //mapNavigation: {
+                        //    enabled: false
+                        //},
+                        mapNavigation: {
+                            enabled: true,
+                            buttonOptions: {
+                                verticalAlign: 'bottom'
+                            }
+                        },
+
+                        tooltip: {
+                            shared: true
+                        },
+
+                        //plotOptions: {
+                        //    series: {
+                        //        point: {
+                        //            events: {
+                        //                click: function () {
+                        //                    window.location.href = document.baseURI + "/Participant/ParticipantProfile";
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //},
+                        series: [
+                            {
+                                showInLegend: false,
+                                borderColor: 'black',
+                                borderWidth: 0.2,
+                                name: 'India',
+                                mapData: Highcharts.maps['custom/StatesIndia'],
+                                //mapData: Highcharts.maps['custom/StatesDistrictOdisha'],
+                            }
+                            ,
+                            {
+                                showInLegend: true,
+                                borderColor: 'green',
+                                color: 'green',
+                                //backgroundColor: '#000000',
+                                borderWidth: 1,
+                                mapData: Highcharts.maps['custom/Maharashtra'],
+                                //joinBy: ['laa', 'code'],
+                                //tooltip: {
+                                //    pointFormat: 'District : {point.laa}'
+                                //},
+                                //color: Highcharts.getOptions().colors[5],
+                                // joinBy: ['iso-a2', 'code'],
+                                //joinBy: ['NAME_2', 'district', 'fill', 'color'],
+                                //joinBy: ['iso-a2', 'code'],
+
+                                data: jsonObject,
+                                joinBy: ['DistrictName', 'DistrictName', 'y', 'Percentage', 'fill', 'color'],
+                                dataLabels: {
+                                    enabled: false,
+                                    color: '#000000',
+                                    format: '{point.DistrictName}',
+                                    style: {
+                                        fontSize: 9,
+                                        fontWeight: 700
+                                    },
+                                },
+                                name: 'Maharashtra',
+                                marker: {
+                                    symbol: 'mapmarker'
+                                },
+                                minSize: 4,
+                                maxSize: '12%',
+                                tooltip: {
+                                    pointFormat: '<b> {point.DistrictName} : {point.Total} / ( {point.Percentage} % ) </b>'
+                                }
+                            }
+                                ,
+                {
+                                showInLegend: true,
+                                borderColor: '#0d47a1',
+                                color: '#0d47a1',
+                                borderWidth: 1,
+                                //name: 'DHENKANAL',
+                                // data: ['DHENKANAL'].map(code => ({ code })),
+                                mapData: Highcharts.maps['custom/West_Bengal'],
+                                //joinBy: ['laa', 'code'],
+                                //tooltip: {
+                                //    pointFormat: 'District : {point.laa}'
+                                //}
+                                //color: Highcharts.getOptions().colors[5],
+                                // joinBy: ['iso-a2', 'code'],
+                                //joinBy: ['NAME_2', 'district', 'fill', 'color'],
+                                joinBy: ['DistrictName', 'DistrictName', 'y', 'Percentage', 'fill', 'color'],
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#000000',
+                                    //format: '{point.DistrictName}',
+                                    style: {
+                                        fontSize: 9,
+                                        fontWeight: 700
+                                    },
+                                },
+                                data: jsonObject,
+                                name: 'West Bengal',
+                                marker: {
+                                    symbol: 'mapmarker'
+                                },
+                                minSize: 4,
+                                maxSize: '12%',
+                                tooltip: {
+                                    pointFormat: '<b> {point.DistrictName} : {point.Total} / ( {point.Percentage} % ) </b>'
+                                }
+                            }
+            ]
+
+        });
+
+                }
+            }
+        });
+    }
+    </script>
+}

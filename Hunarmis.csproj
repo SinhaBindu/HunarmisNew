@@ -1715,6 +1715,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\JSON-to-Table.min.1.0.0.js" />
     <Content Include="Scripts\JSONToCSV.js" />
+    <Content Include="Scripts\Map\District_shape_West_Bengal.js" />
+    <Content Include="Scripts\Map\india_st.js" />
+    <Content Include="Scripts\Map\maharashtra_district.js" />
+    <Content Include="Scripts\Map\MapDistrict.js" />
     <Content Include="Scripts\misc-fullcalendar.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-timezone.min.js" />
@@ -1844,6 +1848,8 @@
     <Content Include="Views\Participant\ParticipantProfile5.cshtml" />
     <Content Include="Views\Participant\_CallSummaryData.cshtml" />
     <Content Include="Views\Participant\ParticipantProfile6.cshtml" />
+    <Content Include="Scripts\Map\india_st.json" />
+    <Content Include="Views\Participant\_DashboardmapDistrict.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

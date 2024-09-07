@@ -1,0 +1,40 @@
+﻿@using System.Data;
+@using Hunarmis.Models;
+
+@{
+    DataTable dt = new DataTable();
+    DataTable tbltotal = new DataTable();
+    if (Model != null)
+    {
+        dt = Model;
+        tbltotal = dt.AsEnumerable()
+                     .Where(r => r.Field<string>("NAME_2") == "Total")
+                     .CopyToDataTable();
+    }
+    string map_data = "";
+
+    try
+    {
+        dt.Columns.Add("value", typeof(decimal), "MPC");
+        var jsonResult = Newtonsoft.Json.JsonConvert.SerializeObject(dt);
+        var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+        map_data = jss.Serialize(jsonResult);
+    }
+    catch { }
+}
+@if (dt.Rows.Count > 0)
+{
+    <div id="report-map" style=" width: 500px !important;"></div>
+    <div class="breaker"></div>
+    <div id="reporttooltip" style="margin-left:500px"></div>
+}
+else
+{
+    <div class="col-md-12 text-danger text-center">No data found... </div>
+}
+
+<script>
+
+   Load_Map(@Html.Raw(map_data),@tbltotal.Rows[0]["MPC"],@tbltotal.Rows[0]["NoofMale"],'',1,1);
+   // Load_Map('','','','',1,1);
+</script>
