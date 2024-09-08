@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6, svg {
 #mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
     color: #fff !important;
     font-weight: 600;
-    background: #1976d2 !important;
+    background: #ae77b8 !important;
     margin: 0px;
     padding-left: 13px;
     padding-right: 13px;
@@ -197,12 +197,12 @@ h1, h2, h3, h4, h5, h6, svg {
 .flex-shrink-0 {
     align-items: center;
     display: flex;
-    height: 60px;
+    height: 55px;
     justify-content: center;
-    width: 60px;
+    width: 55px;
     background: #fff;
     border-radius: 50%;
-    font-size: 36px;
+    font-size: 32px;
     box-shadow: none;
     flex-shrink: 0 !important;
 }
@@ -216,12 +216,12 @@ h1, h2, h3, h4, h5, h6, svg {
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase !important;
-    margin: 0px;
+    margin: 7px 0px 0px;
     margin-bottom: 0px;
     letter-spacing: 0.5px;
-    width: calc(100% - 49px);
+    width: calc(100% - 15px);
     text-align: left;
-    margin-left: 50px;
+    margin-left: 15px;
     text-transform: capitalize;
     white-space: nowrap;
     overflow: hidden !important;
