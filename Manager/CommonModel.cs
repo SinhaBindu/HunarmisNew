@@ -2,6 +2,7 @@
 //using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
 //using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Hunarmis.Helpers;
 using Hunarmis.Models;
@@ -1006,6 +1007,164 @@ namespace Hunarmis.Manager
             }
         }
 
+        public static List<SelectListItem> GetAccesstoServices(bool Sle = true)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (Sle)
+            {
+                list.Add(new SelectListItem { Value = "0", Text = "All" });
+            }
+            list.Add(new SelectListItem { Value = "Internet", Text = "Internet" });
+            list.Add(new SelectListItem { Value = "Data 2g/3g/4g", Text = "Data 2g/3g/4g" });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
+        public static List<SelectListItem> GetLanguage(int IsSelectAll = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+
+            try
+            {
+                var listitem = new List<SelectListItem>();
+                listitem = new SelectList(_db.Languages_Master.Where(x => x.IsActive == true), "LanguagesId_pk", "LanguagesName").OrderBy(x => x.Text).ToList();
+                listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
+                if (IsSelectAll == 0)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                if (IsSelectAll == 1)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+                }
+                return listitem;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetKnowledgeofEnglishLanguage(int IsSelectAll = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+
+            try
+            {
+                var listitem = new List<SelectListItem>();
+                listitem = new SelectList(_db.KnowledgeEnglish_Master.Where(x => x.IsActive == true), "KnowledgeEnglishId_pk", "KnowledgeEnglishName").OrderBy(x => x.Text).ToList();
+                listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
+                if (IsSelectAll == 0)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                if (IsSelectAll == 1)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+                }
+                return listitem;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetWhichskillingcourseshaveyoudoneearlier(int IsSelectAll = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+
+            try
+            {
+                var listitem = new List<SelectListItem>();
+                listitem = new SelectList(_db.Courses_Master.Where(x => x.IsActive == true), "Id", "CourseName").OrderBy(x => x.Text).ToList();
+                listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
+                if (IsSelectAll == 0)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                if (IsSelectAll == 1)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+                }
+                //listitem.Insert(15, new SelectListItem { Value = "15", Text = "Not Done Any Course" });
+                //listitem.Insert(16, new SelectListItem { Value = "16", Text = "Other" });
+                listitem.Add(new SelectListItem { Value = "15", Text = "Not Done Any Course" });
+                listitem.Add(new SelectListItem { Value = "16", Text = "Other" });
+                return listitem;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetIDType(int IsSelectAll = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+
+            try
+            {
+                var listitem = new List<SelectListItem>();
+                listitem = new SelectList(_db.IDType_Master.Where(x => x.IsActive == true), "IDTypeId_pk", "IDTypeName").OrderBy(x => x.Text).ToList();
+                listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
+                if (IsSelectAll == 0)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                if (IsSelectAll == 1)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+                }
+                return listitem;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetWorkExperience(int IsSelectAll = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+
+            try
+            {
+                var listitem = new List<SelectListItem>();
+                listitem = new SelectList(_db.WorkExperience_Master.Where(x => x.IsActive == true), "WorkExperienceId_pk", "WorkExperienceName").OrderBy(x => x.Text).ToList();
+                listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
+                if (IsSelectAll == 0)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                if (IsSelectAll == 1)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+                }
+                return listitem;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static List<SelectListItem> GetHouseholdAssetOwnership(int IsSelectAll = 0)
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            try
+            {
+                var listitem = new List<SelectListItem>();
+                listitem = new SelectList(_db.AssetOwnership_Master.Where(x => x.IsActive == true), "AssetOwnershipId_pk", "AssetOwnership").OrderBy(x => x.Text).ToList();
+                listitem = new SelectList(listitem, "Value", "Text").OrderBy(x => x.Text).ToList();
+                if (IsSelectAll == 0)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                if (IsSelectAll == 1)
+                {
+                    listitem.Insert(0, new SelectListItem { Value = "", Text = "Select" });
+                }
+                return listitem;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public static List<SelectListItem> GetLocatedKM(bool IsAll = false)
         {
             Hunar_DBEntities _db = new Hunar_DBEntities();

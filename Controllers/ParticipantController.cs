@@ -1,10 +1,13 @@
-﻿using DocumentFormat.OpenXml.EMMA;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.EMMA;
 using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Hunarmis.Helpers;
 using Hunarmis.Manager;
 using Hunarmis.Models;
 using Microsoft.Ajax.Utilities;
+using Microsoft.Owin.BuilderProperties;
 using Newtonsoft.Json;
 //using Microsoft.AspNetCore.Cors;
 using System;
@@ -121,17 +124,18 @@ namespace Hunarmis.Controllers
         }
         public ActionResult AddParticipant(Guid? Id)
         {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
             ParticipantModel model = new ParticipantModel();
             if (Id != Guid.Empty && Id != null)
             {
-                var tbl = db.tbl_Participant.Find(Id);
+                var tbl = db_.tbl_Participant.Find(Id);
                 if (tbl != null)
                 {
                     model.ID = tbl.ID;
                     model.RegID = tbl.RegID;
-                    model.FirstName = tbl.FirstName;
-                    model.MiddleName = tbl.MiddleName;
-                    model.LastName = tbl.LastName;
+                    //model.FirstName = tbl.FirstName;
+                    //model.MiddleName = tbl.MiddleName;
+                    //model.LastName = tbl.LastName;
                     model.FullName = tbl.FullName;
                     model.Gender = tbl.Gender;
                     model.Age = tbl.Age;
@@ -159,6 +163,43 @@ namespace Hunarmis.Controllers
                     model.PreTrainingStatus = tbl.PreTrainingStatus;
                     model.TargetGroup = tbl.TargetGroup;
 
+
+                    var childtbl = db_.tbl_Participant_Child.Where(x => x.ParticipantId == tbl.ID)?.FirstOrDefault();
+                    if (childtbl != null)
+                    {
+                        model.partChildModel.ParticipantId = tbl.ID;
+                        model.partChildModel.Child_ParticipantId_pk = childtbl.Child_ParticipantId_pk;
+                        model.partChildModel.NativeLanguage = childtbl.NativeLanguage;
+                        model.partChildModel.NativeLanguage_Other = childtbl.NativeLanguage_Other;
+                        model.partChildModel.Address = childtbl.Address;
+                        model.partChildModel.Pincode = childtbl.Pincode;
+                        model.partChildModel.StateId = childtbl.StateId;
+                        model.partChildModel.DistrictId = childtbl.DistrictId;
+                        model.partChildModel.City = childtbl.City;
+                        model.partChildModel.Village = childtbl.Village;
+                        model.partChildModel.EmergencyPersonName = childtbl.EmergencyPersonName;
+                        model.partChildModel.EmergencyContactNo = childtbl.EmergencyContactNo;
+                        model.partChildModel.EmergencyRelationship = childtbl.EmergencyRelationship;
+                        model.partChildModel.EmergencyMonthlyIncome = (int)childtbl.EmergencyMonthlyIncome;
+                        model.partChildModel.SelfImageAttached = childtbl.SelfImageAttached;
+                        model.partChildModel.IDType = childtbl.IDType;
+                        model.partChildModel.IDNo = childtbl.IDNo;
+                        model.partChildModel.SchoolPassoutYear = childtbl.SchoolPassoutYear;
+                        model.partChildModel.MonthlyIncome = (int)(childtbl.MonthlyIncome);
+                        model.partChildModel.HouseholdAssetOwnership = childtbl.HouseholdAssetOwnership;
+                        model.partChildModel.AccesstoServices = childtbl.AccesstoServices;
+                        model.partChildModel.HaveYouWorkedEarliear = childtbl.HaveYouWorkedEarliear;
+                        model.partChildModel.WorkExperienceType = childtbl.WorkExperienceType;
+                        model.partChildModel.WorkExperience = childtbl.WorkExperience;
+                        model.partChildModel.HomeTown = childtbl.HomeTown;
+                        model.partChildModel.AreyouIntrestedingettingajob = childtbl.AreyouIntrestedingettingajob;
+                        model.partChildModel.Willyoubeinterestedinrelocatingforajob = childtbl.Willyoubeinterestedinrelocatingforajob;
+                        model.partChildModel.Languagesknown = childtbl.Languagesknown;
+                        model.partChildModel.Languagesknown_Other = childtbl.Languagesknown_Other;
+                        model.partChildModel.KnowledgeofEnglishLanguage = childtbl.KnowledgeofEnglishLanguage;
+                        model.partChildModel.Whichskillingcourseshaveyoudoneearlier = childtbl.Whichskillingcourseshaveyoudoneearlier;
+                        model.partChildModel.Whichskillingcourseshaveyoudoneearlier_Other = childtbl.Whichskillingcourseshaveyoudoneearlier;
+                    }
                 }
             }
             return View(model);
@@ -169,6 +210,7 @@ namespace Hunarmis.Controllers
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             JsonResponseData response = new JsonResponseData();
+            int reslt = 0;
             try
             {
                 if (ModelState.IsValid && MvcApplication.CUser != null)
@@ -191,13 +233,14 @@ namespace Hunarmis.Controllers
                     var tbl = model.ID != Guid.Empty ? db_.tbl_Participant.Find(model.ID) : new tbl_Participant();
                     if (tbl != null)
                     {
-                        var fstname = !(string.IsNullOrWhiteSpace(model.FirstName)) ? model.FirstName.Trim() : string.Empty;
-                        var mname = !(string.IsNullOrWhiteSpace(model.MiddleName)) ? " " + (model.MiddleName.Trim()) : string.Empty;
-                        var lname = !(string.IsNullOrWhiteSpace(model.LastName)) ? " " + model.LastName.Trim() : string.Empty;
-                        tbl.FirstName = fstname;
-                        tbl.MiddleName = mname;
-                        tbl.LastName = lname;
-                        tbl.FullName = fstname + mname + lname;
+                        //var fstname = !(string.IsNullOrWhiteSpace(model.FirstName)) ? model.FirstName.Trim() : string.Empty;
+                        //var mname = !(string.IsNullOrWhiteSpace(model.MiddleName)) ? " " + (model.MiddleName.Trim()) : string.Empty;
+                        //var lname = !(string.IsNullOrWhiteSpace(model.LastName)) ? " " + model.LastName.Trim() : string.Empty;
+                        //tbl.FirstName = fstname;
+                        //tbl.MiddleName = mname;
+                        //tbl.LastName = lname;
+                        //tbl.FullName = fstname + mname + lname;
+                        tbl.FullName = model.FullName;
                         //l.FirstName + tbl.MiddleName + tbl.LastName;
                         //  tbl.StateId = db.State_Mast.Where(x => x.ID == sid).FirstOrDefault().ID.ToString();
                         tbl.Gender = !(string.IsNullOrWhiteSpace(model.Gender)) ? model.Gender.Trim() : model.Gender;
@@ -266,6 +309,79 @@ namespace Hunarmis.Controllers
                         return resResponse1;
                     }
                 }
+                if (model.partChildModel.ParticipantId != Guid.Empty)
+                {
+                    var childtbl = model.partChildModel.Child_ParticipantId_pk != Guid.Empty ? db_.tbl_Participant_Child.Find(model.partChildModel.Child_ParticipantId_pk) : new tbl_Participant_Child();
+                    if (childtbl != null)
+                    {
+                        childtbl.NativeLanguage = !string.IsNullOrWhiteSpace(model.partChildModel.NativeLanguage_hd) ? model.partChildModel.NativeLanguage_hd : null;
+                        childtbl.NativeLanguage_Other = model.partChildModel.NativeLanguage_Other;
+                        childtbl.Address = model.partChildModel.Address;
+                        childtbl.Pincode = model.partChildModel.Pincode;
+                        childtbl.StateId = model.partChildModel.StateId;
+                        childtbl.DistrictId = model.partChildModel.DistrictId;
+                        childtbl.City = model.partChildModel.City;
+                        childtbl.Village = model.partChildModel.Village;
+                        childtbl.EmergencyPersonName = model.partChildModel.EmergencyPersonName;
+                        childtbl.EmergencyContactNo = model.partChildModel.EmergencyContactNo;
+                        childtbl.EmergencyRelationship = model.partChildModel.EmergencyRelationship;
+                        childtbl.EmergencyMonthlyIncome = model.partChildModel.EmergencyMonthlyIncome;
+
+                        childtbl.SelfImageAttached = model.partChildModel.SelfImageAttached;
+
+                        childtbl.IDType = model.partChildModel.IDType;
+                        childtbl.IDNo = model.partChildModel.IDNo;
+                        childtbl.SchoolPassoutYear = model.partChildModel.SchoolPassoutYear;
+                        childtbl.MonthlyIncome = model.partChildModel.MonthlyIncome;
+
+                        childtbl.HouseholdAssetOwnership = !string.IsNullOrWhiteSpace(model.partChildModel.HouseholdAssetOwnership_hd) ? model.partChildModel.HouseholdAssetOwnership_hd : null;
+                        childtbl.AccesstoServices = !string.IsNullOrWhiteSpace(model.partChildModel.AccesstoServices_hd) ? model.partChildModel.AccesstoServices_hd : null;
+                        childtbl.HaveYouWorkedEarliear = model.partChildModel.HaveYouWorkedEarliear;
+                        childtbl.WorkExperienceType = model.partChildModel.WorkExperienceType;
+                        childtbl.WorkExperience = model.partChildModel.WorkExperience;
+                        childtbl.HomeTown = model.partChildModel.HomeTown;
+                        childtbl.AreyouIntrestedingettingajob = model.partChildModel.AreyouIntrestedingettingajob;
+                        childtbl.Willyoubeinterestedinrelocatingforajob = model.partChildModel.Willyoubeinterestedinrelocatingforajob;
+                        childtbl.Languagesknown = !string.IsNullOrWhiteSpace(model.partChildModel.Languagesknown_hd) ? model.partChildModel.Languagesknown_hd : null;
+                        childtbl.Languagesknown_Other = model.partChildModel.Languagesknown_Other;
+                        childtbl.KnowledgeofEnglishLanguage = !string.IsNullOrWhiteSpace(model.partChildModel.KnowledgeofEnglishLanguage_hd) ? model.partChildModel.KnowledgeofEnglishLanguage_hd : null;
+                        childtbl.Whichskillingcourseshaveyoudoneearlier = !string.IsNullOrWhiteSpace(model.partChildModel.Whichskillingcourseshaveyoudoneearlier_hd) ? model.partChildModel.Whichskillingcourseshaveyoudoneearlier_hd : null;
+                        childtbl.Whichskillingcourseshaveyoudoneearlier_Other = model.partChildModel.Whichskillingcourseshaveyoudoneearlier_Other;
+
+                        if (model.partChildModel.Child_ParticipantId_pk == Guid.Empty)
+                        {
+                            childtbl.Child_ParticipantId_pk = Guid.NewGuid();
+                            childtbl.ParticipantId = model.partChildModel.ParticipantId;
+                            childtbl.IsActive = true;
+                            childtbl.CreatedBy = MvcApplication.CUser.UserId;
+                            childtbl.CreatedOn = DateTime.Now;
+                            db_.tbl_Participant_Child.Add(childtbl);
+                        }
+                        else if (model.partChildModel.Child_ParticipantId_pk != Guid.Empty)
+                        {
+                            childtbl.UpdatedBy = MvcApplication.CUser.UserId;
+                            childtbl.UpdatedOn = DateTime.Now;
+                        }
+
+                        reslt = db_.SaveChanges();
+                        if (reslt > 0)
+                        {
+                            if (model.partChildModel.ParticipantId != Guid.Empty)
+                            {
+                                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + model.RegID + " </strong> </span>", Data = null };
+                                var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                                resResponse3.MaxJsonLength = int.MaxValue;
+                                return resResponse3;
+                            }
+                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + model.RegID + " </strong> </span>", Data = null };
+                            var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse1.MaxJsonLength = int.MaxValue;
+                            return resResponse1;
+                        }
+
+                    }
+                }
+
                 else
                 {
                     response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "All Record Required !!", Data = null };
@@ -1331,14 +1447,14 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult GetCallSummary(string BatchId = "",string Course="",string CallStatus="",string User="")
+        public ActionResult GetCallSummary(string BatchId = "", string Course = "", string CallStatus = "", string User = "")
         {
             DataSet ds = new DataSet();
             DataTable tbllist = new DataTable();
             try
             {
                 User = CommonModel.IsRoleLogin();
-                ds = SPManager.GetSP_ParticipantCallMonthWisematrix(User, BatchId,Course,CallStatus);
+                ds = SPManager.GetSP_ParticipantCallMonthWisematrix(User, BatchId, Course, CallStatus);
                 if (ds.Tables.Count > 0)
                 {
                     tbllist = (ds.Tables[0]);

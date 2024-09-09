@@ -18,10 +18,12 @@ namespace Hunarmis.Models
         public tbl_Participant()
         {
             this.tbl_PlacementTracker = new HashSet<tbl_PlacementTracker>();
+            this.tbl_Participant_Child = new HashSet<tbl_Participant_Child>();
         }
     
         public System.Guid ID { get; set; }
         public string RegID { get; set; }
+        public string BatchEnrolledID { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -75,5 +77,7 @@ namespace Hunarmis.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Participant_Child> tbl_Participant_Child { get; set; }
     }
 }

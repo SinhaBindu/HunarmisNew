@@ -401,6 +401,9 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AssessmentScheduleModel.cs" />
+    <Compile Include="Models\AssetOwnership_Master.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AttendanceModel.cs" />
     <Compile Include="Models\BatchAssignModel.cs" />
     <Compile Include="Models\BatchModel.cs" />
@@ -562,6 +565,9 @@
     <Compile Include="Models\tbl_Participant_Calling.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_Participant_Child.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_PlacementTracker.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -648,6 +654,7 @@
     <Content Include="Content\css\smartphoto.min.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style.min.css" />
+    <Content Include="Content\css\Tabs.css" />
     <Content Include="Content\css\themes\type-a\theme-coffee.min.css" />
     <Content Include="Content\css\themes\type-a\theme-dark.min.css" />
     <Content Include="Content\css\themes\type-a\theme-dust.min.css" />

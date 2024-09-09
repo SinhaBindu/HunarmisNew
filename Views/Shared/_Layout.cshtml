@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="~/Content/css/bootstrap-multiselect.css" />
     <script src="~/Scripts/jquery-2.2.0.min.js"></script>
     <script src="~/Scripts/Custom/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="~/Content/css/Tabs.css">
 
     <script>
         $(document).ready(function () {
@@ -37,6 +38,23 @@
             $(document).ajaxStop(function () {
                 $('#global-loader').css('background', 'transparent').css('display', 'none');
             });
+
+            //Tabs  
+            document.querySelectorAll('.tab-link').forEach(item => {
+                item.addEventListener('click', function () {
+                    let tabId = this.getAttribute('data-tab');
+
+                    // Remove active class from previous tabs
+                    document.querySelectorAll('.tab-link').forEach(tab => tab.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked tab and its content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+
         });
     </script>
     <base href="@Hunarmis.Manager.CommonModel.GetBaseUrl()" />
