@@ -372,6 +372,7 @@
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndiParticipantUserController.cs" />
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
@@ -429,6 +430,7 @@
     <Compile Include="Models\IDType_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IndiParticipantModels.cs" />
     <Compile Include="Models\Industry_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -780,6 +782,12 @@
     <Content Include="Content\images\writing-graphic.png" />
     <Content Include="Content\images\writing.png" />
     <Content Include="Content\images\yellow-left.png" />
+    <Content Include="Content\IndiUser\bootstrap-switch.min.css" />
+    <Content Include="Content\IndiUser\bootstrap.min.css" />
+    <Content Include="Content\IndiUser\components.min.css" />
+    <Content Include="Content\IndiUser\font-awesome.min.css" />
+    <Content Include="Content\IndiUser\plugins.min.css" />
+    <Content Include="Content\IndiUser\simple-line-icons.min.css" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\demo\bg-images.js" />
     <Content Include="Content\js\demo\dashboard-2.js" />
@@ -1847,9 +1855,15 @@
     <Content Include="Views\Participant\ParticipantProfile4.cshtml" />
     <Content Include="Views\Participant\ParticipantProfile5.cshtml" />
     <Content Include="Views\Participant\_CallSummaryData.cshtml" />
+
     <Content Include="Views\Participant\ParticipantProfile6.cshtml" />
     <Content Include="Scripts\Map\india_st.json" />
     <Content Include="Views\Participant\_DashboardmapDistrict.cshtml" />
+
+    <Content Include="Views\IndiParticipantUser\Index.cshtml" />
+    <Content Include="Views\IndiParticipantUser\Login.cshtml" />
+    <Content Include="Views\IndiParticipantUser\IndiPartiDashBaord.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,427 @@
+﻿@using System.Data
+@{
+    DataSet ds = new DataSet();
+    DataTable dt = new DataTable();
+    DataTable dtCall = new DataTable();
+    if (Model != null)
+    {
+        ds = Model;
+        dt = ds.Tables[0];
+        dtCall = ds.Tables[1];
+    }
+}
+<link href="/Content/IndiUser/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="/Content/IndiUser/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+<link href="/Content/IndiUser/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/Content/IndiUser/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link href="/Content/IndiUser/select2.min.css" rel="stylesheet" type="text/css">
+<link href="/Content/IndiUser/select2-bootstrap.min.css" rel="stylesheet" type="text/css">
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL STYLES -->
+<link href="/Content/IndiUser/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+<link href="/Content/IndiUser/plugins.min.css" rel="stylesheet" type="text/css">
+<!-- END THEME GLOBAL STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link href="../assets/pages/css/login-5.min.css" rel="stylesheet" type="text/css">
+<link href="/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/Content/css/nifty.min.css" rel="stylesheet" />
+<link href="/Content/css/bootstrap-switch.css" rel="stylesheet" />
+<link href="/Content/css/demo/nifty-demo-icons.min.css" rel="stylesheet" />
+<link href="/Content/plugins/pace/pace.min.css" rel="stylesheet" />
+<link href="/Content/css/style.css" rel="stylesheet" />
+<link href="/Content/css/responsive.css" rel="stylesheet" />
+<link href="/Content/css/main.css" rel="stylesheet" />
+<link href="/Content/plugins/select2/css/select2.min.css" rel="stylesheet" />
+<link href="/Content/css/printdesign.css" rel="stylesheet" />
+<link href="/Content/css/AdminGlobal.css" rel="stylesheet" />
+@*<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+<link href="/Content/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+<link href="/Content/plugins/datatables/extensions/Responsive/css/responsive.dataTables.min.css" rel="stylesheet">
+<link href="/Content/plugins/datatables/media/css/buttons.dataTables.css" rel="stylesheet">
+<link href="/Content/plugins/datatables/media/css/dataTables.dataTables.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="/Content/css/bootstrap-multiselect.css" />
+<script src="/Scripts/jquery-2.2.0.min.js"></script>*@
+<script src="/Scripts/Custom/bootstrap-multiselect.js"></script>
+<!-- END PAGE LEVEL STYLES -->
+@*<body class="login" style="background-color:#f1f4f7;">
+    <div id="form1">
+        <div>*@
+            <!-- BEGIN : LOGIN PAGE 5-2 -->
+            <div class="user-login-5">
+                <div class="row bs-reset">
+
+                    <div class="portlet-title">
+                        <div class="caption caption font-red-intense">
+                            <span class="caption-subject bold font-red uppercase">
+                                <h2 style="font-family: initial;color: red;margin-left: 2%;margin-top: 0%;" class="logo-default" >
+                                    @if (dt.Rows.Count > 0)
+                                    {
+                                    <p style="margin: 1% 0 1% 0.5%;">
+                                        <span style="text-decoration:underline !important;">
+                                            @dt.Rows[0]["Name"]
+                                        </span>
+                                    </p>
+                                    }
+                                </h2>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 login-container bs-reset">
+                       
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="card card-box p-0 main-content-card">
+                                    <div class="card-body" style="padding:15px;">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <div class="d-flex gap-2">
+                                                    <h5 class="f-14">Course</h5>
+                                                </div>
+                                                @if (dt.Rows.Count > 0)
+                                                {
+                                                <h3 class="f-26" style="font-size:21px"><a href="javascript:void(0);" style="color: #A78BFA;text-decoration:underline;">@dt.Rows[0]["CourseName"]</a></h3>
+                                                }
+                                                </div>
+                                            <div class="flex-shrink-0 bg-light-primary">
+                                                <img src="/Content/images/enrollment.png" alt="Enrollments">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="card card-box p-0 main-content-card">
+                                    <div class="card-body" style="padding:15px;">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <div class="d-flex gap-2">
+                                                    <h5 class="f-14">Resume Format</h5>
+                                                </div>
+                                                <h3 class="f-26" style="font-size:21px"><a href="javascript:void(0);" style="color: #A78BFA;text-decoration:underline;">Click Here..</a></h3>
+                                            </div>
+                                            <div class="flex-shrink-0 bg-light-secondary">
+                                                <img src="/Content/images/trainign.png" alt="Training Completions">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="card card-box p-0 main-content-card">
+                                    <div class="card-body" style="padding:15px;">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <div class="d-flex gap-2">
+                                                    <h5 class="f-14">Learners certified</h5>
+                                                </div>
+                                                <h3 class="f-26" style="font-size:21px"><a href="javascript:void(0);" style="color: #A78BFA;text-decoration:underline;">Click Here..</a></h3>
+                                            </div>
+                                            <div class="flex-shrink-0 bg-light-tertiary">
+                                                <img src="/Content/images/certified.png" alt="Learners certified">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        <div class="col-md-12">
+                            <div class="portlet light portlet-fit bg-inverse bordered">
+
+                                <div class="portlet-body">
+                                    <div class="timeline  white-bg white-bg">
+                                        <div class="timeline-item">
+                                            <div class="timeline-badge">
+                                                <span class="timeline-badge-userpic">Basic Details</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        @*<a href="javascript:;" class="timeline-body-title font-blue-madison">heading</a>*@
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-circle red btn-sm" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" href="Default.aspx">
+                                                                Details
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                    <div class="basic-info">
+                                                        @if (dt.Rows.Count > 0)
+                                                        {
+                                                            <div class=""><p>Reg ID  <span> :@dt.Rows[0]["RegID"]</span></p></div>
+                                                            @*<div class=""><p>Name  <span> : @dt.Rows[0]["Name"]</span></p></div>*@
+                                                            <div class="">
+                                                                <p>
+                                                                    Phone No  <span>
+                                                                        : @dt.Rows[0]["PhoneNo"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>
+                                                                    Age <span>
+                                                                        :@dt.Rows[0]["Age"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>
+                                                                    Gender  <span>
+                                                                        :@dt.Rows[0]["Gender"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>EmailID  <span> : @dt.Rows[0]["EmailID"]</span></p>
+                                                            </div>
+
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- TIMELINE ITEM -->
+                                        <div class="timeline-item">
+                                            <div class="timeline-badge">
+                                                <span class="timeline-badge-userpic">Batch Details</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        @*<a href="javascript:;" class="timeline-body-title font-blue-madison">heading</a>*@
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-circle red btn-sm" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" href="Default.aspx">
+                                                                Details
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                    <div class="basic-info">
+                                                        @if (dt.Rows.Count > 0)
+                                                        {
+
+                                                            <div class="">
+                                                                <p>
+                                                                    Training Agency Name<span>
+                                                                        : @dt.Rows[0]["BatchId"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>Training Center<span> : @dt.Rows[0]["TrainingCenter"]</span></p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>
+                                                                    Batch Name  <span>
+                                                                        :@dt.Rows[0]["BatchName"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>
+                                                                    Date  <span>
+                                                                        : @dt.Rows[0]["BatchStartDate"]  To @dt.Rows[0]["BatchEndDate"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>
+                                                                    TrainingAgencyName  <span>
+                                                                        :@dt.Rows[0]["TrainingAgencyName"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>
+                                                                    TrainingAgencyName  <span>
+                                                                        :@dt.Rows[0]["TrainerName"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            
+                                                                                                    }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- END TIMELINE ITEM -->
+                                        <!-- TIMELINE ITEM -->
+                                        <div class="timeline-item">
+                                            <div class="timeline-badge">
+                                                <span class="timeline-badge-userpic">Attendance</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        @*<a href="javascript:;" class="timeline-body-title font-blue-madison">heading</a>*@
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-circle red btn-sm" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                Details
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                    <span class="font-grey-cascade"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END TIMELINE ITEM -->
+                                        <!-- TIMELINE ITEM WITH GOOGLE MAP -->
+                                        <div class="timeline-item">
+                                            <div class="timeline-badge">
+                                                <span class="timeline-badge-userpic">Assesment</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        @*<a href="javascript:;" class="timeline-body-title font-blue-madison">heading</a>*@
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-circle red btn-sm" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                Details
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                    <div class="basic-info font-grey-cascade">
+                                                        @if (dt.Rows.Count > 0)
+                                                        {
+
+                                                            <div class="">
+                                                                <p>
+                                                                    AssessmentScore<span>
+                                                                        : @dt.Rows[0]["AssessmentScore"]
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END TIMELINE ITEM WITH GOOGLE MAP -->
+                                        <div class="timeline-item">
+                                            <div class="timeline-badge">
+                                                <span class="timeline-badge-userpic">Call Summary</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        @*<a href="javascript:;" class="timeline-body-title font-blue-madison">heading</a>*@
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-circle red btn-sm" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                Details
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                    <div class="basic-info">
+                                                        @foreach (DataRow row in dtCall.Rows)
+                                                        {
+                                                            foreach (DataColumn col in dtCall.Columns)
+                                                            {
+                                                                <div class="">
+                                                                    <p>
+                                                                        @col.ColumnName<span>
+                                                                            : @row[col.ColumnName]
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-badge">
+                                                <span class="timeline-badge-userpic">Offers</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        @*<a href="javascript:;" class="timeline-body-title font-blue-madison">heading</a>*@
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-circle red btn-sm" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                Details
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                    <span class="font-grey-cascade"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-badge">
+                                                <span class="timeline-badge-userpic">Placement</span>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <div class="timeline-body-arrow"> </div>
+                                                <div class="timeline-body-head">
+                                                    <div class="timeline-body-head-caption">
+                                                        @*<a href="javascript:;" class="timeline-body-title font-blue-madison">heading</a>*@
+                                                    </div>
+                                                    <div class="timeline-body-head-actions">
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-circle red btn-sm" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                                Details
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="timeline-body-content">
+                                                    <span class="font-grey-cascade"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        @*</div>
+
+    </div>
+</body>*@
