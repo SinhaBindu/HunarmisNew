@@ -1,0 +1,256 @@
+﻿@using Hunarmis.Manager
+@using Hunarmis.Helpers
+@{
+    ViewBag.Title = "Placement Tracker Dashboard";
+}
+
+<style>
+
+    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+        color: #040404
+    }
+
+    .navbar-brand {
+        padding: 0 5px;
+    }
+
+
+    figure > div > div {
+        height: 500px;
+    }
+
+    .highcharts-label text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-text-outline {
+        stroke: none !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-legend-item text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-axis-labels text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-axis .highcharts-axis-line {
+        stroke: #555 !important;
+        fill: #555 !important;
+        .nano-content .profile-wrap
+
+    {
+        background: #0d47a1 !important;
+    }
+
+    #mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-primary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-secondary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-tertiary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-info {
+        background: #1976d2 !important;
+    }
+
+    .card-box .f-26 {
+        color: #0d47a1;
+    }
+
+        .card-box .f-26.box2 {
+            color: #0d47a1;
+        }
+
+        .card-box .f-26.box3 {
+            color: #0d47a1;
+        }
+
+        .card-box .f-26.box4 {
+            color: #0d47a1;
+        }
+
+    .card-box .f-14 {
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0px;
+        margin-bottom: 10px;
+        letter-spacing: 0px;
+        color: #0d47a1;
+    }
+
+    .flex-shrink-0 {
+        align-items: center;
+        display: flex;
+        height: 60px;
+        justify-content: center;
+        width: 60px;
+        background: #fff;
+        border-radius: 50%;
+        font-size: 36px;
+        box-shadow: none;
+    }
+
+        .flex-shrink-0 i {
+            color: #fff;
+        }
+
+    #footer, .bootom-fixed {
+        background: #0d47a1 !important;
+        height: 43px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row mt-20">
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Month wise placement numbers</div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection7_PlacementNumber"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Nature of employment</div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection7_EmployeeType"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Average time gap between training completion and placement</div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containerSection7_GapDay"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+
+    <script>
+    $('.count').each(function () {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('.tab-btn').on('click', function () {
+            $('.tab-btn').removeClass('act');
+            $(this).addClass('act');
+        })
+
+        section7();
+    });
+
+    function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+
+    function replaceAll(str, find, replace) {
+        return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+    }
+
+    function section7() {
+        $.ajax({
+            url: '@Url.Action("GetDashboard", "home")',
+            data: { mode: 7},
+            async: false,
+            success: function (result) {
+                console.log(result);
+                if (result.IsSuccess) {
+                    var data = JSON.parse(result.Data)[0];
+                    Graph(JSON.parse(data.PlacementNumberJsonData), 'containerSection7_PlacementNumber', 'column', '', 'Target Group', '', 'Month', '');
+                    Graph(JSON.parse(data.EmployeeTypeJsonData), 'containerSection7_EmployeeType', 'pie', '', 'Pre-Training Status', '', 'EmployeeTypeName', '');
+                    Graph(JSON.parse(data.GapDayJsonData), 'containerSection7_GapDay', 'column', '', 'Pre-Training Status', '', 'GapDay', '');
+                }
+            }
+        });
+    }
+
+    
+
+    </script>
+
+
+}

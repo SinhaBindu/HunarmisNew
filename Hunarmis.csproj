@@ -1871,6 +1871,7 @@
     <Content Include="Views\IndiParticipantUser\Login.cshtml" />
     <Content Include="Views\IndiParticipantUser\IndiPartiDashBaord.cshtml" />
     <Content Include="Views\IndiParticipantUser\DownLoadCretificate.cshtml" />
+    <Content Include="Views\Home\PlacementTracker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

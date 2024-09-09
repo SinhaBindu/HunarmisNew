@@ -133,6 +133,10 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+        public ActionResult PlacementTracker()
+        {
+            return View();
+        }
 
         #region
         public ActionResult CallingChart()

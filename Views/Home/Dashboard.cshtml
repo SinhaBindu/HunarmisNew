@@ -420,323 +420,250 @@
         });
     }
 
-    function Graph(jsonData, selector, graphType ='column', title, xAxis, yAxis, property, groupProperty) {
-        console.log(jsonData);
-        var data = [];
-        var categories = [];
-        var series = [];
-        var totals = [];
-        var originalGraphType = graphType;
-        categories = [...new Set(jsonData.map(item => item[property]))];
+    //function Graph(jsonData, selector, graphType ='column', title, xAxis, yAxis, property, groupProperty) {
+    //    console.log(jsonData);
+    //    var data = [];
+    //    var categories = [];
+    //    var series = [];
+    //    var totals = [];
+    //    var originalGraphType = graphType;
+    //    categories = [...new Set(jsonData.map(item => item[property]))];
 
-        if (graphType == 'bar-group') {
-            graphType = 'bar';
+    //    if (graphType == 'bar-group') {
+    //        graphType = 'bar';
 
-            //categories = [...new Set(jsonData.map(item => item[property]))];
-            const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
+    //        //categories = [...new Set(jsonData.map(item => item[property]))];
+    //        const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
 
-            series = groups.map(key => ({
-                name: key,
-                data: categories.map(category => {
-                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
-                    return item ? item.Total : null;
-                })
-            }));
+    //        series = groups.map(key => ({
+    //            name: key,
+    //            data: categories.map(category => {
+    //                const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+    //                return item ? item.Total : null;
+    //            })
+    //        }));
 
-        }
-        else if (graphType == 'stack-bar') {
-            graphType = 'bar';
-            // Prepare the series data
-            const seriesData = {};
-            //categories = [...new Set(jsonData.map(item => item[property]))];
-            console.log(categories);
-            jsonData.forEach(item => {
-                if (!seriesData[item[groupProperty]]) {
-                    seriesData[item[groupProperty]] = [];
-                }
-                seriesData[item.Gender].push({
-                    name: item[property],
-                    y: item.Total,
-                    percentage: item.Percentage
-                });
-            });
+    //    }
+    //    else if (graphType == 'stack-bar') {
+    //        graphType = 'bar';
+    //        // Prepare the series data
+    //        const seriesData = {};
+    //        //categories = [...new Set(jsonData.map(item => item[property]))];
+    //        console.log(categories);
+    //        jsonData.forEach(item => {
+    //            if (!seriesData[item[groupProperty]]) {
+    //                seriesData[item[groupProperty]] = [];
+    //            }
+    //            seriesData[item.Gender].push({
+    //                name: item[property],
+    //                y: item.Total,
+    //                percentage: item.Percentage
+    //            });
+    //        });
 
-            // Convert series data into Highcharts format
-            series = Object.keys(seriesData).map(gender => ({
-                name: gender,
-                data: seriesData[gender]
-            }));
+    //        // Convert series data into Highcharts format
+    //        series = Object.keys(seriesData).map(gender => ({
+    //            name: gender,
+    //            data: seriesData[gender]
+    //        }));
 
-            // Calculate total per course
-            totals = {};
-            jsonData.forEach(item => {
-                if (!totals[item[property]]) {
-                    totals[item[property]] = 0;
-                }
-                totals[item[property]] += item.Total;
-            });
+    //        // Calculate total per course
+    //        totals = {};
+    //        jsonData.forEach(item => {
+    //            if (!totals[item[property]]) {
+    //                totals[item[property]] = 0;
+    //            }
+    //            totals[item[property]] += item.Total;
+    //        });
 
-            console.log(totals);
-        }
-        else if(graphType == 'column-group') {
-            graphType = 'column';
-
-
-            //categories = [...new Set(jsonData.map(item => item[property]))];
-            const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
-
-            series = groups.map(key => ({
-                name: key,
-                dataLabels: {
-                    allowOverlap: true,
-                    rotation: 270,
-                    crop: false,
-                },
-                data: categories.map(category => {
-                    const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
-                    return item ? item.Total : null;
-                })
-            }));
-            console.log(series);
-        }
-        else if (graphType == 'pie') {
-
-            //categories = jsonData.map(item => item[property]);
-            const totals = jsonData.map(item => item.Total);
-
-            var seriesData = jsonData.map(item => ({
-                name: item[property],
-                y: item.Percentage,
-                total: item.Total // Add total to each data point
-            }));
-            series = [{
-                name: 'Percentage',
-                colorByPoint: true,
-                data: seriesData
-            }];
-
-            console.log(series);
-        }
-        else {
-
-            //categories = jsonData.map(item => item[property]);
-            const totals = jsonData.map(item => item.Total);
-
-            series = [{
-                showInLegend: false,
-                name: property,
-                data: totals
-            }];
-            console.log(series);
-        }
-
-        //for (var i = 0; i < jsonData.length; i++) {
-        //    data.push({
-        //        name: jsonData[i][property],
-        //        y: jsonData[i].Total
-        //    });
-        //}
-        colors = ['#4443a0', '#ae77b8', '#1D4E89', '#1C558E', '#1A5B92', '#16679A', '#0F80AA', '#2ec4b6'];
-        Highcharts.chart(selector, {
-            chart: {
-                type: graphType,
-                backgroundColor: 'rgba(0,0,0,0)',
-                color: '#fff',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                innerSize: '50%', // Make it a donut chart
-            },
-            title: {
-                text: title,
-                align: 'left',
-                style: {
-
-                    //display: 'none'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    stacking: originalGraphType=='stack-bar' ? 'normal' : null,
-                    shadow: false,
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y:.0f}',
-                        inside: originalGraphType == 'stack-bar', // Set this to false to place labels outside
-                        crop: originalGraphType == 'stack-bar', // Prevent labels from being cropped
-                        overflow: 'none', // Prevent labels from overflowing the chart area
-                        format: '{point.y:.0f}',
-                        //formatter: function () {
-                        //    // Automatically place labels inside or outside
-                        //    if (this.y < 25) { // Threshold (you can adjust this)
-                        //        return `<span style="color:black;">${this.y}</span>`;
-                        //    } else {
-                        //        return `<span style="color:white;">${this.y}</span>`;
-                        //    }
-                        //},
-                        style: {
-                            fontSize: 12,
-                            borderWidth: 0
-                            //display: 'none'
-                        }
-                    },
-
-                },
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}: {point.y}%'
-                    },
-                    showInLegend: true
-                },
-                //column: {
-                //    dataLabels: {
-                //        enabled: true,
-                //        inside: false,
-                //        formatter: function () {
-                //            return this.y;
-                //        }
-                //    }
-                //}
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:11px; color:red;">{series.name}</span><br>',
-                //pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +               '<b>{point.y:.0f}</b><br/>'
-                formatter: function () {
-                    console.log(this);
-                    // Check if point.total is not null or undefined
-                    const value = this.point.options && this.point.options.total
-                        ? this.point.options.total
-                        : this.point.y;
-
-                    return `<span style="font-size:12px; color:${this.color}">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
-                        `<span style="color:${this.point.color}">${this.point.name ? this.point.name : this.x}</span>: ` +
-                        /*`<span style="color:#ddd;background:red;">${this.point.name ? this.point.name : this.x}</span>: ` +*/
-                        `<b style="color:${this.color}">${value}</b><br/>`;
-                }
-            },
-            colors: colors,
-            xAxis: {
-                categories: categories,
-                //visible: false,
-                labels: {
-                    //style: {
-                    //    fontSize: 12
-                    //},
-                },
-            },
-            yAxis: {
-                visible: false,
-                labels: {
-                    style: {
-                        //fontSize: 12
-                        display:'none'
-                    },
-                },
-                title: {
-                    text: yAxis,
-                    //style: {
-                    //    fontSize: 12
-                    //},
-                },
-                stackLabels: {
-                    enabled: true,
-                    style: {
-                        fontWeight: 'bold',
-                        color: ( // theme
-                            Highcharts.defaultOptions.title.style &&
-                            Highcharts.defaultOptions.title.style.color
-                        ) || 'gray'
-                    },
-                    formatter: function () {
-                        console.log(this)
-                        return this.total;
-                    }
-                }
-            },
-            series: series
-        });
-
-    }
-
-    function genderGraph() {
-        @*jsonData = JSON.parse(replaceAll('@dtGraph.Rows[0]["GenderJsonData"]', '&quot;', '"'));*@
-        jsonData = [];
-        console.log(jsonData);
-        var data = [];
-        for (var i = 0; i < jsonData.length; i++) {
-            data.push([jsonData[i].Gender, jsonData[i].Total, jsonData[i].Percentage]);
-        }
-
-        chart = Highcharts.chart('containerGender', {
-            title: {
-                text: 'Gender',
-                align: 'center',
-                style: {
-                    display: 'none'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            //subtitle: {
-            //    useHTML: true,
-            //    text: getSubtitle(),
-            //    floating: true,
-            //    verticalAlign: 'middle',
-            //    y: 30
-            //},
-            legend: {
-                enabled: true
-            },
-            //tooltip: {
-            //    valueDecimals: 0,
-            //    valueSuffix: ' Participaints'
-            //},
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
-                    '<b>{point.y:.2f}({point.percentage:.2f}%)</b> of total<br/>'
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    colorByPoint: true,
-                    type: 'pie',
-                    size: '100%',
-                    innerSize: '50%',
-                    dataLabels: {
-                        enabled: true,
-                        crop: false,
-                        distance: '-10%',
-                        style: {
-                            fontWeight: 'bold',
-                            fontSize: '16px'
-                        },
-                        connectorWidth: 0
-                    }
-                }
-            },
-            colors: ['#ea599f', '#6ec9ee', '#8a80bc'],
-            series: [
-                {
-                type: 'pie',
-                    name: 'Gender',
-                    data: data
-                }
-            ]
-        });
-
-    }
+    //        console.log(totals);
+    //    }
+    //    else if(graphType == 'column-group') {
+    //        graphType = 'column';
 
 
+    //        //categories = [...new Set(jsonData.map(item => item[property]))];
+    //        const groups = [...new Set(jsonData.map(item => item[groupProperty]))];
 
+    //        series = groups.map(key => ({
+    //            name: key,
+    //            dataLabels: {
+    //                allowOverlap: true,
+    //                rotation: 270,
+    //                crop: false,
+    //            },
+    //            data: categories.map(category => {
+    //                const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
+    //                return item ? item.Total : null;
+    //            })
+    //        }));
+    //        console.log(series);
+    //    }
+    //    else if (graphType == 'pie') {
 
+    //        //categories = jsonData.map(item => item[property]);
+    //        const totals = jsonData.map(item => item.Total);
 
+    //        var seriesData = jsonData.map(item => ({
+    //            name: item[property],
+    //            y: item.Percentage,
+    //            total: item.Total // Add total to each data point
+    //        }));
+    //        series = [{
+    //            name: 'Percentage',
+    //            colorByPoint: true,
+    //            data: seriesData
+    //        }];
+
+    //        console.log(series);
+    //    }
+    //    else {
+
+    //        //categories = jsonData.map(item => item[property]);
+    //        const totals = jsonData.map(item => item.Total);
+
+    //        series = [{
+    //            showInLegend: false,
+    //            name: property,
+    //            data: totals
+    //        }];
+    //        console.log(series);
+    //    }
+
+    //    //for (var i = 0; i < jsonData.length; i++) {
+    //    //    data.push({
+    //    //        name: jsonData[i][property],
+    //    //        y: jsonData[i].Total
+    //    //    });
+    //    //}
+    //    colors = ['#4443a0', '#ae77b8', '#1D4E89', '#1C558E', '#1A5B92', '#16679A', '#0F80AA', '#2ec4b6'];
+    //    Highcharts.chart(selector, {
+    //        chart: {
+    //            type: graphType,
+    //            backgroundColor: 'rgba(0,0,0,0)',
+    //            color: '#fff',
+    //            plotBackgroundColor: null,
+    //            plotBorderWidth: null,
+    //            plotShadow: false,
+    //            innerSize: '50%', // Make it a donut chart
+    //        },
+    //        title: {
+    //            text: title,
+    //            align: 'left',
+    //            style: {
+
+    //                //display: 'none'
+    //            }
+    //        },
+    //        credits: {
+    //            enabled: false
+    //        },
+    //        plotOptions: {
+    //            series: {
+    //                stacking: originalGraphType=='stack-bar' ? 'normal' : null,
+    //                shadow: false,
+    //                borderWidth: 0,
+    //                dataLabels: {
+    //                    enabled: true,
+    //                    format: '{point.y:.0f}',
+    //                    inside: originalGraphType == 'stack-bar', // Set this to false to place labels outside
+    //                    crop: originalGraphType == 'stack-bar', // Prevent labels from being cropped
+    //                    overflow: 'none', // Prevent labels from overflowing the chart area
+    //                    format: '{point.y:.0f}',
+    //                    //formatter: function () {
+    //                    //    // Automatically place labels inside or outside
+    //                    //    if (this.y < 25) { // Threshold (you can adjust this)
+    //                    //        return `<span style="color:black;">${this.y}</span>`;
+    //                    //    } else {
+    //                    //        return `<span style="color:white;">${this.y}</span>`;
+    //                    //    }
+    //                    //},
+    //                    style: {
+    //                        fontSize: 12,
+    //                        borderWidth: 0
+    //                        //display: 'none'
+    //                    }
+    //                },
+
+    //            },
+    //            pie: {
+    //                allowPointSelect: true,
+    //                cursor: 'pointer',
+    //                dataLabels: {
+    //                    enabled: true,
+    //                    format: '{point.name}: {point.y}%'
+    //                },
+    //                showInLegend: true
+    //            },
+    //            //column: {
+    //            //    dataLabels: {
+    //            //        enabled: true,
+    //            //        inside: false,
+    //            //        formatter: function () {
+    //            //            return this.y;
+    //            //        }
+    //            //    }
+    //            //}
+    //        },
+    //        tooltip: {
+    //            headerFormat: '<span style="font-size:11px; color:red;">{series.name}</span><br>',
+    //            //pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +               '<b>{point.y:.0f}</b><br/>'
+    //            formatter: function () {
+    //                console.log(this);
+    //                // Check if point.total is not null or undefined
+    //                const value = this.point.options && this.point.options.total
+    //                    ? this.point.options.total
+    //                    : this.point.y;
+
+    //                return `<span style="font-size:12px; color:${this.color}">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
+    //                    `<span style="color:${this.point.color}">${this.point.name ? this.point.name : this.x}</span>: ` +
+    //                    /*`<span style="color:#ddd;background:red;">${this.point.name ? this.point.name : this.x}</span>: ` +*/
+    //                    `<b style="color:${this.color}">${value}</b><br/>`;
+    //            }
+    //        },
+    //        colors: colors,
+    //        xAxis: {
+    //            categories: categories,
+    //            //visible: false,
+    //            labels: {
+    //                //style: {
+    //                //    fontSize: 12
+    //                //},
+    //            },
+    //        },
+    //        yAxis: {
+    //            visible: false,
+    //            labels: {
+    //                style: {
+    //                    //fontSize: 12
+    //                    display:'none'
+    //                },
+    //            },
+    //            title: {
+    //                text: yAxis,
+    //                //style: {
+    //                //    fontSize: 12
+    //                //},
+    //            },
+    //            stackLabels: {
+    //                enabled: true,
+    //                style: {
+    //                    fontWeight: 'bold',
+    //                    color: ( // theme
+    //                        Highcharts.defaultOptions.title.style &&
+    //                        Highcharts.defaultOptions.title.style.color
+    //                    ) || 'gray'
+    //                },
+    //                formatter: function () {
+    //                    console.log(this)
+    //                    return this.total;
+    //                }
+    //            }
+    //        },
+    //        series: series
+    //    });
+
+    //}
+
+    
 </script>
