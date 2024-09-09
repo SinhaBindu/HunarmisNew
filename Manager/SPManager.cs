@@ -356,5 +356,23 @@ namespace Hunarmis.Manager
         }
         #endregion
 
+        #region Login For IndiParticipant
+        public static DataTable SP_LoginForIndiParticipantCheck(IndiParticipantModels model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_LoginForIndiParticipantCheck");
+            sp.Command.AddParameter("@EmailID", model.EmailID, DbType.String);
+            sp.Command.AddParameter("@Password", model.Password, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataSet GetIndiParticipantDetailsByID(string UserID)
+        {
+            StoredProcedure sp = new StoredProcedure("Usp_GetIndiParticipantDetails");
+            sp.Command.AddParameter("@UserID", UserID, DbType.String);
+            DataSet dt = sp.ExecuteDataSet();
+            return dt;
+        }
+        #endregion
+
     }
 }
