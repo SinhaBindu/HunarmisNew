@@ -201,7 +201,7 @@ h1, h2, h3, h4, h5, h6, svg {
     justify-content: center;
     width: 55px;
     background: #fff;
-    border-radius: 50%;
+    border-radius: 50% !important;
     font-size: 32px;
     box-shadow: none;
     flex-shrink: 0 !important;
@@ -256,6 +256,103 @@ h1, h2, h3, h4, h5, h6, svg {
     font-weight: 400;
     color: #fff;
 }
+.ParticipantUser .card-head .title {
+    text-transform: uppercase;
+    font-size: 20px;
+}
+.ParticipantUser .card-head .title span {
+    color: #ae77b8;
+}
+.ParticipantUser .f-21 {
+    font-size: 16px;
+    color: #fff;
+    margin: 0px 0px 7px 0px;
+    font-weight: 600;
+}
+.ParticipantUser .f-14 {
+    margin: 0px !important;
+    width: 100% !important;
+    font-size: 12px;
+}
+
+.ParticipantUser .timeline {
+    position: relative;
+    padding-bottom: 40px;
+    background-color: #fff;
+    color: #555;
+}
+    .ParticipantUser .timeline.white-bg:before {
+        background: #4443a0;
+    }
+    .ParticipantUser .timeline.white-bg .timeline-badge-userpic {
+        border-color: #8a77f4;
+        text-decoration: underline;
+        color: #4443a0;
+        font-weight: bold;
+    }
+    .ParticipantUser .timeline:before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 2px;
+        background: #f5f6fa;
+        top: 0;
+        bottom: 0;
+        margin-left: 45px;
+    }
+    .ParticipantUser .timeline.white-bg .timeline-body, .ParticipantUser .timeline.white-bg .timeline-icon {
+        background-color: #f1f1f1;
+    }
+    .ParticipantUser .timeline.white-bg .timeline-body-arrow {
+        border-color: transparent #f1f1f1 transparent transparent;
+    }
+.ParticipantUser .basic-info {
+    display: flex;
+    gap: 10px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border: #F5F5F5 1px solid;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0.75rem 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ae77b8;
+    background: #fff;
+    webkit-box-shadow: 4px 3px 0px 0px #ae77b8;
+    box-shadow: 4px 3px 0px 0px #ae77b8;
+    border-radius: 4px;
+}
+.ParticipantUser .timeline .timeline-body {
+    padding: 15px !important;
+}
+.ParticipantUser .basic-info span {
+    color: #ae77b8;
+    font-weight: 400;
+    float: right;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.ParticipantUser .timeline .timeline-body-content {
+    margin-top:0px !important;
+}
+.ParticipantUser .timeline .timeline-body-arrow {
+    top: 6px !important;
+}
+.ParticipantUser .basic-info p {
+    color: #8a77f4;
+    font-weight: 400;
+    margin: 5px 0;
+}
+.ParticipantUser .basic-info div {
+    flex-basis: auto !important;
+}
+
+
 .fieldset-card {
     display: -webkit-box;
     display: -ms-flexbox;
