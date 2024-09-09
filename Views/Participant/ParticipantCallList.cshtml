@@ -8,39 +8,10 @@
     string IsSadmin = string.Empty;
 }
 <style>
-    .table th {
-        font-size: 14px;
-        background: #fff;
-    }
-
-    .table td {
-        font-size: 13px;
-    }
-
-    .dataTables_filter, .dataTables_length {
-        margin-bottom: 15px;
-    }
-
     .actives2 {
         color: #009CFF !important;
         background: #FFFFFF;
         border-color: #009CFF;
-    }
-
-    table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
-        padding: 10px 6px !important
-    }
-
-    .box-gap {
-        padding: 10px 10px !important
-    }
-
-    .dt-input {
-        margin-right: 10px
-    }
-
-    .panel {
-        min-height: 500px;
     }
 
     .licall::before {
@@ -110,91 +81,74 @@
         background: #FFB300;
     }
 
-   
+    #page-content {
+        padding: 0px !important;
+    }
 </style>
 
 <div id="page-content">
-    <div class="genral-form">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel">
-                    <div class="panel-spacer">
-                        <p class="bord-btm pad-ver text-main text-bold">
-                            @ViewBag.Title
+    <div class="container-fluid">
+        <div class="row mt-20">
+            <div class="col-xs-12 col-md-12">
+                <div class="card card-box p-0">
+                    <div class="card-head">
+                        <div class="title">@*@ViewBag.Title*@
+                            <ul class="call-option">
+                                <li><span class="d-call"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
+                                <li><span class="call-progress"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress))</li>
+                                <li><span class="call-yes"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone))</li>
+                                <li><span class="call-no"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNotPick))</li>
+                            </ul>
+                        </div>
+                        <div class="tools">
                             <span class="downs-btn" id="div-download"></span>
-                        </p>
+                        </div>
                     </div>
-                    <fieldset class="border rounded-3 p-3">
-                        @*<legend class="float-none w-auto px-2">Search By</legend>*@
-                        @using (Html.BeginForm("GetPartList", "Participant", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
-                        {
-                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
-                            <div class="panel-bodys">
-                                <div class="bg-light rounded h-100 p-4">
-                                    <div class="row mb-3">
-                                        <div class="col-md-12">
-                                            <ul class="call-option">
-                                                <li><span class="d-call"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNot))</li>
-                                                <li><span class="call-progress"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallOnProgress))</li>
-                                                <li><span class="call-yes"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallDone))</li>
-                                                <li><span class="call-no"></span>@(Enums.GetEnumDescription(Enums.eTempCallStatus.CallNotPick))</li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                    <div class="row mb-4">
-                                        <div class="position-relative">
-                                            @Html.LabelFor(model => model.CallStatus, htmlAttributes: new { @class = "control-label col-md-2 " })
-                                            <div class="col-md-2">
+                    <div class="card-body">
+                        <fieldset class="fieldset-card">
+                            @*<legend class="float-none w-auto px-2">Search By</legend>*@
+                            @using (Html.BeginForm("GetPartList", "Participant", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+                            {
+                                <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.CallStatus, htmlAttributes: new { @class = "control-label" })
                                                 @Html.DropDownListFor(m => m.CallStatus, CommonModel.GetEnumCallStatusList(true), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.CallStatus, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <div class="position-relative">
-                                            @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-1" })
-                                            <div class="col-md-2">
+                                        <div class="col-xs-12 col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label" })
                                                 @Html.DropDownListFor(m => m.CourseId, CommonModel.GetCourses(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <div class="position-relative">
-                                            @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-md-1" })
-                                            <div class="col-md-3">
+                                        <div class="col-xs-12 col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label" })
                                                 @*@Html.DropDownListFor(m => m.BatchId, CommonModel.GetBatch(true), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })*@
                                                 @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                 @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        @*<div class="position-relative">
-                                                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-1" })
-                                                <div class="col-md-2">
-                                                    @Html.DropDownListFor(m => m.UserId, CommonModel.GetUserList(), "Select", htmlAttributes: new { @class = "form-control select2", @required = "required" })
-                                                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>*@
                                     </div>
                                 </div>
-                            </div>
-                        }
-                    </fieldset>
-                    <div class="box-gap">
+                            }
+                        </fieldset>
                         <div class="row">
-
-                            <div class="col=md-6"></div>
-                            <div class="col=md-6"></div>
-                            <div class="col=md-6"></div>
                             <div class="col-md-12">
                                 <div id="subdata"></div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/Custom/Master.js"></script>
@@ -215,7 +169,7 @@
             //    });
             //    /* Role Wise */
             //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
-           
+
             setTimeout(function () {
                 $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
                 //$('select[name="CallStatus"]').find('option[value="0"]').attr("selected", true).change();

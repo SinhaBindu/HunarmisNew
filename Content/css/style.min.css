@@ -256,6 +256,24 @@ h1, h2, h3, h4, h5, h6, svg {
     font-weight: 400;
     color: #fff;
 }
+.fieldset-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0.75rem 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ae77b8;
+    background: #fff;
+    webkit-box-shadow: 4px 3px 0px 0px #ae77b8;
+    box-shadow: 4px 3px 0px 0px #ae77b8;
+    border-radius: 4px;
+}
+.table {
+    width: 100% !important;
+}
 @media (min-width: 992px) {
     #footer, .bootom-fixed {
         background: #4443a0 !important;
