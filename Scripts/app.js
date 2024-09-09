@@ -502,7 +502,8 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         console.log(series);
     }
 
-    colors = ['#4443a0', '#ae77b8', '#1D4E89', '#1C558E', '#1A5B92', '#16679A', '#0F80AA', '#2ec4b6'];
+    /*colors = ['#4443a0', '#ae77b8', '#1D4E89', '#1C558E', '#1A5B92', '#16679A', '#0F80AA', '#2ec4b6'];*/
+    colors = ['#4443a0', '#ae77b8', '#9be0ba', '#4194ac', '#44449e', '#47a372', '#3466ab', '#8a3b99'];
     Highcharts.chart(selector, {
         chart: {
             type: graphType,
