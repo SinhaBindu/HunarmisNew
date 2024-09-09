@@ -644,6 +644,7 @@
     <Content Include="Content\css\example-styles.css" />
     <Content Include="Content\css\initcarousel-1.css" />
     <Content Include="Content\css\jquery-ui-timepicker-addon.css" />
+    <Content Include="Content\css\jquery.dataTables.min.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\mgaccordion.css" />
     <Content Include="Content\css\MultipleSelectBox.css" />
@@ -796,6 +797,7 @@
     <Content Include="Content\IndiUser\plugins.min.css" />
     <Content Include="Content\IndiUser\simple-line-icons.min.css" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\datatables.min.js" />
     <Content Include="Content\js\demo\bg-images.js" />
     <Content Include="Content\js\demo\dashboard-2.js" />
     <Content Include="Content\js\demo\dashboard.js" />
@@ -1862,15 +1864,12 @@
     <Content Include="Views\Participant\ParticipantProfile4.cshtml" />
     <Content Include="Views\Participant\ParticipantProfile5.cshtml" />
     <Content Include="Views\Participant\_CallSummaryData.cshtml" />
-
     <Content Include="Views\Participant\ParticipantProfile6.cshtml" />
     <Content Include="Scripts\Map\india_st.json" />
     <Content Include="Views\Participant\_DashboardmapDistrict.cshtml" />
-
     <Content Include="Views\IndiParticipantUser\Index.cshtml" />
     <Content Include="Views\IndiParticipantUser\Login.cshtml" />
     <Content Include="Views\IndiParticipantUser\IndiPartiDashBaord.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
