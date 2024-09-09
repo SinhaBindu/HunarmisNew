@@ -259,6 +259,7 @@ namespace Hunarmis.Manager
         public static DataTable SP_AttendancePartSummary(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("SP_AttendanceParticipantSummary");
+            sp.Command.AddParameter("@PartId", model.ParticipantId, DbType.String);
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
             sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
@@ -351,6 +352,7 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_PlacementTrackerDetails");
             sp.Command.AddParameter("@PlacementTrackerId", model.PlacementTrackerId, DbType.String);
+            sp.Command.AddParameter("@PartId", model.ParticipantId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

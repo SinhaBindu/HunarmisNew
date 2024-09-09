@@ -139,7 +139,7 @@
                 <h1 class="text-capitalize"> Hunar: Pathways to Progress</h1>
                 <h3>Login</h3>
                 <p>Enter your username and password to login</p>
-                @using (Html.BeginForm("Login", "ParticipantUser", new { RandomValue = TempData["RV"] }, FormMethod.Post, new { role = "form" }))
+                @using (Html.BeginForm("Login", "IndiParticipantUser", new { RandomValue = TempData["RV"] }, FormMethod.Post, new { role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.RandomValue)

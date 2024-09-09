@@ -272,7 +272,7 @@ h1, h2, h3, h4, h5, h6, svg {
 .ParticipantUser .f-14 {
     margin: 0px !important;
     width: 100% !important;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .ParticipantUser .timeline {
@@ -301,10 +301,11 @@ h1, h2, h3, h4, h5, h6, svg {
         margin-left: 45px;
     }
     .ParticipantUser .timeline.white-bg .timeline-body, .ParticipantUser .timeline.white-bg .timeline-icon {
-        background-color: #f1f1f1;
+        background-color: #d9d3d3;
     }
     .ParticipantUser .timeline.white-bg .timeline-body-arrow {
-        border-color: transparent #f1f1f1 transparent transparent;
+        /*border-color: transparent #f1f1f1 transparent transparent;*/
+        border-color: transparent #d9d3d3 transparent transparent;
     }
 .ParticipantUser .basic-info {
     display: flex;
