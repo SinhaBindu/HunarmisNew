@@ -9,64 +9,78 @@
 }
 @using Hunarmis.Helpers
 <style>
+    figure > div > div {
+        height: 500px;
+    }
+
     .WhiteFontChart .highcharts-label text {
         color: #fff !important;
         font-size: 12px !important;
         font-weight: 500 !important;
         fill: #fff !important;
     }
+
     .WhiteFontChart .highcharts-legend-item text {
         stroke: none !important;
         fill: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
     }
+
     .WhiteFontChart .highcharts-axis-labels text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
         fill: #555 !important;
     }
+
     .WhiteFontChart .highcharts-axis text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
         fill: #555 !important;
     }
+
     .highcharts-text-outline {
         stroke: none !important;
         fill: #555 !important;
     }
+
     .highcharts-label text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: 500 !important;
         fill: #555 !important;
     }
+
     .highcharts-legend-item text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
         fill: #555 !important;
     }
+
     .highcharts-axis-labels text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
         fill: #555 !important;
     }
+
     .highcharts-axis text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
         fill: #555 !important;
     }
+
     .highcharts-axis text {
         color: #555 !important;
         font-size: 12px !important;
         font-weight: normal !important;
         fill: #555 !important;
     }
+
     .WhiteFontChart .highcharts-label text {
         color: #fff !important;
         font-size: 12px !important;
@@ -150,7 +164,7 @@
                                 </div>
                             </div>
                         </div>
-                     }
+                    }
                 </div>
             </div>
         </div>
@@ -473,6 +487,11 @@
 
             series = groups.map(key => ({
                 name: key,
+                dataLabels: {
+                    allowOverlap: true,
+                    rotation: 270,
+                    crop: false,
+                },
                 data: categories.map(category => {
                     const item = jsonData.find(d => d[property] === category && d[groupProperty] === key);
                     return item ? item.Total : null;
@@ -526,7 +545,7 @@
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                innerSize: '50%' // Make it a donut chart
+                innerSize: '50%', // Make it a donut chart
             },
             title: {
                 text: title,
