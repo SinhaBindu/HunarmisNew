@@ -133,59 +133,7 @@
                                         </div>
                                         <div class="timeline-body-content">
                                             <div class="basic-info">
-                                                @if (dt.Rows.Count > 0)
-                                                {
-                                                    <div class=""><p>Reg ID  <span> :@dt.Rows[0]["RegID"]</span></p></div>
-                                                    <div class=""><p>State  <span> :@dt.Rows[0]["StateName"]</span></p></div>
-                                                    <div class=""><p>District  <span> :@dt.Rows[0]["DistrictName"]</span></p></div>
-                                                    @*<div class=""><p>Name  <span> : @dt.Rows[0]["Name"]</span></p></div>*@
-                                                    <div class="">
-                                                        <p>
-                                                            Phone No  <span>
-                                                                : @dt.Rows[0]["PhoneNo"]
-                                                            </span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>
-                                                            Age <span>
-                                                                :@dt.Rows[0]["Age"]
-                                                            </span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>
-                                                            Gender  <span>
-                                                                :@dt.Rows[0]["Gender"]
-                                                            </span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>EmailID  <span> : @dt.Rows[0]["EmailID"]</span></p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>Aadhar  <span> : @dt.Rows[0]["AadharCardNo"]</span></p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>Qualification  <span> : @dt.Rows[0]["QualificationName"]</span></p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>Pre-Training  <span> : @dt.Rows[0]["PreTrainingName"]</span></p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>Target-Group  <span> : @dt.Rows[0]["TargetGroupName"]</span></p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>Marital Status  <span> : @dt.Rows[0]["MaritalStatusName"]</span></p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>No.Of Family  <span> : @dt.Rows[0]["NoofFamilyMembers"]</span></p>
-                                                    </div>
-                                                    <div class="">
-                                                        <p>Annual Income  <span> : @dt.Rows[0]["AnnualHouseholdincome"]</span></p>
-                                                    </div>
-                                                }
-                                            </div>
+                                              
                                                 <div class="row" style="width:100%;">
                                                     <div class="col-xs-12 col-md-8">
                                                         @if (dt.Rows.Count > 0)
@@ -216,7 +164,27 @@
                                                             <div class="">
                                                                 <p>EmailID:<span>@dt.Rows[0]["EmailID"]</span></p>
                                                             </div>
-
+                                                            <div class="">
+                                                                <p>Aadhar  <span> : @dt.Rows[0]["AadharCardNo"]</span></p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>Qualification  <span> : @dt.Rows[0]["QualificationName"]</span></p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>Pre-Training  <span> : @dt.Rows[0]["PreTrainingName"]</span></p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>Target-Group  <span> : @dt.Rows[0]["TargetGroupName"]</span></p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>Marital Status  <span> : @dt.Rows[0]["MaritalStatusName"]</span></p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>No.Of Family  <span> : @dt.Rows[0]["NoofFamilyMembers"]</span></p>
+                                                            </div>
+                                                            <div class="">
+                                                                <p>Annual Income  <span> : @dt.Rows[0]["AnnualHouseholdincome"]</span></p>
+                                                            </div>
                                                         }
                                                     </div>
                                                     <div class="col-xs-12 col-md-4">
