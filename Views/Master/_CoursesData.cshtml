@@ -11,6 +11,7 @@
             <tr>
                 <th class="text-center tblth">Srno.</th>
                 <th class="text-center tblth">Course Name</th>
+                <th class="text-center tblth">Download</th>
                 <th style="width: 80px" class="text-center tblth">Edit</th>
             </tr>
         </thead>
@@ -24,6 +25,9 @@
                         <tr class="text-center">
                             <td>@(srno++)</td>
                             <td>@dr["CourseName"]</td>
+                            <td>
+                                <a href="@(CommonModel.GetBaseUrl()+dr["FilePath"])" class="btn btn-success btn-sm" download target="_blank"><i class="fa fa-download"></i></a>
+                            </td>
                             <td>
                                 <a href="~/Master/CoursesMaster?Id=@dr["Id"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                             </td>

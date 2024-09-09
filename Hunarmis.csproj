@@ -372,7 +372,7 @@
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IndiParticipantUserController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
@@ -1867,10 +1867,10 @@
     <Content Include="Views\Participant\ParticipantProfile6.cshtml" />
     <Content Include="Scripts\Map\india_st.json" />
     <Content Include="Views\Participant\_DashboardmapDistrict.cshtml" />
-    <Content Include="Views\IndiParticipantUser\Index.cshtml" />
-    <Content Include="Views\IndiParticipantUser\Login.cshtml" />
-    <Content Include="Views\IndiParticipantUser\IndiPartiDashBaord.cshtml" />
-    <Content Include="Views\IndiParticipantUser\DownLoadCretificate.cshtml" />
+    <Content Include="Views\UserProfile\Index.cshtml" />
+    <Content Include="Views\UserProfile\Login.cshtml" />
+    <Content Include="Views\UserProfile\UserDashBaord.cshtml" />
+    <Content Include="Views\UserProfile\DownLoadCretificate.cshtml" />
     <Content Include="Views\Home\PlacementTracker.cshtml" />
   </ItemGroup>
   <ItemGroup>
