@@ -334,16 +334,28 @@ h1, h2, h3, h4, h5, h6, svg {
 .ParticipantUser .basic-info span {
     color: #ae77b8;
     font-weight: 400;
-    float: right;
+    float: none;
     margin-right: 5px;
     margin-left: 5px;
 }
 .ParticipantUser .timeline .timeline-body-content {
     margin-top:0px !important;
 }
-.ParticipantUser .timeline .timeline-body-arrow {
-    top: 6px !important;
+.profile-Pic-user {
+    max-width: 125px;
+    width: 100%;
+    border-radius: 10px !important;
+    overflow: hidden;
+    margin: auto;
+    border: 1px solid #ddd;
+    float:right;
 }
+.profile-Pic-user img{
+    width:100%;
+}
+    .ParticipantUser .timeline .timeline-body-arrow {
+        top: 6px !important;
+    }
 .ParticipantUser .basic-info p {
     color: #8a77f4;
     font-weight: 400;
