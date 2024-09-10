@@ -1,22 +1,15 @@
-﻿@using Hunarmis.Models
-@using Hunarmis.Manager
+﻿@using Hunarmis.Manager
 @{
-    string url = string.Empty;
-    Courses_Master clist = new Courses_Master();
-    if (Model != null)
-    {
-        clist = Model;
-    }
-    ViewBag.Title = clist.CourseName;
+    ViewBag.Title = "Soft Skill";
 }
 <style>
-    #end {
-        display: none !important;
+    #end{
+        display:none !important;
     }
 </style>
 
 <script>
-
+    
     //window.oncontextmenu = function () {
     //    return false;
     //}
@@ -38,10 +31,8 @@
     });
 </script>
 <div id="wrapper">
-    @if (clist != null)
-    {
-        <iframe id="iframe1" src="@(CommonModel.GetBaseUrl()+clist.FilePath)#toolbar=0" name="iframe1" scrolling="yes" height="600" width="100%" marginwidth="0" marginheight="0"
+        <iframe id="iframe1" src="@(CommonModel.GetBaseUrl()+"/Uploads/CourseFiles/SoftSkillsCurriculumDec2023.pdf")#toolbar=0&#print=0"  name="iframe1" scrolling="yes" height="600" width="100%" marginwidth="0" marginheight="0"
                 onload="disableContextMenu();" title=""></iframe>
         @*<embed src="@(CommonModel.GetBaseUrl()+clist.FilePath)#view=FitH" style="width:100%; height:700px;">*@
-    }
+    
 </div>

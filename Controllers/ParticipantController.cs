@@ -257,11 +257,15 @@ namespace Hunarmis.Controllers
                         tbl.EduQualOther = model.EduQualificationID == 4 ? model.EduQualOther : null;
                         tbl.CourseEnrolledID = model.CourseEnrolledID;
                         tbl.StateID = model.StateID;
-                        tbl.DistrictID = model.DistrictID;
-                        tbl.TrainingAgencyID = model.TrainingAgencyID;
+                        var dtdistrainagency = SPManager.GetSPMasterList(Convert.ToInt32(model.StateID), CommonModel.GetUserRole(),model.TrainingCenterID.ToString());
+                        if (dtdistrainagency.Rows.Count>0 )
+                        {
+                            tbl.DistrictID =Convert.ToInt32(dtdistrainagency.Rows[0]["DistrictId"]);
+                            tbl.TrainingAgencyID = Convert.ToInt32(dtdistrainagency.Rows[0]["TrainingAgencyId"]);
+                        }
                         tbl.TrainingCenterID = model.TrainingCenterID;
                         tbl.TrainerName = !(string.IsNullOrWhiteSpace(model.TrainerName)) ? model.TrainerName.Trim() : model.TrainerName;
-                        tbl.TrainerId = model.TrainerId != Guid.Empty ? model.TrainerId : null;
+                        tbl.TrainerId = model.TrainerId != Guid.Empty ? model.TrainerId : tbl.TrainerId;
                         tbl.IsActive = true;
                         tbl.IsPlaced = model.Is_Placed == "1" ? true : false;
                         tbl.IsOffered = model.Is_Offered == "1" ? true : false;

@@ -8,6 +8,15 @@ namespace Hunarmis.Manager
 {
     public static partial class SPManager
     {
+        public static DataTable GetSPMasterList(int StateId ,string RoleIds ,string TrainingCenterIds)
+        {
+            StoredProcedure sp = new StoredProcedure("SPMasterList");
+            sp.Command.AddParameter("@StateId", StateId, DbType.Int32);
+            sp.Command.AddParameter("@RoleIds", RoleIds, DbType.String);
+            sp.Command.AddParameter("@TrainingCenterIds", TrainingCenterIds, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SPGetUserlist(int? RoleId)
         {
             StoredProcedure sp = new StoredProcedure("SPGetUserlist");
@@ -132,6 +141,7 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@Gender", model.Gender, DbType.String);
             sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
+            sp.Command.AddParameter("@TCIds", MvcApplication.CUser.MappedTCenterIds, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -358,7 +368,7 @@ namespace Hunarmis.Manager
         }
         #endregion
 
-        #region Login For IndiParticipant
+        #region Login For User Profile
         public static DataTable SP_LoginForIndiParticipantCheck(IndiParticipantModels model)
         {
             StoredProcedure sp = new StoredProcedure("SP_LoginForIndiParticipantCheck");
@@ -373,6 +383,15 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@UserID", UserID, DbType.String);
             DataSet dt = sp.ExecuteDataSet();
             return dt;
+        }
+        public static DataSet GetSP_DownloadCertificate(string PartId, int CId, int BId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_DownloadCertificate");
+            sp.Command.AddParameter("@CId", CId, DbType.Int32);
+            sp.Command.AddParameter("@BId", BId, DbType.Int32);
+            sp.Command.AddParameter("@PartId", PartId, DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
         }
         #endregion
 

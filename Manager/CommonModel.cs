@@ -980,6 +980,33 @@ namespace Hunarmis.Manager
                 throw;
             }
         }
+        public static List<SelectListItem> GetTrainingCenterWise(int IsAll = 0, int StateId = 0, string Roles = "", string TCenterIds = "")
+        {
+            Hunar_DBEntities _db = new Hunar_DBEntities();
+            try
+            {
+                List<SelectListItem> list = new List<SelectListItem>();
+                DataTable dt1 = SPManager.GetSPMasterList(StateId, Roles, TCenterIds);
+                list = dt1.AsEnumerable().Select(x => new SelectListItem()
+                {
+                    Value = x.Field<Int32>("TrainingCenterId").ToString(),
+                    Text = x.Field<string>("CombinedTrainingCenter")
+                }).ToList();
+                if (IsAll == 0)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "All" });
+                }
+                else if (IsAll == 1)
+                {
+                    list.Insert(0, new SelectListItem { Value = "0", Text = "Select" });
+                }
+                return list;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public static List<SelectListItem> GetDistTrainingAgencyCenterList(DataTable dtcen, List<tbl_MappedTrainCenter> Listselval = null, int DistrictId = 0, int TAgencyId = 0)
         {
             try

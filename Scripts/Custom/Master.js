@@ -436,6 +436,41 @@ function BindTrainingCenter(ElementId, SelectedValue, SelectAll, Para1, Para2) {
     //console.log('select value-'+SelectedValue);
     $('#' + ElementId).trigger("chosen:updated");
 }
+function BindTrainingCentersWiseLists(ElementId, SelectedValue, SelectAll,Para, Para1, Para2) {
+    $('#' + ElementId).empty();
+    $('#' + ElementId).prop("disabled", false);
+    //$('#' + ElementId).append($("<option>").val('').text('Select'));
+    $.ajax({
+        //url: document.baseURI + "/Master/GetHSCDistrict",
+        url: document.baseURI + "Master/GetTrainingCenters",
+        type: "Post",
+        data: JSON.stringify({ 'IsAll': SelectAll, 'StateId':Para,'Roles': Para1, 'TCIds': Para2 }),
+        contentType: "application/json; charset=utf-8",
+        //global: false,
+        async: false,
+        dataType: "json",
+        success: function (resp) {
+            if (resp.IsSuccess) {
+                var data = JSON.parse(resp.res);
+                $.each(data, function (i, exp) {
+                    $('#' + ElementId).append($("<option>").val(exp.Value).text(exp.Text));
+                });
+                $('#' + ElementId).val(SelectedValue);
+            }
+            else {
+                //alert(resp.IsSuccess);
+            }
+        },
+        error: function (req, error) {
+            if (error === 'error') { error = req.statusText; }
+            var errormsg = 'There was a communication error: ' + error;
+            //Do To Message display
+        }
+    });
+
+    //console.log('select value-'+SelectedValue);
+    $('#' + ElementId).trigger("chosen:updated");
+}
 
 function BindTainerAtCenter(ElementId, SelectedValue, SelectAll, Para) {
     $('#' + ElementId).empty();

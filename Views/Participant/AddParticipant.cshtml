@@ -2,7 +2,7 @@
 @using Hunarmis.Manager;
 @{
     ViewBag.Title = "Participant";
-    ViewBag.TitleTab2 = "Participant Others Information";
+    ViewBag.TitleTab2 = "Additional Information";
     ViewBag.TitleIcon = "fa fa-user";
     ViewBag.SemiTitle = "Participant List";
     ViewBag.SemiTitleLink = "/Participant/ParticipantList";
@@ -57,14 +57,14 @@
                                         <div class="row">
                                             @if (Model.ID != Guid.Empty)
                                             {
-                                             <div class="col-xs-2 col-md-4">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.RegID, htmlAttributes: new { @class = "control-label" })
-                                                    @Html.EditorFor(model => model.RegID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                                    @Html.ValidationMessageFor(model => model.RegID, "", new { @class = "text-danger" })
-                                                    <div class="mark-devide"></div>
+                                                <div class="col-xs-2 col-md-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.RegID, htmlAttributes: new { @class = "control-label" })
+                                                        @Html.EditorFor(model => model.RegID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        @Html.ValidationMessageFor(model => model.RegID, "", new { @class = "text-danger" })
+                                                        <div class="mark-devide"></div>
+                                                    </div>
                                                 </div>
-                                             </div>
                                             }
                                             <div class="col-xs-2 col-md-4">
                                                 <div class="form-group">
@@ -190,14 +190,14 @@
                                                     @Html.ValidationMessageFor(model => model.StateID, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-                                            <div class="col-xs-2 col-md-4">
+                                            <div class="col-xs-2 col-md-4" style="display:none;">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.DistrictID, htmlAttributes: new { @class = "control-label" })
                                                     @Html.DropDownListFor(model => model.DistrictID, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                                     @Html.ValidationMessageFor(model => model.DistrictID, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-                                            <div class="col-xs-2 col-md-4">
+                                            <div class="col-xs-2 col-md-4" style="display:none;">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.TrainingAgencyID, htmlAttributes: new { @class = "control-label" })
                                                     @Html.DropDownListFor(model => model.TrainingAgencyID, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
@@ -211,15 +211,18 @@
                                                     @Html.ValidationMessageFor(model => model.TrainingCenterID, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-                                            <div class="col-xs-2 col-md-4">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.TrainerId, htmlAttributes: new { @class = "control-label" })
-                                                    @*@Html.EditorFor(model => model.TrainerName, new { htmlAttributes = new { @class = "required form-control", @required = "required", @maxlength = "495" } })*@
-                                                    @Html.DropDownListFor(model => model.TrainerId, CommonModel.GetSP_GetAllTrainerList(0), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
-                                                    @Html.ValidationMessageFor(model => model.TrainerId, "", new { @class = "text-danger" })
-                                                    <div class="mark-devide"></div>
+                                            @if (IsSadmin)
+                                            {
+                                                <div class="col-xs-2 col-md-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.TrainerId, htmlAttributes: new { @class = "control-label" })
+                                                        @*@Html.EditorFor(model => model.TrainerName, new { htmlAttributes = new { @class = "required form-control", @required = "required", @maxlength = "495" } })*@
+                                                        @Html.DropDownListFor(model => model.TrainerId, CommonModel.GetSP_GetAllTrainerList(0), null, htmlAttributes: new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.TrainerId, "", new { @class = "text-danger" })
+                                                        <div class="mark-devide"></div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
                                             <div class="col-xs-2 col-md-4">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label" })
@@ -589,9 +592,6 @@
                                         </div>
                                     }
                                 </div>
-                                <div id="tab-3" class="tab-content">
-                                    <p></p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -628,11 +628,14 @@
             if ('@Model' != 'null') {
                   if ('@Model.ID' != '@Guid.Empty') {
                       /*    setTimeout(() => {*/
+                      debugger;
                       $('#partChildModel_ParticipantId').val('@Model.ID');
-                      BindDistrict("DistrictID", '@Model.DistrictID', "1", '@Model.StateID');
+                      //BindDistrict("DistrictID", '@Model.DistrictID', "1", '@Model.StateID');
                       // $("#DistrictID").trigger("change").select2();
-                      BindTrainingAgency("TrainingAgencyID", '@Model.TrainingAgencyID', false);
-                      BindTrainingCenter("TrainingCenterID", '@Model.TrainingCenterID', false, '@Model.DistrictID', '@Model.TrainingAgencyID');
+                      //BindTrainingAgency("TrainingAgencyID", '@Model.TrainingAgencyID', false);
+                      //BindTrainingCenter("TrainingCenterID", '@Model.TrainingCenterID', false, '@Model.DistrictID', '@Model.TrainingAgencyID');
+                      BindTrainingCentersWiseLists("TrainingCenterID", 0, 1, $('#StateID').val(), '@CommonModel.GetUserRole()','@MvcApplication.CUser.MappedTCenterIds');
+
                       if ('@Model.IsPlaced' != 'true') {
                           $("input[name=IsPlaced]").prop('checked', true);
                       }
@@ -640,9 +643,10 @@
                            $("input[name=IsOffered]").prop('checked', true);
                       }
 
-                      $("input[name=PreTrainingStatus]").val('@Model.PreTrainingStatus');
-                        $("input[name=TargetGroup]").val('@Model.TargetGroup');
-                      $("input[name=MaritalStatus]").val('@Model.MaritalStatus');
+                      $("Select[name=PreTrainingStatus]").val('@Model.PreTrainingStatus');
+                      $("Select[name=TargetGroup]").val('@Model.TargetGroup');
+                      $("Select[name=MaritalStatus]").val('@Model.MaritalStatus');
+                      $("Select[name=TrainingCenterID]").val('@Model.TrainingCenterID');
                       debugger;
                       var ahhic = '@Model.AnnualHouseholdincome';
                       if (ahhic != '' && ahhic != 'null') {
@@ -700,35 +704,34 @@
 
                       }, "2000");
 
-
-
-
                       /* }, "3000");*/
                   }
                   else {
                       $('#TrainingCenterID').val(''); $('#DistrictID').val('');
-                      BindTrainingAgency("TrainingAgencyID", 0, false);
-                      BindDistrict("DistrictID", 0, "1", "1");
-                      BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
+                      //BindTrainingAgency("TrainingAgencyID", 0, false);
+                     // BindDistrict("DistrictID", 0, "1", "1");
+                      //BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
+                      BindTrainingCentersWiseLists("TrainingCenterID", 0, 1, $('#StateID').val(), '@CommonModel.GetUserRole()', '@MvcApplication.CUser.MappedTCenterIds');
                   }
               }
               else {
                   $('#TrainingCenterID').val(); $('#DistrictID').val();
-                  BindTrainingAgency("TrainingAgencyID", 0, false);
-                  BindDistrict("DistrictID", 0, "1", "1");
-                  BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
+                 // BindTrainingAgency("TrainingAgencyID", 0, false);
+                 // BindDistrict("DistrictID", 0, "1", "1");
+                  //BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
+                BindTrainingCentersWiseLists("TrainingCenterID", 0, 1, $('#StateID').val(),'@CommonModel.GetUserRole()','@MvcApplication.CUser.MappedTCenterIds');
               }
 
             //$('#StateID').change(function () {
             //    $('#TrainingCenterID').val(); $('#DistrictID').val();
             //    BindDistrict("DistrictID", 0,"1", $(this).val());
             //});
-            $('#TrainingAgencyID').change(function () {
-                $('#TrainingCenterID').val();
-                if ($('#DistrictID').val() != '' && $('#TrainingAgencyID').val()!='') {
-                    BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
-                }
-            });
+            //$('#TrainingAgencyID').change(function () {
+            //    $('#TrainingCenterID').val();
+            //    if ($('#DistrictID').val() != '' && $('#TrainingAgencyID').val()!='') {
+            //        BindTrainingCenter("TrainingCenterID", 0, false, $('#DistrictID').val(), $('#TrainingAgencyID').val());
+            //    }
+            //});
             $('#EduQualificationID').change(function () {
                 $('#EduQualOther').val('');
                 if ($(this).val() == "4") {

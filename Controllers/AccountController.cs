@@ -101,6 +101,10 @@ namespace Hunarmis.Controllers
                     {
                         return RedirectToAction("CreatedAttend", "Attendance");
                     }
+                    if (CommonModel.RoleNameCont.Mobilizer == roleName)
+                    {
+                        return RedirectToAction("AddParticipant", "Participant");
+                    }
                     else
                     {
                         return RedirectToAction("Dashboard", "Home");

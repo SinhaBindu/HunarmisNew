@@ -293,6 +293,26 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetTrainingCenters(int IsAll, int StateId = 0, string Roles = "all", string TCIds = "all")
+        {
+            try
+            {
+                var items = CommonModel.GetTrainingCenterWise(IsAll, StateId, Roles, TCIds);
+                if (items != null)
+                {
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetYearList(int SelectAll = 1)
         {
             try

@@ -77,16 +77,16 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.StateID)]
         public Nullable<int> StateID { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DplyPartName.DistrictID)]
         public Nullable<int> DistrictID { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DplyPartName.TrainingAgencyID)]
         public Nullable<int> TrainingAgencyID { get; set; }
         [Required]
         [Display(Name = DplyPartName.TrainingCenterID)]
         public Nullable<int> TrainingCenterID { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DplyPartName.TrainerName)]
         public Guid? TrainerId { get; set; }
         public string TrainerName { get; set; }

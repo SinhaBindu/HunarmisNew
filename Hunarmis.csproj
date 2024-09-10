@@ -1873,6 +1873,7 @@
     <Content Include="Views\UserProfile\DownLoadCretificate.cshtml" />
     <Content Include="Views\Home\PlacementTracker.cshtml" />
     <Content Include="Views\UserProfile\DownLoadCretificateIF.cshtml" />
+    <Content Include="Views\UserProfile\DownLoadSoftSkill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
