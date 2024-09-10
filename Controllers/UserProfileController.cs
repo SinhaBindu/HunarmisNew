@@ -155,6 +155,11 @@ namespace Hunarmis.Controllers
             }
             return View(model);
         }
-
+        public ActionResult DownLoadCretificateIF(string CPath)
+        {
+            Hunar_DBEntities dBEntities = new Hunar_DBEntities();
+          var tblc=  dBEntities.Courses_Master.Find(Convert.ToInt32(CPath));
+            return View(tblc);
+        }
     }
 }

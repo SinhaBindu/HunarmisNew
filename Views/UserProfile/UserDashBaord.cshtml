@@ -50,7 +50,8 @@
                                     <h5 class="f-14" title="@dt.Rows[0]["CourseName"]">
                                         @if (dt.Rows.Count > 0)
                                         {
-                                            <a href="@(CommonModel.GetBaseUrl() + dt.Rows[0]["CFilePath"])" style="color:#fff;text-decoration:underline;" target="_blank">@dt.Rows[0]["CourseName"]</a>
+                                            @*<a href="/@(CommonModel.GetBaseUrl() + dt.Rows[0]["CFilePath"])" style="color:#fff;text-decoration:underline;" target="_blank">@dt.Rows[0]["CourseName"]</a>*@
+                                            <a href="~/UserProfile/DownLoadCretificateIF?CPath=@dt.Rows[0]["CourseId"]" style="color:#fff;text-decoration:underline;" target="_blank">@dt.Rows[0]["CourseName"]</a>
                                         }
                                     </h5>
                                 </div>
