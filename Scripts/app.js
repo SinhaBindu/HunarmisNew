@@ -419,12 +419,12 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         graphType = 'bar';
         // Prepare the series data
         const seriesData = {};
-        categories = jsonData.map(item => item[property]);
+        categories = [...new Set(jsonData.map(item => item[property]))];
         jsonData.forEach(item => {
             if (!seriesData[item[groupProperty]]) {
                 seriesData[item[groupProperty]] = [];
             }
-            seriesData[item.Gender].push({
+            seriesData[item[groupProperty]].push({
                 name: item[property],
                 y: item.Total,
                 percentage: item.Percentage
@@ -471,7 +471,8 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
     }
     else if (graphType == 'pie') {
 
-        categories = jsonData.map(item => item[property]);
+        categories = [...new Set(jsonData.map(item => item[property]))];
+        //categories = jsonData.map(item => item[property]);
         const totals = jsonData.map(item => item.Total);
 
         var seriesData = jsonData.map(item => ({
