@@ -280,6 +280,7 @@
                             //scrollX: true,
                             //scrollCollapse: true,
                             //paging: false,
+                            "dom": '<"pull-left"f><"pull-right"l>tip',
                             pageLength: 100,
                             fixedColumns: {
                                 leftColumns: 1,
@@ -293,9 +294,9 @@
                                 exportOptions: { modifier: { page: 'all' } }
                             }],
                         });
-                        $('.dataTables_filter input[type="search"]').css(
-                            { 'width': '500px', 'display': 'inline-block' }
-                        );
+                        //$('.dataTables_filter input[type="search"]').css(
+                        //    { 'width': '300px', 'display': 'inline-block' }
+                        //);
                         $('#div-download').empty();
                         table.buttons().container().appendTo($('#div-download'));
                     }
