@@ -75,8 +75,8 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
         public virtual DbSet<tbl_AttendanceParticipant> tbl_AttendanceParticipant { get; set; }
         public virtual DbSet<Batch_Master> Batch_Master { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<AssetOwnership_Master> AssetOwnership_Master { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_Participant_Child> tbl_Participant_Child { get; set; }
     }
 }

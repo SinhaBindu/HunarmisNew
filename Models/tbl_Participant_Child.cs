@@ -28,7 +28,6 @@ namespace Hunarmis.Models
         public string EmergencyContactNo { get; set; }
         public string EmergencyRelationship { get; set; }
         public Nullable<decimal> EmergencyMonthlyIncome { get; set; }
-        public Nullable<int> SelfImageAttached { get; set; }
         public Nullable<int> IDType { get; set; }
         public string IDNo { get; set; }
         public string EducationQualification { get; set; }

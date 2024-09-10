@@ -17,8 +17,8 @@ namespace Hunarmis.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_Participant()
         {
-            this.tbl_PlacementTracker = new HashSet<tbl_PlacementTracker>();
             this.tbl_Participant_Child = new HashSet<tbl_Participant_Child>();
+            this.tbl_PlacementTracker = new HashSet<tbl_PlacementTracker>();
         }
     
         public System.Guid ID { get; set; }
@@ -36,6 +36,7 @@ namespace Hunarmis.Models
         public string AlternatePhoneNo { get; set; }
         public string EmailID { get; set; }
         public string AadharCardNo { get; set; }
+        public string SelfImagePath { get; set; }
         public Nullable<int> BatchId { get; set; }
         public string AssessmentScore { get; set; }
         public Nullable<int> EduQualificationID { get; set; }
@@ -76,8 +77,8 @@ namespace Hunarmis.Models
         public Nullable<int> TargetGroup { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Participant_Child> tbl_Participant_Child { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
     }
 }

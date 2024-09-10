@@ -59,11 +59,11 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_PlacementTracker" Width="1.5" PointX="18" PointY="15.625" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_AttendanceParticipant" Width="1.5" PointX="10.375" PointY="20.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.Batch_Master" Width="1.5" PointX="20.375" PointY="12.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="15.75" PointY="21.75" IsExpanded="false" />
-        <AssociationConnector Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" />
         <EntityTypeShape EntityType="Hunar_DBModel.AssetOwnership_Master" Width="1.5" PointX="13.375" PointY="12.75" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant_Child" Width="1.5" PointX="18" PointY="22.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="15.75" PointY="21.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant_Child" Width="1.5" PointX="18" PointY="23.125" IsExpanded="false" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" />
+        <AssociationConnector Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

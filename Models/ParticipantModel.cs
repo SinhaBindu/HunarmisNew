@@ -51,6 +51,10 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.AadharCardNo)]
         public string AadharCardNo { get; set; }
+        //[Required]
+        [Display(Name = DplyPartName.SelfImageAttached)]
+        public HttpPostedFileBase SelfImage { get; set; }
+        public string SelfImagePath { get; set; }
         [Required]
         [Display(Name = DplyPartName.BatchId)]
         public Nullable<int> BatchId { get; set; }
@@ -160,7 +164,7 @@ namespace Hunarmis.Models
         public const string EmergencyPersonName = "Name";
         public const string EmergencyContactNo = "Contact No";
         public const string EmergencyRelationship = "Relationship";
-        public const string EmergencyMonthlyIncome = "Monthly Income";
+        public const string EmergencyMonthlyIncome = "Monthly Income (Emergency)";
         public const string ParticipantOtherSection  = "Other Details";//Header
         public const string SelfImageAttached = "Self Image Attached";
         public const string IDType = "ID Type";
@@ -257,9 +261,7 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.EmergencyMonthlyIncome)]
         public Nullable<decimal> EmergencyMonthlyIncome { get; set; }
-        [Required]
-        [Display(Name = DplyPartName.SelfImageAttached)]
-        public Nullable<int> SelfImageAttached { get; set; }
+       
         [Required]
         [Display(Name = DplyPartName.IDType)]
         public Nullable<int> IDType { get; set; }

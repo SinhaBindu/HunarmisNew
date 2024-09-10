@@ -162,6 +162,7 @@ namespace Hunarmis.Controllers
                     model.AnnualHouseholdincome = tbl.AnnualHouseholdincome;
                     model.PreTrainingStatus = tbl.PreTrainingStatus;
                     model.TargetGroup = tbl.TargetGroup;
+                    model.SelfImagePath = tbl.SelfImagePath;
 
 
                     var childtbl = db_.tbl_Participant_Child.Where(x => x.ParticipantId == tbl.ID)?.FirstOrDefault();
@@ -181,7 +182,7 @@ namespace Hunarmis.Controllers
                         model.partChildModel.EmergencyContactNo = childtbl.EmergencyContactNo;
                         model.partChildModel.EmergencyRelationship = childtbl.EmergencyRelationship;
                         model.partChildModel.EmergencyMonthlyIncome = (int)childtbl.EmergencyMonthlyIncome;
-                        model.partChildModel.SelfImageAttached = childtbl.SelfImageAttached;
+
                         model.partChildModel.IDType = childtbl.IDType;
                         model.partChildModel.IDNo = childtbl.IDNo;
                         model.partChildModel.SchoolPassoutYear = childtbl.SchoolPassoutYear;
@@ -213,6 +214,7 @@ namespace Hunarmis.Controllers
             int reslt = 0;
             try
             {
+                //HttpPostedFileBase imageFile = Request.Files["SelfImage"];
                 if (ModelState.IsValid && MvcApplication.CUser != null)
                 {
                     var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
@@ -272,8 +274,19 @@ namespace Hunarmis.Controllers
 
                         if (model.ID == Guid.Empty)
                         {
-                            tbl.CreatedBy = MvcApplication.CUser.UserId;
                             tbl.ID = Guid.NewGuid();
+                        }
+                        if (model.SelfImage != null)
+                        {
+                            var filePathUOL = CommonModel.SaveSingleFile(model.SelfImage, tbl.ID.ToString(), "SelfImage");
+                            var physicalFilePathhUOL = Server.MapPath(filePathUOL);
+                            tbl.SelfImagePath = filePathUOL.Replace('~', '/');
+                        }
+
+                        if (model.ID == Guid.Empty)
+                        {
+                            tbl.CreatedBy = MvcApplication.CUser.UserId;
+
                             tbl.CreatedOn = DateTime.Now;
                             tbl.CallTempStatus = (int)Enums.eTempCallStatus.CallNot;
                             tbl.CallTempStatusDate = DateTime.Now;
@@ -309,10 +322,10 @@ namespace Hunarmis.Controllers
                         return resResponse1;
                     }
                 }
-                if (model.partChildModel.ParticipantId != Guid.Empty)
+                if (model.partChildModel.ParticipantId != Guid.Empty && model.partChildModel.ParticipantId != null)
                 {
                     var childtbl = model.partChildModel.Child_ParticipantId_pk != Guid.Empty ? db_.tbl_Participant_Child.Find(model.partChildModel.Child_ParticipantId_pk) : new tbl_Participant_Child();
-                    if (childtbl != null)
+                    if (childtbl != null && ModelState.IsValid && string.IsNullOrWhiteSpace(model.FullName))
                     {
                         childtbl.NativeLanguage = !string.IsNullOrWhiteSpace(model.partChildModel.NativeLanguage_hd) ? model.partChildModel.NativeLanguage_hd : null;
                         childtbl.NativeLanguage_Other = model.partChildModel.NativeLanguage_Other;
@@ -327,7 +340,6 @@ namespace Hunarmis.Controllers
                         childtbl.EmergencyRelationship = model.partChildModel.EmergencyRelationship;
                         childtbl.EmergencyMonthlyIncome = model.partChildModel.EmergencyMonthlyIncome;
 
-                        childtbl.SelfImageAttached = model.partChildModel.SelfImageAttached;
 
                         childtbl.IDType = model.partChildModel.IDType;
                         childtbl.IDNo = model.partChildModel.IDNo;

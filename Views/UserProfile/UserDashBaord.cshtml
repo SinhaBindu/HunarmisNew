@@ -193,7 +193,18 @@
                                                     </div>
                                                     <div class="col-xs-12 col-md-4">
                                                         <div class="profile-Pic-user">
-                                                            <img src="~/Content/images/girl-alumni.png" />
+                                                            @if (dt.Rows.Count > 0)
+                                                            {
+                                                                if (!string.IsNullOrWhiteSpace(dt.Rows[0]["SelfImagePath"].ToString()))
+                                                                {
+                                                                    <img src="@(CommonModel.GetBaseUrl()+dt.Rows[0]["SelfImagePath"].ToString())" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="~/Content/images/girl-alumni.png" />
+                                                                }
+                                                            }
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -561,6 +572,11 @@
                                                     <div class="">
                                                         <p>@Hunarmis.Models.DplyPartName.Pincode<span> : @dtOtherDet.Rows[0]["Pincode"]</span></p>
                                                     </div>
+
+                                                    @*<div class="heading">
+                                                        @Hunarmis.Models.DplyPartName.EmergencySection
+                                                        <hr />
+                                                    </div>*@
                                                     <div class="">
                                                         <p>@Hunarmis.Models.DplyPartName.EmergencyPersonName <span> : @dtOtherDet.Rows[0]["EmergencyPersonName"]</span></p>
                                                     </div>
@@ -571,8 +587,9 @@
                                                         <p>@Hunarmis.Models.DplyPartName.EmergencyRelationship <span> : @dtOtherDet.Rows[0]["EmergencyRelationship"]</span></p>
                                                     </div>
                                                     <div class="">
-                                                        <p>@Hunarmis.Models.DplyPartName.EmergencyMonthlyIncome <span> : @dtOtherDet.Rows[0]["EmergencyMonthlyIncome"]</span></p>
+                                                        <p>@Hunarmis.Models.DplyPartName.EmergencyMonthlyIncome <span> : @(!string.IsNullOrWhiteSpace(dtOtherDet.Rows[0]["EmergencyMonthlyIncome"].ToString())? Convert.ToInt32(dtOtherDet.Rows[0]["EmergencyMonthlyIncome"]) : dtOtherDet.Rows[0]["EmergencyMonthlyIncome"])</span></p>
                                                     </div>
+
                                                     <div class="">
                                                         <p>@Hunarmis.Models.DplyPartName.IDType <span> : @dtOtherDet.Rows[0]["IDTypeName"]</span></p>
                                                     </div>
@@ -581,6 +598,9 @@
                                                     </div>
                                                     <div class="">
                                                         <p>@Hunarmis.Models.DplyPartName.SchoolPassoutYear <span> : @dtOtherDet.Rows[0]["SchoolPassoutYear"]</span></p>
+                                                    </div>
+                                                    <div class="">
+                                                        <p>@Hunarmis.Models.DplyPartName.MonthlyIncome <span> : @(!string.IsNullOrWhiteSpace(dtOtherDet.Rows[0]["MonthlyIncome"].ToString())? Convert.ToInt32(dtOtherDet.Rows[0]["MonthlyIncome"]) : dtOtherDet.Rows[0]["MonthlyIncome"])</span></p>
                                                     </div>
                                                     <div class="">
                                                         <p>@Hunarmis.Models.DplyPartName.WorkExperience <span> : @dtOtherDet.Rows[0]["WorkExperienceName"]</span></p>

@@ -63,6 +63,7 @@
                                                     </div>
                                                 }
                                             </div>
+
                                             <div class="col-xs-2 col-md-4">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label" })
@@ -128,16 +129,26 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-2 col-md-4">
-                                                @if (IsSadmin)
-                                                {
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(model => model.AssessmentScore, htmlAttributes: new { @class = "control-label" })
-                                                        @Html.EditorFor(model => model.AssessmentScore, new { htmlAttributes = new { @type = "number", @class = " form-control", @maxlength = "3" } })
-                                                        @Html.ValidationMessageFor(model => model.AssessmentScore, "", new { @class = "text-danger" })
-                                                        <div class="mark-devide"></div>
-                                                    </div>
-                                                }
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.SelfImage, htmlAttributes: new { @class = "control-label" })
+                                                    @if (Model.ID == Guid.Empty)
+                                                    {
+                                                        <input type="file" class="SelfImage" name="SelfImage" id="SelfImage" accept="image/*" />
+                                                        @Html.ValidationMessageFor(model => model.SelfImage, "", new { @class = "text-danger" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="file" class="UploadCheckFile" name="SelfImage" id="SelfImage" accept="image/*," />
+                                                        if (!string.IsNullOrWhiteSpace(Model.SelfImagePath))
+                                                        {
+                                                            <a href="@(CommonModel.GetBaseUrl()+Model.SelfImagePath)" target="_blank"><i class="fa fa-download"></i></a>
+                                                        }
+                                                    }
+                                                    @Html.ValidationMessageFor(model => model.SelfImage, "", new { @class = "text-danger" })
+                                                    <div class="mark-devide"></div>
+                                                </div>
                                             </div>
+
                                             <div class="col-xs-2 col-md-4">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.EduQualificationID, htmlAttributes: new { @class = "control-label" })
@@ -276,6 +287,17 @@
                                                             }
                                                             @Html.ValidationMessageFor(model => model.Is_Offered, "", new { @class = "text-danger" })
                                                         </div>
+                                                        <div class="mark-devide"></div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="col-xs-2 col-md-4">
+                                                @if (IsSadmin)
+                                                {
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.AssessmentScore, htmlAttributes: new { @class = "control-label" })
+                                                        @Html.EditorFor(model => model.AssessmentScore, new { htmlAttributes = new { @type = "number", @class = " form-control", @maxlength = "3" } })
+                                                        @Html.ValidationMessageFor(model => model.AssessmentScore, "", new { @class = "text-danger" })
                                                         <div class="mark-devide"></div>
                                                     </div>
                                                 }
@@ -586,7 +608,7 @@
     <script src="~/Scripts/CustomValidator.js"></script>
     <script src="~/Scripts/Custom/Master.js"></script>
     @*<script src="~/Scripts/Custom/Employee.js"></script>*@
-    <script>
+<script>
        @* $('#DesignationId').val('@Model.DesignationId').select2();*@
         $(document).ready(function () {
             //GetYearList("Year", 0);  //GetMonthList("Month", 0);
@@ -619,7 +641,11 @@
                       $("input[name=PreTrainingStatus]").val('@Model.PreTrainingStatus');
                         $("input[name=TargetGroup]").val('@Model.TargetGroup');
                       $("input[name=MaritalStatus]").val('@Model.MaritalStatus');
-                      $('#AnnualHouseholdincome').val('@((int)Model.AnnualHouseholdincome)');
+                      debugger;
+                      var ahhic = '@Model.AnnualHouseholdincome';
+                      if (ahhic != '' && ahhic != 'null') {
+                          $('#AnnualHouseholdincome').val(parseInt(ahhic));
+                      }
 
                       /* Tab - 2 */
                       setTimeout(function () {
@@ -635,8 +661,13 @@
                                  BindDistrict("partChildModel_DistrictId", 0, 1, '@Model.partChildModel.StateId', 2);
                                  $('#partChildModel_DistrictId').val('@Model.partChildModel.DistrictId');
                           }
-                          $('#partChildModel_MonthlyIncome').val('@((int)Model.partChildModel.MonthlyIncome)');
-                          $('#partChildModel_EmergencyMonthlyIncome').val('@((int)Model.partChildModel.EmergencyMonthlyIncome)');
+                          if ('@Model.partChildModel.MonthlyIncome' != '' && '@Model.partChildModel.MonthlyIncome' != 'null') {
+                              var amount1 = '@Model.partChildModel.MonthlyIncome';
+                              $('#partChildModel_MonthlyIncome').val(parseInt(amount1));
+                          } if ('@Model.partChildModel.EmergencyMonthlyIncome' != '' && '@Model.partChildModel.EmergencyMonthlyIncome' != 'null') {
+                               var amount1 = '@Model.partChildModel.MonthlyIncome';
+                              $('#partChildModel_EmergencyMonthlyIncome').val(parseInt(amount1));
+                          }
 
                           var arr = '@Model.partChildModel.NativeLanguage';
                           var selectedOptions = arr.split(',');
@@ -664,9 +695,6 @@
                               var selectedOptions5 = arr5.split(',');
                             $('#partChildModel_Whichskillingcourseshaveyoudoneearlier').val(selectedOptions5);
                             $("#partChildModel_Whichskillingcourseshaveyoudoneearlier").multiselect('refresh');
-
-
-
 
                       }, "2000");
 
@@ -720,9 +748,16 @@
                 //var vl = $("#formid").validate();
                 ////var formData = new FormData($('#formid')[0]);
                 var isvalid = $("#formid").valid(); //$('#formid').validate();
-                var formData = $(this).serialize();
+
                 //var pts = $('input[name="PreTrainingStatus"]:checked').val();
                 //formData.append('', $('#').val());
+
+               // var formData = $(this).serialize();
+                var formData = new FormData(this);
+                if ($('#SelfImage').get(0).files.length != 0) {
+                    formData.append('SelfImage', $('#SelfImage')[0].files[0]);
+                }
+
 
                 if (isvalid) {
                     $.ajax({
@@ -730,9 +765,9 @@
                         url: document.baseURI + "/Participant/AddParticipant/",
                         data: formData,
                         //use contentType, processData for sure.
-                        //contentType: false,
-                        // processData: false,
-                        dataType: 'json',
+                        contentType: false,
+                         processData: false,
+                       // dataType: 'json',
                         //contentType: "application/json; charset=utf-8",
                         success: function (resp) {
                             //  CreateToasterMessage("Registration", resp.Message, resp.StatusType);
@@ -972,5 +1007,5 @@
             }
         }
 
-    </script>
+</script>
 }
