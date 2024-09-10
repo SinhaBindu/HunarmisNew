@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <ul id="mainnav-menu" class="list-group">
-                        @if (!IsViewer && Session["AssessmentSendLinkPartId_pk"] == null)
+                        @if (!IsViewer && Session["AssessmentSendLinkPartId_pk"] == null && Session["PartUserId"] == null)
                         {
                             if (User.IsInRole("Admin") || User.IsInRole("State") || User.IsInRole("Verifier") || User.IsInRole("Viewer") || User.IsInRole("District"))
                             {
