@@ -101,6 +101,7 @@
            // GetPackedbubbleData();
     $('#FormId').change(function () {
         BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0)
+        $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
         var txt = $('option:selected', $(this)).text();
         var txt1 = $('option:selected', $('#BatchId')).text();
         $('#sg-title').html(txt + " / " + txt1);

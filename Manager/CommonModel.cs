@@ -177,6 +177,10 @@ namespace Hunarmis.Manager
                 {
                     return "all";
                 }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer))
+                {
+                    return RoleNameCont.Trainer;
+                }
                 else if (HttpContext.Current.User.IsInRole(RoleNameCont.District))
                 {
                     return RoleNameCont.District;
@@ -184,6 +188,45 @@ namespace Hunarmis.Manager
                 else if (HttpContext.Current.User.IsInRole(RoleNameCont.User))
                 {
                     return RoleNameCont.User;
+                }
+            }
+            return "all";
+        }
+        public static string GetUserRoleId()
+        {
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                if (HttpContext.Current.User.IsInRole(RoleNameCont.Admin))
+                {
+                    return "1";
+                }
+                if (HttpContext.Current.User.IsInRole(RoleNameCont.State))
+                {
+                    return "5";
+                }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.Viewer))
+                {
+                    return "2";
+                }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.Trainer))
+                {
+                    return "7";
+                }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.District))
+                {
+                    return "4";
+                }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.User))
+                {
+                    return "3";
+                }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.Verifier))
+                {
+                    return "6";
+                }
+                else if (HttpContext.Current.User.IsInRole(RoleNameCont.Mobilizer))
+                {
+                    return "8";
                 }
             }
             return "all";

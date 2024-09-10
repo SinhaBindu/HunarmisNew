@@ -97,6 +97,8 @@
            // LoadReport();
             $('#FormId').change(function () {
                 BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
+                $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+
                 txtf = $('option:selected', $(this)).text();
                 txtb = $('option:selected', $('#BatchId')).text();
                 $('#sg-title').html(txtf + " : " + txtb);
@@ -111,6 +113,7 @@
 
         });
         function LoadReport() {
+            debugger;
             $('#div-main').html(""); $("#ListDataTable tbody").html("");
             $('#div-main').removeClass("text-danger");
             $('#global-loader').css('background', 'transparent').css('display', 'block');
@@ -119,69 +122,77 @@
             var User = 'all';
             var FormId = $("#FormId").val();
             var BatchId = $("#BatchId").val();
-            $.ajax({
-                // url: url,
-                url: document.baseURI + "/Assessment/GetScorerSummary",
-                type: "POST",
-                data: { 'User': User, 'FormId': FormId, 'BatchId': BatchId },
-                // contentType: "application/json",
-                success: function (resp) {
-                    if (resp.IsSuccess) {
-                        //$('#div-Chart').html(resp.Data); $('#div-Chart').addClass("text-black");
-                        $('#global-loader').css('background', 'transparent').css('display', 'none');
-                        debugger;
-                        var Datalist = (resp.reshtml);
-                        if (Datalist != null && Datalist != undefined) {
-                            if (Datalist.length > 0) {
-                                $('#div-main').html(Datalist);
-                                //$("#ListDataTable").DataTable();
-                                if ($.fn.dataTable.isDataTable('#ListDataTable')) {
-                                    $("#ListDataTable").dataTable().fnDestroy();
+            if (BatchId != null && BatchId != 0) {
+                $.ajax({
+                    // url: url,
+                    url: document.baseURI + "/Assessment/GetScorerSummary",
+                    type: "POST",
+                    data: { 'User': User, 'FormId': FormId, 'BatchId': BatchId },
+                    // contentType: "application/json",
+                    success: function (resp) {
+                        if (resp.IsSuccess) {
+                            //$('#div-Chart').html(resp.Data); $('#div-Chart').addClass("text-black");
+                            $('#global-loader').css('background', 'transparent').css('display', 'none');
+                            debugger;
+                            var Datalist = (resp.reshtml);
+                            if (Datalist != null && Datalist != undefined) {
+                                if (Datalist.length > 0) {
+                                    $('#div-main').html(Datalist);
+                                    //$("#ListDataTable").DataTable();
+                                    if ($.fn.dataTable.isDataTable('#ListDataTable')) {
+                                        $("#ListDataTable").dataTable().fnDestroy();
+                                    }
+                                    table = $('#ListDataTable').DataTable({
+                                        //scrollY: "400px",
+                                        //scrollX: true,
+                                        //scrollCollapse: true,
+                                        "dom": '<"pull-left"f><"pull-right"l>tip',
+                                        paging: false,
+                                        pageLength: 100,
+                                        fixedColumns: {
+                                            leftColumns: 1,
+                                            rightColumns: 1
+                                        },
+                                        order: [[0, 'asc']],
+                                        buttons: [{
+                                            extend: 'excel', text: '<span><i class="fa fa-download"></i>Export To Excel</span>', title: $('#BatchId option:selected').text() + $('#FormId option:selected').text() + ' Assessment Score Summary Lists',//$('#IDDistrict option:selected').text() +
+                                            className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                            filename: 'Assessment Score Summary List',
+                                            exportOptions: { modifier: { page: 'all' } }
+                                        }],
+                                    });
+                                    $('#div-download').empty();
+                                    table.buttons().container().appendTo($('#div-download'));
                                 }
-                                table = $('#ListDataTable').DataTable({
-                                    //scrollY: "400px",
-                                    //scrollX: true,
-                                    //scrollCollapse: true,
-                                    "dom": '<"pull-left"f><"pull-right"l>tip',
-                                    paging: false,
-                                    pageLength: 100,
-                                    fixedColumns: {
-                                        leftColumns: 1,
-                                        rightColumns: 1
-                                    },
-                                    order: [[0, 'asc']],
-                                    buttons: [{
-                                        extend: 'excel', text: '<span><i class="fa fa-download"></i>Export To Excel</span>', title: $('#BatchId option:selected').text() + $('#FormId option:selected').text() +' Assessment Score Summary Lists',//$('#IDDistrict option:selected').text() +
-                                        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
-                                        filename: 'Assessment Score Summary List',
-                                        exportOptions: { modifier: { page: 'all' } }
-                                    }],
-                                });
-                                $('#div-download').empty();
-                                table.buttons().container().appendTo($('#div-download'));
+                                else {
+
+                                    $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                                }
                             }
                             else {
-
                                 $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
                             }
                         }
                         else {
                             $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                            //  CreateToasterMessage("Error", response.Message, response.StatusType);
+                            $('#global-loader').css('background', 'transparent').css('display', 'none');
                         }
-                    }
-                    else {
-                        $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
-                        //  CreateToasterMessage("Error", response.Message, response.StatusType);
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        $('#div-Chart').html(errormsg); $('#div-Chart').addClass("text-danger");
                         $('#global-loader').css('background', 'transparent').css('display', 'none');
                     }
-                },
-                error: function (req, error) {
-                    if (error === 'error') { error = req.statusText; }
-                    var errormsg = 'There was a communication error: ' + error;
-                    $('#div-Chart').html(errormsg); $('#div-Chart').addClass("text-danger");
-                    $('#global-loader').css('background', 'transparent').css('display', 'none');
-                }
-            });
+                });
+            }
+            else {
+                $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                $('#global-loader').css('background', 'transparent').css('display', 'none');
+            }
+                
+
         }
     </script>
 }

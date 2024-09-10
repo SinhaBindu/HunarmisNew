@@ -129,6 +129,7 @@
             // LoadReport();
              $('#FormId').change(function () {
                  BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0)
+                 $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
                  txtf = $('option:selected', $(this)).text();
                  txtb = $('option:selected', $('#BatchId')).text();
                  $('#sg-title').html(txtf + " : " + txtb);
@@ -164,6 +165,7 @@
             var User = 'all';
             var FormId = $("#FormId").val();
             var BatchId = $("#BatchId").val();
+            if (BatchId != null && BatchId != 0) {
             $.ajax({
                 // url: url,
                 url: document.baseURI + "/Assessment/GetIndex",
@@ -335,6 +337,12 @@
                     $('#global-loader').css('background', 'transparent').css('display', 'none');
                 }
             });
+        }
+ else {
+            $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+            $('#global-loader').css('background', 'transparent').css('display', 'none');
+        }
+
         }
 
     </script>

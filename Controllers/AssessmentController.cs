@@ -36,7 +36,7 @@ namespace Hunarmis.Controllers
             var html = "";
             try
             {
-                User = CommonModel.IsRoleLogin();
+                User = CommonModel.GetUserRoleId();
                 ds = SPManager.GetSPScoreMarkAnswer(User, FormId, BatchId);
                 bool IsCheck = false;
                 if (ds.Tables.Count > 0)
@@ -72,7 +72,7 @@ namespace Hunarmis.Controllers
             DataTable tbllist = new DataTable();
             try
             {
-                User = CommonModel.IsRoleLogin();
+                User = CommonModel.GetUserRoleId();
                 ds = SPManager.GetSP_ScorersSummaryMarks(User, FormId, BatchId);
                 if (ds.Tables.Count > 0)
                 {
