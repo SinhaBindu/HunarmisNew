@@ -49,12 +49,12 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center">
-                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank">
+                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank" title="Participant Edit">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                     @if (!string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString()) && dr["AssessmentScore"].ToString() != "0")
                                     {
-                                        <button type="button" style="@(dr["PlaceTrackerEditColor"]); margin-top: 8px;" class="btnpop check-icon" data-id="@dr["ID"]" data-placementrackerid="@dr["maxPlaceTrackerID"]" data-placetrackerdistrictId="@dr["PlaceTrackerDistrictId"]">
+                                        <button type="button" style="@(dr["PlaceTrackerEditColor"]); margin-top: 8px;" class="btnpop check-icon" data-id="@dr["ID"]" data-placementrackerid="@dr["maxPlaceTrackerID"]" data-placetrackerdistrictId="@dr["PlaceTrackerDistrictId"]" title="Placement Tracker">
                                          <i class="fa fa-paper-plane"></i>
                                         </button>
                                     }
