@@ -15,7 +15,7 @@
     }
 
 
-    figure > div > div {
+    figure > div {
         height: 400px;
     }
 
@@ -240,7 +240,7 @@
                 console.log(result);
                 if (result.IsSuccess) {
                     var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.PlacementNumberJsonData), 'containerSection7_PlacementNumber', 'column', '', 'Target Group', '', 'Month', '');
+                    Graph(JSON.parse(data.PlacementNumberJsonData), 'containerSection7_PlacementNumber', 'column', '', 'Target Group', '', 'Month', '', ['#4194ac']);
                     Graph(JSON.parse(data.EmployeeTypeJsonData), 'containerSection7_EmployeeType', 'pie', '', 'Pre-Training Status', '', 'EmployeeTypeName', '');
                     Graph(JSON.parse(data.GapDayJsonData), 'containerSection7_GapDay', 'column', '', 'Pre-Training Status', '', 'GapDay', '');
                 }
