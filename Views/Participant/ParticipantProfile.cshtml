@@ -22,6 +22,7 @@
     figure > div > div {
         height: 500px;
     }
+
     .highcharts-label text {
         color: #555 !important;
         font-size: 12px !important;
@@ -318,7 +319,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="card card-box p-0">
                 <div class="card-head">
-                    <div class="title">Target Group</div>
+                    <div class="title">Social Categories</div>
                     <div class="tools">
                     </div>
                 </div>
@@ -884,7 +885,7 @@
 
     //}
 
-   
+
 
     </script>
 
@@ -893,12 +894,8 @@
     $(document).ready(function () {
 
         Load_DistrictMap();
-        //$('path[NAME_1^="Odisha"]').attr('fill', '#2ad00b');
-        //var spdata= $("path").attr("d", "M");
     })
     function Load_DistrictMap() {
-        debugger;
-        var jsonObject = [];//JSON.parse('[{"district":"Paschim Barddhaman","color":"#EC7063"}]');
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
             data: { mode: 4 },
@@ -916,6 +913,29 @@
                         jsonObject[i].color = colors[i % colors.length];
                         jsonObject[i].showInLegend = true;
                     }
+
+                    var jsonObjectMumbai = jsonObject.find(x => x.DistrictName == "Mumbai");
+
+                    var obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
+                    obj.DistrictName = "Thane";
+                    jsonObject.push(obj);
+
+                    obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
+                    obj.DistrictName = "Raigarh";
+                    jsonObject.push(obj);
+
+                    obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
+                    obj.DistrictName = "Palghar";
+                    jsonObject.push(obj);
+
+                    obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
+                    obj.DistrictName = "Mumbai Suburban";
+                    jsonObject.push(obj);
+
+                    obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
+                    obj.DistrictName = "Mumbai City";
+                    jsonObject.push(obj);
+
                     Highcharts.mapChart('containermap', {
 
                         chart: {
@@ -945,7 +965,7 @@
                             buttonOptions: {
                                 verticalAlign: 'bottom'
                             }
-                        },  
+                        },
                         tooltip: {
                             shared: true
                         },
@@ -969,14 +989,15 @@
                                 data: jsonObject,
                                 name: 'Maharashtra',
                                 joinBy: ['DistrictName', 'DistrictName'],
-                                //dataLabels: {
-                                //    enabled: false,
-                                //    color: '#000000',
-                                //    style: {
-                                //        fontSize: 9,
-                                //        fontWeight: 700
-                                //    },
-                                //},
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#000000',
+                                    format: '{point.DistrictName}',
+                                    style: {
+                                        fontSize: 9,
+                                        fontWeight: 700
+                                    },
+                                },
                                 //marker: {
                                 //    symbol: 'mapmarker'
                                 //},
@@ -996,14 +1017,15 @@
                                 data: jsonObject,
                                 name: 'West Bengal',
                                 joinBy: ['DistrictName', 'DistrictName'],
-                                //dataLabels: {
-                                //    enabled: true,
-                                //    color: '#000000',
-                                //    style: {
-                                //        fontSize: 9,
-                                //        fontWeight: 700
-                                //    },
-                                //},
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#000000',
+                                    format: '{point.DistrictName}',
+                                    style: {
+                                        fontSize: 9,
+                                        fontWeight: 700
+                                    },
+                                },
                                 //marker: {
                                 //    symbol: 'mapmarker'
                                 //},
@@ -1014,9 +1036,7 @@
                                 }
                             }
                         ]
-
                     });
-
                 }
             }
         });
