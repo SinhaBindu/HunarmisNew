@@ -422,7 +422,7 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         else if (graphType == 'stack-column') {
             graphType = 'column';
         }
-        
+
         // Prepare the series data
         const seriesData = {};
         categories = [...new Set(jsonData.map(item => item[property]))];
@@ -488,8 +488,8 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         }));
         series = [{
             name: 'Percentage',
-            colorByPoint: true,
-            innerSize: '50%',
+            //colorByPoint: true,
+            //innerSize: '50%',
             data: seriesData
         }];
 
@@ -519,7 +519,7 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            innerSize: '50%' // Make it a donut chart
+            //innerSize: '50%' // Make it a donut chart
         },
         title: {
             text: title,
@@ -528,6 +528,20 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         credits: {
             enabled: false
         },
+        legend: {
+            useHTML: true,
+            labelFormatter: function () {
+                if (this.name == "Female") {
+                    this.legendItem.symbol.element.outerHTML = "";
+                    return "<img src='https://th.bing.com/th/id/OIP.om0V0g0fPpTRrkamttDcnQHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7' width='40' height='40'> " + this.name;
+                } else if (this.name == "Male") {
+                    this.legendItem.symbol.element.outerHTML = "";
+                    return "<img src='https://th.bing.com/th/id/OIP.2G_Vn6yqHrWRXre2be-upAHaHa?w=195&h=195&c=7&r=0&o=5&pid=1.7' width='40' height='40'> " + this.name;
+                } else {
+                    return this.name;
+                }
+            }
+        },
         plotOptions: {
             series: {
                 stacking: originalGraphType == 'stack-bar' || originalGraphType == 'stack-column' ? 'normal' : null,
@@ -535,9 +549,10 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                 borderRadius: '0',
                 borderWidth: 0,
                 dataLabels: {
-                    enabled: true,
+                    enabled: !(originalGraphType == 'stack-column'),
                     format: '{point.y:.0f}',
-                    //inside: originalGraphType == 'stack-bar', // Set this to false to place labels outside
+                    //inside: !(originalGraphType == 'stack-column'),
+                    //inside: originalGraphType == 'stack-bar' || originalGraphType != 'stack-column' , // Set this to false to place labels outside
                     crop: false, // Prevent labels from being cropped
                     //overflow: 'none', // Prevent labels from overflowing the chart area
                     format: '{point.y:.0f}',
@@ -546,16 +561,23 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                         borderWidth: 0
                     }
                 },
-
+                
             },
             pie: {
+                size: '80%',
                 allowPointSelect: true,
                 cursor: 'pointer',
+                crop: false,
+                overflow: 'none',
                 dataLabels: {
                     enabled: true,
-                    format: '{point.name}: {point.y}%'
+                    crop: false,
+                    overflow: 'none',
+                    format: '{point.name}: {point.y}%',
+                    distance: 10,
+                    
                 },
-                showInLegend: true
+                showInLegend: false
             },
             //column: {
             //    colorByPoint: graphType == 'column' ? true : null,

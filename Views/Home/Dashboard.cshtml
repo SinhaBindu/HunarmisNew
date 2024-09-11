@@ -10,7 +10,7 @@
 @using Hunarmis.Helpers
 <style>
     figure > div > div {
-        height: 500px;
+        height: 400px;
     }
 
     .WhiteFontChart .highcharts-label text {
@@ -170,7 +170,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="card card-box p-0">
                 <div class="card-head">
                     <div class="title">Pathways to Progress Intervention Areas</div>
@@ -182,7 +182,7 @@
                         <div class="col-xs-12 col-md-12">
                             <figure class="highcharts-figure">
                                 <div id="parent-container">
-                                    <div id="containermap" style="width: 100%; height: 500px;"></div>
+                                    <div id="containermap"></div>
                                 </div>
                             </figure>
                         </div>
@@ -191,10 +191,10 @@
             </div>
         </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card card-box p-0">
                 <div class="card-head">
-                    <div class="title">Number of participants</div>
+                    <div class="title">Number of participants enrolled</div>
                     <div class="tools">
                         <select id="ddlSection2" class="form-control form-control-custom">
                             <option value="Location">Location</option>
@@ -791,7 +791,7 @@
                             }
                             ,
                             {
-                                showInLegend: true,
+                                showInLegend: false,
                                 borderColor: 'green',
                                 color: 'green',
                                 //backgroundColor: '#000000',
@@ -801,7 +801,7 @@
                                 name: 'Maharashtra',
                                 joinBy: ['DistrictName', 'DistrictName'],
                                 dataLabels: {
-                                    enabled: true,
+                                    enabled: false,
                                     color: '#000000',
                                     format: '{point.DistrictName}',
                                     style: {
@@ -820,7 +820,7 @@
                             }
                             ,
                             {
-                                showInLegend: true,
+                                showInLegend: false,
                                 borderColor: '#0d47a1',
                                 color: '#0d47a1',
                                 borderWidth: 1,
@@ -829,7 +829,7 @@
                                 name: 'West Bengal',
                                 joinBy: ['DistrictName', 'DistrictName'],
                                 dataLabels: {
-                                    enabled: true,
+                                    enabled: false,
                                     color: '#000000',
                                     format: '{point.DistrictName}',
                                     style: {
