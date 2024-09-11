@@ -415,8 +415,14 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         }));
 
     }
-    else if (graphType == 'stack-bar') {
-        graphType = 'bar';
+    else if (graphType == 'stack-bar' || graphType == 'stack-column') {
+        if (graphType == 'stack-bar') {
+            graphType = 'bar';
+        }
+        else if (graphType == 'stack-column') {
+            graphType = 'column';
+        }
+        
         // Prepare the series data
         const seriesData = {};
         categories = [...new Set(jsonData.map(item => item[property]))];
@@ -524,16 +530,16 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         },
         plotOptions: {
             series: {
-                stacking: originalGraphType == 'stack-bar' ? 'normal' : null,
+                stacking: originalGraphType == 'stack-bar' || originalGraphType == 'stack-column' ? 'normal' : null,
                 shadow: false,
                 borderRadius: '0',
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true,
                     format: '{point.y:.0f}',
-                    inside: originalGraphType == 'stack-bar', // Set this to false to place labels outside
-                    crop: originalGraphType == 'stack-bar', // Prevent labels from being cropped
-                    overflow: 'none', // Prevent labels from overflowing the chart area
+                    //inside: originalGraphType == 'stack-bar', // Set this to false to place labels outside
+                    crop: false, // Prevent labels from being cropped
+                    //overflow: 'none', // Prevent labels from overflowing the chart area
                     format: '{point.y:.0f}',
                     style: {
                         fontSize: 12,
@@ -575,7 +581,8 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
             },
         },
         yAxis: {
-            visible: false,
+            visible: true,
+            gridLineColor: 'transparent',
             labels: {
                 style: {
                     display: 'none'
@@ -594,8 +601,17 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                     ) || 'gray'
                 },
                 formatter: function () {
-                    console.log(this)
-                    return this.total;
+                    var sum = 0;
+                    var series = this.axis.series;
+                    for (var i in series) {
+                        if (series[i].visible && series[i].options.stacking == 'normal' && series[i].xData.indexOf(this.x) > -1)
+                            sum += series[i].yData[series[i].xData.indexOf(this.x)];
+                    }
+                    if (this.total > 0) {
+                        return Highcharts.numberFormat(sum, 0);
+                    } else {
+                        return '';
+                    }
                 }
             }
         },

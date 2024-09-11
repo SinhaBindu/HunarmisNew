@@ -20,7 +20,7 @@
 
 
     figure > div > div {
-        height: 500px;
+        height: 400px;
     }
 
     .highcharts-label text {
@@ -357,26 +357,7 @@
             </div>
         </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card card-box p-0">
-                <div class="card-head">
-                    <div class="title">Pathways to Progress Intervention Areas</div>
-                    <div class="tools">
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <figure class="highcharts-figure">
-                                <div id="parent-container">
-                                    <div id="containermap" style="width: 100%; height: 800px;" aria-hidden="true"></div>
-                                </div>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
     </div>
 </div>
@@ -390,14 +371,10 @@
             <hr style="border: 4px double #f9841b; margin: 0px; " />
         </div>*@
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
 
-
-
-    @*<script src="https://code.highcharts.com/highcharts.js"></script>*@
-    @*<script src="https://code.highcharts.com/modules/series-label.js"></script>*@
+    @*<script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/stock/modules/drilldown.js"></script>
@@ -405,7 +382,7 @@
 
     <script src="~/Scripts/Map/india_st.js"></script>
     <script src="~/Scripts/Map/maharashtra_district.js"></script>
-    <script src="~/Scripts/Map/District_shape_West_Bengal.js"></script>
+    <script src="~/Scripts/Map/District_shape_West_Bengal.js"></script>*@
 
     <script>
     $('.count').each(function () {
@@ -615,14 +592,14 @@
         if (selectedDistrict != 'All') {
              familyMembersJsonData = familyMembersJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
         }
-        Graph(familyMembersJsonData, 'containerSection5_FamilyMembers', 'column-group', '', 'Location', '', 'NoofFamilyMembers', 'DistrictName');
+        Graph(familyMembersJsonData, 'containerSection5_FamilyMembers', 'stack-column', '', 'Location', '', 'NoofFamilyMembers', 'DistrictName');
     }
     function Section5AnnualHousehold(selectedDistrict) {
         var annualHouseholdJsonData = annualHouseholdJsonDataSection5;
         if (selectedDistrict != 'All') {
             annualHouseholdJsonData = annualHouseholdJsonDataSection5.filter(x => x.DistrictName == selectedDistrict);
         }
-        Graph(annualHouseholdJsonData, 'containerSection5_AnnualHousehold', 'column-group', '', 'Location', '', 'AnnualHouseholdincome', 'DistrictName');
+        Graph(annualHouseholdJsonData, 'containerSection5_AnnualHousehold', 'stack-column', '', 'Location', '', 'AnnualHouseholdincome', 'DistrictName');
     }
 
     function section6() {
@@ -889,157 +866,5 @@
 
     </script>
 
-    <script>
-
-    $(document).ready(function () {
-
-        Load_DistrictMap();
-    })
-    function Load_DistrictMap() {
-        $.ajax({
-            url: '@Url.Action("GetDashboard", "home")',
-            data: { mode: 4 },
-            async: false,
-            success: function (result) {
-                console.log(result);
-                if (result.IsSuccess) {
-                    var data = JSON.parse(result.Data)[0];
-                    var jsonObject = JSON.parse(data.LocationJsonData);
-                    console.log(jsonObject);
-                    var reportMapDivWidth = $("#containermapp").width();
-                    var MapHeight = reportMapDivWidth > 620 ? 620 : null;
-                    colors = ['#4443a0', '#ae77b8', '#9be0ba', '#4194ac', '#44449e', '#47a372', '#3466ab', '#8a3b99'];
-                    for (var i = 0; i < jsonObject.length; i++) {
-                        jsonObject[i].color = colors[i % colors.length];
-                        jsonObject[i].showInLegend = true;
-                    }
-
-                    var jsonObjectMumbai = jsonObject.find(x => x.DistrictName == "Mumbai");
-
-                    var obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
-                    obj.DistrictName = "Thane";
-                    jsonObject.push(obj);
-
-                    obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
-                    obj.DistrictName = "Raigarh";
-                    jsonObject.push(obj);
-
-                    obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
-                    obj.DistrictName = "Palghar";
-                    jsonObject.push(obj);
-
-                    obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
-                    obj.DistrictName = "Mumbai Suburban";
-                    jsonObject.push(obj);
-
-                    obj = JSON.parse(JSON.stringify(jsonObjectMumbai));
-                    obj.DistrictName = "Mumbai City";
-                    jsonObject.push(obj);
-
-                    Highcharts.mapChart('containermap', {
-
-                        chart: {
-                            borderWidth: 1,
-                            borderColor: '#00000',
-                            height: MapHeight,
-                            //  map: topology
-                        },
-                        title: {
-                            text:''
-                        },
-                        credits: {
-                            enabled: false
-                        },
-                        //legend: {
-                        //    layout: 'vertical',
-                        //    align: 'right',
-                        //    verticalAlign: 'middle',
-                        //    itemMarginBottom: 10,
-                        //    symbolHeight: 18,
-                        //    title: {
-                        //        text: 'Districts'
-                        //    }
-                        //},
-                        mapNavigation: {
-                            enabled: true,
-                            buttonOptions: {
-                                verticalAlign: 'bottom'
-                            }
-                        },
-                        tooltip: {
-                            shared: true
-                        },
-                        colors: colors,
-                        series: [
-                            {
-                                showInLegend: false,
-                                borderColor: 'black',
-                                borderWidth: 0.2,
-                                name: 'India',
-                                mapData: Highcharts.maps['custom/StatesIndia'],
-                            }
-                            ,
-                            {
-                                showInLegend: true,
-                                borderColor: 'green',
-                                color: 'green',
-                                //backgroundColor: '#000000',
-                                borderWidth: 1,
-                                mapData: Highcharts.maps['custom/Maharashtra'],
-                                data: jsonObject,
-                                name: 'Maharashtra',
-                                joinBy: ['DistrictName', 'DistrictName'],
-                                dataLabels: {
-                                    enabled: true,
-                                    color: '#000000',
-                                    format: '{point.DistrictName}',
-                                    style: {
-                                        fontSize: 9,
-                                        fontWeight: 700
-                                    },
-                                },
-                                //marker: {
-                                //    symbol: 'mapmarker'
-                                //},
-                                //minSize: 4,
-                                //maxSize: '12%',
-                                tooltip: {
-                                    pointFormat: '<b> {point.DistrictName} : {point.Total} / ( {point.Percentage} % ) </b>'
-                                }
-                            }
-                            ,
-                            {
-                                showInLegend: true,
-                                borderColor: '#0d47a1',
-                                color: '#0d47a1',
-                                borderWidth: 1,
-                                mapData: Highcharts.maps['custom/West_Bengal'],
-                                data: jsonObject,
-                                name: 'West Bengal',
-                                joinBy: ['DistrictName', 'DistrictName'],
-                                dataLabels: {
-                                    enabled: true,
-                                    color: '#000000',
-                                    format: '{point.DistrictName}',
-                                    style: {
-                                        fontSize: 9,
-                                        fontWeight: 700
-                                    },
-                                },
-                                //marker: {
-                                //    symbol: 'mapmarker'
-                                //},
-                                //minSize: 4,
-                                //maxSize: '12%',
-                                tooltip: {
-                                    pointFormat: '<b> {point.DistrictName} : {point.Total} / ( {point.Percentage} % ) </b>'
-                                }
-                            }
-                        ]
-                    });
-                }
-            }
-        });
-    }
-    </script>
+    
 }
