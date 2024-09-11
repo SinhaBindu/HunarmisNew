@@ -329,7 +329,7 @@ namespace Hunarmis.Controllers
                 if (model.partChildModel.ParticipantId != Guid.Empty && model.partChildModel.ParticipantId != null)
                 {
                     var childtbl = model.partChildModel.Child_ParticipantId_pk != Guid.Empty ? db_.tbl_Participant_Child.Find(model.partChildModel.Child_ParticipantId_pk) : new tbl_Participant_Child();
-                    if (childtbl != null && ModelState.IsValid && string.IsNullOrWhiteSpace(model.FullName))
+                    if (childtbl != null && string.IsNullOrWhiteSpace(model.FullName))
                     {
                         childtbl.NativeLanguage = !string.IsNullOrWhiteSpace(model.partChildModel.NativeLanguage_hd) ? model.partChildModel.NativeLanguage_hd : null;
                         childtbl.NativeLanguage_Other = model.partChildModel.NativeLanguage_Other;
@@ -505,7 +505,7 @@ namespace Hunarmis.Controllers
                 }
                 if (model.DOJStartDate != null)
                 {
-                    if (model.DateofOffer >= model.DOJStartDate)
+                    if (model.DateofOffer > model.DOJStartDate)
                     {
                         response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Date of offer greater than date of joining start date.", Data = null };
                         var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
@@ -565,6 +565,9 @@ namespace Hunarmis.Controllers
                             tbl.CreatedBy = MvcApplication.CUser.UserId;
                             tbl.CreatedOn = DateTime.Now;
                             db_.tbl_PlacementTracker.Add(tbl);
+                            var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
+                            tblpart.IsPlaced = true;    
+                            tblpart.IsOffered = true;    
                         }
                         else
                         {

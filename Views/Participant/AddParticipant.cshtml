@@ -7,7 +7,7 @@
     ViewBag.SemiTitle = "Participant List";
     ViewBag.SemiTitleLink = "/Participant/ParticipantList";
     bool IsSadmin = CommonModel.IsRoleLogin() == "all" ? true : false;
-    var strreadonly = Model.ID == Guid.Empty ? "pointer-events: none;" : "";
+    var strreadonly = Model.partChildModel.Child_ParticipantId_pk == Guid.Empty ? "pointer-events: none;" : "";
 }
 <link href="~/Content/plugins/multiple-email/email.multiple.css" rel="stylesheet" />
 <style>
@@ -125,7 +125,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.AadharCardNo, htmlAttributes: new { @class = "control-label" })
                                                     @*@Html.PasswordFor(model => model.AadharCardNo, new { @type = "password", @class = "required form-control", @required = "required", @min = "12", @maxlength = "12" })*@
-                                                    @Html.TextBoxFor(model => model.AadharCardNo, new { @type = "text", @class = "required form-control", @required = "required", @min = "12", @maxlength = "12" })
+                                                    @Html.TextBoxFor(model => model.AadharCardNo, new { @type = "number", @class = "required form-control", @required = "required", @min = "12", @maxlength = "12" })
                                                     @Html.ValidationMessageFor(model => model.AadharCardNo, "", new { @class = "text-danger" })
                                                     <div class="mark-devide"></div>
                                                 </div>
