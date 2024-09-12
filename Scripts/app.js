@@ -392,6 +392,7 @@ function RemoveRow(id, tblid) {
     })
 }
 
+
 var colorsConst = ['#4443a0', '#ae77b8', '#9be0ba', '#4194ac', '#44449e', '#47a372', '#3466ab', '#8a3b99'];
 function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, property, groupProperty, colorsParam) {
     console.log(jsonData);
@@ -400,6 +401,7 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
     var categories = [];
     var series = [];
     var totals = [];
+    var colorAxis = [];
     var originalGraphType = graphType;
     if (graphType == 'bar-group') {
         graphType = 'bar';
@@ -476,8 +478,8 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         }));
         console.log(series);
     }
-    else if (graphType == 'pie') {
-
+    else if (graphType == 'pie' || graphType == 'donut') {
+        graphType = 'pie';
         categories = [...new Set(jsonData.map(item => item[property]))];
         //categories = jsonData.map(item => item[property]);
         const totals = jsonData.map(item => item.Total);
@@ -485,15 +487,37 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         var seriesData = jsonData.map(item => ({
             name: item[property],
             y: item.Percentage,
-            total: item.Total // Add total to each data point
+            total: item.Total, // Add total to each data point
         }));
         series = [{
             name: 'Percentage',
             //colorByPoint: true,
-            //innerSize: '50%',
+            innerSize: originalGraphType == 'pie' ? '0%' : '40%',
             data: seriesData
         }];
 
+        console.log(series);
+    }
+    else if (graphType =='treemap') {
+        categories = [...new Set(jsonData.map(item => item[property]))];
+        colorAxis = [];
+        for (var i = 0; i < categories.length; i++) {
+            colorAxis.push({ minColor: colorsConst[i], maxColor: colorsConst[i] })
+        }
+        var i = categories.length;
+        var seriesData = jsonData.map(item => ({
+            name: item[property],
+            value: item.Total,
+            total: item.Total,
+            colorValue: i--,
+            //color: colorsConst[i],
+        }));
+        series = [{
+            type: 'treemap',
+            layoutAlgorithm: 'squarified',
+            clip: false,
+            data: seriesData
+        }];
         console.log(series);
     }
     else {
@@ -509,139 +533,169 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
         }];
         console.log(series);
     }
-    var colorsValue
     //colors = ['#4443a0', '#ae77b8', '#1D4E89', '#1C558E', '#1A5B92', '#16679A', '#0F80AA', '#2ec4b6'];
     colors = colorsConst;
     if (colorsParam && colorsParam.length) {
         colors = colorsParam;
-    } 
-    Highcharts.chart(selector, {
-        chart: {
-            type: graphType,
-            backgroundColor: 'rgba(0,0,0,0)',
-            color: '#fff',
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            //innerSize: '50%' // Make it a donut chart
-        },
-        title: {
-            text: title,
-            align: 'left',
-        },
-        credits: {
-            enabled: false
-        },
-        legend: {
-            useHTML: true,
-            labelFormatter: function () {
-                if (this.name == "Female") {
-                    this.legendItem.symbol.element.outerHTML = "";
-                    return "<img src='https://th.bing.com/th/id/OIP.om0V0g0fPpTRrkamttDcnQHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7' width='40' height='40'> " + this.name;
-                } else if (this.name == "Male") {
-                    this.legendItem.symbol.element.outerHTML = "";
-                    return "<img src='https://th.bing.com/th/id/OIP.2G_Vn6yqHrWRXre2be-upAHaHa?w=195&h=195&c=7&r=0&o=5&pid=1.7' width='40' height='40'> " + this.name;
-                } else {
-                    return this.name;
-                }
-            }
-        },
-        plotOptions: {
-            series: {
-                stacking: originalGraphType == 'stack-bar' || originalGraphType == 'stack-column' ? 'normal' : null,
-                shadow: false,
-                borderRadius: '0',
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: !(originalGraphType == 'stack-column'),
-                    format: '{point.y:.0f}',
-                    //inside: !(originalGraphType == 'stack-column'),
-                    //inside: originalGraphType == 'stack-bar' || originalGraphType != 'stack-column' , // Set this to false to place labels outside
-                    crop: false, // Prevent labels from being cropped
-                    //overflow: 'none', // Prevent labels from overflowing the chart area
-                    format: '{point.y:.0f}',
-                    style: {
-                        fontSize: 12,
-                        borderWidth: 0
-                    }
-                },
-                
-            },
-            pie: {
-                size: '80%',
-                allowPointSelect: true,
-                cursor: 'pointer',
-                crop: false,
-                overflow: 'none',
-                dataLabels: {
-                    enabled: true,
-                    crop: false,
-                    overflow: 'none',
-                    format: '{point.name}: {point.y}%',
-                    distance: 10,
-                    
-                },
-                showInLegend: false
-            },
-            //column: {
-            //    colorByPoint: graphType == 'column' ? true : null,
-            //}
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            formatter: function () {
-                console.log(this);
-                const value = this.point.options && this.point.options.total
-                    ? this.point.options.total
-                    : this.point.y;
-
-                return `<span style="font-size:12px;color:${this.color}">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
-                    `<span style="color:${this.point.color}">${this.point.name ? this.point.name : this.x}</span>: ` +
-                    `<b style="color:${this.color}">${value}</b><br/>`;
-            }
-        },
-        colors: colors,
-        xAxis: {
-            categories: categories,
-            labels: {
-            },
-        },
-        yAxis: {
-            visible: true,
-            gridLineColor: 'transparent',
-            labels: {
-                style: {
-                    display: 'none'
-                },
+    }
+    if (originalGraphType != 'treemap') {
+        var chart = Highcharts.chart(selector, {
+            chart: {
+                type: graphType,
+                backgroundColor: 'rgba(0,0,0,0)',
+                color: '#fff',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                //innerSize: '50%' // Make it a donut chart
             },
             title: {
-                text: yAxis,
+                text: title,
+                align: 'left',
             },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: ( // theme
-                        Highcharts.defaultOptions.title.style &&
-                        Highcharts.defaultOptions.title.style.color
-                    ) || 'gray'
-                },
-                formatter: function () {
-                    var sum = 0;
-                    var series = this.axis.series;
-                    for (var i in series) {
-                        if (series[i].visible && series[i].options.stacking == 'normal' && series[i].xData.indexOf(this.x) > -1)
-                            sum += series[i].yData[series[i].xData.indexOf(this.x)];
-                    }
-                    if (this.total > 0) {
-                        return Highcharts.numberFormat(sum, 0);
+            credits: {
+                enabled: false
+            },
+            //colorAxis: colorAxis,
+            legend: {
+                useHTML: true,
+                labelFormatter: function () {
+                    if (this.name == "Female") {
+                        if (this.legendItem.symbol.element) {
+                            this.legendItem.symbol.element.outerHTML = "";
+                        }
+
+                        return "<img src='/content/images/female1.png' width='40' height='40'> " + this.name;
+                    } else if (this.name == "Male") {
+                        if (this.legendItem.symbol.element) {
+                            this.legendItem.symbol.element.outerHTML = "";
+                        }
+                        return "<img src='/content/images/male1.png' width='40' height='40'> " + this.name;
                     } else {
-                        return '';
+                        return this.name;
                     }
                 }
+            },
+            plotOptions: {
+                series: {
+                    stacking: originalGraphType == 'stack-bar' || originalGraphType == 'stack-column' ? 'normal' : null,
+                    shadow: false,
+                    borderRadius: '0',
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: !(originalGraphType == 'stack-column'),
+                        format: '{point.y:.0f}',
+                        //inside: !(originalGraphType == 'stack-column'),
+                        //inside: originalGraphType == 'stack-bar' || originalGraphType != 'stack-column' , // Set this to false to place labels outside
+                        crop: false, // Prevent labels from being cropped
+                        //overflow: 'none', // Prevent labels from overflowing the chart area
+                        format: '{point.y:.0f}',
+                        style: {
+                            fontSize: 12,
+                            borderWidth: 0
+                        }
+                    },
+
+                },
+                pie: {
+                    size: '80%',
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    crop: false,
+                    overflow: 'none',
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        overflow: 'none',
+                        format: '{point.name}: {point.y}%',
+                        distance: 10,
+
+                    },
+                    showInLegend: false
+                },
+                //column: {
+                //    colorByPoint: graphType == 'column' ? true : null,
+                //}
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                formatter: function () {
+                    console.log(this);
+                    const value = this.point.options && this.point.options.total
+                        ? this.point.options.total
+                        : this.point.y;
+
+                    return `<span style="font-size:12px;color:${this.color}">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
+                        `<span style="color:${this.point.color}">${this.point.name ? this.point.name : this.x}</span>: ` +
+                        `<b style="color:${this.color}">${value}</b><br/>`;
+                }
+            },
+            colors: colors,
+            xAxis: {
+                categories: categories,
+                labels: {
+                },
+            },
+            yAxis: {
+                visible: true,
+                gridLineColor: 'transparent',
+                labels: {
+                    style: {
+                        display: 'none'
+                    },
+                },
+                title: {
+                    text: yAxis,
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: ( // theme
+                            Highcharts.defaultOptions.title.style &&
+                            Highcharts.defaultOptions.title.style.color
+                        ) || 'gray'
+                    },
+                    formatter: function () {
+                        var sum = 0;
+                        var series = this.axis.series;
+                        for (var i in series) {
+                            if (series[i].visible && series[i].options.stacking == 'normal' && series[i].xData.indexOf(this.x) > -1)
+                                sum += series[i].yData[series[i].xData.indexOf(this.x)];
+                        }
+                        if (this.total > 0) {
+                            return Highcharts.numberFormat(sum, 0);
+                        } else {
+                            return '';
+                        }
+                    }
+                }
+            },
+            series: series
+        });
+    } else if (originalGraphType == 'treemap') {
+        Highcharts.chart(selector, {
+            colorAxis: {
+                visible: false,
+                minColor: colorsConst[0],
+                maxColor: colorsConst[1],                
+            },
+            series: series,
+            title: {
+                text: ''
             }
-        },
-        series: series
-    });
+        });
+    }
+    //if (chart) {
+    //    if (originalGraphType == 'treemap') {
+    //        console.log(chart);
+    //        //chart.colorAxis = {
+    //        //    visible: originalGraphType == 'treemap',
+    //        //    minColor: colors[0],
+    //        //    maxColor: colors[1]//Highcharts.getOptions().colors[0]
+    //        //};
+    //        chart.colorAxis = colorsConst;
+    //    }
+    //}
 
 }
