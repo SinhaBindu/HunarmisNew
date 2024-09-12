@@ -7,7 +7,7 @@
     ViewBag.SemiTitle = "Participant List";
     ViewBag.SemiTitleLink = "/Participant/ParticipantList";
     bool IsSadmin = CommonModel.IsRoleLogin() == "all" ? true : false;
-    var strreadonly = Model.partChildModel.Child_ParticipantId_pk == Guid.Empty ? "pointer-events: none;" : "";
+    var strreadonly = Model.ID == Guid.Empty  ? "pointer-events: none;" : "";
 }
 <link href="~/Content/plugins/multiple-email/email.multiple.css" rel="stylesheet" />
 <style>
@@ -44,13 +44,14 @@
                                     <li class="tab-link active" data-tab="tab-1"> <i class="fa fa-users spacerright2"></i> @ViewBag.Title Information</li>
                                     <li class="tab-link" data-tab="tab-2" style="@strreadonly"><i class="fa fa-users spacerright2"></i> @ViewBag.TitleTab2</li>
                                 </ul>
+                                @Html.HiddenFor(m => m.ID)
                                 <div class="tab-content active" id="tab-1">
                                     @using (Html.BeginForm("AddParticipant", "Participant", FormMethod.Post, new { @class = "loader", enctype = "multipart/form-data", @id = "formid" }))
                                     {
                                         <div class="col-md-12">@Html.Partial("_Alerts")</div>
                                         <div class="col-xs-12 col-md-12">
                                             @Html.AntiForgeryToken()
-                                            @Html.HiddenFor(m => m.ID)
+
                                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                             @*<p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>@ViewBag.Title Information</p>*@
                                         </div>

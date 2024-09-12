@@ -1,9 +1,9 @@
 ﻿@model Hunarmis.Models.FilterModel
 @using Hunarmis.Manager
 @{
-    ViewBag.Title = "Batch Assign";
+    ViewBag.Title = "Assign Batch";
     ViewBag.TitleIcon = "fa fa-user";
-    ViewBag.SemiTitle = "Batch assign List";
+    ViewBag.SemiTitle = "Assign Batch sList";
     ViewBag.SemiTitleLink = "/Attendance/BatchAssign";
 }
 <style>
@@ -54,42 +54,43 @@
                     </div>
                     @using (Html.BeginForm("BatchAssign", "Attendance", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", @id = "formid" }))
                     {
-                        <div class="col-md-12">@Html.Partial("_Alerts")</div>
-                        <div class="panel-bodys bg-white">
-                            <div class="col-sm-12">
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <div class="rounded h-100 p-4">
-                                            <div class="form-group">
-                                                @Html.LabelFor(m => m.CourseId, new { @class = "Col-md-2 col-form-label" })<em>*</em>
-                                                @Html.DropDownListFor(model => model.CourseId, CommonModel.GetCourses(), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
-                                                @Html.ValidationMessageFor(m => m.CourseId, "", new { @class = "text-danger" })
-                                            </div>
-                                            <div class="form-group">
-                                                @Html.LabelFor(m => m.TrainingCenterID, new { @class = "Col-md-2 col-form-label" })<em>*</em>
-                                                @Html.DropDownListFor(model => model.TrainingCenterID, CommonModel.GetDistTrainingAyCentersList(), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
-                                                @Html.ValidationMessageFor(m => m.TrainingCenterID, "", new { @class = "text-danger" })
-                                            </div>
-                                            <div class="form-group">
-                                                @Html.LabelFor(m => m.BatchId, new { @class = "Col-md-2 col-form-label" })<em>*</em>
-                                                @Html.DropDownListFor(model => model.BatchId, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
+                    <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                    <div class="panel-bodys bg-white">
+                        <div class="col-sm-12">
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <div class="rounded h-100 p-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CourseId, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                            @Html.DropDownListFor(model => model.CourseId, CommonModel.GetCourses(), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
+                                            @Html.ValidationMessageFor(m => m.CourseId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.TrainingCenterID, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                            @Html.DropDownListFor(model => model.TrainingCenterID, CommonModel.GetDistTrainingAyCentersList(), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
+                                            @Html.ValidationMessageFor(m => m.TrainingCenterID, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.BatchId, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                            @Html.DropDownListFor(model => model.BatchId, new List<SelectListItem>
+                                                (), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
                                                 @Html.ValidationMessageFor(m => m.BatchId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-12" style="padding-top: 10px !important;">
+                                            <div class="col-md-4">
+                                                <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
                                             </div>
-                                            <div class="col-md-12" style="padding-top: 10px !important;">
-                                                <div class="col-md-4">
-                                                    <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
-                                                </div>
 
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <div id="subdata"></div>
-                                    </div>
                                 </div>
-
+                                <div class="col-sm-9">
+                                    <div id="subdata"></div>
+                                </div>
                             </div>
+
                         </div>
+                    </div>
                     }
                 </div>
             </div>
@@ -100,36 +101,36 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/Custom/Master.js"></script>
+<script src="~/Scripts/Custom/Master.js"></script>
 
-    <script>
+<script>
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $('#TrainingCenterID').change(function () {
-                debugger;
-                if ($(this).val() != '') {
-                    BindModuleWiseBatches('BatchId', '', 2, 3, $('#CourseId').val(), 0, $('#TrainingCenterID').val());
-                    BindData();
-                }
-            });
-
-            if ('@CommonModel.RoleNameCont.Trainer' != '@MvcApplication.CUser.Role') {
-                 // BindData();
-             }
-
-            $("#btnsubmit").click(function (e) {
-                e.preventDefault();
-
-                if (confirm("Are you sure you want to submit this Batch Assign ?")) {
-                    BatchAssignCR();
-                } else
-                    return false;
-            });
-
+        $('#TrainingCenterID').change(function () {
+            debugger;
+            if ($(this).val() != '') {
+                BindModuleWiseBatches('BatchId', '', 2, 3, $('#CourseId').val(), 0, $('#TrainingCenterID').val());
+                BindData();
+            }
         });
 
-        function CheckUnchecked(cur) {
+        if ('@CommonModel.RoleNameCont.Trainer' != '@MvcApplication.CUser.Role') {
+            // BindData();
+        }
+
+        $("#btnsubmit").click(function (e) {
+            e.preventDefault();
+
+            if (confirm("Are you sure you want to submit this Batch Assign ?")) {
+                BatchAssignCR();
+            } else
+                return false;
+        });
+
+    });
+
+    function CheckUnchecked(cur) {
         if ($(cur).attr('id') == 'selectAll') {
             $('#tbl tbody tr .check').each(function (i, item) {
                 $(item).prop('checked', $(cur).prop('checked'));
@@ -146,111 +147,111 @@
         }
     }
 
-        function BindData() {
-            var filterModel = new Object();
-            filterModel.TrainingCenterID = ($('#TrainingCenterID').val() == "0" || $('#TrainingCenterID').val() == "") ? 0 : parseInt($('#TrainingCenterID').val());
-            filterModel.CourseId = ($('#CourseId').val() == "0" || $('#CourseId').val() == "") ? 0 : parseInt($('#CourseId').val())
-            $.ajax({
-                type: "GET",
-                url: document.baseURI + "/Attendance/GetPartlistBatchNoAssign",
-                data:  filterModel ,//JSON.stringify({}),//
-                cache: false,
-                async: false,
-                success: function (res) {
-                    if (res.IsSuccess) {
-                        $("#subdata").html(res.Data);
-                        $("#div-send").css("display", "block");
-
-                        if ($.fn.dataTable.isDataTable('#tbl')) {
-                            $("#tbl").dataTable().fnDestroy();
-                        }
-                        table = $('#tbl').DataTable({
-                            //scrollY: "400px",
-                            //scrollX: true,
-                            //scrollCollapse: true,
-                            paging: false,
-                            pageLength: 100,
-                            fixedColumns: {
-                                leftColumns: 1,
-                                rightColumns: 1
-                            },
-                            order: [[0, 'asc']],
-                            buttons: [{
-                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Export To Excel</span>', title: $('#CourseId option:selected').text()+' Batch Assign Lists',//$('#IDDistrict option:selected').text() +
-                                className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
-                                filename: 'Course List',
-                                exportOptions: { modifier: { page: 'all' } }
-                            }],
-                        });
-                        //$('.dataTables_filter input[type="search"]').css(
-                        //    { 'width': '200px', 'display': 'inline-block' }
-                        //);
-                       // $('#div-download').empty();
-                       // table.buttons().container().appendTo($('#div-download'));
-                    }
+    function BindData() {
+        var filterModel = new Object();
+        filterModel.TrainingCenterID = ($('#TrainingCenterID').val() == "0" || $('#TrainingCenterID').val() == "") ? 0 : parseInt($('#TrainingCenterID').val());
+        filterModel.CourseId = ($('#CourseId').val() == "0" || $('#CourseId').val() == "") ? 0 : parseInt($('#CourseId').val())
+        $.ajax({
+            type: "GET",
+            url: document.baseURI + "/Attendance/GetPartlistBatchNoAssign",
+            data: filterModel,//JSON.stringify({}),//
+            cache: false,
+            async: false,
+            success: function (res) {
+                if (res.IsSuccess) {
                     $("#subdata").html(res.Data);
-                },
-                error: function (req, error) {
-                    if (error === 'error') { error = req.statusText; }
-                    var errormsg = 'There was a communication error: ' + error;
-                    //Do To Message display
+                    $("#div-send").css("display", "block");
+
+                    if ($.fn.dataTable.isDataTable('#tbl')) {
+                        $("#tbl").dataTable().fnDestroy();
+                    }
+                    table = $('#tbl').DataTable({
+                        //scrollY: "400px",
+                        //scrollX: true,
+                        //scrollCollapse: true,
+                        paging: false,
+                        pageLength: 100,
+                        fixedColumns: {
+                            leftColumns: 1,
+                            rightColumns: 1
+                        },
+                        order: [[0, 'asc']],
+                        buttons: [{
+                            extend: 'excel', text: '<span><i class="fa fa-download"></i>Export To Excel</span>', title: $('#CourseId option:selected').text() + ' Batch Assign Lists',//$('#IDDistrict option:selected').text() +
+                            className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                            filename: 'Course List',
+                            exportOptions: { modifier: { page: 'all' } }
+                        }],
+                    });
+                    //$('.dataTables_filter input[type="search"]').css(
+                    //    { 'width': '200px', 'display': 'inline-block' }
+                    //);
+                    // $('#div-download').empty();
+                    // table.buttons().container().appendTo($('#div-download'));
                 }
-            });
-        }
+                $("#subdata").html(res.Data);
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                //Do To Message display
+            }
+        });
+    }
 
     function BatchAssignCR(Course) {
-     debugger;
-         BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
-         var atleastonepart = 0; var ParticipantIds = "";
+        debugger;
+        BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
+        var atleastonepart = 0; var ParticipantIds = "";
         let table2 = $('#tbl').DataTable();
-              table2.$('input[class=check]').each(function (i, row) {
-                  var participantid = $(row).attr('data-partid');
-                  if (participantid != '' && participantid != '@Guid.Empty' && participantid != undefined) {
-                      if ($(this).is(':checked')) {
-                          atleastonepart += 1;
-                          IsCheck = true;
-                          debugger;
-                          ParticipantIds += ParticipantIds == "" ? participantid : ',' + participantid ;
-                      }
-                  }
-              });
-         if (atleastonepart == 0 || ParticipantIds=="") {
-              toastr.error("Error", "Please selected at least one participant.");
-              IsCheck = true;
-              return false;
+        table2.$('input[class=check]').each(function (i, row) {
+            var participantid = $(row).attr('data-partid');
+            if (participantid != '' && participantid != '@Guid.Empty' && participantid != undefined) {
+                if ($(this).is(':checked')) {
+                    atleastonepart += 1;
+                    IsCheck = true;
+                    debugger;
+                    ParticipantIds += ParticipantIds == "" ? participantid : ',' + participantid;
+                }
+            }
+        });
+        if (atleastonepart == 0 || ParticipantIds == "") {
+            toastr.error("Error", "Please selected at least one participant.");
+            IsCheck = true;
+            return false;
         }
         if (atleastonepart >= 51) {
             toastr.error("Error", "Please selected Maximum 50 participants Batch Assign.");
             IsCheck = true;
             return false;
         }
-         if (BatchId != null && BatchId != "" && BatchId != undefined && ParticipantIds != "" && ParticipantIds != null && ParticipantIds != undefined) {
-             $.ajax({
-                 type: "Post",
-                 url: document.baseURI + "/Attendance/BatchAssign",
-                 data: { 'BatchId': BatchId, 'ParticipantIds': ParticipantIds },//JSON.stringify({}),//
-                 cache: false,
-                 success: function (resp) {
-                     if (resp.StatusType =='success') {
-                         toastr.success("Success", resp.Message);
-                     }
-                     else {
-                         toastr.error("Error", resp.Message);
-                     }
-                 },
-                 error: function (req, error) {
-                     if (error === 'error') { error = req.statusText; }
-                     var errormsg = 'There was a communication error: ' + error;
-                     toastr.error("Error", errormsg);
-                     return false;
-                 }
-             });
-         }
-         else {
-             toastr.error("Error", "Please Select Batch..");
-             return false;
-         }
-     }
+        if (BatchId != null && BatchId != "" && BatchId != undefined && ParticipantIds != "" && ParticipantIds != null && ParticipantIds != undefined) {
+            $.ajax({
+                type: "Post",
+                url: document.baseURI + "/Attendance/BatchAssign",
+                data: { 'BatchId': BatchId, 'ParticipantIds': ParticipantIds },//JSON.stringify({}),//
+                cache: false,
+                success: function (resp) {
+                    if (resp.StatusType == 'success') {
+                        toastr.success("Success", resp.Message);
+                    }
+                    else {
+                        toastr.error("Error", resp.Message);
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    toastr.error("Error", errormsg);
+                    return false;
+                }
+            });
+        }
+        else {
+            toastr.error("Error", "Please Select Batch..");
+            return false;
+        }
+    }
 
-    </script>
+</script>
 }

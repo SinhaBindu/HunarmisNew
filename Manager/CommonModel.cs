@@ -808,7 +808,8 @@ namespace Hunarmis.Manager
                 //}
                 if (IsAll)
                 {
-                    items.Insert(0, new SelectListItem { Value = "", Selected = true });
+                    items.Add(new SelectListItem { Value = "", Text = "All", Selected = true });
+                    //items.Insert(0, new SelectListItem { Value = "", Selected = true });
                 }
                 return items;
             }

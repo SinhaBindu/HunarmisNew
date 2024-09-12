@@ -16,19 +16,19 @@
     //window.frames["iframe1"].contentDocument.oncontextmenu = function () {
     //    return false;
     //};
-    document.addEventListener("contextmenu", function (e) {
-        e.preventDefault();
-    });
-    document.addEventListener("keydown", function (e) {
-        if (e.ctrlKey || e.metaKey) {
-            e.preventDefault();
-        }
-    });
-    document.getElementById("iframe1").addEventListener("keydown", function (e) {
-        if (e.ctrlKey || e.metaKey) {
-            e.preventDefault();
-        }
-    });
+    //document.addEventListener("contextmenu", function (e) {
+    //    e.preventDefault();
+    //});
+    //document.addEventListener("keydown", function (e) {
+    //    if (e.ctrlKey || e.metaKey) {
+    //        e.preventDefault();
+    //    }
+    //});
+    //document.getElementById("iframe1").addEventListener("keydown", function (e) {
+    //    if (e.ctrlKey || e.metaKey) {
+    //        e.preventDefault();
+    //    }
+    //});
 </script>
 <div id="wrapper">
         <iframe id="iframe1" src="@(CommonModel.GetBaseUrl()+"/Uploads/CourseFiles/SoftSkillsCurriculumDec2023.pdf")#toolbar=0&#print=0"  name="iframe1" scrolling="yes" height="600" width="100%" marginwidth="0" marginheight="0"

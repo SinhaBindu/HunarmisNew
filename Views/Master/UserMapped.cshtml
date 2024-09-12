@@ -48,11 +48,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel">
-                    <div class="panel-spacer">
+                    @*<div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
                             <i class="fa fa-list spacerright2"></i>@ViewBag.Title
                         </p>
-                    </div>
+                    </div>*@
                     <div class="content-manage">
                         <div id="div-download"></div>
                         @using (Html.BeginForm("GetUserDetailData", "Master", FormMethod.Post, new { id = "submission-form" }))
@@ -62,9 +62,9 @@
                             <div class="panel-bodys">
                                 <div class="search-box">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                        <div class="col-lg-8">
-                                            @Html.DropDownListFor(model => model.RoleId, CommonModel.GetRoleList(true), "Select One", htmlAttributes: new { @class = "form-control select2" })
+                                        @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-lg-1" })
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.RoleId, CommonModel.GetRoleList(false), null, htmlAttributes: new { @class = "form-control select2" })
                                             @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
                                         </div>
                                         <br />
@@ -116,50 +116,11 @@
     <script>
         $(document).ready(function () {
 
-           // $('#TACs').multiselect();
-            //$('#DistrictId').change(function () {
-            //    $('#TrainCenterIdMappedMult').val('');
-            //    if ($('#DistrictID').val() != '' && $('#TrainAgencyId').val() != '') {
-            //        BindTrainingCenter("TrainCenterIdMappedMult", 0, false, $('#DistrictId').val(), $('#TrainAgencyId').val());
-            //        $('#TrainCenterIdMappedMult').multiSelect();
-            //    }
-            //});
-            //$('#TrainAgencyId').change(function () {
-            //    $('#TrainCenterIdMappedMult').val('');
-            //    if ($('#DistrictID').val() != '' && $('#TrainAgencyId').val() != '') {
-            //        BindTrainingCenter("TrainCenterIdMappedMult", 0, false, $('#DistrictId').val(), $('#TrainAgencyId').val());
-            //        $('#TrainCenterIdMappedMult').multiSelect();
-            //    }
-            //});
-            // setTimeout(BindData, 2000);
-            //$('.multiple').multiselect({
-            //    includeSelectAllOption: true
-            //});
-            //$('#DataList tbody tr td.multiple').multiSelect('refresh');
+            $('select[name="RoleId"]').val(7).attr("selected", true).change();
+            BindData();
             $('#RoleId').change(function () {
                 BindData();
-
             });
-
-            //const myTable = $('#DataList').dataTable({
-            //    stateSave: true
-            //});
-            //const allPagesCheckboxes = myTable.fnGetNodes();
-            //console.log(allPagesCheckboxes);
-            //$('#selectAll').click(function () {
-            //    const thisText = $(this).text();
-            //    if (thisText === "Unselect All") {
-            //        $('input[type="checkbox"]', allPagesCheckboxes)
-            //            .attr('checked', false);
-            //        $(this).text('Select All');
-            //    }
-            //    else {
-            //        $('input[type="checkbox"]', allPagesCheckboxes)
-            //            .attr('checked', true);
-            //        $(this).text('Unselect All');
-            //    }
-
-            //});
 
         });
         function CheckUnchecked(cur) {
