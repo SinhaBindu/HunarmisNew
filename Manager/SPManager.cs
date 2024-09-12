@@ -134,6 +134,7 @@ namespace Hunarmis.Manager
             //sp.Command.AddParameter("@Type", model.Type, DbType.Int32);
             //sp.Command.AddParameter("@Search", model.Search, DbType.String);
             //sp.Command.AddParameter("@CallStatus", model.CallStatus, DbType.String);
+            var tcid =!string.IsNullOrWhiteSpace(model.TrainingCenterID) && model.TrainingCenterID!="0"? model.TrainingCenterID: MvcApplication.CUser.MappedTCenterIds;
             sp.Command.AddParameter("@IsPlacementTracker", model.IsPlacementTracker, DbType.Int16);
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
             sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
@@ -141,7 +142,7 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@Gender", model.Gender, DbType.String);
             sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
-            sp.Command.AddParameter("@TCIds", MvcApplication.CUser.MappedTCenterIds, DbType.String);
+            sp.Command.AddParameter("@TCIds", tcid, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

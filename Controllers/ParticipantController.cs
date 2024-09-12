@@ -88,9 +88,10 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet); throw;
             }
         }
-        public ActionResult ParticipantList()
+        public ActionResult ParticipantList(int TCId=0)
         {
             FilterModel model = new FilterModel();
+            model.TrainingCenterID=TCId!=0 ? TCId.ToString() : TCId.ToString();
             return View(model);
         }
         public ActionResult GetPartList(FilterModel model)

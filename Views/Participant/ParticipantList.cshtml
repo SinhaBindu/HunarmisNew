@@ -283,8 +283,9 @@
                     $("#FromDt").datepicker("option", "maxDate", selectedDate);
                 }
             });
-
-            $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
+            if ('@Model.TrainingCenterID' == '0' || '@Model.TrainingCenterID'=='') {
+                $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
+            }
             BindModuleWiseBatches("BatchId", "", 0, '0', $('#CourseId').val(), 0)
             //$('#BatchId').change(function (e) {
             //    e.preventDefault();
@@ -489,16 +490,20 @@
         }
 
         function BindData() {
+            debugger;
             $("#subdata").html('');
             var filtermodel = new Object();
             filtermodel.Type = 0;//$('#Type').val() == '' ? '' : $('#Type').val();
             filtermodel.Search = ""; //$('#Search').val() == '' ? '' : $('#Search').val();
             filtermodel.IsPlacementTracker = $('#IsPlacementTracker').val() == '' ? "0" : $('#IsPlacementTracker').val();
             filtermodel.BatchId = $('#BatchId').val() == '' ? "0" : $('#BatchId').val();
-            filtermodel.CourseId = $('#CourseId').val() == '' ? "0" : $('#CourseId').val();
+            //filtermodel.CourseId = $('#CourseId').val() == '' ? "0" : $('#CourseId').val();
+            var CourseId = $('#CourseId').val() == '' ? "0" : $('#CourseId').val();
             filtermodel.Gender = $('#Gender').val() == '' ? '0' : $('#Gender').val();
             filtermodel.FromDt = $('#FromDt').val() == '' ? '0' : $('#FromDt').val();
             filtermodel.ToDt = $('#ToDt').val() == '' ? '0' : $('#ToDt').val();
+            filtermodel.TrainingCenterID = '@Model.TrainingCenterID';
+            filtermodel.CourseId = '@Model.TrainingCenterID' == '0' || '@Model.TrainingCenterID' == '' ? CourseId : "0";
             var formData = $('#formid').serialize();
             $('#global-loader').css('background', 'transparent').css('display', 'block');
             $.ajax({

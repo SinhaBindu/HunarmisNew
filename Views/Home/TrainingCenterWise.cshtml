@@ -30,12 +30,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel">
-                    <div class="panel-spacer">
+                    @*<div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
                             <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
                             <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
                         </p>
-                    </div>
+                    </div>*@
 
                     <div class="panel-body">
                         <div class="col-sm-12" id="errormsg">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <div id="chartgrouptree" class=""></div>
+                                <div id="chartgrouptree" class="" style="height:1800px;"></div>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
             if (Datalist.length > 0) {
                 var objd = []; arrdist = [];
                 var Dlist = []; var filtervl = 0;
-                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + ' / ' + TotalPart }];//
+                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + ' / ' + TotalPart, dilldown: '',val:'' }];//
                 debugger;
                 const groupByDis = groupBy(["DistrictId", "DistrictName"]);
                 for (let [groupName, values] of Object.entries(groupByDis(Datalist))) {
@@ -152,7 +152,7 @@
                     let sum = filtervl.reduce(function (accumulator, curValue) {
                         return accumulator + curValue.NoofPart
                     }, 0)
-                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + ' / ' + sum });//
+                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + ' / ' + sum, dilldown: '', val: '' });//
                 }
                 const groupByTrainAgency = groupBy(["DistrictId", "TrainingAgencyId", "TrainingAgencyName"]);
                 for (let [groupName, values] of Object.entries(groupByTrainAgency(Datalist))) {
@@ -162,7 +162,7 @@
                     let sum = filtervl.reduce(function (accumulator, curValue) {
                         return accumulator + curValue.NoofPart
                     }, 0)
-                    objd.push({ id: strsp[0] + '.' + strsp[1], parent: strsp[0] + '.0', name: strsp[2] + ' / ' + sum }); ////+ strsp[3]
+                    //objd.push({ id: strsp[0] + '.' + strsp[1], parent: strsp[0] + '.0', name: strsp[2] + ' / ' + sum }); ////+ strsp[3]
                 }
                 const groupByTrainCenter = groupBy(["DistrictId", "TrainingAgencyId", "TrainingCenterId", "TrainingCenter"]);
                 debugger;
@@ -174,7 +174,8 @@
                     let sum = filtervl.reduce(function (accumulator, curValue) {
                         return accumulator + curValue.NoofPart
                     }, 0)
-                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.' + strsp[1], name: strsp[3] + ' / ' + sum }); ////strsp[4]
+                    //objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.' + strsp[1], name: strsp[3] + ' / ' + sum }); ////strsp[4]
+                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.0', name: strsp[3] + ' (' + sum + ')', dilldown: '1', val: sum }); ////strsp[4]
                 }
                 //for (var i = 0; i < Datalist.length; i++) {
                 //    objd.push({ id: Datalist[i].TrainingAgencyId + '.' + Datalist[i].TrainingCenterId, parent: Datalist[i].DistrictId + '.' + Datalist[i].TrainingAgencyId, name: Datalist[i].TrainingCenter });
@@ -187,17 +188,17 @@
                         //borderWidth: 1
                         spacingBottom: 150,
                         marginRight: 200,
-                        height: 1200
+                        height: 1800
                     },
                     title: {
-                        text: '<h4 style="text-decoration: underline;color:#5b2c54">Training Center Distribution</h4>',
+                        text: '<h4 style="text-decoration: underline;color:#5b2c54">Training Center Distribution </br><span style="font-size:12px;">(State/ District/ Training Center)</span></h4>',
                         align: 'center',
                         style: {
                             fontSize: '2em'
                         }
                     },
                     subtitle: {
-                        text: '<h5 style="text-decoration: underline;color:#5b2c54">Distribution - (' + TotalPart + ')</h5>',
+                        text: '<h5 style="text-decoration: underline;color:#5b2c54;font-size:14px">Distribution - <b style="font-size:14px;color:#4443a0;">(' + TotalPart + ')</b></h5>',
                         align: 'center',
                         style: {
                             fontSize: '1.2em'
@@ -243,7 +244,7 @@
                                     textOutline: '3px #ffffff',
                                     whiteSpace: 'nowrap'
                                 },
-                                x: 24,
+                                x: 20,
                                 crop: false,
                                 overflow: 'none'
                             },
@@ -274,7 +275,8 @@
                                     },
                                     dataLabels: {
                                         style: {
-                                            fontSize: '1.2em'
+                                            fontSize: '1.2em',
+                                            //color:'green'
                                         }
                                     },
                                 },
@@ -370,12 +372,32 @@
                             //        }
                             //    }
                             //]
+                            , point: {
+                                events: {
+                                    click: function () {
+                                        debugger;
+                                        if (this.dilldown == '1') {
+                                            //alert(parseInt((this.options.id).split('.')[1]));
+                                            var spl = (this.options.id).split('.');
+                                            if (this.val != 0) {
+                                                window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
+                                            }
+                                            else {
+                                                alert('Record Not Found !!');
+                                            }
+                                        }
+                                    }
+                                }
+                            }
 
                         }
+
                     ]
                 });
             }
         }
+
+       
 
         const groupBy = (keys) => (array) =>
             array.reduce((objectsByKeyValue, obj) => {
