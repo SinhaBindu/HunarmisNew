@@ -162,7 +162,7 @@
                                         <div class="position-relative">
                                             @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-1" })
                                             <div class="col-md-3">
-                                                @Html.DropDownListFor(m => m.CourseId, CommonModel.GetCourses(true), "Select", htmlAttributes: new { @class = "form-control select2" })
+                                                @Html.DropDownListFor(m => m.CourseId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2" })
                                                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -253,21 +253,7 @@
 
     <script>
         $(document).ready(function () {
-            //    GetYearList("Year", 0);
-            //    GetMonthList("Month", 0);
-            //    GetDistrict("DistrictId", 0);
-            //    $('#DistrictId').change(function () {
-            //        GetBlock("BlockId", 0, $(this).val());
-            //    });
-            //    $('#BlockId').change(function () {
-            //        GetPanchayat("PanchayatId", 0, $('#DistrictId').val(), $(this).val());
-            //    });
-            //    $('#PanchayatId').change(function () {
-            //        GetVillage("VOId", 0, $('#DistrictId').val(), $('#BlockId').val(), $(this).val());
-            //    });
-            //    /* Role Wise */
-            //    BindRolewise("DistrictId", "BlockId", "PanchayatId", "VOId");
-
+          
             $("#FromDt").datepicker({
                 //defaultDate: "+1w",
                 changeMonth: true,
@@ -286,10 +272,14 @@
                     $("#FromDt").datepicker("option", "maxDate", selectedDate);
                 }
             });
+            BindGetCourses("CourseId", "", 1, '0');
+            $('select[name="CourseId"]').find('option').eq(1).attr("selected", true).change();
+            BindModuleWiseBatches("BatchId", "", 1, '0', $('#CourseId').val(), 0);
+            $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
             if ('@Model.TrainingCenterID' == '0' || '@Model.TrainingCenterID'=='') {
-                $('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
+                //$('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
+                $('select[name="CourseId"]').find('option').eq(1).attr("selected", true).change();
             }
-            BindModuleWiseBatches("BatchId", "", 0, '0', $('#CourseId').val(), 0)
             //$('#BatchId').change(function (e) {
             //    e.preventDefault();
             //    BindData();
@@ -297,7 +287,7 @@
             $('#CourseId').change(function (e) {
                 e.preventDefault();
                 debugger;
-                BindModuleWiseBatches("BatchId", "", 0, '0', $(this).val(), 0)
+                BindModuleWiseBatches("BatchId", "", 1, '0', $(this).val(), 0)
                 //BindData();
             });
             //$('#IsPlacementTracker').change(function (e) {

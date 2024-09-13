@@ -319,8 +319,8 @@
                         //marginRight: 200,
                         //height: 1800
                         spacingBottom: 30,
-                        marginRight: 120,
-                        height: 1800
+                        marginRight: 200,
+                        height: 1200
                     },
 
                     title: {
@@ -347,68 +347,264 @@
                     //    }
                     //},
                     series: [
+                        //{
+                        //    type: 'treegraph',
+                        //    data,
+                        //    tooltip: {
+                        //        pointFormat: '{point.name}'
+                        //    },
+                        //    marker: {
+                        //        symbol: 'rect',
+                        //        width: '30%'
+                        //    },
+                        //    borderRadius: 10,
+                        //    dataLabels: {
+                        //        pointFormat: '{point.name}',
+                        //        style: {
+                        //            whiteSpace: 'nowrap'
+                        //        }
+                        //    },
+                        //    levels: [
+                        //        {
+                        //            level: 1,
+                        //            dataLabels: {
+                        //                style: {
+                        //                    fontSize: '1.2em'
+                        //                }
+                        //            },
+                        //            levelIsConstant: false
+                        //        },
+                        //        {
+                        //            level: 2,
+                        //            dataLabels: {
+                        //                style: {
+                        //                    fontSize: '1.2em'
+                        //                }
+                        //            },
+                        //            colorByPoint: true
+                        //        },
+                        //        {
+                        //            level: 3,
+                        //            dataLabels: {
+                        //                style: {
+                        //                    fontSize: '1.2em'
+                        //                }
+                        //            },
+                        //            colorVariation: {
+                        //                key: 'brightness',
+                        //                to: -0.5
+                        //            }
+                        //        },
+                        //        {
+                        //            level: 4,
+                        //            dataLabels: {
+                        //                style: {
+                        //                    fontSize: '1.2em'
+                        //                }
+                        //            },
+                        //            colorVariation: {
+                        //                key: 'brightness',
+                        //                to: 0.5
+                        //            }
+                        //        }
+                        //    ]
+                        //   , point: {
+                        //        events: {
+                        //            click: function () {
+                        //                debugger;
+                        //                if (this.dilldown == '1') {
+                        //                    var spl = (this.options.id).split('.');
+                        //                    if (this.val != 0) {
+                        //                        BindData(((this.options.id).split('.')[1]), "0", "0", this.options.lblname);
+                        //                    }
+                        //                    else {
+                        //                        alert('Record Not Found !!');
+                        //                    }
+                        //                }
+                        //                else if (this.dilldown == '2') {
+                        //                    var spl = (this.options.id).split('.');
+                        //                    if (this.val != 0) {
+                        //                        BindData("0", ((this.options.id).split('.')[0]), "0",this.options.lblname);
+                        //                        //window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
+                        //                    }
+                        //                    else {
+                        //                        alert('Record Not Found !!');
+                        //                    }
+                        //                }
+                        //                else if (this.dilldown == '3') {
+                        //                    var spl = (this.options.id).split('.');
+                        //                    if (this.val != 0) {
+                        //                        BindData("0", "0", ((this.options.id).split('.')[1]), this.options.lblname);
+                        //                    }
+                        //                    else {
+                        //                        alert('Record Not Found !!');
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
+
                         {
                             type: 'treegraph',
                             data,
                             tooltip: {
                                 pointFormat: '{point.name}'
                             },
+                            //dataLabels: {
+                            //    pointFormat: '{point.name}',
+                            //    style: {
+                            //        whiteSpace: 'nowrap',
+                            //        color: '#000000',
+                            //        textOutline: '3px contrast',
+                            //        fontSize: '1em',
+                            //    },
+                            //    crop: false,
+                            //    overflow: 'justify'
+                            //},
                             marker: {
-                                symbol: 'rect',
-                                width: '30%'
+                                symbol: 'circle',
+                                radius: 6,
+                                fillColor: '#ffffff',
+                                lineWidth: 3
                             },
-                            borderRadius: 10,
                             dataLabels: {
-                                pointFormat: '{point.name}',
+                                align: 'left',
+                                //pointFormat: '{point.id}',
                                 style: {
+                                    color: '#000000',
+                                    textOutline: '3px #ffffff',
                                     whiteSpace: 'nowrap'
-                                }
+                                },
+                                x: 20,
+                                crop: false,
+                                overflow: 'none'
                             },
                             levels: [
                                 {
                                     level: 1,
+                                    //levelIsConstant: false
                                     dataLabels: {
                                         style: {
                                             fontSize: '1.2em'
                                         }
                                     },
-                                    levelIsConstant: false
                                 },
                                 {
                                     level: 2,
+                                    colorByPoint: true,
                                     dataLabels: {
                                         style: {
                                             fontSize: '1.2em'
                                         }
                                     },
-                                    colorByPoint: true
                                 },
                                 {
                                     level: 3,
-                                    dataLabels: {
-                                        style: {
-                                            fontSize: '1.2em'
-                                        }
-                                    },
                                     colorVariation: {
                                         key: 'brightness',
                                         to: -0.5
-                                    }
+                                    },
+                                    dataLabels: {
+                                        style: {
+                                            fontSize: '1.2em',
+                                            //color:'green'
+                                        }
+                                    },
                                 },
                                 {
                                     level: 4,
+                                    colorVariation: {
+                                        key: 'brightness',
+                                        to: 0.5
+                                    },
                                     dataLabels: {
                                         style: {
                                             fontSize: '1.2em'
                                         }
                                     },
-                                    colorVariation: {
-                                        key: 'brightness',
-                                        to: 0.5
+                                },
+                                {
+                                    level: 6,
+                                    dataLabels: {
+                                        x: 10,
+                                        style: {
+                                            fontSize: '1.2em'
+                                        }
+                                    },
+                                    marker: {
+                                        radius: 4
                                     }
                                 }
                             ]
-                           , point: {
+
+                            //marker: {
+                            //    radius: 6
+                            //},
+                            //legend: {
+                            //    itemStyle: {
+                            //        color: 'white',
+                            //        fontWeight: 'bold',
+                            //        fontSize: '20px'
+                            //    }
+                            //},
+                            //levels: [
+                            //    {
+                            //        level: 1,
+                            //        dataLabels: {
+                            //            align: 'left',
+                            //            x: 20
+                            //        }
+                            //    },
+                            //    {
+                            //        level: 2,
+                            //        colorByPoint: true,
+                            //        dataLabels: {
+                            //            verticalAlign: 'bottom',
+                            //            y: -20
+                            //        }
+                            //    },
+                            //    {
+                            //        level: 3,
+                            //        //colorVariation: {
+                            //        //    key: 'brightness',
+                            //        //    to: -0.5
+                            //        //},
+                            //        dataLabels: {
+                            //            verticalAlign: 'top',
+                            //            /*rotation: 90,*/
+                            //            y: -20
+                            //        }
+                            //    },
+                            //    //{
+                            //    //    level: 4,
+                            //    //    //colorVariation: {
+                            //    //    //    key: 'brightness',
+                            //    //    //   /* to: -0.5*/
+                            //    //    //},
+                            //    //    dataLabels: {
+                            //    //        verticalAlign: 'bottom',
+                            //    //        //verticalAlign: 'top',
+                            //    //        /*rotation: 90,*/
+                            //    //        y: -20
+                            //    //    }
+                            //    //}
+                            //    {
+                            //        level: 4,
+                            //        colorVariation: {
+                            //            key: 'brightness',
+                            //            to: -0.5
+                            //        },
+                            //        dataLabels: {
+                            //            verticalAlign: 'top',
+                            //            rotation: 90,
+                            //            y: 20,
+                            //            overflow: 'none'
+
+                            //        }
+                            //    }
+                            //]
+                            , point: {
                                 events: {
                                     click: function () {
                                         debugger;
@@ -424,7 +620,7 @@
                                         else if (this.dilldown == '2') {
                                             var spl = (this.options.id).split('.');
                                             if (this.val != 0) {
-                                                BindData("0", ((this.options.id).split('.')[0]), "0",this.options.lblname);
+                                                BindData("0", ((this.options.id).split('.')[0]), "0", this.options.lblname);
                                                 //window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
                                             }
                                             else {
@@ -444,201 +640,8 @@
                                 }
                             }
                         }
-                        //{
-                        //    type: 'treegraph',
-                        //    data,
-                        //    tooltip: {
-                        //        pointFormat: '{point.name}'
-                        //    },
-                        //    dataLabels: {
-                        //        pointFormat: '{point.name}',
-                        //        style: {
-                        //            whiteSpace: 'nowrap',
-                        //            color: '#000000',
-                        //            textOutline: '3px contrast',
-                        //            fontSize: '1em',
-                        //        },
-                        //        crop: false
-                        //    },
-                        //    marker: {
-                        //        symbol: 'circle',
-                        //        radius: 6,
-                        //        fillColor: '#ffffff',
-                        //        lineWidth: 3
-                        //    },
-                        //    dataLabels: {
-                        //        align: 'left',
-                        //        //pointFormat: '{point.id}',
-                        //        style: {
-                        //            color: '#000000',
-                        //            textOutline: '3px #ffffff',
-                        //            whiteSpace: 'nowrap'
-                        //        },
-                        //        x: 20,
-                        //        crop: false,
-                        //        overflow: 'none'
-                        //    },
-                        //    levels: [
-                        //        {
-                        //            level: 1,
-                        //            //levelIsConstant: false
-                        //            dataLabels: {
-                        //                style: {
-                        //                    fontSize: '1.2em'
-                        //                }
-                        //            },
-                        //        },
-                        //        {
-                        //            level: 2,
-                        //            colorByPoint: true,
-                        //            dataLabels: {
-                        //                style: {
-                        //                    fontSize: '1.2em'
-                        //                }
-                        //            },
-                        //        },
-                        //        {
-                        //            level: 3,
-                        //            colorVariation: {
-                        //                key: 'brightness',
-                        //                to: -0.5
-                        //            },
-                        //            dataLabels: {
-                        //                style: {
-                        //                    fontSize: '1.2em',
-                        //                    //color:'green'
-                        //                }
-                        //            },
-                        //        },
-                        //        {
-                        //            level: 4,
-                        //            colorVariation: {
-                        //                key: 'brightness',
-                        //                to: 0.5
-                        //            },
-                        //            dataLabels: {
-                        //                style: {
-                        //                    fontSize: '1.2em'
-                        //                }
-                        //            },
-                        //        },
-                        //        {
-                        //            level: 6,
-                        //            dataLabels: {
-                        //                x: 10,
-                        //                style: {
-                        //                    fontSize: '1.2em'
-                        //                }
-                        //            },
-                        //            marker: {
-                        //                radius: 4
-                        //            }
-                        //        }
-                        //    ]
 
-                        //    //marker: {
-                        //    //    radius: 6
-                        //    //},
-                        //    //legend: {
-                        //    //    itemStyle: {
-                        //    //        color: 'white',
-                        //    //        fontWeight: 'bold',
-                        //    //        fontSize: '20px'
-                        //    //    }
-                        //    //},
-                        //    //levels: [
-                        //    //    {
-                        //    //        level: 1,
-                        //    //        dataLabels: {
-                        //    //            align: 'left',
-                        //    //            x: 20
-                        //    //        }
-                        //    //    },
-                        //    //    {
-                        //    //        level: 2,
-                        //    //        colorByPoint: true,
-                        //    //        dataLabels: {
-                        //    //            verticalAlign: 'bottom',
-                        //    //            y: -20
-                        //    //        }
-                        //    //    },
-                        //    //    {
-                        //    //        level: 3,
-                        //    //        //colorVariation: {
-                        //    //        //    key: 'brightness',
-                        //    //        //    to: -0.5
-                        //    //        //},
-                        //    //        dataLabels: {
-                        //    //            verticalAlign: 'top',
-                        //    //            /*rotation: 90,*/
-                        //    //            y: -20
-                        //    //        }
-                        //    //    },
-                        //    //    //{
-                        //    //    //    level: 4,
-                        //    //    //    //colorVariation: {
-                        //    //    //    //    key: 'brightness',
-                        //    //    //    //   /* to: -0.5*/
-                        //    //    //    //},
-                        //    //    //    dataLabels: {
-                        //    //    //        verticalAlign: 'bottom',
-                        //    //    //        //verticalAlign: 'top',
-                        //    //    //        /*rotation: 90,*/
-                        //    //    //        y: -20
-                        //    //    //    }
-                        //    //    //}
-                        //    //    {
-                        //    //        level: 4,
-                        //    //        colorVariation: {
-                        //    //            key: 'brightness',
-                        //    //            to: -0.5
-                        //    //        },
-                        //    //        dataLabels: {
-                        //    //            verticalAlign: 'top',
-                        //    //            rotation: 90,
-                        //    //            y: 20,
-                        //    //            overflow: 'none'
 
-                        //    //        }
-                        //    //    }
-                        //    //]
-                            //, point: {
-                            //    events: {
-                            //        click: function () {
-                            //            debugger;
-                            //            if (this.dilldown == '1') {
-                            //                var spl = (this.options.id).split('.');
-                            //                if (this.val != 0) {
-                            //                    BindData(((this.options.id).split('.')[1]), "0", "0", this.options.lblname);
-                            //                }
-                            //                else {
-                            //                    alert('Record Not Found !!');
-                            //                }
-                            //            }
-                            //            else if (this.dilldown == '2') {
-                            //                var spl = (this.options.id).split('.');
-                            //                if (this.val != 0) {
-                            //                    BindData("0", ((this.options.id).split('.')[0]), "0",this.options.lblname);
-                            //                    //window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
-                            //                }
-                            //                else {
-                            //                    alert('Record Not Found !!');
-                            //                }
-                            //            }
-                            //            else if (this.dilldown == '3') {
-                            //                var spl = (this.options.id).split('.');
-                            //                if (this.val != 0) {
-                            //                    BindData("0", "0", ((this.options.id).split('.')[1]), this.options.lblname);
-                            //                }
-                            //                else {
-                            //                    alert('Record Not Found !!');
-                            //                }
-                            //            }
-                            //        }
-                            //    }
-                            //}
-
-                       
 
                     ]
                 });

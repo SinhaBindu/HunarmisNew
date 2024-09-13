@@ -20,7 +20,7 @@
             <h4s> No Of Participants : <b>@dt.Rows.Count</b> &nbsp;&nbsp;&nbsp;&nbsp; No Of Calls :<b>@dt.Compute("Sum([Total Calls])",string.Empty)</b> </h4s>
         }
         <div id="demo-dt-basic_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-            <table id="ListDataTable" class="table table-striped table-bordered text-uppercase " width="100%">
+            <table id="ListDataTable" class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer text-uppercase " width="100%">
                 <thead>
                     <tr role="row">
                         @foreach (DataColumn col in dt.Columns)
