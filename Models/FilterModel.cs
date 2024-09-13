@@ -17,6 +17,8 @@ namespace Hunarmis.Models
         public string ParticipantQuestionId { get; set; }
         [Display(Name = "Candidate Reg No")]
         public string RegNo { get; set; }
+        [Display(Name = "State")]
+        public string StateId { get; set; }
         [Display(Name ="District")]
         public string DistrictId { get; set; }
         [Display(Name = "Batch")]

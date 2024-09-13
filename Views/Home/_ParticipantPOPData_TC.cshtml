@@ -1,0 +1,106 @@
+﻿@using System.Data
+@using System.Text.RegularExpressions;
+@using Hunarmis.Manager
+@{
+    DataTable dt = new DataTable();
+    dt = Model;
+}
+<style>
+    table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+        padding-right: 0px !important;
+    }
+
+    table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date,
+    table.dataTable td.dt-type-numeric,
+    table.dataTable td.dt-type-date {
+        text-align: left !important;
+    }
+</style>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel"></h5>
+                <button type="button" class="clos-btn" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="table-responsive">
+                                <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="tbl">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th class="text-center tblth">Srno.</th>
+                                            <th class="text-center tblth">Name</th>
+                                            <th class="text-center tblth">Phone No</th>
+                                            <th class="text-center tblth">Email ID</th>
+                                            <th class="text-center tblth">Batch Name</th>
+                                            <th class="text-center tblth">Batch Start Date</th>
+                                            <th class="text-center tblth">Batch End Date</th>
+                                            <th class="text-center tblth">Course</th>
+                                            <th class="text-center tblth">District</th>
+                                            <th class="text-center tblth">Center Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if (dt.Rows.Count > 0)
+                                            {
+                                                int srno = 1;
+                                                foreach (DataRow dr in dt.Rows)
+                                                {
+                                                    <tr>
+                                                        <td class="text-center">@(srno++)</td>
+                                                        <td class="text-left">@dr["FullName"]</td>
+                                                        <td class="" width="20%">
+                                                            @dr["PhoneNo"]
+                                                        </td>
+                                                        <td class="text-left">@dr["EmailID"]</td>
+                                                        <td class="text-left">@dr["BatchName"]</td>
+                                                        <td class="text-center">@dr["BatchStartDate"]</td>
+                                                        <td class="text-center">@dr["BatchEndDate"]</td>
+                                                        <td class="text-center">@dr["CourseName"]</td>
+                                                        <td class="text-left">
+                                                            @dr["DistrictName"]
+                                                        </td>
+                                                        <td class="text-left">
+                                                            @dr["TrainingCenter"]
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="10" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>PhoneNo</th>
+                                            <th>EmailID</th>
+                                            <th>Batch</th>
+                                            <th>BatchStartDate</th>
+                                            <th>BatchEndDate</th>
+                                            <th>Course</th>
+                                            <th>District</th>
+                                            <th class="text-center tblth">Center Name</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

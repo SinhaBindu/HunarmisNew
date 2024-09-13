@@ -39,9 +39,11 @@
                     <th class="text-center tblth">Batch Code</th>
                     <th class="text-center tblth">Start Date</th>
                     <th class="text-center tblth">End Date</th>
-                    <th class="text-center tblth">Duration<br /> (in hours)</th>
+                    <th class="text-center tblth">Total Days</th>
                     <th class="text-center tblth">Days Attended</th>
-                    <th class="text-center tblth">Percentage<br /> (%)</th>
+                    <th class="text-center tblth">Total Duration<br /> (in hours)</th>
+                    @*<th class="text-center tblth">Days Attended</th>*@
+                    <th class="text-center tblth">Days Percentage<br /> (%)</th>
 
                 </tr>
             </thead>
@@ -64,9 +66,11 @@
                                     <td class="text-left">@dr["BatchName"]</td>
                                     <td class="text-center">@dr["AttendanceStartDate"]</td>
                                     <td class="text-center">@dr["AttendanceEndDate"]</td>
-                                    <td class="text-center" style="color:@ColorCode; font-size:10px;"><strong>@dr["DurationInHours"]</strong></td>
-                                    <td class="text-center">@dr["DaysBetween"]</td>
-                                    <td class="text-center">@dr["Percentage"]</td>
+                                    <td class="text-center">@dr["TotalDays"]</td>
+                                    <td class="text-center">@dr["TotalAttendance"]</td>
+                                    <td class="text-center" style="color:@ColorCode; font-size:10px;"><strong>@dr["TotalDurationInHours"]</strong></td>
+                                    @*<td class="text-center">@dr["DaysBetween"]</td>*@
+                                    <td class="text-center">@dr["DaysPercentage"]</td>
 
                                 </tr>
                             index++;

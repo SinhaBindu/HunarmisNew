@@ -173,14 +173,17 @@
                                                 @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <div class="position-relative">
-                                            @Html.LabelFor(model => model.IsPlacementTracker, htmlAttributes: new { @class = "control-label col-md-1" })
-                                            <div class="col-md-3">
-                                                @Html.DropDownListFor(m => m.IsPlacementTracker, CommonModel.GetddlPlacementTracker(), "Select", htmlAttributes: new { @class = "form-control select2" })
-                                                @Html.ValidationMessageFor(model => model.IsPlacementTracker, "", new { @class = "text-danger" })
+                                        @if (!User.IsInRole(CommonModel.RoleNameCont.Mobilizer) && !User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                        {
+                                            <div class="position-relative">
+                                                @Html.LabelFor(model => model.IsPlacementTracker, htmlAttributes: new { @class = "control-label col-md-1" })
+                                                <div class="col-md-3">
+                                                    @Html.DropDownListFor(m => m.IsPlacementTracker, CommonModel.GetddlPlacementTracker(), "Select", htmlAttributes: new { @class = "form-control select2" })
+                                                    @Html.ValidationMessageFor(model => model.IsPlacementTracker, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
+                                        }
                                         </div>
-                                    </div>
 
                                     <div class="row mb-3">
                                         <div class="position-relative">
@@ -490,7 +493,6 @@
         }
 
         function BindData() {
-            debugger;
             $("#subdata").html('');
             var filtermodel = new Object();
             filtermodel.Type = 0;//$('#Type').val() == '' ? '' : $('#Type').val();

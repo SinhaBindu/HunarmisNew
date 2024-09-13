@@ -1875,7 +1875,7 @@
     <Content Include="Views\UserProfile\DownLoadCretificateIF.cshtml" />
     <Content Include="Views\UserProfile\DownLoadSoftSkill.cshtml" />
     <Content Include="Views\Attendance\BatchAssign.cshtml" />
-    <Content Include="Views\Shared\_ParticipantData.cshtml" />
+    <Content Include="Views\Home\_ParticipantPOPData_TC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

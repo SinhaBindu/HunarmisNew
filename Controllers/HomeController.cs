@@ -93,6 +93,13 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
+        public ActionResult TrainingCenterWisePartDetail(FilterModel filtermodel)
+        {
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            DataTable dt = new DataTable();
+            dt = SPManager.SP_RawPartList_TrainCentchart(filtermodel);
+            return PartialView("_ParticipantPOPData_TC", dt);
+        }
         public ActionResult CallingDashboard()
         {
             return View();

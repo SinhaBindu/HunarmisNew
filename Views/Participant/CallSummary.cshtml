@@ -56,7 +56,7 @@
                                             @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="position-relative form-group">
                                             <label class="control-label" for="CallStatus">Total Calls</label>
                                             <select id="CallStatus" class="form-control select2" required>
@@ -71,7 +71,14 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3" style="padding-left:5%;padding-top:2%">
+                                    <div class="col-sm-2">
+                                        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label" })
+                                        <div class="position-relative form-group">
+                                            @Html.DropDownListFor(m => m.UserId, Hunarmis.Manager.CommonModel.GetUserList(1), null, new { @class = "form-select col-sm-12 multiple", multiple = "multiple" })
+                                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" style="padding-left:5%;padding-top:2%">
                                         <div class="position-relative form-group">
                                             <strong id="div-download"></strong>
                                         </div>
@@ -100,18 +107,26 @@
     <script>
         $(document).ready(function () {
 
-            BindGetCourses("FormId", "", 0, 0);
+            BindGetCourses("FormId", "", 1, 0);
             $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
-            BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+            BindModuleWiseBatches("BatchId", "", 1, '0', $('#FormId').val(), 0);
             $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
             LoadReport();
-            //BindModuleWiseBatches("BatchId","",2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(),0)
             txtf = $('option:selected', $('#FormId')).text();
             txtb = $('option:selected', $('#BatchId')).text();
-            $('#sg-title').html("Course - "+ txtf + " : Batch -  " + txtb);
+            $('#sg-title').html("Course - " + txtf + " : Batch -  " + txtb);
+            //$('#UserId option').prop('selected', true);
+            $('.multiple').multiselect({
+                nonSelectedText: 'Select All',
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                includeFilterClearBtn: true,
+                enableCaseInsensitiveFiltering: true
+            });
+
            // LoadReport();
             $('#FormId').change(function () {
-                BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
+                BindModuleWiseBatches("BatchId", "", 1, '0', $(this).val(), 0);
                 $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
                 txtf = $('option:selected', $(this)).text();
                 txtb = $('option:selected', $('#BatchId')).text();
@@ -127,6 +142,9 @@
             $("#CallStatus").change(function () {
                 LoadReport();
             });
+            $('#UserId').change(function () {
+                LoadReport();
+            });
         });
         function LoadReport() {
             $('#div-main').html(""); $("#ListDataTable tbody").html("");
@@ -134,14 +152,20 @@
             $('#global-loader').css('background', 'transparent').css('display', 'block');
             var id = '#tblList-frm'
             var url = $(id).attr("action");
-            var User = 'all';
+            var PrtId = 'all';
             var FormId = $("#FormId").val();
             var BatchId = $("#BatchId").val();
+            var ReportedBy = $("#UserId").val();
+            var rby ="";
+            $.each(ReportedBy, function (index, item) {
+                rby += index == 0 ? item : ','+ item;
+            });
+           // ReportedBy = ReportedBy != null && ReportedBy != '' && ReportedBy.length != 0 ? ReportedBy.split(',') : ReportedBy != null && ReportedBy != '' && ReportedBy.length == 1 ? ReportedBy: "all" ;
             $.ajax({
                 // url: url,
                 url: document.baseURI + "/Participant/GetCallSummary",
                 type: "POST",
-                data: { 'BatchId': BatchId, 'Course': FormId, 'CallStatus': $("#CallStatus").val(), 'User': User, },
+                data: { 'BatchId': BatchId, 'Course': FormId, 'CallStatus': $("#CallStatus").val(), 'PrtId': PrtId, ReportedBy: rby },
                 // contentType: "application/json",
                 success: function (resp) {
                     if (resp.IsSuccess) {

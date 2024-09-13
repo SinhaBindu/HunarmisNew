@@ -239,13 +239,14 @@ namespace Hunarmis.Manager
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
-        public static DataSet GetSP_ParticipantCallMonthWisematrix(string User,string BatchId,string Course,string CallStatus)
+        public static DataSet GetSP_ParticipantCallMonthWisematrix(string PrtId, string BatchId,string Course,string CallStatus ,string ReportedBy)
         {
             StoredProcedure sp = new StoredProcedure("Usp_ParticipantCallMonthWisematrix");
             sp.Command.AddParameter("@BatchId", BatchId, DbType.String);
             sp.Command.AddParameter("@CourseEnrolledID", Course, DbType.String);
             sp.Command.AddParameter("@AtPresentCallStatus", CallStatus, DbType.String);
-            sp.Command.AddParameter("@User", User, DbType.String);
+            sp.Command.AddParameter("@PrtId", PrtId, DbType.String);
+            sp.Command.AddParameter("@ReportedBy", ReportedBy, DbType.String);
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -353,6 +354,16 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_CourseBatch");
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        //Training Center Wise For Participant List 
+        public static DataTable SP_RawPartList_TrainCentchart(FilterModel model)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_RawPartList_TrainCentchart");
+            sp.Command.AddParameter("@StateId", model.StateId, DbType.String);
+            sp.Command.AddParameter("@DistrictId", model.DistrictId, DbType.String);
+            sp.Command.AddParameter("@TrainingCenterId", model.TrainingCenterID, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

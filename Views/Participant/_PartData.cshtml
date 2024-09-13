@@ -22,7 +22,10 @@
             <thead class="text-center">
                 <tr>
                     <th class="text-center tblth">Srno.</th>
-                    <th class="text-center tblth">Edit / Placement<br /> Tracker </th>
+                    @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                    {
+                        <th class="text-center tblth">Edit / Placement<br /> Tracker </th>
+                    }
                     @*<th class="text-center tblth"></th>*@
                     <th class="text-center tblth">Center Name<br />/Location</th>
                     <th class="text-center tblth">Phone No</th>
@@ -49,15 +52,38 @@
                             <tr>
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center">
-                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank" title="Participant Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    @if (!string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString()) && dr["AssessmentScore"].ToString() != "0")
+                                    @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
                                     {
-                                        <button type="button" style="@(dr["PlaceTrackerEditColor"]); margin-top: 8px;" class="btnpop check-icon" data-id="@dr["ID"]" data-placementrackerid="@dr["maxPlaceTrackerID"]" data-placetrackerdistrictId="@dr["PlaceTrackerDistrictId"]" title="Placement Tracker">
-                                         <i class="fa fa-suitcase"></i>
-                                        </button>
+                                        if (User.IsInRole(CommonModel.RoleNameCont.Mobilizer))
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(dr["EntryReportedBy"].ToString()) && !string.IsNullOrWhiteSpace(MvcApplication.CUser.UserId.ToLower()))
+                                            {
+                                                if (dr["EntryReportedBy"].ToString().ToLower() == MvcApplication.CUser.UserId.ToLower())
+                                                {
+                                                    <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank" title="Participant Edit">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank" title="Participant Edit">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        }
                                     }
+
+                                    @if (!User.IsInRole(CommonModel.RoleNameCont.Mobilizer) && !User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                    {
+                                        if (!string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString()) && dr["AssessmentScore"].ToString() != "0")
+                                        {
+                                            <button type="button" style="@(dr["PlaceTrackerEditColor"]); margin-top: 8px;" class="btnpop check-icon" data-id="@dr["ID"]" data-placementrackerid="@dr["maxPlaceTrackerID"]" data-placetrackerdistrictId="@dr["PlaceTrackerDistrictId"]" title="Placement Tracker">
+                                                <i class="fa fa-suitcase"></i>
+                                            </button>
+                                        }
+                                    }
+
                                 </td>
                                 <td class="text-left">
                                     @dr["TrainingCenter"]

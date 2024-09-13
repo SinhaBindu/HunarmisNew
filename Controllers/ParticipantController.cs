@@ -1467,14 +1467,13 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult GetCallSummary(string BatchId = "", string Course = "", string CallStatus = "", string User = "")
+        public ActionResult GetCallSummary(string BatchId = "", string Course = "", string CallStatus = "", string PrtId = "",string ReportedBy="all")
         {
             DataSet ds = new DataSet();
             DataTable tbllist = new DataTable();
             try
             {
-                User = CommonModel.IsRoleLogin();
-                ds = SPManager.GetSP_ParticipantCallMonthWisematrix(User, BatchId, Course, CallStatus);
+                ds = SPManager.GetSP_ParticipantCallMonthWisematrix(PrtId, BatchId, Course, CallStatus, ReportedBy);
                 if (ds.Tables.Count > 0)
                 {
                     tbllist = (ds.Tables[0]);

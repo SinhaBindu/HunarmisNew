@@ -24,6 +24,139 @@
         width: 100%;
     }
 </style>
+<style>
+    .table th {
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .table td {
+        font-size: 13px;
+    }
+
+    .dataTables_filter, .dataTables_length {
+        margin-bottom: 15px;
+    }
+
+    .actives2 {
+        color: #009CFF !important;
+        background: #FFFFFF;
+        border-color: #009CFF;
+    }
+
+    table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
+        padding: 10px 6px !important
+    }
+
+    .box-gap {
+        padding: 0 10px !important
+    }
+
+    .dt-input {
+        margin-right: 10px
+    }
+
+    .panel {
+        min-height: 500px;
+    }
+
+    div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
+        color: #fff !important
+    }
+
+    .downs-btn {
+        float: right
+    }
+
+    .modal {
+        padding: 20px !important
+    }
+
+    .modal-dialog {
+        width: 100%;
+        border: 2px solid #F5F5F5
+    }
+
+    .modal-title {
+        text-align: center;
+        font-size: 24px;
+        color: #000
+    }
+
+    .clos-btn {
+        float: right;
+        padding: 3px 7px;
+        background: #D34829;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 14px;
+        border: none;
+        margin-top: -20px
+    }
+
+    /*.basic-info div {
+        flex-basis: 48%
+    }*/
+    .panel-bodys {
+        margin-bottom: 10px;
+    }
+
+    .btn-mat {
+        background: #009CFF;
+        padding: 2px 8px;
+        border-radius: 4px;
+        color: #fff;
+        border: none
+    }
+
+    .down-btn a:hover, .down-btn:hover {
+        color: #fff !important
+    }
+
+    .semi-title {
+        background: #2F17B5;
+    }
+
+    .panel-bodys h5 {
+        color: #e17c0f;
+    }
+
+    .box-bg {
+        padding: 15px;
+        background: #F5F5F5;
+        border-radius: 5px;
+    }
+
+        .box-bg label {
+            text-align: left !important;
+            font-weight: bold;
+            color: #000;
+        }
+
+    .modal-header {
+        padding: 10px 15px 0;
+    }
+
+    .regis {
+        color: #2F17B5
+    }
+
+    .form-flex {
+        display: flex;
+        gap: 30px
+    }
+
+        .form-flex div {
+            flex: 1;
+        }
+
+    .UploadCheckFile {
+        background: #fff;
+        width: 100%;
+        padding: 4px 0;
+    }
+</style>
+
 
 <div id="page-content">
     <div class="genral-form">
@@ -31,11 +164,11 @@
             <div class="col-lg-12">
                 <div class="panel">
                     @*<div class="panel-spacer">
-                        <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
-                            <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
-                        </p>
-                    </div>*@
+                            <p class="bord-btm pad-ver text-main text-bold">
+                                <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
+                                <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
+                            </p>
+                        </div>*@
 
                     <div class="panel-body">
                         <div class="col-sm-12" id="errormsg">
@@ -51,16 +184,17 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="panel-body">
-                        <div class="row">
 
-                        </div>
-                    </div>
+
+
                 </div>
-
             </div>
         </div>
     </div>
+
+</div>
+<div id="subdata">
+
 </div>
 
 @section Scripts
@@ -89,12 +223,6 @@
         $(document).ready(function () {
             LoadReport();
 
-            //$('#em').on('input', function () {
-            //    chart.container.style.fontSize = this.value + 'em';
-            //    // Update layout based on new font and line sizes
-            //    chart.isDirtyLegend = true;
-            //    chart.redraw(false);
-            //});
         });
         function LoadReport() {
             $('#errormsg').html("");
@@ -142,7 +270,7 @@
             if (Datalist.length > 0) {
                 var objd = []; arrdist = [];
                 var Dlist = []; var filtervl = 0;
-                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + ' / ' + TotalPart, dilldown: '',val:'' }];//
+                objd = [{ id: '0.0', parent: '', name: 'Maharashtra' + ' / ' + TotalPart, dilldown: '1', val: TotalPart, lblname: 'Maharashtra' + '/ ' + ' : ' + TotalPart }];//
                 debugger;
                 const groupByDis = groupBy(["DistrictId", "DistrictName"]);
                 for (let [groupName, values] of Object.entries(groupByDis(Datalist))) {
@@ -152,7 +280,7 @@
                     let sum = filtervl.reduce(function (accumulator, curValue) {
                         return accumulator + curValue.NoofPart
                     }, 0)
-                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + ' / ' + sum, dilldown: '', val: '' });//
+                    objd.push({ id: strsp[0] + '.0', parent: '0.0', name: strsp[1] + ' / ' + sum, dilldown: '2', val: sum, lblname: 'Maharashtra' + '/ ' + strsp[1] + ' : ' + sum });//
                 }
                 const groupByTrainAgency = groupBy(["DistrictId", "TrainingAgencyId", "TrainingAgencyName"]);
                 for (let [groupName, values] of Object.entries(groupByTrainAgency(Datalist))) {
@@ -164,7 +292,7 @@
                     }, 0)
                     //objd.push({ id: strsp[0] + '.' + strsp[1], parent: strsp[0] + '.0', name: strsp[2] + ' / ' + sum }); ////+ strsp[3]
                 }
-                const groupByTrainCenter = groupBy(["DistrictId", "TrainingAgencyId", "TrainingCenterId", "TrainingCenter"]);
+                const groupByTrainCenter = groupBy(["DistrictId", "TrainingAgencyId", "TrainingCenterId", "TrainingCenter", "DistrictName"]);
                 debugger;
                 for (let [groupName, values] of Object.entries(groupByTrainCenter(Datalist))) {
                     //console.log(`${groupName}: ${values.length}`);
@@ -175,7 +303,7 @@
                         return accumulator + curValue.NoofPart
                     }, 0)
                     //objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.' + strsp[1], name: strsp[3] + ' / ' + sum }); ////strsp[4]
-                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.0', name: strsp[3] + ' (' + sum + ')', dilldown: '1', val: sum }); ////strsp[4]
+                    objd.push({ id: strsp[0] + strsp[1] + '.' + strsp[2], parent: strsp[0] + '.0', name: strsp[3] + ' (' + sum + ')', dilldown: '3', val: sum, lblname: 'Maharashtra' + '/ ' + strsp[4] + '/ ' + strsp[3] + ' : ' + sum }); ////strsp[4]
                 }
                 //for (var i = 0; i < Datalist.length; i++) {
                 //    objd.push({ id: Datalist[i].TrainingAgencyId + '.' + Datalist[i].TrainingCenterId, parent: Datalist[i].DistrictId + '.' + Datalist[i].TrainingAgencyId, name: Datalist[i].TrainingCenter });
@@ -186,10 +314,15 @@
                         // inverted: true,
                         // marginBottom: 170
                         //borderWidth: 1
-                        spacingBottom: 150,
-                        marginRight: 200,
+
+                        //spacingBottom: 150,
+                        //marginRight: 200,
+                        //height: 1800
+                        spacingBottom: 30,
+                        marginRight: 120,
                         height: 1800
                     },
+
                     title: {
                         text: '<h4 style="text-decoration: underline;color:#5b2c54">Training Center Distribution </br><span style="font-size:12px;">(State/ District/ Training Center)</span></h4>',
                         align: 'center',
@@ -207,12 +340,12 @@
                     credits: {
                         enabled: false
                     },
-                    labels: {
-                        skew3d: true,
-                        style: {
-                            fontSize: '1em'
-                        }
-                    },
+                    //labels: {
+                    //    skew3d: true,
+                    //    style: {
+                    //        fontSize: '1em'
+                    //    }
+                    //},
                     series: [
                         {
                             type: 'treegraph',
@@ -220,167 +353,88 @@
                             tooltip: {
                                 pointFormat: '{point.name}'
                             },
+                            marker: {
+                                symbol: 'rect',
+                                width: '30%'
+                            },
+                            borderRadius: 10,
                             dataLabels: {
                                 pointFormat: '{point.name}',
                                 style: {
-                                    whiteSpace: 'nowrap',
-                                    color: '#000000',
-                                    textOutline: '3px contrast',
-                                    fontSize: '1em',
-                                },
-                                crop: false
-                            },
-                            marker: {
-                                symbol: 'circle',
-                                radius: 6,
-                                fillColor: '#ffffff',
-                                lineWidth: 3
-                            },
-                            dataLabels: {
-                                align: 'left',
-                                //pointFormat: '{point.id}',
-                                style: {
-                                    color: '#000000',
-                                    textOutline: '3px #ffffff',
                                     whiteSpace: 'nowrap'
-                                },
-                                x: 20,
-                                crop: false,
-                                overflow: 'none'
+                                }
                             },
                             levels: [
                                 {
                                     level: 1,
-                                    //levelIsConstant: false
                                     dataLabels: {
                                         style: {
                                             fontSize: '1.2em'
                                         }
                                     },
+                                    levelIsConstant: false
                                 },
                                 {
                                     level: 2,
-                                    colorByPoint: true,
                                     dataLabels: {
                                         style: {
                                             fontSize: '1.2em'
                                         }
                                     },
+                                    colorByPoint: true
                                 },
                                 {
                                     level: 3,
+                                    dataLabels: {
+                                        style: {
+                                            fontSize: '1.2em'
+                                        }
+                                    },
                                     colorVariation: {
                                         key: 'brightness',
                                         to: -0.5
-                                    },
-                                    dataLabels: {
-                                        style: {
-                                            fontSize: '1.2em',
-                                            //color:'green'
-                                        }
-                                    },
+                                    }
                                 },
                                 {
                                     level: 4,
+                                    dataLabels: {
+                                        style: {
+                                            fontSize: '1.2em'
+                                        }
+                                    },
                                     colorVariation: {
                                         key: 'brightness',
                                         to: 0.5
-                                    },
-                                    dataLabels: {
-                                        style: {
-                                            fontSize: '1.2em'
-                                        }
-                                    },
-                                },
-                                {
-                                    level: 6,
-                                    dataLabels: {
-                                        x: 10,
-                                        style: {
-                                            fontSize: '1.2em'
-                                        }
-                                    },
-                                    marker: {
-                                        radius: 4
                                     }
                                 }
                             ]
-
-                            //marker: {
-                            //    radius: 6
-                            //},
-                            //legend: {
-                            //    itemStyle: {
-                            //        color: 'white',
-                            //        fontWeight: 'bold',
-                            //        fontSize: '20px'
-                            //    }
-                            //},
-                            //levels: [
-                            //    {
-                            //        level: 1,
-                            //        dataLabels: {
-                            //            align: 'left',
-                            //            x: 20
-                            //        }
-                            //    },
-                            //    {
-                            //        level: 2,
-                            //        colorByPoint: true,
-                            //        dataLabels: {
-                            //            verticalAlign: 'bottom',
-                            //            y: -20
-                            //        }
-                            //    },
-                            //    {
-                            //        level: 3,
-                            //        //colorVariation: {
-                            //        //    key: 'brightness',
-                            //        //    to: -0.5
-                            //        //},
-                            //        dataLabels: {
-                            //            verticalAlign: 'top',
-                            //            /*rotation: 90,*/
-                            //            y: -20
-                            //        }
-                            //    },
-                            //    //{
-                            //    //    level: 4,
-                            //    //    //colorVariation: {
-                            //    //    //    key: 'brightness',
-                            //    //    //   /* to: -0.5*/
-                            //    //    //},
-                            //    //    dataLabels: {
-                            //    //        verticalAlign: 'bottom',
-                            //    //        //verticalAlign: 'top',
-                            //    //        /*rotation: 90,*/
-                            //    //        y: -20
-                            //    //    }
-                            //    //}
-                            //    {
-                            //        level: 4,
-                            //        colorVariation: {
-                            //            key: 'brightness',
-                            //            to: -0.5
-                            //        },
-                            //        dataLabels: {
-                            //            verticalAlign: 'top',
-                            //            rotation: 90,
-                            //            y: 20,
-                            //            overflow: 'none'
-
-                            //        }
-                            //    }
-                            //]
-                            , point: {
+                           , point: {
                                 events: {
                                     click: function () {
                                         debugger;
                                         if (this.dilldown == '1') {
-                                            //alert(parseInt((this.options.id).split('.')[1]));
                                             var spl = (this.options.id).split('.');
                                             if (this.val != 0) {
-                                                window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
+                                                BindData(((this.options.id).split('.')[1]), "0", "0", this.options.lblname);
+                                            }
+                                            else {
+                                                alert('Record Not Found !!');
+                                            }
+                                        }
+                                        else if (this.dilldown == '2') {
+                                            var spl = (this.options.id).split('.');
+                                            if (this.val != 0) {
+                                                BindData("0", ((this.options.id).split('.')[0]), "0",this.options.lblname);
+                                                //window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
+                                            }
+                                            else {
+                                                alert('Record Not Found !!');
+                                            }
+                                        }
+                                        else if (this.dilldown == '3') {
+                                            var spl = (this.options.id).split('.');
+                                            if (this.val != 0) {
+                                                BindData("0", "0", ((this.options.id).split('.')[1]), this.options.lblname);
                                             }
                                             else {
                                                 alert('Record Not Found !!');
@@ -389,15 +443,207 @@
                                     }
                                 }
                             }
-
                         }
+                        //{
+                        //    type: 'treegraph',
+                        //    data,
+                        //    tooltip: {
+                        //        pointFormat: '{point.name}'
+                        //    },
+                        //    dataLabels: {
+                        //        pointFormat: '{point.name}',
+                        //        style: {
+                        //            whiteSpace: 'nowrap',
+                        //            color: '#000000',
+                        //            textOutline: '3px contrast',
+                        //            fontSize: '1em',
+                        //        },
+                        //        crop: false
+                        //    },
+                        //    marker: {
+                        //        symbol: 'circle',
+                        //        radius: 6,
+                        //        fillColor: '#ffffff',
+                        //        lineWidth: 3
+                        //    },
+                        //    dataLabels: {
+                        //        align: 'left',
+                        //        //pointFormat: '{point.id}',
+                        //        style: {
+                        //            color: '#000000',
+                        //            textOutline: '3px #ffffff',
+                        //            whiteSpace: 'nowrap'
+                        //        },
+                        //        x: 20,
+                        //        crop: false,
+                        //        overflow: 'none'
+                        //    },
+                        //    levels: [
+                        //        {
+                        //            level: 1,
+                        //            //levelIsConstant: false
+                        //            dataLabels: {
+                        //                style: {
+                        //                    fontSize: '1.2em'
+                        //                }
+                        //            },
+                        //        },
+                        //        {
+                        //            level: 2,
+                        //            colorByPoint: true,
+                        //            dataLabels: {
+                        //                style: {
+                        //                    fontSize: '1.2em'
+                        //                }
+                        //            },
+                        //        },
+                        //        {
+                        //            level: 3,
+                        //            colorVariation: {
+                        //                key: 'brightness',
+                        //                to: -0.5
+                        //            },
+                        //            dataLabels: {
+                        //                style: {
+                        //                    fontSize: '1.2em',
+                        //                    //color:'green'
+                        //                }
+                        //            },
+                        //        },
+                        //        {
+                        //            level: 4,
+                        //            colorVariation: {
+                        //                key: 'brightness',
+                        //                to: 0.5
+                        //            },
+                        //            dataLabels: {
+                        //                style: {
+                        //                    fontSize: '1.2em'
+                        //                }
+                        //            },
+                        //        },
+                        //        {
+                        //            level: 6,
+                        //            dataLabels: {
+                        //                x: 10,
+                        //                style: {
+                        //                    fontSize: '1.2em'
+                        //                }
+                        //            },
+                        //            marker: {
+                        //                radius: 4
+                        //            }
+                        //        }
+                        //    ]
+
+                        //    //marker: {
+                        //    //    radius: 6
+                        //    //},
+                        //    //legend: {
+                        //    //    itemStyle: {
+                        //    //        color: 'white',
+                        //    //        fontWeight: 'bold',
+                        //    //        fontSize: '20px'
+                        //    //    }
+                        //    //},
+                        //    //levels: [
+                        //    //    {
+                        //    //        level: 1,
+                        //    //        dataLabels: {
+                        //    //            align: 'left',
+                        //    //            x: 20
+                        //    //        }
+                        //    //    },
+                        //    //    {
+                        //    //        level: 2,
+                        //    //        colorByPoint: true,
+                        //    //        dataLabels: {
+                        //    //            verticalAlign: 'bottom',
+                        //    //            y: -20
+                        //    //        }
+                        //    //    },
+                        //    //    {
+                        //    //        level: 3,
+                        //    //        //colorVariation: {
+                        //    //        //    key: 'brightness',
+                        //    //        //    to: -0.5
+                        //    //        //},
+                        //    //        dataLabels: {
+                        //    //            verticalAlign: 'top',
+                        //    //            /*rotation: 90,*/
+                        //    //            y: -20
+                        //    //        }
+                        //    //    },
+                        //    //    //{
+                        //    //    //    level: 4,
+                        //    //    //    //colorVariation: {
+                        //    //    //    //    key: 'brightness',
+                        //    //    //    //   /* to: -0.5*/
+                        //    //    //    //},
+                        //    //    //    dataLabels: {
+                        //    //    //        verticalAlign: 'bottom',
+                        //    //    //        //verticalAlign: 'top',
+                        //    //    //        /*rotation: 90,*/
+                        //    //    //        y: -20
+                        //    //    //    }
+                        //    //    //}
+                        //    //    {
+                        //    //        level: 4,
+                        //    //        colorVariation: {
+                        //    //            key: 'brightness',
+                        //    //            to: -0.5
+                        //    //        },
+                        //    //        dataLabels: {
+                        //    //            verticalAlign: 'top',
+                        //    //            rotation: 90,
+                        //    //            y: 20,
+                        //    //            overflow: 'none'
+
+                        //    //        }
+                        //    //    }
+                        //    //]
+                            //, point: {
+                            //    events: {
+                            //        click: function () {
+                            //            debugger;
+                            //            if (this.dilldown == '1') {
+                            //                var spl = (this.options.id).split('.');
+                            //                if (this.val != 0) {
+                            //                    BindData(((this.options.id).split('.')[1]), "0", "0", this.options.lblname);
+                            //                }
+                            //                else {
+                            //                    alert('Record Not Found !!');
+                            //                }
+                            //            }
+                            //            else if (this.dilldown == '2') {
+                            //                var spl = (this.options.id).split('.');
+                            //                if (this.val != 0) {
+                            //                    BindData("0", ((this.options.id).split('.')[0]), "0",this.options.lblname);
+                            //                    //window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
+                            //                }
+                            //                else {
+                            //                    alert('Record Not Found !!');
+                            //                }
+                            //            }
+                            //            else if (this.dilldown == '3') {
+                            //                var spl = (this.options.id).split('.');
+                            //                if (this.val != 0) {
+                            //                    BindData("0", "0", ((this.options.id).split('.')[1]), this.options.lblname);
+                            //                }
+                            //                else {
+                            //                    alert('Record Not Found !!');
+                            //                }
+                            //            }
+                            //        }
+                            //    }
+                            //}
+
+                       
 
                     ]
                 });
             }
         }
-
-       
 
         const groupBy = (keys) => (array) =>
             array.reduce((objectsByKeyValue, obj) => {
@@ -405,5 +651,104 @@
                 objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
                 return objectsByKeyValue;
             }, {});
+
+        function BindData(StateId, DistrictId, TrainingCenterId, lblname) {
+            debugger;
+            $("#subdata").html('');
+            var filtermodel = new Object();
+            filtermodel.StateId = StateId == '' ? "0" : StateId;
+            filtermodel.DistrictId = DistrictId == '' ? "0" : DistrictId;
+            filtermodel.TrainingCenterId = TrainingCenterId == '' ? "0" : TrainingCenterId;
+            var formData = $('#formid').serialize();
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            $.ajax({
+                type: "Get",
+                url: document.baseURI + "/Home/TrainingCenterWisePartDetail",
+                data: filtermodel,//JSON.stringify({ 'Roles': '' }),
+                //cache: false,
+                async: false,
+                success: function (res) {
+
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    $("#subdata").html(res);
+                    $('#myModal').modal('show');
+                    $('#myModal').modal({ show: true });
+                    $("#myModal").modal({ backdrop: "static" });
+                    $("#myModalLabel").html(lblname);
+
+                    if ($.fn.dataTable.isDataTable('#tbl')) {
+                        $("#tbl").dataTable().fnDestroy();
+                    }
+                    table = $('#tbl').DataTable({
+                        //scrollY: "400px",
+                        //scrollX: true,
+                        //scrollCollapse: true,
+                        paging: true,
+                        "dom": '<"pull-left"f><"pull-right"l>tip',
+                        pageLength: 10,
+                        fixedColumns: {
+                            leftColumns: 1,
+                            rightColumns: 1
+                        },
+                        order: [[0, 'asc']],
+                        buttons: [{
+                            extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Participant Lists',//$('#IDDistrict option:selected').text() +
+                            className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                            filename: 'Participant List',
+                            exportOptions: { modifier: { page: 'all' } }
+                        }],
+
+                        initComplete: function () {
+                            this.api().columns().every(function () {
+                                var column = this;
+                                var select = $('<select><option value=""></option></select>')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+
+                                        column
+                                            .search(val ? '^' + val + '$' : '', true, false)
+                                            .draw();
+                                    });
+
+                                column.data().unique().sort().each(function (d, j) {
+                                    select.append('<option value="' + d + '">' + d + '</option>')
+                                });
+                            });
+                        }
+                    });
+                    $('.dataTables_filter input[type="search"]').css(
+                        { 'width': '300px', 'display': 'inline-block' }
+                    );
+                    $('#div-download').empty();
+                    table.buttons().container().appendTo($('#div-download'));
+
+
+
+                    // Event handler when position select is changed
+                    $(table.columns(1).footer()).find('select').on('change', function () {
+                        var nextSelect = $(exampleDataTable.columns(2).footer()).find('select');
+                        var nextColumn = exampleDataTable.column(2);
+                        var nextColumnResults = exampleDataTable.column(2, { search: 'applied' });
+                        nextColumn.search('').draw();
+                        nextSelect.empty();
+                        nextSelect.append('<option value=""></option>');
+                        nextColumnResults.data().unique().sort().each(function (d, j) {
+                            nextSelect.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //$('#subdata').html("<h4 class='text-center text-danger'>" + errormsg +"!</h4>");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    //Do To Message display
+                }
+            });
+        }
+
     </script>
 }
