@@ -407,5 +407,14 @@ namespace Hunarmis.Manager
         }
         #endregion
 
+        #region Trainer Dashboard
+        public static DataSet SP_TainerDashoard()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_TainerDashoard");
+            sp.Command.AddParameter("@TrainingCenterIds",MvcApplication.CUser.MappedTCenterIds, DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
+        #endregion
     }
 }

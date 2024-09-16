@@ -181,6 +181,7 @@
                             }
                             if (User.IsInRole("Trainer"))//|| User.IsInRole("State") || User.IsInRole("Verifier") || User.IsInRole("Viewer") || User.IsInRole("District")
                             {
+                                @Html.ActionLinkMenu("<i class='fa fa-home main-icon'></i> <span class=\"menu-title\">Dashboard</span>", "TrainerDashboard", "Tainer")
                                 @Html.ActionLinkMenu("<i class='fa fa-universal-access main-icon'></i> <span class=\"menu-title\">Assign Batch</span>", "BatchAssign", "Attendance")
                                 <hr style="border-bottom: 1px solid #ECF0F5; font-size: medium; margin-top: 0px !important; margin-bottom: 0px !important;" />
                                 <li class="treeview">

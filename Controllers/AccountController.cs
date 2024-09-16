@@ -99,7 +99,8 @@ namespace Hunarmis.Controllers
 
                     if (CommonModel.RoleNameCont.Trainer == roleName)
                     {
-                        return RedirectToAction("CreatedAttend", "Attendance");
+                        //return RedirectToAction("CreatedAttend", "Attendance");
+                        return RedirectToAction("TrainerDashboard", "Tainer");
                     }
                     if (CommonModel.RoleNameCont.Mobilizer == roleName)
                     {

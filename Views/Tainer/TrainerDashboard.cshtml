@@ -1,0 +1,400 @@
+﻿@using Hunarmis.Manager
+@using Hunarmis.Helpers
+@using System.Data
+@{
+    ViewBag.Title = "Tainer Analysis";
+    DataTable dt0 = new DataTable();
+    DataTable dt1 = new DataTable();
+    DataTable dt2 = new DataTable();
+    DataTable dt3 = new DataTable();
+    DataTable dt4 = new DataTable();
+    DataSet ds = SPManager.SP_TainerDashoard();
+    if (ds.Tables.Count > 0)
+    {
+        dt0 = ds.Tables[0];
+        dt1 = ds.Tables[1];
+        dt2 = ds.Tables[2];
+        dt3 = ds.Tables[3];
+        dt4 = ds.Tables[4];
+    }
+
+}
+
+<style>
+
+    .navbar-top-links > li > a:not(.mainnav-toggle) > i {
+        color: #040404
+    }
+
+    .navbar-brand {
+        padding: 0 5px;
+    }
+
+
+    figure > div {
+        height: 400px;
+    }
+
+    .highcharts-label text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-treemap-series > .highcharts-label text {
+        color: #fff !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        fill: #fff !important;
+    }
+
+    .highcharts-text-outline {
+        stroke: none !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-legend-item text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-axis-labels text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-axis .highcharts-axis-line {
+        stroke: #555 !important;
+        fill: #555 !important;
+        .nano-content .profile-wrap
+
+    {
+        background: #0d47a1 !important;
+    }
+
+
+
+    #mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-primary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-secondary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-tertiary {
+        background: #1976d2 !important;
+    }
+
+    .bg-light-info {
+        background: #1976d2 !important;
+    }
+
+    .card-box .f-26 {
+        color: #0d47a1;
+    }
+
+        .card-box .f-26.box2 {
+            color: #0d47a1;
+        }
+
+        .card-box .f-26.box3 {
+            color: #0d47a1;
+        }
+
+        .card-box .f-26.box4 {
+            color: #0d47a1;
+        }
+
+    .card-box .f-14 {
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0px;
+        margin-bottom: 10px;
+        letter-spacing: 0px;
+        color: #0d47a1;
+    }
+
+    .flex-shrink-0 {
+        align-items: center;
+        display: flex;
+        height: 60px;
+        justify-content: center;
+        width: 60px;
+        background: #fff;
+        border-radius: 50%;
+        font-size: 36px;
+        box-shadow: none;
+    }
+
+        .flex-shrink-0 i {
+            color: #fff;
+        }
+
+    #footer, .bootom-fixed {
+        background: #0d47a1 !important;
+        height: 43px;
+    }
+
+    /*.highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 320px;
+        max-width: 700px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }*/
+
+</style>
+
+<div class="container-fluid">
+    <div class="row mt-20">
+        <div class="col-xs-12 col-md-12">
+            <div class="card card-box mb-10">
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card card-box p-0 main-content-card bg-light-primary mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">
+                                                @if (dt0.Rows.Count > 0)
+                                                {
+                                                    <span>
+                                                        @dt0.Rows[0]["TotalBatches"].ToString()
+                                                        <span> / </span>
+                                                        @dt0.Rows[1]["TotalBatches"].ToString()
+                                                    </span>
+                                                }
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14" title="Batches (Active/Complete)">Batches (Active/Complete)</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card card-box p-0 main-content-card bg-light-secondary mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-newspaper-o"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">
+                                                @if (dt1.Rows.Count > 0)
+                                                {
+                                                    <span>
+                                                        @dt1.Rows[0]["LearnersTrained"].ToString()
+                                                    </span>
+                                                }
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14" title="Learners Trained">Learners Trained</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card card-box p-0 main-content-card bg-light-tertiary mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-check" aria-hidden="true" style="position: absolute;color: #fff;font-size: 15px;"></i>
+                                        <i class="fa fa-certificate"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">
+                                                @if (dt2.Rows.Count > 0)
+                                                {
+                                                    <span>
+                                                        @dt2.Rows[0]["LearnersCertified"].ToString()
+                                                    </span>
+                                                }
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14" title="Learners certified">Learners Certified</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card card-box p-0 main-content-card bg-light-info mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-briefcase"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">
+                                                @if (dt3.Rows.Count > 0)
+                                                {
+                                                    <span>
+                                                        @dt3.Rows[0]["LearnersPlaced"].ToString()
+                                                    </span>
+                                                }
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14" title="Learners Placed">Learners Placed</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="div-download"></div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="tbl">
+                        <thead class="text-center">
+                            <tr>
+                                <th class="text-center tblth">Srno.</th>
+                                <th class="text-center tblth">Name</th>
+                                <th class="text-center tblth">Phone No</th>
+                                <th class="text-center tblth">Email ID</th>
+                                <th class="text-center tblth">Batch Name</th>
+                                <th class="text-center tblth">Batch Start Date</th>
+                                <th class="text-center tblth">Batch End Date</th>
+                                <th class="text-center tblth">Course</th>
+                                @*<th class="text-center tblth">Training <br />Center</th>
+                                    <th class="text-center tblth">Assessment<br /> Score</th>*@
+                                <th class="text-center tblth">Learners <br />Certified</th>
+                                <th class="text-center tblth">Learners <br />Placed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (dt4.Rows.Count > 0)
+                                {
+                                    int srno = 1;
+                                    foreach (DataRow dr in dt4.Rows)
+                                    {
+                                        <tr>
+                                            <td class="text-center">@(srno++)</td>
+                                            <td class="text-left">@dr["Name"]</td>
+                                            <td class="text-center">@dr["PhoneNo"]</td>
+                                            <td class="text-left">@dr["EmailID"]</td>
+                                            <td class="text-left">@dr["BatchName"]</td>
+                                            <td class="text-left">@dr["BatchStartDate"]</td>
+                                            <td class="text-center">@dr["BatchEndDate"]</td>
+                                            <td class="text-left">@dr["CourseName"]</td>
+                                            @*<td class="text-left">@dr["TrainingCenter"]</td>
+                                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>*@
+                                            <td class="text-center"><strong>@dr["LearnersCertified"]</strong></td>
+                                            <td class="text-center"><strong>@dr["LearnersPlaced"]</strong></td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+            if ($.fn.dataTable.isDataTable('#tbl')) {
+                $("#tbl").dataTable().fnDestroy();
+            }
+            table = $('#tbl').DataTable({
+                //scrollY: "400px",
+                //scrollX: true,
+                //scrollCollapse: true,
+                //paging: false,
+                "dom": '<"pull-left"f><"pull-right"l>tip',
+                pageLength: 10,
+                fixedColumns: {
+                    leftColumns: 1,
+                    rightColumns: 1
+                },
+                order: [[0, 'asc']],
+                buttons: [{
+                    extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Participant Lists',//$('#IDDistrict option:selected').text() +
+                    className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                    filename: 'Participant List',
+                    exportOptions: { modifier: { page: 'all' } }
+                }],
+            });
+            $('.dataTables_filter input[type="search"]').css(
+                { 'width': '300px', 'display': 'inline-block' }
+            );
+            $('#div-download').empty();
+            table.buttons().container().appendTo($('#div-download'));
+        })
+    </script>
+}
