@@ -126,7 +126,9 @@
         </div>
     </div>
 </div>
+<div id="subdata1">
 
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -226,6 +228,36 @@
                     //    $.post("/Participant/QuesResponse", { data:  }, function (result) {
                     //    });
                     //}
+
+        function getdetaildata(ReportedBy, Flag, lblname) {
+            $("#subdata1").html('');
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            $.ajax({
+                type: "Get",
+                url: document.baseURI + "/Home/CallStatustDetails",
+                data: { 'ReportedBy': ReportedBy,'Flag':Flag },
+                //cache: false,
+                async: false,
+                success: function (res) {
+
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    $("#subdata1").html(res);
+                    $('#myModal').modal('show');
+                    $('#myModal').modal({ show: true });
+                    $("#myModal").modal({ backdrop: "static" });
+                    $("#myModalLabel").html(lblname);
+
+                    
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    //$('#subdata').html("<h4 class='text-center text-danger'>" + errormsg +"!</h4>");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    //Do To Message display
+                }
+            });
+        }
 
     </script>
 }

@@ -34,11 +34,11 @@
                                 @*<td class="text-center bg-warning text-white"><strong>@(dr["Ques_Month"] + "/" +dr["Ques_Year"])</strong></td>*@
                                 <td class="text-left">@dr["ReportedNameBy"]</td>
                                 <td class="text-left"><strong>@CommonModel.FormateDtDMY(dr["maxcallingdate"].ToString())</strong></td>
-                                <td class="text-center  bg-success text-white">
+                                <td class="text-center  bg-success text-white" onclick="getdetaildata('@dr["ReportedID"]', 1, 'Available');">
                                     @*<a href="javascript:void(0);" onclick="CallStatusDisplay('@dr["callerid"]','@dr["callingdate"]','@dr["month"]','@dr["year"]')" target="_blank"><strong style="text-decoration:underline !important;">@dr["available_yes"]</strong></a>*@
                                     <strong style="text-decoration:underline !important;">@dr["Available"]</strong>
                                 </td>
-                                <td class="text-center  bg-warning text-white">
+                                <td class="text-center  bg-warning text-white" onclick="getdetaildata('@dr["ReportedID"]', 2, 'Not Available');">
                                     @*<a href="javascript:void(0);" onclick="CallStatusDisplay('@dr["callerid"]','@dr["callingdate"]','@dr["month"]','@dr["year"]')" target="_blank"><strong style="text-decoration:underline !important;">@dr["available_no"]</strong></a>*@
                                     <strong style="text-decoration:underline !important;">@dr["NotAvailable"]</strong>
                                 </td>
