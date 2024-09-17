@@ -1317,7 +1317,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-color: #fff;
 }
 
-#mainnav-menu > .active-link > a, #mainnav-menu > .active-link > a:hover {
+/*#mainnav-menu > .active-link > a, #mainnav-menu > .active-link > a:hover {
     color: #fff;
     padding-left: 20px;
     font-weight: 600;
@@ -1326,13 +1326,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding-left: 13px;
     padding-right: 13px;
     border-radius: 3px;
-}
+}*/
 
     #mainnav-menu > .active-link > a i, #mainnav-menu > .active-link > a:hover i {
         color: #fff;
     }
 
-#mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
+/*#mainnav-menu > .active-sub > a, #mainnav-menu > .active-sub > a:hover {
     color: #fff;
     font-weight: 600;
     background-color: #2F17B5;
@@ -1340,7 +1340,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding-left: 13px;
     padding-right: 13px;
     border-radius: 3px;
-}
+}*/
 #mainnav-menu .active-sub i {
     color: #2F17B5 !important
 }
@@ -6829,8 +6829,8 @@ a.list-group-item-dark, .list-group-item-dark {
 }
 
 .badge-default {
-    background-color: #e9eeef;
-    color: #7a878e;
+    background-color: #ae77b8;
+    color: #fff;
 }
 
 .badge-primary {

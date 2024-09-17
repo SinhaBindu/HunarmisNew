@@ -427,6 +427,10 @@ h1, h2, h3, h4, h5, h6, svg {
     overflow-y: scroll;
     overflow-x: hidden;
 }
+.tools #reportrange {
+    width: auto !important;
+    float: right;
+}
 .table {
     width: 100% !important;
 }
