@@ -14,10 +14,10 @@
     }
 
     .highcharts-label text {
-        color: #555 !important;
+        color: #fff !important;
         font-size: 12px !important;
         font-weight: 500 !important;
-        fill: #555 !important;
+        fill: #fff !important;
     }
 
     .highcharts-treemap-series > .highcharts-label text {
@@ -242,8 +242,8 @@ function GetSummaryData() {
                     //}
                 }
 
-                DataList.push({ name: 'Correct', data: Pcorrect, color: '#9be0ba', y: TAns })
-                DataList.push({ name: 'Incorrect', data: PIncorrect, color: '#ae77b8 ', y: TIncorrect })
+                DataList.push({ name: 'Correct', data: Pcorrect, color: '#4443a0', y: TAns })
+                DataList.push({ name: 'Incorrect', data: PIncorrect, color: '#ae77b8', y: TIncorrect })
 
                 //DataList.push({ name: "Flip Chart", data: Datav1 });
                 //DataList.push({ name: "Leaflet", data: Datav2 });
@@ -273,17 +273,20 @@ function GetSummaryData() {
                         categories: DistName,
                         labels: {
                             useHTML: true,
-                            allowOverlap: true,
+                            allowOverlap: false,
+                            overflow: 'none',
+                            crop: false,
                             style: {
                                 fontSize: '12px',
                                 wordBreak: 'break-all',
-                                textOverflow: 'allow'
+                                textOverflow: 'allow',
+                                width: '600px',
                             }
                         }
                     },
                     yAxis: {
                         min: 0,
-                        max:100,
+                        max:50,
                         title: {
                             text: 'No of Marks',
                             fontSize: '16px',
@@ -320,10 +323,10 @@ function GetSummaryData() {
                             console.log(this);
                             var t = '';
                             for (var i = 0; i < this.points.length; i++) {
-                                t += '<span style="color:' + this.points[i].color+'">\u25CF</span> ' + this.points[i].series.name + ': <b>' + this.points[i].series.userOptions.y[this.point.index] + '</b><br/>';
+                                t += '<span style="color:' + this.points[i].color + '">\u25CF</span> <span style="color:' + this.points[i].color +'">' + this.points[i].series.name + ': <b>' + this.points[i].series.userOptions.y[this.point.index] + '</b></span><br/>';
                             }
 
-                            return '<span style="font-size: 0.8em">' + this.key + '</span><br/>' + t;
+                            return '<span style="font-size: 0.8em; color:#555">' + this.key + '</span><br/>' + t;
 
                         },
                         //format: '<span style="font-size: 0.8em">{key}</span><br/>' +
