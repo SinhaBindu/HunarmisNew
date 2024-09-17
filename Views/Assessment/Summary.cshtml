@@ -2,7 +2,7 @@
 @using Hunarmis.Manager
 @*@model IEnumerable<KGBV_JH.Models.QesRes>*@
 @{
-    ViewBag.Title = "Assessment Score";
+    ViewBag.Title = "Course Wise Assessment Score";
     ViewBag.TitleIcon = "fa fa-user";
     ViewBag.SemiTitle = "(Add)";
     ViewBag.SemiTitleLink = "/Assessment/Add";
@@ -12,6 +12,39 @@
     .panel-body {
         padding: 0px 20px 5px;
     }
+
+    .highcharts-label text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-treemap-series > .highcharts-label text {
+        color: #fff !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        fill: #fff !important;
+    }
+
+    .highcharts-text-outline {
+        stroke: none !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-legend-item text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #555 !important;
+    }
+
+    .highcharts-axis-labels text {
+        color: #555 !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        fill: #555 !important;
+    }
 </style>
 <div id="page-content">
     <div class="genral-form">
@@ -20,7 +53,7 @@
                 <div class="panel">
                     <div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title <strong id="sg-title" class="text-info"></strong>
+                            <i class="fa fa-list spacerright2"></i>@*@ViewBag.Title*@ <strong id="sg-title" class="text-info"></strong>
                         </p>
                     </div>
                     @using (Html.BeginForm("GetSummary", "Competency", FormMethod.Post, new { @id = "formid", @class = "panel-body form-horizontal form-padding loader" }))
@@ -90,27 +123,28 @@
 
         BindGetCourses("FormId", "", 0, 0);
         $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
-        BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
-        $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+        BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+        $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
         GetSummaryData();
 
 
         var txt = $('option:selected', $('#FormId')).text();
-        $('#sg-title').html(txt);
+        var txt1 = $('option:selected', $('#BatchId')).text();
+         $('#sg-title').html(txt + " / " + (txt1 == 'All' ? 'All Batches' : txt1));
           //  GetSummaryData();
            // GetPackedbubbleData();
     $('#FormId').change(function () {
-        BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0)
-        $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+        BindModuleWiseBatches("BatchId", "",1, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0)
+        $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
         var txt = $('option:selected', $(this)).text();
         var txt1 = $('option:selected', $('#BatchId')).text();
-        $('#sg-title').html(txt + " / " + txt1);
+        $('#sg-title').html(txt + " / " + (txt1 == 'All' ? 'All Batches' : txt1));
         GetSummaryData();
     })
     $('#BatchId').change(function () {
         var txt = $('option:selected', $('#FormId')).text();
         var txt1 = $('option:selected', $('#BatchId')).text();
-        $('#sg-title').html(txt + " / " + txt1);
+        $('#sg-title').html(txt + " / " + (txt1 == 'All' ? 'All Batches' : txt1));
         GetSummaryData();
     })
 
@@ -208,8 +242,8 @@ function GetSummaryData() {
                     //}
                 }
 
-                DataList.push({ name: 'Correct', data: Pcorrect, color: '#008000', y: TAns })
-                DataList.push({ name: 'Incorrect', data: PIncorrect, color: '#e06251', y: TIncorrect })
+                DataList.push({ name: 'Correct', data: Pcorrect, color: '#9be0ba', y: TAns })
+                DataList.push({ name: 'Incorrect', data: PIncorrect, color: '#ae77b8 ', y: TIncorrect })
 
                 //DataList.push({ name: "Flip Chart", data: Datav1 });
                 //DataList.push({ name: "Leaflet", data: Datav2 });
@@ -226,7 +260,7 @@ function GetSummaryData() {
                         //marginRight: 5
                     },
                     title: {
-                        text: '' + txt + ' / ' + txt1
+                        text: '' + txt + ' / ' + (txt1 == 'All' ? 'All Batches' : txt1)
                     },
                     subtitle: {
                         text: '<b> Questions Correct/Incorrect : ' + Sans + '(' + (Sans * 100 / STotal).toFixed(1) + '%) / ' + SIncans + '(' + (SIncans * 100 / STotal).toFixed(1) + '%)</b>',

@@ -221,11 +221,11 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, Data = "These exceptions are caused by the programmer." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
-        public ActionResult CallStatustDetails(string ReportedBy = "", int Flag = 0)
+        public ActionResult CallStatustDetails(string ReportedBy = "", int Flag = 0,string MaxDate="")
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             DataTable dt = new DataTable();
-            dt = SPManager.SP_GetCallStatusDetails(ReportedBy, Flag);
+            dt = SPManager.SP_GetCallStatusDetails(ReportedBy, Flag,MaxDate);
             TempData["Flag"] = Flag;
             return PartialView("_CallStatusDetails", dt);
         }

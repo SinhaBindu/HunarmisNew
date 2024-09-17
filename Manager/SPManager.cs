@@ -418,11 +418,12 @@ namespace Hunarmis.Manager
             return ds;
         }
         #endregion
-        public static DataTable SP_GetCallStatusDetails(string ReportedBy = "", int Flag = 0)
+        public static DataTable SP_GetCallStatusDetails(string ReportedBy = "", int Flag = 0,string MaxDate="")
         {
             StoredProcedure sp = new StoredProcedure("Usp_CallStatusDetails");
             sp.Command.AddParameter("@RepBy", ReportedBy, DbType.String);
             sp.Command.AddParameter("@Flg", Flag, DbType.String);
+            sp.Command.AddParameter("@MaxDate", MaxDate, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

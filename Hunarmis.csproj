@@ -1878,6 +1878,7 @@
     <Content Include="Views\Attendance\BatchAssign.cshtml" />
     <Content Include="Views\Home\_ParticipantPOPData_TC.cshtml" />
     <Content Include="Views\Tainer\TrainerDashboard.cshtml" />
+    <Content Include="Views\Home\_CallStatusDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

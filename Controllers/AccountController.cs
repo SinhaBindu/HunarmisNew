@@ -96,7 +96,6 @@ namespace Hunarmis.Controllers
                     // If you just want the first role (assuming the user has only one role)
                     var roleName = gteroles?.FirstOrDefault();
 
-
                     if (CommonModel.RoleNameCont.Trainer == roleName)
                     {
                         //return RedirectToAction("CreatedAttend", "Attendance");

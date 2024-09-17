@@ -2,7 +2,7 @@
 @using Hunarmis.Manager
 @*@model IEnumerable<KGBV_JH.Models.QesRes>*@
 @{
-    ViewBag.Title = "Assessment Score";
+    ViewBag.Title = "Participants Wise Assessment Score";
     ViewBag.TitleIcon = "fa fa-user";
     ViewBag.SemiTitle = "Assessment (Add)";
     ViewBag.SemiTitleLink = "/Assessment/Add";
@@ -20,7 +20,7 @@
                 <div class="panel">
                     <div class="panel-spacer">
                         <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>@ViewBag.Title <strong id="sg-title" class="text-info"></strong>
+                            <i class="fa fa-list spacerright2"></i>@*@ViewBag.Title*@ <strong id="sg-title" class="text-info"></strong>
                         </p>
                     </div>
                     @using (Html.BeginForm("GetIndex", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
@@ -203,7 +203,7 @@
                                             indexsro++;
                                             htmlul += "<dt>" + indexsro + ". " + Datafilter[i].Question + "</dt>";
                                             //htmlul += "<dd>" + (Datafilter[i].Ans == 1 ? " <strong style='color:#008000'>Correct : " + Datafilter[i].Ans : "</strong> <strong style='color:#FF0000'>Incorrect : " + Datafilter[i].Ans) + "</strong></dd>";
-                                            htmlul += Datafilter[i].Ans == 0 ? "<dd> </strong> <strong style='color:#FF0000'>Incorrect : " + Datafilter[i].OptionlblText + "</strong></dd>" : "";
+                                            htmlul += Datafilter[i].Ans == 0 ? "<dd> </strong> <strong style='color:#b56a65'>Incorrect : " + Datafilter[i].OptionlblText + "</strong></dd>" : "";
                                         }
                                         // var clr = Datafilter[i].Ans == 0 ? '#FF0000' : '#008000';
                                         //Datal.push({ name: Datafilter[i].Question, y: Datafilter[i].Ans, color: clr });
@@ -218,8 +218,8 @@
                                     TAns = totalAns; TIncorrect = totalIncorrect;
                                     totalAns = (totalAns * 100) / (Datafilter.length)
                                     totalIncorrect = (totalIncorrect * 100) / (Datafilter.length)
-                                    Datal.push({ name: 'Correct', y: totalAns, color: '#008000' });
-                                    Datal.push({ name: 'Incorrect', y: totalIncorrect, color: '#e06251' });
+                                    Datal.push({ name: 'Correct', y: totalAns, color: '#9be0ba' });
+                                    Datal.push({ name: 'Incorrect', y: totalIncorrect, color: '#ae77b8' });
                                     //Highcharts.setOptions({
                                     //    colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
                                     //        return {

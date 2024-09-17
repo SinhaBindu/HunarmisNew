@@ -41,6 +41,91 @@
     div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
         color: #fff !important
     }
+    .downs-btn {
+        float: right
+    }
+
+    .modal {
+        padding: 20px !important
+    }
+
+    .modal-dialog {
+        width: 100%;
+        border: 2px solid #F5F5F5
+    }
+
+    .modal-title {
+        text-align: center;
+        font-size: 24px;
+        color: #000
+    }
+
+    .clos-btn {
+        float: right;
+        padding: 3px 7px;
+        background: #D34829;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 14px;
+        border: none;
+        margin-top: -20px
+    }
+
+    /*.basic-info div {
+      flex-basis: 48%
+  }*/
+    .panel-bodys {
+        margin-bottom: 10px;
+    }
+
+    .btn-mat {
+        background: #009CFF;
+        padding: 2px 8px;
+        border-radius: 4px;
+        color: #fff;
+        border: none
+    }
+
+    .down-btn a:hover, .down-btn:hover {
+        color: #fff !important
+    }
+
+    .semi-title {
+        background: #2F17B5;
+    }
+
+    .panel-bodys h5 {
+        color: #e17c0f;
+    }
+
+    .box-bg {
+        padding: 15px;
+        background: #F5F5F5;
+        border-radius: 5px;
+    }
+
+        .box-bg label {
+            text-align: left !important;
+            font-weight: bold;
+            color: #000;
+        }
+
+    .modal-header {
+        padding: 10px 15px 0;
+    }
+
+    .regis {
+        color: #2F17B5
+    }
+
+    .form-flex {
+        display: flex;
+        gap: 30px
+    }
+
+        .form-flex div {
+            flex: 1;
+        }
 </style>
 
 <div id="page-content">
@@ -200,9 +285,9 @@
                                 rightColumns: 1
                             },
                             buttons: [{
-                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Call Status Lists',//$('#IDDistrict option:selected').text() +
+                                extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Call Status Details Lists',//$('#IDDistrict option:selected').text() +
                                 className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
-                                filename: 'Call Status Lists',
+                                filename: 'Call Status Details Lists',
                                 exportOptions: { modifier: { page: 'all' } }
                             }],
                         });
@@ -223,19 +308,14 @@
                 }
             });
         }
-
-                    //function QuesResDisplay(PartQuestionId,PartId, Y, M) {
-                    //    $.post("/Participant/QuesResponse", { data:  }, function (result) {
-                    //    });
-                    //}
-
-        function getdetaildata(ReportedBy, Flag, lblname) {
+        /* Click To Avaiable & Not Avaiable */
+        function getdetaildata(ReportedBy, Flag, lblname,maxdate,ReportedName,TotalRecords) {
             $("#subdata1").html('');
             $('#global-loader').css('background', 'transparent').css('display', 'block');
             $.ajax({
                 type: "Get",
                 url: document.baseURI + "/Home/CallStatustDetails",
-                data: { 'ReportedBy': ReportedBy,'Flag':Flag },
+                data: { 'ReportedBy': ReportedBy, 'Flag': Flag, 'MaxDate': maxdate },
                 //cache: false,
                 async: false,
                 success: function (res) {
@@ -245,7 +325,34 @@
                     $('#myModal').modal('show');
                     $('#myModal').modal({ show: true });
                     $("#myModal").modal({ backdrop: "static" });
-                    $("#myModalLabel").html(lblname);
+                    $("#myModalLabel").html('Reported By : ' + ReportedName + ' / ' + lblname + ' / ' + ' Last Calling Date : ' + maxdate);//+ ' : (' + TotalRecords + ')' +
+                    if ($.fn.dataTable.isDataTable('#tbldetails')) {
+                        $("#tbldetails").dataTable().fnDestroy();
+                    }
+                    table = $('#tbldetails').DataTable({
+                        //scrollY: "400px",
+                        //scrollX: true,
+                        //scrollCollapse: true,
+                        //paging: false,
+                        "dom": '<"pull-left"f><"pull-right"l>tip',
+                        pageLength: 15,
+                        fixedColumns: {
+                            leftColumns: 1,
+                            rightColumns: 1
+                        },
+                        buttons: [{
+                            extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Call Status Lists',//$('#IDDistrict option:selected').text() +
+                            className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                            filename: 'Call Status Lists',
+                            exportOptions: { modifier: { page: 'all' } }
+                        }],
+                    });
+                    $('.dataTables_filter input[type="search"]').css(
+                        { 'width': '300px', 'display': 'inline-block' }
+                    );
+                    $('#div-export').empty();
+                    table.buttons().container().appendTo($('#div-export'));
+
 
                     
                 },
