@@ -88,10 +88,10 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet); throw;
             }
         }
-        public ActionResult ParticipantList(int TCId=0)
+        public ActionResult ParticipantList(int TCId = 0)
         {
             FilterModel model = new FilterModel();
-            model.TrainingCenterID=TCId!=0 ? TCId.ToString() : TCId.ToString();
+            model.TrainingCenterID = TCId != 0 ? TCId.ToString() : TCId.ToString();
             return View(model);
         }
         public ActionResult GetPartList(FilterModel model)
@@ -233,6 +233,16 @@ namespace Hunarmis.Controllers
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
                     }
+                    if (!string.IsNullOrWhiteSpace(model.Age))
+                    {
+                        if (Convert.ToInt32(model.Age)>=50)
+                        {
+                            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Age limit maximum 50 yrs.<br />", Data = null };
+                            var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse1.MaxJsonLength = int.MaxValue;
+                            return resResponse1;
+                        }
+                    }
                     var tbl = model.ID != Guid.Empty ? db_.tbl_Participant.Find(model.ID) : new tbl_Participant();
                     if (tbl != null)
                     {
@@ -252,25 +262,37 @@ namespace Hunarmis.Controllers
                         tbl.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(model.AlternatePhoneNo)) ? model.AlternatePhoneNo.Trim() : model.AlternatePhoneNo;
                         tbl.EmailID = !(string.IsNullOrWhiteSpace(model.EmailID)) ? model.EmailID.Trim() : model.EmailID;
                         tbl.AadharCardNo = !(string.IsNullOrWhiteSpace(model.AadharCardNo)) ? model.AadharCardNo.Trim() : model.AadharCardNo;
-                        tbl.AssessmentScore = !(string.IsNullOrWhiteSpace(model.AssessmentScore)) ? model.AssessmentScore.Trim() : model.AssessmentScore;
-                        tbl.BatchId = model.BatchId;
+                        if (!(string.IsNullOrWhiteSpace(model.AssessmentScore)))
+                        {
+                            tbl.AssessmentScore = !(string.IsNullOrWhiteSpace(model.AssessmentScore)) ? model.AssessmentScore.Trim() : model.AssessmentScore;
+                        }
+                        if (model.BatchId != 0 && model.BatchId != null)
+                        {
+                            tbl.BatchId = model.BatchId;
+                        }
                         tbl.EduQualificationID = model.EduQualificationID;
                         tbl.EduQualOther = model.EduQualificationID == 4 ? model.EduQualOther : null;
                         tbl.CourseEnrolledID = model.CourseEnrolledID;
                         tbl.StateID = model.StateID;
-                        var dtdistrainagency = SPManager.GetSPMasterList(Convert.ToInt32(model.StateID), CommonModel.GetUserRole(),model.TrainingCenterID.ToString());
-                        if (dtdistrainagency.Rows.Count>0 )
+                        var dtdistrainagency = SPManager.GetSPMasterList(Convert.ToInt32(model.StateID), CommonModel.GetUserRole(), model.TrainingCenterID.ToString());
+                        if (dtdistrainagency.Rows.Count > 0)
                         {
-                            tbl.DistrictID =Convert.ToInt32(dtdistrainagency.Rows[0]["DistrictId"]);
+                            tbl.DistrictID = Convert.ToInt32(dtdistrainagency.Rows[0]["DistrictId"]);
                             tbl.TrainingAgencyID = Convert.ToInt32(dtdistrainagency.Rows[0]["TrainingAgencyId"]);
                         }
                         tbl.TrainingCenterID = model.TrainingCenterID;
                         tbl.TrainerName = !(string.IsNullOrWhiteSpace(model.TrainerName)) ? model.TrainerName.Trim() : model.TrainerName;
                         tbl.TrainerId = model.TrainerId != Guid.Empty ? model.TrainerId : tbl.TrainerId;
                         tbl.IsActive = true;
-                        tbl.IsPlaced = model.Is_Placed == "1" ? true : false;
-                        tbl.IsOffered = model.Is_Offered == "1" ? true : false;
 
+                        if (!string.IsNullOrWhiteSpace(model.Is_Placed))
+                        {
+                            tbl.IsPlaced = model.Is_Placed == "1" ? true : false;
+                        }
+                        if (!string.IsNullOrWhiteSpace(model.Is_Offered))
+                        {
+                            tbl.IsOffered = model.Is_Offered == "1" ? true : false;
+                        }
                         tbl.MaritalStatus = model.MaritalStatus;
                         tbl.NoofFamilyMembers = model.NoofFamilyMembers;
                         tbl.AnnualHouseholdincome = model.AnnualHouseholdincome;
@@ -321,7 +343,7 @@ namespace Hunarmis.Controllers
                             resResponse3.MaxJsonLength = int.MaxValue;
                             return resResponse3;
                         }
-                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + reg_id + " </strong> </span>", Data = tbl.ID };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
@@ -385,12 +407,12 @@ namespace Hunarmis.Controllers
                         {
                             if (model.partChildModel.ParticipantId != Guid.Empty)
                             {
-                                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + model.RegID + " </strong> </span>", Data = null };
+                                response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been Updated successfully ! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + model.RegID + " </strong> </span>", Data = model.partChildModel.ParticipantId };
                                 var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                                 resResponse3.MaxJsonLength = int.MaxValue;
                                 return resResponse3;
                             }
-                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + model.RegID + " </strong> </span>", Data = null };
+                            response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = " Congratulations, you have been successfully registered! \r\nPlease Note Your <br /> <span> Reg ID : <strong>" + model.RegID + " </strong> </span>", Data = model.partChildModel.ParticipantId };
                             var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                             resResponse1.MaxJsonLength = int.MaxValue;
                             return resResponse1;
@@ -567,8 +589,8 @@ namespace Hunarmis.Controllers
                             tbl.CreatedOn = DateTime.Now;
                             db_.tbl_PlacementTracker.Add(tbl);
                             var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
-                            tblpart.IsPlaced = true;    
-                            tblpart.IsOffered = true;    
+                            tblpart.IsPlaced = true;
+                            tblpart.IsOffered = true;
                         }
                         else
                         {
@@ -1467,7 +1489,7 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult GetCallSummary(string BatchId = "", string Course = "", string CallStatus = "", string PrtId = "",string ReportedBy="all")
+        public ActionResult GetCallSummary(string BatchId = "", string Course = "", string CallStatus = "", string PrtId = "", string ReportedBy = "all")
         {
             DataSet ds = new DataSet();
             DataTable tbllist = new DataTable();

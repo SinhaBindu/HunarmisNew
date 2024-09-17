@@ -55,7 +55,7 @@ namespace Hunarmis.Models
         [Display(Name = DplyPartName.SelfImageAttached)]
         public HttpPostedFileBase SelfImage { get; set; }
         public string SelfImagePath { get; set; }
-        [Required]
+       // [Required]
         [Display(Name = DplyPartName.BatchId)]
         public Nullable<int> BatchId { get; set; }
         //[Required]
@@ -93,12 +93,12 @@ namespace Hunarmis.Models
 
         [Display(Name = DplyPartName.IsPlaced)]
         public bool IsPlaced { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DplyPartName.IsPlaced)]
         public string Is_Placed { get; set; }
         [Display(Name = DplyPartName.IsOffered)]
         public Nullable<bool> IsOffered { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DplyPartName.IsOffered)]
         public string Is_Offered { get; set; }
 
