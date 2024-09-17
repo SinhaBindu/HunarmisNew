@@ -264,7 +264,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="card card-box p-0">
                 <div class="card-head">
-                    <div class="title">Age Group</div>
+                    <div class="title">Age Group(in years)</div>
                     <div class="tools">
                         @*<select id="ddlSection4AgeGroup" class="form-control form-control-custom">
                         </select>*@
@@ -616,34 +616,56 @@
                     var data = JSON.parse(result.Data)[0];
 
                     familyMembersJsonDataSection5 = JSON.parse(data.FamilyMembersJsonData);
+                    var familyMemberStates = [...new Set(familyMembersJsonDataSection5.map(item => item.StateName))];
                     var familyMemberDistricts = [...new Set(familyMembersJsonDataSection5.map(item => item.DistrictName))];
                     //familyMemberDistricts.splice(0, 0, 'All');
                     var familyMemberSelectedDistricts = [];//familyMemberDistricts[0];
                     var ddlSection5FamilyMembers = $('#ddlSection5FamilyMembers');
-                    $.each(familyMemberDistricts, function (index, text) {
-                        ddlSection5FamilyMembers.append($('<option></option>').val(text).html(text));
+                    var optHtml = '';
+                    $.each(familyMemberStates, function (index, text) {
+                        optHtml += `<optgroup label="${text}">`;
+                        var familyMemberDistricts1 = [...new Set(familyMembersJsonDataSection5.filter(x => x.StateName == text).map(item => item.DistrictName))];
+                        $.each(familyMemberDistricts1, function (index, text) {
+                            optHtml += `<option value="${text}">${text}</option>`;
+                        });
+                        optHtml += '</optgroup>';
                     });
+                    ddlSection5FamilyMembers.append(optHtml);
                     //ddlSection5FamilyMembers.val(familyMemberSelectedDistrict);
                     $('option', ddlSection5FamilyMembers).prop('selected', true);
                     $(ddlSection5FamilyMembers).multiselect({
-                        includeSelectAllOption: true,
+                        includeSelectAllOption: false,
+                        enableClickableOptGroups: true,
                         multiple: true,
+                        enableCollapsibleOptGroups: true,
+                        maxHeight: 500,
                     });
                     Section5FamilyMembers(familyMemberSelectedDistricts);
 
                     annualHouseholdJsonDataSection5 = JSON.parse(data.AnnualHouseholdJsonData);
+                    var annualHouseholdStates = [...new Set(annualHouseholdJsonDataSection5.map(item => item.StateName))];
                     var annualHouseholdDistricts = [...new Set(annualHouseholdJsonDataSection5.map(item => item.DistrictName))];
                     //annualHouseholdDistricts.splice(0, 0, 'All');
                     var annualHouseholdSelectedDistricts = []; //annualHouseholdDistricts[0];
                     var ddlSection5AnnualHousehold = $('#ddlSection5AnnualHousehold');
-                    $.each(annualHouseholdDistricts, function (index, text) {
-                        ddlSection5AnnualHousehold.append($('<option></option>').val(text).html(text));
+                    var optHtml = '';
+                    $.each(annualHouseholdStates, function (index, text) {
+                        optHtml += `<optgroup label="${text}">`;
+                        var annualHouseholdDistricts1 = [...new Set(annualHouseholdJsonDataSection5.filter(x => x.StateName == text).map(item => item.DistrictName))];
+                        $.each(annualHouseholdDistricts1, function (index, text) {
+                            optHtml += `<option value="${text}">${text}</option>`;
+                        });
+                        optHtml += '</optgroup>';
                     });
+                    ddlSection5AnnualHousehold.append(optHtml);
                     //ddlSection5AnnualHousehold.val(annualHouseholdSelectedDistrict);
                     $('option', ddlSection5AnnualHousehold).prop('selected', true);
                     $(ddlSection5AnnualHousehold).multiselect({
-                        includeSelectAllOption: true,
+                        includeSelectAllOption: false,
+                        enableClickableOptGroups: true,
                         multiple: true,
+                        enableCollapsibleOptGroups: true,
+                        maxHeight: 500,
                     });
                     Section5AnnualHousehold(annualHouseholdSelectedDistricts);
 

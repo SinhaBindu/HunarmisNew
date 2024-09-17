@@ -81,11 +81,11 @@
         fill: #555 !important;
     }
 
-    .WhiteFontChart .highcharts-label text {
-        color: #fff !important;
+    .WhiteFontChart .highcharts-stack-labels text {
+        color: #555 !important;
         font-size: 12px !important;
         font-weight: 500 !important;
-        fill: #fff !important;
+        fill: #555 !important;
     }
 </style>
 <div class="container-fluid">
@@ -169,27 +169,18 @@
             </div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="card card-box p-0">
-                <div class="card-head">
-                    <div class="title">Pathways to Progress Intervention Areas</div>
-                    <div class="tools">
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12">
-                            <figure class="highcharts-figure">
-                                <div id="parent-container">
-                                    <div id="containermap"></div>
-                                </div>
-                            </figure>
-                        </div>
-                    </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="title"></div>
+            <div class="tools">
+                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; width: 100%">
+                    <i class="fa fa-calendar"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
                 </div>
             </div>
         </div>
+
 
         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card card-box p-0">
@@ -220,7 +211,77 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Pathways to Progress Intervention Areas</div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure">
+                                <div id="parent-container">
+                                    <div id="containermap"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Number of participants trained</div>
+                    <div class="tools">
+                        <span class="badge badge-default" id="containerSection2_TrainedTotal"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure WhiteFontChart" id="figureSection2_Trained">
+                                <div id="parent-container">
+                                    <div id="containerSection2_Trained"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Number of participants placed</div>
+                    <div class="tools">
+                        <span class="badge badge-default" id="containerSection2_PlacedTotal"></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure WhiteFontChart" id="figureSection2_Placed">
+                                <div id="parent-container">
+                                    <div id="containerSection2_Placed"></div>
+                                </div>
+                            </figure>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card card-box p-0">
@@ -324,8 +385,44 @@
             }
         });
     });
-
+    var startDate = "", endDate = "";
     $(document).ready(function () {
+
+        var start = moment().startOf('year');//moment().subtract(29, 'days');
+        var end = moment().endOf('year');//moment();
+        startDate = start.format('YYYY-MM-DD');
+        endDate = end.format('YYYY-MM-DD');
+
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+            startDate = start.format('YYYY-MM-DD');
+            endDate = end.format('YYYY-MM-DD');
+
+            console.log(startDate);
+            console.log(endDate);
+
+            section2();
+            section3();
+        }
+
+        $('#reportrange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'This Year': [moment().startOf('year'), moment().endOf('year')]
+            }
+        }, cb);
+
+        cb(start, end);
+
         $('.tab-btn').on('click', function () {
             $('.tab-btn').removeClass('act');
             $(this).addClass('act');
@@ -370,8 +467,8 @@
 
 
         //section1();
-        section2();
-        section3();
+        //section2();
+        //section3();
         //section4();
     });
 
@@ -404,7 +501,7 @@
     function section2() {
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
-            data: { mode: 2 },
+            data: { mode: 2, startDate: startDate, endDate: endDate },
 
             async: false,
             success: function (result) {
@@ -414,6 +511,9 @@
 
                     Graph(JSON.parse(data.CourseJsonData), 'containerSection2_Course', 'stack-bar', '', 'Course', '', 'CourseName', 'Gender');
                     Graph(JSON.parse(data.LocationJsonData), 'containerSection2_Location', 'stack-bar', '', 'Location', '', 'DistrictName', 'Gender');
+
+                    Graph(JSON.parse(data.TrainedJsonData), 'containerSection2_Trained', 'stack-bar', '', 'Location', '', 'DistrictName', 'Gender');
+                    Graph(JSON.parse(data.PlacedJsonData), 'containerSection2_Placed', 'stack-bar', '', 'Location', '', 'DistrictName', 'Gender');
                 }
             }
         });
@@ -422,7 +522,7 @@
     function section3() {
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
-            data: { mode: 3},
+            data: { mode: 3, startDate: startDate, endDate: endDate},
             async: false,
             success: function (result) {
                 console.log(result);
@@ -721,7 +821,7 @@
                     var MapHeight = reportMapDivWidth > 620 ? 620 : null;
                     colors = ['#4443a0', '#ae77b8', '#9be0ba', '#4194ac', '#44449e', '#47a372', '#3466ab', '#8a3b99'];
                     for (var i = 0; i < jsonObject.length; i++) {
-                        jsonObject[i].color = colors[i % colors.length];
+                        //jsonObject[i].color = colors[i % colors.length];
                         jsonObject[i].showInLegend = true;
                     }
 
@@ -780,7 +880,7 @@
                         tooltip: {
                             shared: true
                         },
-                        colors: colors,
+                        //colors: colors,
                         series: [
                             {
                                 showInLegend: false,
@@ -793,8 +893,7 @@
                             {
                                 showInLegend: false,
                                 borderColor: 'green',
-                                color: 'green',
-                                //backgroundColor: '#000000',
+                                color: '#13e5138f',
                                 borderWidth: 1,
                                 mapData: Highcharts.maps['custom/Maharashtra'],
                                 data: jsonObject,
@@ -809,11 +908,6 @@
                                         fontWeight: 700
                                     },
                                 },
-                                //marker: {
-                                //    symbol: 'mapmarker'
-                                //},
-                                //minSize: 4,
-                                //maxSize: '12%',
                                 tooltip: {
                                     pointFormat: '<b> {point.DistrictName} : {point.Total} / ( {point.Percentage} % ) </b>'
                                 }
@@ -822,7 +916,7 @@
                             {
                                 showInLegend: false,
                                 borderColor: '#0d47a1',
-                                color: '#0d47a1',
+                                color: '#5c5bf1',
                                 borderWidth: 1,
                                 mapData: Highcharts.maps['custom/West_Bengal'],
                                 data: jsonObject,
@@ -837,11 +931,6 @@
                                         fontWeight: 700
                                     },
                                 },
-                                //marker: {
-                                //    symbol: 'mapmarker'
-                                //},
-                                //minSize: 4,
-                                //maxSize: '12%',
                                 tooltip: {
                                     pointFormat: '<b> {point.DistrictName} : {point.Total} / ( {point.Percentage} % ) </b>'
                                 }

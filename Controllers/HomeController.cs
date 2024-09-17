@@ -28,12 +28,12 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-        public ActionResult GetDashboard(int mode)
+        public ActionResult GetDashboard(int mode, string startDate = "", string endDate = "")
         {
             bool IsCheck = false;
             try
             {
-                DataTable dt = SPManager.SP_Dashboard_Graphs(mode);
+                DataTable dt = SPManager.SP_Dashboard_Graphs(mode, startDate, endDate);
                 if (dt.Rows.Count > 0)
                 {
                     IsCheck = true;

@@ -176,10 +176,12 @@ namespace Hunarmis.Manager
             var ds = sp.ExecuteDataSet().Tables[0];
             return ds;
         }
-        public static DataTable SP_Dashboard_Graphs(int mode)
+        public static DataTable SP_Dashboard_Graphs(int mode, string startDate = "", string endDate = "")
         {
             StoredProcedure sp = new StoredProcedure("SP_Dashboard_Graphs");
             sp.Command.AddParameter("@mode", mode, DbType.Int32);
+            sp.Command.AddParameter("@startDate", startDate, DbType.String);
+            sp.Command.AddParameter("@endDate", endDate, DbType.String);
             var ds = sp.ExecuteDataSet().Tables[0];
             return ds;
         }

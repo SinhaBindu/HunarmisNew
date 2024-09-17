@@ -396,7 +396,19 @@ function RemoveRow(id, tblid) {
 var colorsConst = ['#4443a0', '#ae77b8', '#9be0ba', '#4194ac', '#44449e', '#47a372', '#3466ab', '#8a3b99'];
 function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, property, groupProperty, colorsParam) {
     console.log(jsonData);
-
+    if (!jsonData) {
+        jsonData = [];
+    }
+    var totalEle = $('#' + selector + 'Total');
+    if (totalEle.length) {
+        var total = 0;
+        if (jsonData && jsonData.length) {
+            jsonData.forEach(item => {
+                total += item.Total;
+            });
+        }
+        $(totalEle).text(total);
+    }
     var data = [];
     var categories = [];
     var series = [];
@@ -498,7 +510,7 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
 
         console.log(series);
     }
-    else if (graphType =='treemap') {
+    else if (graphType == 'treemap') {
         categories = [...new Set(jsonData.map(item => item[property]))];
         colorAxis = [];
         for (var i = 0; i < categories.length; i++) {
@@ -509,14 +521,29 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
             name: item[property],
             value: item.Total,
             total: item.Total,
+            percentage: item.Percentage,
             colorValue: i--,
             //color: colorsConst[i],
         }));
         series = [{
             type: 'treemap',
-            layoutAlgorithm: 'squarified',
+            //layoutAlgorithm: 'squarified',
+            layoutAlgorithm: 'sliceAndDice',
+            allowDrillToNode: true,
+            animationLimit: 1000,
             clip: false,
-            data: seriesData
+            data: seriesData,
+            dataLabels: {
+                enabled: true,
+                formatter: function () {
+                    var key = this.key,
+                        point = this.point,
+                        value = point.value,
+                        percentage = point.percentage;
+
+                    return value ? `${key} (${percentage}%)` : key;
+                }
+            }
         }];
         console.log(series);
     }
@@ -529,6 +556,9 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
             showInLegend: false,
             name: property,
             colorByPoint: true,
+            dataLabels: {
+                format: '{point.y:.0f}',
+            },
             data: totals
         }];
         console.log(series);
@@ -547,6 +577,7 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
+                marginTop: 20,
                 //innerSize: '50%' // Make it a donut chart
             },
             title: {
@@ -565,12 +596,12 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                             this.legendItem.symbol.element.outerHTML = "";
                         }
 
-                        return "<img src='/content/images/female1.png' width='40' height='40'> " + this.name;
+                        return `<span style='color:${this.color}; font-size: 12px; font-weight: 600;'> <i class='fa fa-female' aria-hidden='true' style="font-size: 14px;" ></i> ${this.name}</span>`;
                     } else if (this.name == "Male") {
                         if (this.legendItem.symbol.element) {
                             this.legendItem.symbol.element.outerHTML = "";
                         }
-                        return "<img src='/content/images/male1.png' width='40' height='40'> " + this.name;
+                        return `<span style='color:${this.color}; font-size: 12px; font-weight: 600;'> <i class='fa fa-male' aria-hidden='true' style="font-size: 14px;" ></i> ${this.name}</span>`;
                     } else {
                         return this.name;
                     }
@@ -625,7 +656,7 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                         ? this.point.options.total
                         : this.point.y;
 
-                    return `<span style="font-size:12px;color:${this.color}">${this.series.name ? this.series.name : this.point.name}</span><br/>` +
+                    return `<span style="font-size:12px;color:${this.color}">${graphType == 'pie' ? "" : (this.series.name ? this.series.name : this.point.name)}</span><br/>` +
                         `<span style="color:${this.point.color}">${this.point.name ? this.point.name : this.x}</span>: ` +
                         `<b style="color:${this.color}">${value}</b><br/>`;
                 }
@@ -656,6 +687,10 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                             Highcharts.defaultOptions.title.style.color
                         ) || 'gray'
                     },
+                    overflow: 'none',
+                    crop: false,
+                    rotation: (originalGraphType == 'stack-column') ? 270 : 0,
+                    y: (originalGraphType == 'stack-column') ? -8 : 0,
                     formatter: function () {
                         var sum = 0;
                         var series = this.axis.series;
@@ -664,7 +699,7 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                                 sum += series[i].yData[series[i].xData.indexOf(this.x)];
                         }
                         if (this.total > 0) {
-                            return Highcharts.numberFormat(sum, 0);
+                            return parseInt(sum);
                         } else {
                             return '';
                         }
@@ -673,14 +708,35 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
             },
             series: series
         });
-    } else if (originalGraphType == 'treemap') {
+    }
+    else if (originalGraphType == 'treemap') {
         Highcharts.chart(selector, {
+            chart: {
+                //inverted: true,
+                alternateStartingDirection: true,
+            },
+            credits: {
+                enabled: false
+            },
             colorAxis: {
                 visible: false,
                 minColor: colorsConst[0],
-                maxColor: colorsConst[1],                
+                maxColor: colorsConst[1],
             },
             series: series,
+            tooltip: {
+                formatter: function () {
+                    var str = `${this.point.name}: ${this.point.value}(${this.point.percentage}%)`,
+                        node = this.point.node;
+
+                    if (node) {
+                        node.children.forEach(function (child) {
+                            str += '<br />' + child.name + ' ' + child.val;
+                        });
+                    }
+                    return str;
+                }
+            },
             title: {
                 text: ''
             }

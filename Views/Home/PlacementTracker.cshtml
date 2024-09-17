@@ -130,6 +130,11 @@
                 <div class="card-head">
                     <div class="title">Month wise placement numbers</div>
                     <div class="tools">
+                        <select id="ddlSection7PlacementNumber" class="form-control form-control-custom">
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                        </select>
                     </div>
                 </div>
                 <div class="card-body">
@@ -202,53 +207,77 @@
     <script src="https://code.highcharts.com/maps/modules/map.js"></script>
 
     <script>
-    $('.count').each(function () {
-        $(this).prop('Counter', 0).animate({
-            Counter: $(this).text()
-        }, {
-            duration: 4000,
-            easing: 'swing',
-            step: function (now) {
-                $(this).text(Math.ceil(now));
-            }
-        });
-    });
-
-    $(document).ready(function () {
-        $('.tab-btn').on('click', function () {
-            $('.tab-btn').removeClass('act');
-            $(this).addClass('act');
-        })
-
-        section7();
-    });
-
-    function escapeRegExp(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-    }
-
-    function replaceAll(str, find, replace) {
-        return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-    }
-
-    function section7() {
-        $.ajax({
-            url: '@Url.Action("GetDashboard", "home")',
-            data: { mode: 7},
-            async: false,
-            success: function (result) {
-                console.log(result);
-                if (result.IsSuccess) {
-                    var data = JSON.parse(result.Data)[0];
-                    Graph(JSON.parse(data.PlacementNumberJsonData), 'containerSection7_PlacementNumber', 'column', '', 'Target Group', '', 'Month', '', ['#4194ac']);
-                    Graph(JSON.parse(data.EmployeeTypeJsonData), 'containerSection7_EmployeeType', 'donut', '', 'Pre-Training Status', '', 'EmployeeTypeName', '');
-                    Graph(JSON.parse(data.GapDayJsonData), 'containerSection7_GapDay', 'column', '', 'Pre-Training Status', '', 'GapDay', '');
+        $('.count').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 4000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
                 }
-            }
+            });
         });
-    }
 
-    
+        $(document).ready(function () {
+            $('.tab-btn').on('click', function () {
+                $('.tab-btn').removeClass('act');
+                $(this).addClass('act');
+            })
+
+            $("#ddlSection7PlacementNumber").val(new Date().getFullYear());
+
+            $("#ddlSection7PlacementNumber").change(function (e) {
+                section7($(this).val());
+            });
+
+            section7($("#ddlSection7PlacementNumber").val());
+        });
+
+        function escapeRegExp(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+        }
+
+        function replaceAll(str, find, replace) {
+            return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+        }
+        //placementNumberJsonDataSection7 = [];
+        function section7(startDate) {
+            $.ajax({
+                url: '@Url.Action("GetDashboard", "home")',
+                data: { mode: 7, startDate: startDate },
+                async: false,
+                success: function (result) {
+                    console.log(result);
+                    if (result.IsSuccess) {
+                        var data = JSON.parse(result.Data)[0];
+                        Graph(JSON.parse(data.PlacementNumberJsonData), 'containerSection7_PlacementNumber', 'column', '', 'Target Group', '', 'Month', '', ['#4194ac']);
+                        //placementNumberJsonDataSection7 = JSON.parse(data.PlacementNumberJsonData);
+                        //var placementNumberYears = [...new Set(placementNumberJsonDataSection7.map(item => item.Year))];
+                        //var placementNumberSelectedYear = placementNumberYears[0];
+                        //var ddlSection7PlacementNumber = $('#ddlSection7PlacementNumber');
+                        //$.each(placementNumberYears, function (index, text) {
+                        //    ddlSection7PlacementNumber.append($('<option></option>').val(text).html(text));
+                        //});
+                        //ddlSection7PlacementNumber.val(placementNumberSelectedYear);
+                        //Section7PlacementNumber(placementNumberSelectedYear);
+
+                        Graph(JSON.parse(data.EmployeeTypeJsonData), 'containerSection7_EmployeeType', 'donut', '', 'Pre-Training Status', '', 'EmployeeTypeName', '');
+                        Graph(JSON.parse(data.GapDayJsonData), 'containerSection7_GapDay', 'column', '', 'Pre-Training Status', '', 'GapDay', '');
+                    }
+                }
+            });
+        }
+
+        //function Section7PlacementNumber(selectedYear) {
+        //    var jsonData = placementNumberJsonDataSection7;
+        //    if (selectedYear) {
+        //        jsonData = placementNumberJsonDataSection7.filter(x => x.Year == selectedYear);
+        //    }
+        //    Graph(jsonData, 'containerSection7_PlacementNumber', 'column', '', 'Target Group', '', 'Month', '', ['#4194ac']);
+        //    //Graph(placementNumberJsonData, 'containerSection5_AnnualHousehold', 'stack-column', '', 'Location', '', 'AnnualHouseholdincome', 'DistrictName');
+        //}
+
 
     </script>
 

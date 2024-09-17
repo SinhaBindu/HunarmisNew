@@ -28,6 +28,10 @@
     <script src="~/Scripts/Custom/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="~/Content/css/Tabs.css">
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <script>
         $(document).ready(function () {
             // Show loader on AJAX start
@@ -40,7 +44,7 @@
                 $('#global-loader').css('background', 'transparent').css('display', 'none');
             });
 
-            //Tabs  
+            //Tabs
             document.querySelectorAll('.tab-link').forEach(item => {
                 item.addEventListener('click', function () {
                     let tabId = this.getAttribute('data-tab');
