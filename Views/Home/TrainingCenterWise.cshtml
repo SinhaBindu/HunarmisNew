@@ -319,7 +319,7 @@
                         spacingBottom: 30,
                         marginRight: 200,
                         height: 1200,
-                        with:500,
+                        with: 500,
                     },
 
                     title: {
@@ -606,36 +606,47 @@
                             //]
                             , point: {
                                 events: {
-                                    click: function () {
+                                    click: function (event) {
                                         debugger;
-                                        if (this.dilldown == '1') {
-                                            var spl = (this.options.id).split('.');
-                                            if (this.val != 0) {
-                                                BindData(((this.options.id).split('.')[1]), "0", "0", this.options.lblname);
+                                        const point = this;
+                                        const targetElement = event.target;
+                                        console.log(targetElement);
+                                        console.log(targetElement.textContent);
+                                        if (targetElement.textContent == "" || targetElement.textContent == "+" || targetElement.textContent == "-") {
+                                            event.preventDefault();
+                                        } else {
+                                            isCallData = true;
+
+                                            if (this.dilldown == '1') {
+                                                var spl = (this.options.id).split('.');
+                                                if (this.val != 0) {
+                                                    BindData(((this.options.id).split('.')[1]), "0", "0", this.options.lblname);
+                                                }
+                                                else {
+                                                    alert('Record Not Found !!');
+                                                }
                                             }
-                                            else {
-                                                alert('Record Not Found !!');
+                                            else if (this.dilldown == '2') {
+                                                var spl = (this.options.id).split('.');
+                                                if (this.val != 0) {
+                                                    BindData("0", ((this.options.id).split('.')[0]), "0", this.options.lblname);
+                                                    //window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
+                                                }
+                                                else {
+                                                    alert('Record Not Found !!');
+                                                }
+                                            }
+                                            else if (this.dilldown == '3') {
+                                                var spl = (this.options.id).split('.');
+                                                if (this.val != 0) {
+                                                    BindData("0", "0", ((this.options.id).split('.')[1]), this.options.lblname);
+                                                }
+                                                else {
+                                                    alert('Record Not Found !!');
+                                                }
                                             }
                                         }
-                                        else if (this.dilldown == '2') {
-                                            var spl = (this.options.id).split('.');
-                                            if (this.val != 0) {
-                                                BindData("0", ((this.options.id).split('.')[0]), "0", this.options.lblname);
-                                                //window.location.href = document.baseURI + "/Participant/ParticipantList?TCId=" + ((this.options.id).split('.')[1])
-                                            }
-                                            else {
-                                                alert('Record Not Found !!');
-                                            }
-                                        }
-                                        else if (this.dilldown == '3') {
-                                            var spl = (this.options.id).split('.');
-                                            if (this.val != 0) {
-                                                BindData("0", "0", ((this.options.id).split('.')[1]), this.options.lblname);
-                                            }
-                                            else {
-                                                alert('Record Not Found !!');
-                                            }
-                                        }
+
                                     }
                                 }
                             }
