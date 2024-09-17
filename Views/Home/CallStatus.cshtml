@@ -8,208 +8,97 @@
 }
 
 <style>
-    .table th {
-        font-size: 14px;
-        background: #fff;
+    #page-content {
+        padding: 0px !important;
     }
-
-    .table td {
-        font-size: 13px;
-    }
-
-    .dataTables_filter, .dataTables_length {
-        margin-bottom: 15px;
-    }
-
-    .actives2 {
-        color: #009CFF !important;
-        background: #FFFFFF;
-        border-color: #009CFF;
-    }
-
-    .dt-input {
-        margin-right: 5px;
-    }
-
-    table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
-        padding: 9px 6px !important;
-    }
-
-    .panel {
-        min-height: 500px;
-    }
-    div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
-        color: #fff !important
-    }
-    .downs-btn {
-        float: right
-    }
-
-    .modal {
-        padding: 20px !important
-    }
-
-    .modal-dialog {
-        width: 100%;
-        border: 2px solid #F5F5F5
-    }
-
-    .modal-title {
-        text-align: center;
-        font-size: 24px;
-        color: #000
-    }
-
-    .clos-btn {
-        float: right;
-        padding: 3px 7px;
-        background: #D34829;
-        color: #fff;
-        border-radius: 5px;
-        font-size: 14px;
-        border: none;
-        margin-top: -20px
-    }
-
-    /*.basic-info div {
-      flex-basis: 48%
-  }*/
-    .panel-bodys {
-        margin-bottom: 10px;
-    }
-
-    .btn-mat {
-        background: #009CFF;
-        padding: 2px 8px;
-        border-radius: 4px;
-        color: #fff;
-        border: none
-    }
-
-    .down-btn a:hover, .down-btn:hover {
-        color: #fff !important
-    }
-
-    .semi-title {
-        background: #2F17B5;
-    }
-
-    .panel-bodys h5 {
-        color: #e17c0f;
-    }
-
-    .box-bg {
-        padding: 15px;
-        background: #F5F5F5;
-        border-radius: 5px;
-    }
-
-        .box-bg label {
-            text-align: left !important;
-            font-weight: bold;
-            color: #000;
-        }
-
-    .modal-header {
-        padding: 10px 15px 0;
-    }
-
-    .regis {
-        color: #2F17B5
-    }
-
-    .form-flex {
-        display: flex;
-        gap: 30px
-    }
-
-        .form-flex div {
-            flex: 1;
-        }
 </style>
 
 <div id="page-content">
-    <div class="genral-form">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel">
-                    <div class="panel-spacer">
-                        <p class="bord-btm pad-ver text-main text-bold">
-                            @ViewBag.Title
+    <div class="container-fluid">
+        <div class="row mt-20">
+            <div class="col-xs-12 col-md-12">
+                <div class="card card-box p-0">
+                    <div class="card-head">
+                        <div class="title">
+                            Search By
+                        </div>
+                        <div class="tools">
+                            @*@ViewBag.Title*@
                             <span class="downs-btn" id="div-download"></span>
-                        </p>
+                        </div>
                     </div>
+                    <div class="card-body">
+                        <fieldset class="fieldset-card">
+                            @using (Html.BeginForm("GetCallStatus", "Home", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
+                            {
 
-                    <fieldset class="border rounded-3 p-3">
-                        <legend class="float-none w-auto px-2">Search By  </legend>
-
-
-                        @using (Html.BeginForm("GetCallStatus", "Home", FormMethod.Get, new { @class = "", @id = "formid", role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate" }))
-                        {
-                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
-                            <div class="panel-bodys">
-                                <div class="bg-light rounded h-100 p-4">
-                                    <div class="basic-search">
-                                        <div class="col-sm-2">
-                                            @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label" })
-                                            <div class="position-relative form-group">
-                                                @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @class = "form-control col-sm-12 datepickermonth" } })
-                                                @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                                    <div class="col-xs-12 col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "" })
+                                            </label>
+                                            @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @class = "form-control datepickermonth" } })
+                                            @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-sm-2">
-                                            @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label" })
-                                            <div class="position-relative form-group">
-                                                @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @class = "form-control col-sm-12 datepickermonth" } })
-                                                @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
-                                            </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "" })
+                                            </label>
+                                            @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @class = "form-control datepickermonth" } })
+                                            @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-sm-3">
-                                            @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label" })
-                                            <div class="position-relative form-group">
-                                                @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, new { @class = "form-select col-sm-12 select2" })
-                                                @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
-                                            </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "" })
+                                            </label>
+                                            @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, new { @class = "form-select col-sm-12 select2" })
+                                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-sm-2">
-                                            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label" })
-                                            <div class="position-relative form-group">
-                                                @Html.DropDownListFor(m => m.UserId, Hunarmis.Manager.CommonModel.GetUserList(), null, new { @class = "form-select col-sm-12 select2" })
-                                                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                                            </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "" })
+                                            </label>
+                                            @Html.DropDownListFor(m => m.UserId, Hunarmis.Manager.CommonModel.GetUserList(), null, new { @class = "form-select select2" })
+                                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-sm-3">
-                                            <div class="position-relative form-group" style="margin-top:8%;">
+                                    </div>
+                                    <div class="col-xs-12 col-md-4">
+                                        <div class="form-group">
+                                            <div class="control-label">
+                                                &nbsp;
+                                            </div>
+                                            <div class="mt-10">
                                                 <span class="check-spacer">
                                                     <input type="submit" name="btnsubmit" id="btnsubmit" class="btn-register" value="Filter" />
                                                 </span>
                                                 <span class="check-spacer">
                                                     <a href="~/Home/CallStatus" class="btn-reset"><i class="fa fa-refresh"></i></a>
                                                 </span>
-
                                             </div>
                                         </div>
-                                        <div class="breaker"></div>
                                     </div>
                                 </div>
-                            </div>
-                        }
-                    </fieldset>
-
-                    <div class="card-body">
-                        <div class="content-manage">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="subdata"></div>
-                                </div>
+                            }
+                        </fieldset>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="subdata"></div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
 <div id="subdata1">
 
@@ -298,7 +187,7 @@
                         table.buttons().container().appendTo($('#div-download'));
                     }
                     else {
-                        $("#subdata").html('<h6 class="text-danger">' + res.Data+'</ h6>');
+                        $("#subdata").html('<h6 class="text-danger">' + res.Data + '</ h6>');
                     }
                 },
                 error: function (req, error) {
@@ -309,7 +198,7 @@
             });
         }
         /* Click To Avaiable & Not Avaiable */
-        function getdetaildata(ReportedBy, Flag, lblname,maxdate,ReportedName,TotalRecords) {
+        function getdetaildata(ReportedBy, Flag, lblname, maxdate, ReportedName, TotalRecords) {
             $("#subdata1").html('');
             $('#global-loader').css('background', 'transparent').css('display', 'block');
             $.ajax({
@@ -354,7 +243,7 @@
                     table.buttons().container().appendTo($('#div-export'));
 
 
-                    
+
                 },
                 error: function (req, error) {
                     if (error === 'error') { error = req.statusText; }

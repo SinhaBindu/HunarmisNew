@@ -367,12 +367,12 @@ h1, h2, h3, h4, h5, h6, svg {
 
 
 .fieldset-card {
-    display: -webkit-box;
+    /*display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center;
+    align-items: center;*/
     padding: 0.75rem 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #ae77b8;
@@ -380,6 +380,33 @@ h1, h2, h3, h4, h5, h6, svg {
     webkit-box-shadow: 4px 3px 0px 0px #ae77b8;
     box-shadow: 4px 3px 0px 0px #ae77b8;
     border-radius: 4px;
+}
+.btn-register, .btn-reset {
+    padding: 6px 22px;
+    border-radius: 6px;
+    background: #2F17B5;
+    border: none;
+    color: #fff;
+    display:inline-block;
+    margin-right: 12px;
+    height: 32px;
+}
+.mt-10{
+    margin-top:10px !important;
+}
+.SelectMultiple .btn-group{
+    width:100%;
+    display:block;
+}
+.SelectMultiple .btn-group .multiselect {
+    font-size: 13px;
+    border-radius: 3px;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    transition-duration: .5s;
+    height: 32px;
+    width:100%;
+    text-align:left;
 }
 .table {
     width: 100% !important;
@@ -396,7 +423,7 @@ table.dataTable {
 }
 
     table.dataTable thead th, table.dataTable thead td, .table thead th, .table thead td {
-        vertical-align: bottom;
+        vertical-align: middle;
         border-bottom: none;
         background: #fafafa;
         padding: 3px 10px;
@@ -449,11 +476,11 @@ table.dataTable tbody tr:last-child td, table tbody tr:last-child td {
     background: transparent;
 }
 
-.pagination .page-item.active > .page-link, .dataTables_paginate .pagination .page-item.active > .page-link {
+.dataTables_paginate .paginate_button.current > .paginate_button, .dataTables_paginate .paginate_button.current > .paginate_button {
     color: #fff;
 }
 
-.pagination.pagination-primary .page-item.active > .page-link, .pagination.pagination-primary .page-item.active > .page-link:focus, .pagination.pagination-primary .page-item.active > .page-link:hover {
+.dataTables_paginate.previous .paginate_button.current > .paginate_button, .dataTables_paginate.previous .paginate_button.current > .paginate_button:focus, .pagination.pagination-primary .page-item.active > .page-link:hover {
     background-color: #ae77b8;
     border-color: #ae77b8;
 }
@@ -463,12 +490,12 @@ table.dataTable tbody tr:last-child td, table tbody tr:last-child td {
     border-color: #ae77b8;
 }
 
-.dataTables_paginate .page-item.custom-active > .page-link, .dataTables_paginate .pagination .page-item.custom-active > .page-link:focus, .dataTables_paginate .pagination .page-item.custom-active > .page-link:hover {
+.dataTables_wrapper .dataTables_paginate .paginate_button > .current, .dataTables_wrapper .dataTables_paginate .paginate_button > .current:focus, .dataTables_wrapper .dataTables_paginate .paginate_button > .current:hover {
     background-color: #ae77b8;
     border-color: #ae77b8;
 }
 
-.pagination .page-item .page-link:hover, .pagination .page-item .page-link:focus, .dataTables_paginate .pagination .page-item .page-link:hover, .dataTables_paginate .pagination .page-item .page-link:focus {
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:focus, .dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
     color: #ddd;
     background-color: rgba(222,222,222,0.3);
     border: none;
@@ -476,19 +503,14 @@ table.dataTable tbody tr:last-child td, table tbody tr:last-child td {
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    color: white !important;
-    border: none;
+    color: #555 !important;
     background-color: none;
     background: none;
     outline: none;
+    border:none;
 }
-
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     box-sizing: border-box;
-    display: inline-block;
-    min-width: auto;
-    padding: 0px;
-    margin-left: 0px;
     text-align: center;
     text-decoration: none !important;
     cursor: pointer;
@@ -496,7 +518,12 @@ table.dataTable tbody tr:last-child td, table tbody tr:last-child td {
     outline: none;
     color: inherit;
     border: none;
-    border-radius: 0;
+    border-radius: 30px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: #ae77b8 !important;
+    border-color: #ae77b8 !important;
+    color: #fff !important;
 }
 div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
     background: #4443a0 !important;
@@ -508,7 +535,17 @@ div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
 div.dt-buttons > .dt-button i, div.dt-buttons > div.dt-button-split .dt-button i{
     margin-right: 5px !important;
 }
-
+div.dataTables_wrapper div.dataTables_filter input {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 29px;
+    font-size: 13px;
+    border-radius: 3px;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    transition-duration: .5s;
+    box-shadow:none;
+}
 @media (min-width: 992px) {
     #footer, .bootom-fixed {
         background: #4443a0 !important;
