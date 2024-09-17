@@ -408,6 +408,25 @@ h1, h2, h3, h4, h5, h6, svg {
     width:100%;
     text-align:left;
 }
+.EmergencyDetailsBox fieldset {
+    border: 1px solid #ae77b8;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+.EmergencyDetailsBox legend {
+    background-color: #ae77b8;
+    color: #fff;
+    padding: 3px 6px;
+    width: auto;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+}
+.multiselect-container {
+    height: 130px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 .table {
     width: 100% !important;
 }

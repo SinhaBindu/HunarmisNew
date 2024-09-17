@@ -407,38 +407,49 @@
                                                     <div class="mark-devide"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-2 col-md-4">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.partChildModel.EmergencyPersonName, htmlAttributes: new { @class = "control-label" })
-                                                    @Html.EditorFor(model => model.partChildModel.EmergencyPersonName, new { htmlAttributes = new { @class = " form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.partChildModel.EmergencyPersonName, "", new { @class = "text-danger" })
-                                                    <div class="mark-devide"></div>
+                                            <div class="col-xs-12 col-md-12">
+                                                <div class="EmergencyDetailsBox">
+                                                    <fieldset>
+                                                        <legend>Emergency Details</legend>
+                                                        <div class="row">
+                                                            <div class="col-xs-2 col-md-3">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.partChildModel.EmergencyPersonName, htmlAttributes: new { @class = "control-label" })
+                                                                    @Html.EditorFor(model => model.partChildModel.EmergencyPersonName, new { htmlAttributes = new { @class = " form-control" } })
+                                                                    @Html.ValidationMessageFor(model => model.partChildModel.EmergencyPersonName, "", new { @class = "text-danger" })
+                                                                    <div class="mark-devide"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-2 col-md-3">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.partChildModel.EmergencyContactNo, htmlAttributes: new { @class = "control-label" })
+                                                                    @Html.EditorFor(model => model.partChildModel.EmergencyContactNo, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", minlength = "10", @maxlength = "10" } })
+                                                                    @Html.ValidationMessageFor(model => model.partChildModel.EmergencyContactNo, "", new { @class = "text-danger" })
+                                                                    <div class="mark-devide"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-2 col-md-3">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.partChildModel.EmergencyRelationship, htmlAttributes: new { @class = "control-label" })
+                                                                    @Html.EditorFor(model => model.partChildModel.EmergencyRelationship, new { htmlAttributes = new { @class = " form-control" } })
+                                                                    @Html.ValidationMessageFor(model => model.partChildModel.EmergencyRelationship, "", new { @class = "text-danger" })
+                                                                    <div class="mark-devide"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-2 col-md-3">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.partChildModel.EmergencyMonthlyIncome, htmlAttributes: new { @class = "control-label" })
+                                                                    @Html.EditorFor(model => model.partChildModel.EmergencyMonthlyIncome, new { htmlAttributes = new { @class = " form-control" } })
+                                                                    @Html.ValidationMessageFor(model => model.partChildModel.EmergencyMonthlyIncome, "", new { @class = "text-danger" })
+                                                                    <div class="mark-devide"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                    
                                                 </div>
                                             </div>
-                                            <div class="col-xs-2 col-md-4">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.partChildModel.EmergencyContactNo, htmlAttributes: new { @class = "control-label" })
-                                                    @Html.EditorFor(model => model.partChildModel.EmergencyContactNo, new { htmlAttributes = new { @type = "number", @class = "required form-control", @required = "required", minlength = "10", @maxlength = "10" } })
-                                                    @Html.ValidationMessageFor(model => model.partChildModel.EmergencyContactNo, "", new { @class = "text-danger" })
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2 col-md-4">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.partChildModel.EmergencyRelationship, htmlAttributes: new { @class = "control-label" })
-                                                    @Html.EditorFor(model => model.partChildModel.EmergencyRelationship, new { htmlAttributes = new { @class = " form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.partChildModel.EmergencyRelationship, "", new { @class = "text-danger" })
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2 col-md-4">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.partChildModel.EmergencyMonthlyIncome, htmlAttributes: new { @class = "control-label" })
-                                                    @Html.EditorFor(model => model.partChildModel.EmergencyMonthlyIncome, new { htmlAttributes = new { @class = " form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.partChildModel.EmergencyMonthlyIncome, "", new { @class = "text-danger" })
-                                                    <div class="mark-devide"></div>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="col-xs-2 col-md-4">
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.partChildModel.IDType, htmlAttributes: new { @class = "control-label" })
