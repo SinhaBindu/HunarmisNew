@@ -35,8 +35,9 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.Gender)]
         public string Gender { get; set; }
-        public Nullable<System.DateTime> DOB { get; set; }
+        [Display(Name = DplyPartName.DOB)]
         [Required]
+        public Nullable<System.DateTime> DOB { get; set; }
         [Display(Name = DplyPartName.Age)]
         public string Age { get; set; }
         [Required]
@@ -128,6 +129,7 @@ namespace Hunarmis.Models
         public const string LastName = "Last Name";
         public const string Gender = "Gender";
         public const string Age = "Age";
+        public const string DOB = "DOB";
         public const string PhoneNo = "Phone No";
         public const string AlternatePhoneNo = "Alternate Phone No";
         public const string EmailID = "Email ID";

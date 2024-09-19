@@ -139,7 +139,8 @@ namespace Hunarmis.Controllers
                     //model.LastName = tbl.LastName;
                     model.FullName = tbl.FullName;
                     model.Gender = tbl.Gender;
-                    model.Age = tbl.Age;
+                    //model.Age = tbl.Age;
+                    model.DOB = tbl.DOB;
                     model.AadharCardNo = tbl.AadharCardNo;
                     model.EmailID = tbl.EmailID;
                     model.PhoneNo = tbl.PhoneNo;
@@ -233,15 +234,19 @@ namespace Hunarmis.Controllers
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
                     }
-                    if (!string.IsNullOrWhiteSpace(model.Age))
+                    if (model.DOB == null)
                     {
-                        if (Convert.ToInt32(model.Age)>=50)
-                        {
-                            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Age limit maximum 50 yrs.<br />", Data = null };
-                            var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
-                            resResponse1.MaxJsonLength = int.MaxValue;
-                            return resResponse1;
-                        }
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Please select Date Of Birth minimum 18 and maximum 30 yrs.<br />", Data = null };
+                        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse1.MaxJsonLength = int.MaxValue;
+                        return resResponse1;
+                        //if (Convert.ToInt32(model.Age) >= 50)
+                        //{
+                        //    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Age limit maximum 50 yrs.<br />", Data = null };
+                        //    var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                        //    resResponse1.MaxJsonLength = int.MaxValue;
+                        //    return resResponse1;
+                        //}
                     }
                     var tbl = model.ID != Guid.Empty ? db_.tbl_Participant.Find(model.ID) : new tbl_Participant();
                     if (tbl != null)
@@ -257,7 +262,8 @@ namespace Hunarmis.Controllers
                         //l.FirstName + tbl.MiddleName + tbl.LastName;
                         //  tbl.StateId = db.State_Mast.Where(x => x.ID == sid).FirstOrDefault().ID.ToString();
                         tbl.Gender = !(string.IsNullOrWhiteSpace(model.Gender)) ? model.Gender.Trim() : model.Gender;
-                        tbl.Age = !(string.IsNullOrWhiteSpace(model.Age)) ? model.Age.Trim() : model.Age;
+                        tbl.DOB = model.DOB;    
+                        //tbl.Age = !(string.IsNullOrWhiteSpace(model.Age)) ? model.Age.Trim() : model.Age;
                         tbl.PhoneNo = !(string.IsNullOrWhiteSpace(model.PhoneNo)) ? model.PhoneNo.Trim() : model.PhoneNo;
                         tbl.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(model.AlternatePhoneNo)) ? model.AlternatePhoneNo.Trim() : model.AlternatePhoneNo;
                         tbl.EmailID = !(string.IsNullOrWhiteSpace(model.EmailID)) ? model.EmailID.Trim() : model.EmailID;
@@ -1137,7 +1143,7 @@ namespace Hunarmis.Controllers
 
                                         tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
                                         tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
-                                        tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                      //  tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
                                         // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
                                         tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
                                         tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
@@ -1145,6 +1151,7 @@ namespace Hunarmis.Controllers
                                         var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
                                          dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
                                         tblu.DateOfBirth = dobirth;
+                                        tblu.DOB = CommonModel.FormateDtYMD(dobirth);
                                         tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
                                         tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
                                         tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
@@ -1234,12 +1241,13 @@ namespace Hunarmis.Controllers
                                                 var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
                                                  dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
                                                 tblu.DateOfBirth = dobirth;
+                                                tblu.DOB = CommonModel.FormateDtYMD(dobirth);
                                                 tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
                                                 tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
-                                                tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                               // tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
                                                 // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
                                                 tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
-                                                tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
+                                                //tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
                                                 tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
 
                                                 var bName = Convert.ToString(dr["BatchName"]);
@@ -1320,6 +1328,7 @@ namespace Hunarmis.Controllers
                                                 var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
                                                     dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
                                                 tblpart.DateOfBirth = dobirth;
+                                                tblpart.DOB = CommonModel.FormateDtYMD(dobirth);
                                                 tblpart.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
                                                 tblpart.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
                                                 tblpart.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;

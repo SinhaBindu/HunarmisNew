@@ -129,6 +129,7 @@ namespace Hunarmis.Manager
         {
             //model.CallStatus = !string.IsNullOrEmpty(model.CallStatus) ? model.CallStatus :"";
             model.UserId = string.IsNullOrEmpty(model.UserId) || model.UserId == "-1" || model.UserId == "0" ? "" : model.UserId;
+            model.BatchId = string.IsNullOrEmpty(model.BatchId) || model.BatchId == "-1" || model.BatchId == "0" ? "" : model.BatchId;
             //model.CallStatus = string.IsNullOrEmpty(model.CallStatus) || model.CallStatus == "-1" ? "" : model.CallStatus;
             StoredProcedure sp = new StoredProcedure("SP_RawParticipantList");
             //sp.Command.AddParameter("@Type", model.Type, DbType.Int32);

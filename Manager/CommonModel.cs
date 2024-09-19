@@ -1839,6 +1839,19 @@ namespace Hunarmis.Manager
         {
             return date.Date;
         }
+        public static DateTime FormateDtYMD(string date)
+        {
+            DateTime? dt = null;
+            if (!string.IsNullOrEmpty(date))
+            {
+                var d = date.Length;
+                if (d == 10)
+                {
+                    dt = Convert.ToDateTime(date).Date;
+                }
+            }
+            return dt.Value;
+        }
         public static string FormateDtMDY(string date)
         {
             string dt = "";

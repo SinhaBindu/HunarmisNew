@@ -52,9 +52,9 @@
                                     {
                                         if (User.IsInRole(CommonModel.RoleNameCont.Mobilizer))
                                         {
-                                            if (!string.IsNullOrWhiteSpace(dr["EntryReportedBy"].ToString()) && !string.IsNullOrWhiteSpace(MvcApplication.CUser.UserId.ToLower()))
+                                            if (!string.IsNullOrWhiteSpace(dr["EntryReportedId"].ToString()) && !string.IsNullOrWhiteSpace(MvcApplication.CUser.UserId.ToLower()))
                                             {
-                                                if (dr["EntryReportedBy"].ToString().ToLower() == MvcApplication.CUser.UserId.ToLower())
+                                                if (dr["EntryReportedId"].ToString().ToLower() == MvcApplication.CUser.UserId.ToLower())
                                                 {
                                                     <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon" target="_blank" title="Participant Edit">
                                                         <i class="fa fa-edit"></i>
