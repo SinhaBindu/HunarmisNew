@@ -6,7 +6,7 @@
 }
 
 <div class="table-responsive">
-    <table class="table table-bordered table-striped" id="tbl">
+    <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="tbl">
         <thead class="text-center">
             <tr>
                 <th class="text-center tblth">Srno.</th>
@@ -26,7 +26,7 @@
                             <td>@(srno++)</td>
                             <td>@dr["CourseName"]</td>
                             <td>
-                                <a href="@(CommonModel.GetBaseUrl()+dr["FilePath"])" class="btn btn-success btn-sm" download target="_blank"><i class="fa fa-download"></i></a>
+                                <a href="@(CommonModel.GetBaseUrl()+dr["FilePath"])" class="btn btn-primary btn-sm" download target="_blank"><i class="fa fa-download"></i></a>
                             </td>
                             <td>
                                 <a href="~/Master/CoursesMaster?Id=@dr["Id"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>

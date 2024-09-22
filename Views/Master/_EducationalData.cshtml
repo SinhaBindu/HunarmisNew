@@ -6,7 +6,7 @@
 }
 
 <div class="table-responsive">
-    <table class="table table-bordered table-striped" id="tbl">
+    <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="tbl">
         <thead class="text-center">
             <tr>
                 <th class="text-center tblth">Srno.</th>
@@ -25,7 +25,7 @@
                             <td>@(srno++)</td>
                             <td>@dr["QualificationName"]</td>
                             <td>
-                                <a href="~/Master/EducationalMaster?Id=@dr["Id"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                <a href="~/Master/EducationalMaster?Id=@dr["Id"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
                     }

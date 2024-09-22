@@ -5,9 +5,8 @@
     dt = Model;
 }
 
-<div class="bg-light rounded h-100 p-4">
     <div class="table-responsive">
-        <table class="table table-bordered table-striped" id="tbl">
+        <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="tbl">
             <thead class="text-center">
                 <tr>
                     <th class="text-center tblth">Srno.</th>
@@ -32,7 +31,7 @@
                                     <td>@CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</td>
                                     <td>@dr["NoOfParticipant"]</td>
                                     <td>
-                                        <a href="~/Master/BatchMaster?Id=@dr["Id"]" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                        <a href="~/Master/BatchMaster?Id=@dr["Id"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                         }
@@ -54,5 +53,4 @@
             </tfoot>
 
         </table>
-    </div>
     </div>

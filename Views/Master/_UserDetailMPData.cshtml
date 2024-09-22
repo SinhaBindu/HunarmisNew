@@ -15,20 +15,23 @@
 <style>
     .multiselect {
         width: 100% !important;
-       
     }
+
     .multiselect-container {
         width: 350px !important;
         height: 350px;
         overflow-y: scroll
     }
+
         .multiselect-container > li > a > label {
             padding: 3px 20px 3px 20px !important;
         }
+
     .dropdown-menu {
         font-size: 12px !important;
         background: #ffffff !important;
     }
+
     .multiselect-selected-text {
         display: block;
         width: 320px;
@@ -36,72 +39,67 @@
         height: 20px;
         overflow-y: scroll;
     }
-    
 </style>
-<div class="row row-deck">
-    <div class="col-lg-12 col-md-12">
-        <div class="card">
-            @**@
-            <div class="table-responsive" style="height:400px;">
-                <table class="table card-table table-vcenter text-nowrap" id="DataList">
-                    <thead>
+
+@**@
+<div class="table-responsive" style="height:400px;">
+    <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="DataList">
+        <thead>
+            <tr>
+                @*<th><input type="checkbox" name="selectAll" id="selectAll" onchange="CheckUnchecked(this)"></th>*@
+                <th>SrNo.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone No</th>
+                <th>Role</th>
+                <th>Training Center</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int sno = 1, index = 0;
+                if (Model != null)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var guidmapid = !string.IsNullOrWhiteSpace(dr["MappedId_pk"].ToString()) ? Guid.Parse(dr["MappedId_pk"].ToString()) : Guid.Empty;
+                        var mappedId = guidmapid != Guid.Empty ? tblmc.Where(x => x.MappedId_fk == guidmapid).ToList() : null;
+                        //var mappedIds = mappedId.Count > 0? mappedId.ConvertAll(X=>X.TrainingCenterId).Join(","):"";
+                        var mappedIds = mappedId != null ? string.Join(",", mappedId.Select(x => x.TrainingCenterId.ToString()).ToArray()) : "";
                         <tr>
-                            @*<th><input type="checkbox" name="selectAll" id="selectAll" onchange="CheckUnchecked(this)"></th>*@
-                            <th>SrNo.</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone No</th>
-                            <th>Role</th>
-                            <th>Training Center</th>
-                            <th></th>
+                            @*<td>
+                                    <input type="checkbox" class="check" name="chcksinglsel@(sno++)" id="chcksinglsel@(sno++)"
+                                           data-userid="@dr["Id"]" data-roleid="@dr["RoleId"]" onchange="CheckUnchecked(this)">
+                                </td>*@
+                            <td class="text-left">@(sno++)</td>
+                            <td class="text-left">@dr["Name"]</td>
+                            <td class="text-left">@dr["Email"]</td>
+                            <td class="text-left">@dr["PhoneNumber"]</td>
+                            <td class="text-left">@dr["Role"]</td>
+                            <td data-id="td@(index)" class="tdselval">
+                                <input type="hidden" id="hd@(index)" name="hd@(index)" class="hd@(index)" value="@mappedIds" />
+                                @*@Html.ListBox("TAC" + index, new MultiSelectList(Hunarmis.Manager.CommonModel.GetDistTrainingAgencyCenterList(dtcen,mappedId), "value", "text"), new { @class = "form-control multiple TAC", multiple = "multiple" })*@
+                                @Html.DropDownList("TAC" + index, new SelectList(Hunarmis.Manager.CommonModel.GetDistTrainingAgencyCenterList(dtcen, mappedId), "value", "text"), new { @class = "tdselval form-control multiple TAC", multiple = "multiple" })
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" onclick="CUData('@dr["MappedId_pk"]','@dr["Id"]','@dr["RoleId"]', 'TAC' + @index);" class="btn btn-primary btn-sm">Map</a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            int sno = 1, index = 0;
-                            if (Model != null)
-                            {
-                                foreach (DataRow dr in dt.Rows)
-                                {
-                                    var guidmapid = !string.IsNullOrWhiteSpace(dr["MappedId_pk"].ToString()) ? Guid.Parse(dr["MappedId_pk"].ToString()) : Guid.Empty;
-                                    var mappedId = guidmapid != Guid.Empty ? tblmc.Where(x => x.MappedId_fk == guidmapid).ToList() : null;
-                                    //var mappedIds = mappedId.Count > 0? mappedId.ConvertAll(X=>X.TrainingCenterId).Join(","):"";
-                                    var mappedIds = mappedId != null ? string.Join(",", mappedId.Select(x => x.TrainingCenterId.ToString()).ToArray()) : "";
-                                    <tr>
-                                        @*<td>
-                                        <input type="checkbox" class="check" name="chcksinglsel@(sno++)" id="chcksinglsel@(sno++)"
-                                               data-userid="@dr["Id"]" data-roleid="@dr["RoleId"]" onchange="CheckUnchecked(this)">
-                                    </td>*@
-                                        <td class="text-left">@(sno++)</td>
-                                        <td class="text-left">@dr["Name"]</td>
-                                        <td class="text-left">@dr["Email"]</td>
-                                        <td class="text-left">@dr["PhoneNumber"]</td>
-                                        <td class="text-left">@dr["Role"]</td>
-                                        <td data-id="td@(index)" class="tdselval">
-                                            <input type="hidden" id="hd@(index)" name="hd@(index)" class="hd@(index)" value="@mappedIds" />
-                                            @*@Html.ListBox("TAC" + index, new MultiSelectList(Hunarmis.Manager.CommonModel.GetDistTrainingAgencyCenterList(dtcen,mappedId), "value", "text"), new { @class = "form-control multiple TAC", multiple = "multiple" })*@
-                                            @Html.DropDownList("TAC" + index, new SelectList(Hunarmis.Manager.CommonModel.GetDistTrainingAgencyCenterList(dtcen, mappedId), "value", "text"), new { @class = "tdselval form-control multiple TAC", multiple = "multiple" })
-                                        </td>
-                                        <td>
-                                            <a href="javascript:void(0);" onclick="CUData('@dr["MappedId_pk"]','@dr["Id"]','@dr["RoleId"]', 'TAC' + @index);" class="btn btn-primary">Map</a>
-                                        </td>
-                                    </tr>
-                                    index++;
-                                }
-                            }
-                            else
-                            {
-                                <tr><td colspan="6" class="text-danger"><strong> Record Not Found !!</strong></td></tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="6" class="text-danger"><strong> Record Not Found !!</strong></td></tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
 
-@section Scripts {    
+
+@section Scripts {
     <script>
         $(document).ready(function () {
             //$('.multiple').multiselect({

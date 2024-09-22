@@ -9,187 +9,34 @@
 }
 
 <style>
-    .container {
-        width: 340px;
-        height: 280px;
-        display: inline-block;
-    }
-    /* #chartgrouptree {
-        width: 950px;
-        height: 500px;
-        display: inline-block;
-        margin:0,0,0,;
-    }*/
-    input#em {
-        width: 100%;
+    #page-content {
+        padding: 0px !important;
     }
 </style>
-<style>
-    .table th {
-        font-size: 14px;
-        background: #fff;
-    }
-
-    .table td {
-        font-size: 13px;
-    }
-
-    .dataTables_filter, .dataTables_length {
-        margin-bottom: 15px;
-    }
-
-    .actives2 {
-        color: #009CFF !important;
-        background: #FFFFFF;
-        border-color: #009CFF;
-    }
-
-    table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
-        padding: 10px 6px !important
-    }
-
-    .box-gap {
-        padding: 0 10px !important
-    }
-
-    .dt-input {
-        margin-right: 10px
-    }
-
-    .panel {
-        min-height: 500px;
-    }
-
-    div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
-        color: #fff !important
-    }
-
-    .downs-btn {
-        float: right
-    }
-
-    .modal {
-        padding: 20px !important
-    }
-
-    .modal-dialog {
-        width: 100%;
-        border: 2px solid #F5F5F5
-    }
-
-    .modal-title {
-        text-align: center;
-        font-size: 24px;
-        color: #000
-    }
-
-    .clos-btn {
-        float: right;
-        padding: 3px 7px;
-        background: #D34829;
-        color: #fff;
-        border-radius: 5px;
-        font-size: 14px;
-        border: none;
-        margin-top: -20px
-    }
-
-    /*.basic-info div {
-        flex-basis: 48%
-    }*/
-    .panel-bodys {
-        margin-bottom: 10px;
-    }
-
-    .btn-mat {
-        background: #009CFF;
-        padding: 2px 8px;
-        border-radius: 4px;
-        color: #fff;
-        border: none
-    }
-
-    .down-btn a:hover, .down-btn:hover {
-        color: #fff !important
-    }
-
-    .semi-title {
-        background: #2F17B5;
-    }
-
-    .panel-bodys h5 {
-        color: #e17c0f;
-    }
-
-    .box-bg {
-        padding: 15px;
-        background: #F5F5F5;
-        border-radius: 5px;
-    }
-
-        .box-bg label {
-            text-align: left !important;
-            font-weight: bold;
-            color: #000;
-        }
-
-    .modal-header {
-        padding: 10px 15px 0;
-    }
-
-    .regis {
-        color: #2F17B5
-    }
-
-    .form-flex {
-        display: flex;
-        gap: 30px
-    }
-
-        .form-flex div {
-            flex: 1;
-        }
-
-    .UploadCheckFile {
-        background: #fff;
-        width: 100%;
-        padding: 4px 0;
-    }
-</style>
-
 
 <div id="page-content">
-    <div class="genral-form">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel">
-                    @*<div class="panel-spacer">
-                            <p class="bord-btm pad-ver text-main text-bold">
-                                <i class="fa fa-list spacerright2"></i>@ViewBag.Title &nbsp;&nbsp;&nbsp;
-                                <strong id="partcolm" class="text-bold text-primary">  </strong> : <strong id="noofpart" class="text-success" style="font-size:medium;"></strong>
-                            </p>
-                        </div>*@
-
-                    <div class="panel-body">
-                        <div class="col-sm-12" id="errormsg">
-
-                        </div>
-                        <div class="col-sm-12">
-                            <input id="em" type="range" min="0.3" max="2" step="0.01" value="1" style="display:none;" />
-                        </div>
+    <div class="container-fluid">
+        <div class="row mt-20">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card card-box p-0">
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-8">
-                                <div id="chartgrouptree" class="" style="height:1200px;"></div>
+                            <div class="col-sm-12" id="errormsg">
+                            </div>
+                            <div class="col-sm-12">
+                                <input id="em" type="range" min="0.3" max="2" step="0.01" value="1" style="display:none;" />
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div id="chartgrouptree" class="" style="height:1200px;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <hr />
-
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 <div id="subdata">
 

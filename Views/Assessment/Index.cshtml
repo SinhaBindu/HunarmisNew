@@ -9,64 +9,70 @@
 
 }
 <style>
-    .panel-body {
-        padding: 0px 20px 5px;
+    #page-content {
+        padding: 0px !important;
     }
 </style>
 <div id="page-content">
-    <div class="genral-form">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel">
-                    <div class="panel-spacer">
-                        <p class="bord-btm pad-ver text-main text-bold">
-                            <i class="fa fa-list spacerright2"></i>@*@ViewBag.Title*@ <strong id="sg-title" class="text-info"></strong>
-                        </p>
+    <div class="container-fluid">
+        <div class="row mt-20">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card card-box p-0">
+                    <div class="card-head">
+                        <div class="title">
+                            <i class="fa fa-list spacerright2"></i>
+                            <strong id="sg-title" class="text-info"></strong>
+                        </div>
+                        <div class="tools">
+
+                        </div>
                     </div>
-                    @using (Html.BeginForm("GetIndex", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
-                    {
-                        <div class="panel-bodys">
-                            <div class="bg-light rounded h-100 p-4">
-                                <div class="row mb-3">
-                                    <div class="col-md-3">
-                                        <div class="position-relative form-group">
+                    <div class="card-body">
+                        @using (Html.BeginForm("GetIndex", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "loader" }))
+                        {
+                            <fieldset class="fieldset-card">
+                                <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-4">
+                                        <div class="form-group">
                                             @Html.LabelFor(model => model.FormId, htmlAttributes: new { @class = "control-label" })
                                             @*@Html.DropDownListFor(m => m.FormId, CommonModel.GetForm(1), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })*@
                                             @Html.DropDownListFor(m => m.FormId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="position-relative form-group">
+                                    <div class="col-xs-12 col-md-4">
+                                        <div class="form-group">
                                             @Html.LabelFor(m => m.BatchId, htmlAttributes: new { @class = "control-label" })
                                             @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                             @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <div class="control-label" style="margin-bottom:5px;">&nbsp;</div>
+                                            <span id="div-download" class="btn-downs"></span>
+                                        </div>
+                                    </div>
                                 </div>
+                            </fieldset>
+                            <div class="panel-body">
+                                <div class="row" id="div-main">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12" id="sub-list">
 
+                                </div>
                             </div>
-                        </div>
-                    }
-                    <div class="col-md-12">@Html.Partial("_Alerts")</div>
-                    <div class="panel-body">
-                        <div class="row" id="div-main">
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12" id="sub-list">
+                            <div class="row">
+                                <div class="col-sm-12" id="sub-data-view">
+                                </div>
+                            </div>
+                        }
 
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12" id="sub-data-view">
-                            </div>
-                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

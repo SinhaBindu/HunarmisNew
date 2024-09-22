@@ -569,6 +569,51 @@ div.dataTables_wrapper div.dataTables_filter input {
     transition-duration: .5s;
     box-shadow:none;
 }
+.modal-header, .modal-footer {
+    padding: 8px 15px !important;
+    background: #f6f6f6 !important;
+    position: relative !important;
+    border: 0;
+    background: #f5f5f5 !important;
+}
+.modal-header .modal-title {
+    font-size: 14px;
+    color: #4d627b;
+}
+.modal-body {
+    padding: 10px 15px;
+}
+.clos-btn {
+    position: absolute;
+    right: 4px;
+    top: 0px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    font-weight: 100;
+}
+.form-group label {
+    color: #7D7D7D;
+    font-size: 12px !important;
+    margin-bottom: 4px !important;
+}
+.btnregidcal {
+    background: #ae77b8 !important;
+    display: block;
+    color: #fff !important;
+    padding: 5px;
+    margin-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+}
+.btn-primary, .btn-primary:hover, .btn-primary:focus {
+    background-color: #2F17B5 !important;
+    border-color: #2F17B5 !important;
+    color: #fff;
+}
+.btn-sm, .btn-icon.btn-sm, .btn-group-sm > .btn {
+    padding: 2px 5px !important;
+}
 @media (min-width: 992px) {
     #footer, .bootom-fixed {
         background: #4443a0 !important;

@@ -7,94 +7,61 @@
     ViewBag.SemiTitleLink = "/Attendance/BatchAssign";
 }
 <style>
-    table {
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    }
-
-    .table th {
-        font-size: 14px;
-        background: #fff;
-    }
-
-    .table td {
-        font-size: 13px;
-    }
-
-    .dataTables_filter, .dataTables_length {
-        margin-bottom: 15px;
-    }
-
-    table.dataTable > thead > tr > th, table.dataTable > thead > tr > td {
-        padding: 10px 6px !important
-    }
-
-    .tblth {
-        background: #8A77F4 !important;
-        color: #fff;
-        border: 1px solid #fff !important
-    }
-
-    div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
-        background: #F59678 !important;
-        color: #fff !important;
-        border: 1px solid #D38167 !important;
-        margin-bottom: 12px;
+    #page-content {
+        padding: 0px !important;
     }
 </style>
 <div id="page-content">
-    <div class="genral-form">
-        <div class="row">
-            <div class="col-lg-12">
-
-                <div class="panel">
-                    <div class="panel-spacer">
-                        <!--<p class="bord-btm pad-ver text-main text-bold">-->
-                        @*@ViewBag.Title*@
-                        <!--</p>-->
-                    </div>
-                    @using (Html.BeginForm("BatchAssign", "Attendance", FormMethod.Post, new { @class = "panel-body form-horizontal form-padding loader", @id = "formid" }))
-                    {
-                    <div class="col-md-12">@Html.Partial("_Alerts")</div>
-                    <div class="panel-bodys bg-white">
-                        <div class="col-sm-12">
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <div class="rounded h-100 p-4">
+    <div class="container-fluid">
+        @using (Html.BeginForm("BatchAssign", "Attendance", FormMethod.Post, new { @class = "loader", @id = "formid" }))
+        {
+            <div class="row mt-20">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card card-box p-0">
+                        <div class="card-body">
+                            <fieldset class="fieldset-card">
+                                <div class="row">
+                                    <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                                    <div class="col-xs-12 col-md-3">
                                         <div class="form-group">
-                                            @Html.LabelFor(m => m.CourseId, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                            @Html.LabelFor(m => m.CourseId, new { @class = "control-label" })<em>*</em>
                                             @Html.DropDownListFor(model => model.CourseId, CommonModel.GetCourses(), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
                                             @Html.ValidationMessageFor(m => m.CourseId, "", new { @class = "text-danger" })
                                         </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
                                         <div class="form-group">
-                                            @Html.LabelFor(m => m.TrainingCenterID, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                            @Html.LabelFor(m => m.TrainingCenterID, new { @class = "control-label" })<em>*</em>
                                             @Html.DropDownListFor(model => model.TrainingCenterID, CommonModel.GetDistTrainingAyCentersList(), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
                                             @Html.ValidationMessageFor(m => m.TrainingCenterID, "", new { @class = "text-danger" })
                                         </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
                                         <div class="form-group">
-                                            @Html.LabelFor(m => m.BatchId, new { @class = "Col-md-2 col-form-label" })<em>*</em>
+                                            @Html.LabelFor(m => m.BatchId, new { @class = "control-label" })<em>*</em>
                                             @Html.DropDownListFor(model => model.BatchId, new List<SelectListItem>
-                                                (), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
-                                                @Html.ValidationMessageFor(m => m.BatchId, "", new { @class = "text-danger" })
+                     (), "Select One", htmlAttributes: new { @class = "form-control select2 required", @required = "required" })
+                                            @Html.ValidationMessageFor(m => m.BatchId, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-md-12" style="padding-top: 10px !important;">
-                                            <div class="col-md-4">
-                                                <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
-                                            </div>
-
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <div class="control-label" style="margin-bottom:5px;">&nbsp;</div>
+                                            <input type="submit" class="btn-register" name="btnsubmit" id="btnsubmit" value="Submit" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-9">
+                            </fieldset>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
                                     <div id="subdata"></div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    }
                 </div>
             </div>
-        </div>
+        }
     </div>
 </div>
 

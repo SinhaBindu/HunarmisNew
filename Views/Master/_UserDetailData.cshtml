@@ -8,66 +8,61 @@
     }
 }
 
-<div class="row row-deck">
-    <div class="col-lg-12 col-md-12">
-        <div class="card">
-            <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowrap" id="DataList">
-                    <thead>
+<div class="table-responsive">
+    <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="DataList">
+        <thead>
+            <tr>
+                <th>SrNo.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone No</th>
+                <th>Role</th>
+                <th>District</th>
+                <th>Modify</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int sno = 1;
+                if (Model != null)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
                         <tr>
-                            <th>SrNo.</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone No</th>
-                            <th>Role</th>
-                            <th>District</th>
-                            <th>Modify</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            int sno = 1;
-                            if (Model != null)
+                            <td class="text-left">@(sno++)</td>
+                            <td class="text-left">@dr["Name"]</td>
+                            <td class="text-left">@dr["Email"]</td>
+                            <td class="text-left">@dr["PhoneNumber"]</td>
+                            <td class="text-left">@dr["Role"]</td>
+                            <td class="text-left">@dr["DistrictName"]</td>
+                            <td title="Edit">
+                                <a href="~/Account/Register?id=@dr["Id"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                            </td>
+                            @if (dr["LockoutEnabled"].ToString() == "False")
                             {
-                                foreach (DataRow dr in dt.Rows)
-                                {
-                                    <tr>
-                                        <td class="text-left">@(sno++)</td>
-                                        <td class="text-left">@dr["Name"]</td>
-                                        <td class="text-left">@dr["Email"]</td>
-                                        <td class="text-left">@dr["PhoneNumber"]</td>
-                                        <td class="text-left">@dr["Role"]</td>
-                                        <td class="text-left">@dr["DistrictName"]</td>
-                                        <td title="Edit">
-                                            <a href="~/Account/Register?id=@dr["Id"]" class="edit-icon"><i class="fa fa-edit"></i></a>
-                                        </td>
-                                        @if (dr["LockoutEnabled"].ToString() == "False")
-                                        {
-                                            <td title="Disable">
-                                                <a href="~/Account/Register_Enable?id=@dr["Id"]" class="slack-icon"><i class="fa fa-slack"></i></a>
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td title="Enabled">
-                                                <a href="~/Account/Register_Lock?id=@dr["Id"]" class="check-icon"><i class="fa fa-check"></i></a>
-                                            </td>
-                                        }
-
-                                        @*<td class="text-center"><a href="return javascript:void(0);" data-target="#largeModal" data-toggle="modal" onclick="BindEdit('@item.ID', '@item.Name', '@item.Description', '@item.DisplayOrder', this)" title="Edit"><i class="fa fa-edit"></i></a></td>*@
-                                    </tr>
-                                }
+                                <td title="Disable">
+                                    <a href="~/Account/Register_Enable?id=@dr["Id"]" class="btn btn-danger btn-sm"><i class="fa fa-slack"></i></a>
+                                </td>
                             }
                             else
                             {
-                                <tr><td colspan="9" class="text-danger"><strong> Record Not Found !!</strong></td></tr>
+                                <td title="Enabled">
+                                    <a href="~/Account/Register_Lock?id=@dr["Id"]" class="btn btn-success btn-sm"><i class="fa fa-check"></i></a>
+                                </td>
                             }
-                        }
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                            @*<td class="text-center"><a href="return javascript:void(0);" data-target="#largeModal" data-toggle="modal" onclick="BindEdit('@item.ID', '@item.Name', '@item.Description', '@item.DisplayOrder', this)" title="Edit"><i class="fa fa-edit"></i></a></td>*@
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="9" class="text-danger"><strong> Record Not Found !!</strong></td></tr>
+                }
+            }
+
+        </tbody>
+    </table>
 </div>
+

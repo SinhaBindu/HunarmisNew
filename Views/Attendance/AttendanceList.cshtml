@@ -7,73 +7,48 @@
     ViewBag.SemiTitleLink = "/Attendance/CreatedAttend";
     Model.FromDt = DateTime.Today.AddDays(-1).ToString("dd-MMM-yyyy");
 }
-
+<style>
+    #page-content {
+        padding: 0px !important;
+    }
+</style>
 <div id="page-content">
-    <div class="genral-form">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel">
-                    <div class="panel-spacer">
-                        @*<div class="col-md-2">
-                                <p class="bord-btm pad-ver text-main text-bold">
-                                    <i class="fa fa-list spacerright2"></i>@ViewBag.Title
-                                </p>
-                            </div>*@
-                        <div class="col-md-2" style="margin-top:5px !important;">
-
-                        </div>
-                    </div>
-                    <div class="content-manage">
+    <div class="container-fluid">
+        <div class="row mt-20">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card card-box p-0">
+                    <div class="card-body">
                         @using (Html.BeginForm("GetAttendanceList", "Attendance", FormMethod.Post, new { id = "submission-form" }))
                         {
-                            <div class="col-md-12">@Html.Partial("_Alerts")</div>
-                            <div class="panel-bodys">
-                                <div class="manage-input">
-                                    <div class="card1">
-                                        <div class="search-box">
-                                            <div class="row">
-                                                <div class="form-group">
-                                                    @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label col-lg-1" })
-                                                    <div class="col-lg-4">
-                                                        @Html.DropDownListFor(model => model.BatchId, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2 onchnagecl", @required = "required" })
-                                                        @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group mrtop">
-                                                    @Html.LabelFor(model => model.AttendanceDt, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                                    <div class="col-lg-3">
-                                                        @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "datepicker form-control required onchnagecl", @required = "required" } })
-                                                        @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mrtop">
-                                                    <div class="col-lg-2">
-                                                        <div id="div-download" class=""></div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            @*<div class="break"></div>*@
-                                            @*<div class="row">
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(model => model.CourseIds, htmlAttributes: new { @class = "col-lg-1" })
-                                                        <div class="col-lg-5">
-                                                            @Html.DropDownListFor(model => model.CourseIds, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control", multiple = "multiple", @required = "required" })
-                                                            @Html.ValidationMessageFor(model => model.CourseIds, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="break"></div>*@
+                            <fieldset class="fieldset-card">
+                                <div class="row">
+                                    <div class="col-md-12">@Html.Partial("_Alerts")</div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(model => model.BatchId, new List<SelectListItem>(), "Select One", htmlAttributes: new { @class = "form-control select2 onchnagecl", @required = "required" })
+                                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AttendanceDt, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @placeholder = "Enter the Attendance Date", @class = "datepicker form-control required onchnagecl", @required = "required" } })
+                                            @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <div id="div-download" class=""></div>
                                         </div>
                                     </div>
                                 </div>
-
-                            </div>
-
-                            <div class="break"></div>
-                            <div id="subdata">
+                            </fieldset>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <div id="subdata">
+                                    </div>
+                                </div>
                             </div>
                         }
                     </div>
