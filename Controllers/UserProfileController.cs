@@ -17,7 +17,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
-using static Bodh.Models.Enums;
+using static Hunarmis.Manager.Enums;
 using Run = DocumentFormat.OpenXml.Spreadsheet.Run;
 using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
 //using DocumentFormat.OpenXml.Packaging;

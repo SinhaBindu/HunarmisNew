@@ -431,7 +431,6 @@
     <Compile Include="Models\EmployeeType_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ExportService.cs" />
     <Compile Include="Models\FamilyMember_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
