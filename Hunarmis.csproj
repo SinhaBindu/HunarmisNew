@@ -197,9 +197,6 @@
       <HintPath>packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.Packaging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.IO.Packaging.6.0.0\lib\net461\System.IO.Packaging.dll</HintPath>
     </Reference>
@@ -457,7 +454,6 @@
     <Compile Include="Models\Languages_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PartResumeMode.cs" />
     <Compile Include="Models\LocatedKM_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -513,6 +509,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PartResumeMode.cs" />
     <Compile Include="Models\PlacementTracker_Model.cs" />
     <Compile Include="Models\PreTraining_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
@@ -574,9 +571,7 @@
     <Compile Include="Models\tbl_ParticipantRemarks_History.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_ParticipantResumeTemplate.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\tbl_ParticipantResumeTemplate.cs" />
     <Compile Include="Models\tbl_Participant_Calling.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -726,7 +721,6 @@
     <Content Include="Content\css\themes\type-e\theme-purple.min.css" />
     <Content Include="Content\css\themes\type-e\theme-well-red.min.css" />
     <Content Include="Content\css\themes\type-e\theme-yellow.min.css" />
-    <Content Include="Content\CV.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\1.png" />
     <Content Include="Content\images\2.png" />
@@ -1763,6 +1757,7 @@
     <Content Include="Scripts\smartphoto.js" />
     <Content Include="Views\Shared\CertificateIssuePart - Copy.html" />
     <Content Include="Views\Shared\MailTemplate.html" />
+    <Content Include="Views\Shared\ResumeFormat.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1895,7 +1890,6 @@
     <Content Include="Views\Tainer\TrainerDashboard.cshtml" />
     <Content Include="Views\Home\_CallStatusDetails.cshtml" />
     <Content Include="Views\UserProfile\ResumeTemplate.cshtml" />
-    <Content Include="Views\Shared\ResumeFormat.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

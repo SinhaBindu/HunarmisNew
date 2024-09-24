@@ -52,23 +52,11 @@
             <div class="form-group cooler-bg">
                 <div class="row">
                     <div class="col-md-12">
-                        @Html.LabelFor(model => model.ResumeTemplate, htmlAttributes: new { @class = "control-label  col-sm-12" })
+                        @*@Html.LabelFor(model => model.ResumeTemplate, htmlAttributes: new { @class = "control-label  col-sm-12" })*@
                         <textarea id="ResumeTemplate" name="ResumeTemplate" class="form-control" cols="5">
                                @Model.ResumeTemplate
-                        @*@{
-                            if (Model != null)
-                            {
-                                if (Model.PartResumeId_pk != Guid.Empty)
-                                {
-                                    @Model.ResumeTemplate
-                                }
-                                else
-                                {
-                                    }
-                                }
-                            }*@
 
-                </textarea>
+                        </textarea>
                         @*@Html.TextAreaFor(x => x.QuarterDesc, new { @class = "", @id = "QuarterDesc" })*@
                     </div>
                     <div class="col-md-12">
@@ -165,7 +153,8 @@
 }
 
 <!--<div id="LeadPicModal" class="modal fade">-->
-@*<form action="~/Lead/Create" method="post" id="frmLead" enctype="multipart/form-data" autocomplete="off">*@
+@*<form action="~/Lead/Create" method="post" id="frmLead" enctype="multipart/form-data" autocomplete="off">
+*@
 <!--<div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header pd-x-20">
@@ -184,17 +173,17 @@
         </div>
     </div>
 </div>-->
-@*</form>*@
+@*
+    </form>*@
 <!--</div>-->
 <!-- MODAL DIALOG -->
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/JS/Master.js"></script>
-    <script src="https://cdn.tiny.cloud/1/sycl3w1d8npikolltg56dvhf7yiehfqo9a8sbnei0nokfddz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/tx3fwznnymlpbaj4uxmf6d410wd674sxw944naz5wv64rqhx/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js">
-    </script>
+    @*<script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js">
+        </script>*@
 
     <script>
         //ClassicEditor
@@ -210,169 +199,189 @@
 
     </script>
     <script>
-        var mids = []; var AddPicList = []; var Templatedata = "";
-        $(document).ready(function () {
-           // $('#divpic').html("");
-            LoadEditor();
-            //LoadTemplate();
+    var mids = []; var AddPicList = []; var Templatedata = "";
+    $(document).ready(function () {
+        // $('#divpic').html("");
+        LoadEditor();
+        //LoadTemplate();
 
-            if ('@Model.PartResumeId_pk' != '@Guid.Empty' && '@Model.PartResumeId_pk' != '') {
-                //LoadEditor();
-                //tinyMCE.triggerSave();
-            }
-            else {
+        if ('@Model.PartResumeId_pk' != '@Guid.Empty' && '@Model.PartResumeId_pk' != '') {
+            //LoadEditor();
+            //tinyMCE.triggerSave();
+        }
+        else {
 
-               // BindSubmissionData();
-            }
-
-
-
-        });
-        function LoadEditor() {
-            //$('#ActivityDesc').wysiwyg({
-            //    toolbar: [
-            //        ['mode'],
-            //        ['operations', ['undo', 'rendo', 'cut', 'copy', 'paste']],
-            //        ['styles'],
-            //        ['fonts', ['select', 'size']],
-            //        ['text', ['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'font-color', 'bg-color']],
-            //        ['align', ['left', 'center', 'right', 'justify']],
-            //        ['lists', ['unordered', 'ordered', 'indent', 'outdent']],
-            //        ['components', ['table', /*'chart'*/]],
-            //        ['intervals', ['line-height', 'letter-spacing']],
-            //        ['insert', ['emoji', 'link', '<a href="https://www.jqueryscript.net/tags.php?/video/">video</a>', 'symbol', /*'bookmark'*/]],
-            //        ['special', ['print', 'unformat', 'visual', 'clean']],
-            //        /*['fullscreen'],*///'image'
-            //    ],
-            //});
-            tinymce.init({
-                selector: '#ResumeTemplate',
-                plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
-                toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
-                toolbar_mode: 'floating',
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                //codesample_global_prismjs: true
-
-            });
+            // BindSubmissionData();
         }
 
-        @*function BindSubmissionData() {
-            $('#submission-data').removeClass("text-danger");
-            //var url = $('#submission-form').attr("action");
-            //var formData = $('#submission-form').serialize();
-           // var YID =  $('#IDYear').val();
-            //var OrgID = $('#OrgID').val();
-            //OrgID = OrgID.join(",");
-            //var LID = $('#LID').val();
-            //LID = LID.join(",");
-            var Quarter = $('#IDQuarter').val();
-            //Quarter = Quarter.join(",");
-            var TempID = 1;
-            $.ajax({
-                url: document.baseURI + "/UserProfile/ResumeTemplate",
-                type: "Post",
-                data: { 'YID': YID, 'QID': Quarter, 'TemplateID': TempID },
-                success: function (resp) {
-                    if (resp.StatusType == 'success') {
-                        if (resp.Data != null) {
-                            AddPicList = []; Templatedata = "";
-                            var res = resp.Data;
-                            if (res.Obj2 != null) {
-                                AddPicList = res.Obj2;
-                            }
-                            else {
-                                $('#divpic').addClass("text-danger").html('<div class="col-md-12">Record Not Found !!</div>');//TO DO
-                            }
-                            if (res.Obj3 != null) {
-                                var restemp = JSON.parse(res.Obj3);
-                                if (restemp[0].TemplateDesc && restemp.length == 1) {
-                                    Templatedata = restemp[0].TemplateDesc;
-                                    Templatedata = Templatedata.replace('[[USAID_Template]]', '@CommonModel.GetBaseUrl()' +'/Content/images/USAID_Template.png');
-                                    Templatedata = Templatedata.replace('[[Care_Template]]', '@CommonModel.GetBaseUrl()' +'/Content/images/Care_Template.png');
-                                    //$('#QuarterDesc').val('');
-                                   // $('#QuarterDesc').val(temphtml);
-                                    LoadTemplate();
-                                }
-                                if (restemp[0].TemplateID && restemp.length == 1) {
-                                    var idtemp = restemp[0].TemplateID;
-                                    $('#IDQTemplate').val(idtemp);
-                                }
-                            }
-                        } else {
-                            $('#divpic').html("Something went wrong while processing your request!");//TO DO
-                            $('#divpic').addClass("text-danger");//TO DO
+
+
+    });
+    function LoadEditor() {
+        //$('#ActivityDesc').wysiwyg({
+        //    toolbar: [
+        //        ['mode'],
+        //        ['operations', ['undo', 'rendo', 'cut', 'copy', 'paste']],
+        //        ['styles'],
+        //        ['fonts', ['select', 'size']],
+        //        ['text', ['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'font-color', 'bg-color']],
+        //        ['align', ['left', 'center', 'right', 'justify']],
+        //        ['lists', ['unordered', 'ordered', 'indent', 'outdent']],
+        //        ['components', ['table', /*'chart'*/]],
+        //        ['intervals', ['line-height', 'letter-spacing']],
+        //        ['insert', ['emoji', 'link', '<a href="https://www.jqueryscript.net/tags.php?/video/">video</a>', 'symbol', /*'bookmark'*/]],
+        //        ['special', ['print', 'unformat', 'visual', 'clean']],
+        //        /*['fullscreen'],*///'image'
+        //    ],
+        //});
+        tinymce.init({
+            selector: '#ResumeTemplate',
+            height: 500,
+            //plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+            //toolbar: 'casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
+            //toolbar_mode: 'floating',
+            //tinycomments_mode: 'embedded',
+            //tinycomments_author: 'Author name',
+            menu: {
+                file: { title: 'File', items: 'newdocument restoredraft | preview | importword exportpdf exportword | print | deleteallconversations' },
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
+                view: { title: 'View', items: 'code revisionhistory | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments' },
+                insert: { title: 'Insert', items: 'image link media addcomment pageembed codesample inserttable | math | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime' },
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | styles blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat' },
+                tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | a11ycheck code wordcount' },
+                table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | tableprops deletetable' },
+                export: { title: 'Export', items:'Word Pdf'},
+                help: { title: 'Help', items: 'help' }
+            },
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'help'
+            ],
+            toolbar: 'undo redo | styles | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                ' emoticons | help',
+            //codesample_global_prismjs: true
+
+        });
+    }
+
+    @* function BindSubmissionData() {
+        $('#submission-data').removeClass("text-danger");
+        //var url = $('#submission-form').attr("action");
+        //var formData = $('#submission-form').serialize();
+        // var YID =  $('#IDYear').val();
+        //var OrgID = $('#OrgID').val();
+        //OrgID = OrgID.join(",");
+        //var LID = $('#LID').val();
+        //LID = LID.join(",");
+        var Quarter = $('#IDQuarter').val();
+        //Quarter = Quarter.join(",");
+        var TempID = 1;
+        $.ajax({
+            url: document.baseURI + "/UserProfile/ResumeTemplate",
+            type: "Post",
+            data: { 'YID': YID, 'QID': Quarter, 'TemplateID': TempID },
+            success: function (resp) {
+                if (resp.StatusType == 'success') {
+                    if (resp.Data != null) {
+                        AddPicList = []; Templatedata = "";
+                        var res = resp.Data;
+                        if (res.Obj2 != null) {
+                            AddPicList = res.Obj2;
                         }
-                    }
-                    else {
+                        else {
+                            $('#divpic').addClass("text-danger").html('<div class="col-md-12">Record Not Found !!</div>');//TO DO
+                        }
+                        if (res.Obj3 != null) {
+                            var restemp = JSON.parse(res.Obj3);
+                            if (restemp[0].TemplateDesc && restemp.length == 1) {
+                                Templatedata = restemp[0].TemplateDesc;
+                                Templatedata = Templatedata.replace('[[USAID_Template]]', '@CommonModel.GetBaseUrl()' + '/Content/images/USAID_Template.png');
+                                Templatedata = Templatedata.replace('[[Care_Template]]', '@CommonModel.GetBaseUrl()' + '/Content/images/Care_Template.png');
+                                //$('#QuarterDesc').val('');
+                                // $('#QuarterDesc').val(temphtml);
+                                LoadTemplate();
+                            }
+                            if (restemp[0].TemplateID && restemp.length == 1) {
+                                var idtemp = restemp[0].TemplateID;
+                                $('#IDQTemplate').val(idtemp);
+                            }
+                        }
+                    } else {
                         $('#divpic').html("Something went wrong while processing your request!");//TO DO
                         $('#divpic').addClass("text-danger");//TO DO
                     }
-                },
-                error: function (req, error) {
-                    if (error === 'error') { error = req.statusText; }
-                    var errormsg = 'There was a communication error: ' + error;
-                    $('#divpic').html(errormsg);
                 }
-            });
-        }*@
+                else {
+                    $('#divpic').html("Something went wrong while processing your request!");//TO DO
+                    $('#divpic').addClass("text-danger");//TO DO
+                }
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                $('#divpic').html(errormsg);
+            }
+        });
+    } *@
 
-        function LoadTemplate() {
-            debugger;
-            //var res = confirm("Are you sure load the template? Your editor data will be delete !")
-            //if (res) {
-            var toReplace = 'src=\""' + document.baseURI + 'Uploads/CVresume.docx';
-                Templatedata = Templatedata.replace("src=\"Uploads/",toReplace);
-            $('#ResumeTemplate').val(Templatedata);
-            tinymce.get("ResumeTemplate").setContent(Templatedata);
-                /*ajaxLoad('#QuarterDesc', Templatedata);*/
-                //tinymce.activeEditor.setProgressState(true)
-                //tinymce.activeEditor.setProgressState(false, 3000)
-                //setTimeout(() => {
-                //    tinymce.activeEditor.setContent(Templatedata);
-                //}, 2000);
-            //}
-            //return false;
-        }
-        //function ajaxLoad(selector,data) {
-        //    var ed1 = tinymce.get('#QuarterDesc');
-        //    var ed = tinymce.get('content');
-
-        //    // Do you ajax call here, window.setTimeout fakes ajax call
-        //    ed.setProgressState(1); // Show progress
-        //    window.setTimeout(function () {
-        //        ed.setProgressState(0); // Hide progress
-        //        ed.setContent(data);
-        //    }, 3000);
+    function LoadTemplate() {
+        debugger;
+        //var res = confirm("Are you sure load the template? Your editor data will be delete !")
+        //if (res) {
+        var toReplace = 'src=\""' + document.baseURI + 'Uploads/CVresume.docx';
+        Templatedata = Templatedata.replace("src=\"Uploads/", toReplace);
+        $('#ResumeTemplate').val(Templatedata);
+        tinymce.get("ResumeTemplate").setContent(Templatedata);
+        /*ajaxLoad('#QuarterDesc', Templatedata);*/
+        //tinymce.activeEditor.setProgressState(true)
+        //tinymce.activeEditor.setProgressState(false, 3000)
+        //setTimeout(() => {
+        //    tinymce.activeEditor.setContent(Templatedata);
+        //}, 2000);
         //}
+        //return false;
+    }
+    //function ajaxLoad(selector,data) {
+    //    var ed1 = tinymce.get('#QuarterDesc');
+    //    var ed = tinymce.get('content');
 
-        @*function PopBindPic() {
-            //$('#divpic').html("");
-            $('#LeadPicModal').modal();
-            if (AddPicList != null && AddPicList.length > 0) {
-                debugger;
-                var PCL = "";
-                $('#divpic').html('');
-                if (AddPicList) {
-                    for (var i = 0; i < AddPicList.length; i++) {
-                        if (AddPicList[i]) {
-                            var pic = `<a href="javascript:void(0);" onclick="SelectImage(this)" style="display: inline-block;" title="">
+    //    // Do you ajax call here, window.setTimeout fakes ajax call
+    //    ed.setProgressState(1); // Show progress
+    //    window.setTimeout(function () {
+    //        ed.setProgressState(0); // Hide progress
+    //        ed.setContent(data);
+    //    }, 3000);
+    //}
+
+    @* function PopBindPic() {
+        //$('#divpic').html("");
+        $('#LeadPicModal').modal();
+        if (AddPicList != null && AddPicList.length > 0) {
+            debugger;
+            var PCL = "";
+            $('#divpic').html('');
+            if (AddPicList) {
+                for (var i = 0; i < AddPicList.length; i++) {
+                    if (AddPicList[i]) {
+                        var pic = `<a href="javascript:void(0);" onclick="SelectImage(this)" style="display: inline-block;" title="">
                                            <img src="@CommonModel.GetBaseUrl()${AddPicList[i]}" width="100" />
                                        </a>`;
-                            PCL += pic;
-                        }
+                        PCL += pic;
                     }
-                    $('#divpic').html(PCL);
                 }
+                $('#divpic').html(PCL);
             }
-        }*@
-
-        function SelectImage(current) {
-            var img = $(current).children('img')[0].src;
-            $("#txtImgURL").val(img);
-            $('#divpic a.active').removeClass('active');
-            $(current).addClass('active');
         }
+    } *@
+
+    function SelectImage(current) {
+        var img = $(current).children('img')[0].src;
+        $("#txtImgURL").val(img);
+        $('#divpic a.active').removeClass('active');
+        $(current).addClass('active');
+    }
 
         //function InsertImageToEditor() {
         //    var ed = tinyMCE.get('QuarterDesc');
