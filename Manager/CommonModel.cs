@@ -1845,7 +1845,7 @@ namespace Hunarmis.Manager
             if (!string.IsNullOrEmpty(date))
             {
                 var d = date.Length;
-                if (d == 10)
+                if (d == 11)
                 {
                     dt = Convert.ToDateTime(date).Date;
                 }

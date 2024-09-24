@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bodh.Manager
+namespace Bodh.Models
 {
     public static class Enums
     {

@@ -1,0 +1,389 @@
+﻿@model Hunarmis.Models.PartResumeMode
+@using Hunarmis.Manager
+@{
+    //Model.QuarterDesc = HttpUtility.HtmlDecode(Model.QuarterDesc);
+    var btnsu = Model.PartResumeId_pk == Guid.Empty ? "Submit" : "Update";
+    ViewBag.Title = "Resume";
+}
+
+
+<style>
+    .dataTables_wrapper {
+        padding: 5px;
+    }
+
+    .table-bordered thead tr th {
+        font-size: 11px !important;
+        padding: 8px 10px !important;
+    }
+
+    .table-bordered tbody tr td {
+        font-size: 11px !important;
+        padding: 8px 10px !important;
+    }
+
+    .btn-manage {
+        margin-left: 10px;
+        margin-top: -7px
+    }
+
+    .cooler-bg {
+        background: #fff;
+        padding: 10px;
+    }
+</style>
+
+<link href="~/Content/CV.css" rel="stylesheet" />
+<div class="app-content">
+    <div class="side-app">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <ol class="breadcrumb">
+                <!-- breadcrumb -->
+                <li class="breadcrumb-item"><a href="javascript:void(0)"><h3 class="mb-0 breadcrump-tittle">@ViewBag.Resume <strong class="text-green"></strong></h3></a></li>
+            </ol><!-- End breadcrumb -->
+            <div id="div-download"></div>
+        </div>
+        <!-- PAGE-HEADER END -->
+        @using (Html.BeginForm("ResumeTemplate", "UserProfile", FormMethod.Post, new { id = "submission-form" }))
+        {
+            @Html.Hidden("PartResumeId_pk")
+            @Html.Hidden("PartId")
+            <div class="form-group cooler-bg">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.ResumeTemplate, htmlAttributes: new { @class = "control-label  col-sm-12" })
+                        <textarea id="ResumeTemplate" name="ResumeTemplate" class="form-control" cols="5">
+                               @Model.ResumeTemplate
+                        @*@{
+                            if (Model != null)
+                            {
+                                if (Model.PartResumeId_pk != Guid.Empty)
+                                {
+                                    @Model.ResumeTemplate
+                                }
+                                else
+                                {
+                                    }
+                                }
+                            }*@
+
+                </textarea>
+                        @*@Html.TextAreaFor(x => x.QuarterDesc, new { @class = "", @id = "QuarterDesc" })*@
+                    </div>
+                    <div class="col-md-12">
+                        <div id="editor" style="display:none">
+
+                            <div class="container">
+                                <header>
+                                    <h1>Your Name</h1>
+                                    <p>Email: your.email@example.com | Phone: (123) 456-7890 | Address: City, State</p>
+                                </header>
+
+                                <section class="summary">
+                                    <h2>Summary</h2>
+                                    <p>A brief description of your skills, strengths, and career objectives.</p>
+                                </section>
+
+                                <section class="experience">
+                                    <h2>Professional Experience</h2>
+                                    <div class="job">
+                                        <h3>Job Title - Company Name</h3>
+                                        <p>Location | Date</p>
+                                        <ul>
+                                            <li>Key responsibility or achievement #1</li>
+                                            <li>Key responsibility or achievement #2</li>
+                                        </ul>
+                                    </div>
+                                </section>
+
+                                <section class="education">
+                                    <h2>Education</h2>
+                                    <p>Degree - University</p>
+                                    <p>Graduation Date</p>
+                                </section>
+
+                                <section class="skills">
+                                    <h2>Skills</h2>
+                                    <ul>
+                                        <li>Skill #1</li>
+                                        <li>Skill #2</li>
+                                        <li>Skill #3</li>
+                                    </ul>
+                                </section>
+
+                                <section class="projects">
+                                    <h2>Projects</h2>
+                                    <div class="project">
+                                        <h3>Project Name</h3>
+                                        <p>A brief description of the project.</p>
+                                    </div>
+                                </section>
+
+                                <section class="certifications">
+                                    <h2>Certifications</h2>
+                                    <ul>
+                                        <li>Certification #1</li>
+                                        <li>Certification #2</li>
+                                    </ul>
+                                </section>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 offset-5">
+                        <input type="submit" name="btnsubmit" value="@btnsu" class="btn btn-primary" />
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@{
+    if (Model != null)
+    {
+        if (Model.PartResumeId_pk != Guid.Empty)
+        {
+            <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Download Resume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="javascript:void(0)" onclick="getresume()" target="_blank" download></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    }
+}
+
+<!--<div id="LeadPicModal" class="modal fade">-->
+@*<form action="~/Lead/Create" method="post" id="frmLead" enctype="multipart/form-data" autocomplete="off">*@
+<!--<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header pd-x-20">
+            <h5 class="modal-title">View Gallery</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body pd-10">
+            <div id="divpic"></div>
+            <input type="text" name="txtImgURL" id="txtImgURL" value="" style="display:none;" />
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:void(0);" class="btn btn-azure" onclick="InsertImageToEditor()">Proceed</a>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>-->
+@*</form>*@
+<!--</div>-->
+<!-- MODAL DIALOG -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/JS/Master.js"></script>
+    <script src="https://cdn.tiny.cloud/1/sycl3w1d8npikolltg56dvhf7yiehfqo9a8sbnei0nokfddz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js">
+    </script>
+
+    <script>
+        //ClassicEditor
+        //    .create(document.querySelector('#editor'))
+        //    .catch(error => {
+        //        console.error(error);
+        //    });
+
+        //var select = function (s) {
+        //    return document.querySelector(s);
+        //}
+
+
+    </script>
+    <script>
+        var mids = []; var AddPicList = []; var Templatedata = "";
+        $(document).ready(function () {
+           // $('#divpic').html("");
+            LoadEditor();
+            //LoadTemplate();
+
+            if ('@Model.PartResumeId_pk' != '@Guid.Empty' && '@Model.PartResumeId_pk' != '') {
+                //LoadEditor();
+                //tinyMCE.triggerSave();
+            }
+            else {
+
+               // BindSubmissionData();
+            }
+
+
+
+        });
+        function LoadEditor() {
+            //$('#ActivityDesc').wysiwyg({
+            //    toolbar: [
+            //        ['mode'],
+            //        ['operations', ['undo', 'rendo', 'cut', 'copy', 'paste']],
+            //        ['styles'],
+            //        ['fonts', ['select', 'size']],
+            //        ['text', ['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'font-color', 'bg-color']],
+            //        ['align', ['left', 'center', 'right', 'justify']],
+            //        ['lists', ['unordered', 'ordered', 'indent', 'outdent']],
+            //        ['components', ['table', /*'chart'*/]],
+            //        ['intervals', ['line-height', 'letter-spacing']],
+            //        ['insert', ['emoji', 'link', '<a href="https://www.jqueryscript.net/tags.php?/video/">video</a>', 'symbol', /*'bookmark'*/]],
+            //        ['special', ['print', 'unformat', 'visual', 'clean']],
+            //        /*['fullscreen'],*///'image'
+            //    ],
+            //});
+            tinymce.init({
+                selector: '#ResumeTemplate',
+                plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+                toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
+                toolbar_mode: 'floating',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                //codesample_global_prismjs: true
+
+            });
+        }
+
+        @*function BindSubmissionData() {
+            $('#submission-data').removeClass("text-danger");
+            //var url = $('#submission-form').attr("action");
+            //var formData = $('#submission-form').serialize();
+           // var YID =  $('#IDYear').val();
+            //var OrgID = $('#OrgID').val();
+            //OrgID = OrgID.join(",");
+            //var LID = $('#LID').val();
+            //LID = LID.join(",");
+            var Quarter = $('#IDQuarter').val();
+            //Quarter = Quarter.join(",");
+            var TempID = 1;
+            $.ajax({
+                url: document.baseURI + "/UserProfile/ResumeTemplate",
+                type: "Post",
+                data: { 'YID': YID, 'QID': Quarter, 'TemplateID': TempID },
+                success: function (resp) {
+                    if (resp.StatusType == 'success') {
+                        if (resp.Data != null) {
+                            AddPicList = []; Templatedata = "";
+                            var res = resp.Data;
+                            if (res.Obj2 != null) {
+                                AddPicList = res.Obj2;
+                            }
+                            else {
+                                $('#divpic').addClass("text-danger").html('<div class="col-md-12">Record Not Found !!</div>');//TO DO
+                            }
+                            if (res.Obj3 != null) {
+                                var restemp = JSON.parse(res.Obj3);
+                                if (restemp[0].TemplateDesc && restemp.length == 1) {
+                                    Templatedata = restemp[0].TemplateDesc;
+                                    Templatedata = Templatedata.replace('[[USAID_Template]]', '@CommonModel.GetBaseUrl()' +'/Content/images/USAID_Template.png');
+                                    Templatedata = Templatedata.replace('[[Care_Template]]', '@CommonModel.GetBaseUrl()' +'/Content/images/Care_Template.png');
+                                    //$('#QuarterDesc').val('');
+                                   // $('#QuarterDesc').val(temphtml);
+                                    LoadTemplate();
+                                }
+                                if (restemp[0].TemplateID && restemp.length == 1) {
+                                    var idtemp = restemp[0].TemplateID;
+                                    $('#IDQTemplate').val(idtemp);
+                                }
+                            }
+                        } else {
+                            $('#divpic').html("Something went wrong while processing your request!");//TO DO
+                            $('#divpic').addClass("text-danger");//TO DO
+                        }
+                    }
+                    else {
+                        $('#divpic').html("Something went wrong while processing your request!");//TO DO
+                        $('#divpic').addClass("text-danger");//TO DO
+                    }
+                },
+                error: function (req, error) {
+                    if (error === 'error') { error = req.statusText; }
+                    var errormsg = 'There was a communication error: ' + error;
+                    $('#divpic').html(errormsg);
+                }
+            });
+        }*@
+
+        function LoadTemplate() {
+            debugger;
+            //var res = confirm("Are you sure load the template? Your editor data will be delete !")
+            //if (res) {
+            var toReplace = 'src=\""' + document.baseURI + 'Uploads/CVresume.docx';
+                Templatedata = Templatedata.replace("src=\"Uploads/",toReplace);
+            $('#ResumeTemplate').val(Templatedata);
+            tinymce.get("ResumeTemplate").setContent(Templatedata);
+                /*ajaxLoad('#QuarterDesc', Templatedata);*/
+                //tinymce.activeEditor.setProgressState(true)
+                //tinymce.activeEditor.setProgressState(false, 3000)
+                //setTimeout(() => {
+                //    tinymce.activeEditor.setContent(Templatedata);
+                //}, 2000);
+            //}
+            //return false;
+        }
+        //function ajaxLoad(selector,data) {
+        //    var ed1 = tinymce.get('#QuarterDesc');
+        //    var ed = tinymce.get('content');
+
+        //    // Do you ajax call here, window.setTimeout fakes ajax call
+        //    ed.setProgressState(1); // Show progress
+        //    window.setTimeout(function () {
+        //        ed.setProgressState(0); // Hide progress
+        //        ed.setContent(data);
+        //    }, 3000);
+        //}
+
+        @*function PopBindPic() {
+            //$('#divpic').html("");
+            $('#LeadPicModal').modal();
+            if (AddPicList != null && AddPicList.length > 0) {
+                debugger;
+                var PCL = "";
+                $('#divpic').html('');
+                if (AddPicList) {
+                    for (var i = 0; i < AddPicList.length; i++) {
+                        if (AddPicList[i]) {
+                            var pic = `<a href="javascript:void(0);" onclick="SelectImage(this)" style="display: inline-block;" title="">
+                                           <img src="@CommonModel.GetBaseUrl()${AddPicList[i]}" width="100" />
+                                       </a>`;
+                            PCL += pic;
+                        }
+                    }
+                    $('#divpic').html(PCL);
+                }
+            }
+        }*@
+
+        function SelectImage(current) {
+            var img = $(current).children('img')[0].src;
+            $("#txtImgURL").val(img);
+            $('#divpic a.active').removeClass('active');
+            $(current).addClass('active');
+        }
+
+        //function InsertImageToEditor() {
+        //    var ed = tinyMCE.get('QuarterDesc');
+        //    var range = ed.selection.getRng();
+
+        //    var img = ed.getDoc().createElement("img");
+        //    var imgUrl = $("#txtImgURL").val();
+        //    img.src = imgUrl;
+        //    range.insertNode(img);
+        //    $(".close").click();
+        //}
+
+    </script>
+}

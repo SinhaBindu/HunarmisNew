@@ -66,6 +66,12 @@
     <Reference Include="Irony, Version=1.0.11.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
       <HintPath>packages\Irony.NetCore.1.0.11\lib\net461\Irony.dll</HintPath>
     </Reference>
+    <Reference Include="MariGold.HtmlParser, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MariGold.HtmlParser.1.1.1\lib\netstandard2.0\MariGold.HtmlParser.dll</HintPath>
+    </Reference>
+    <Reference Include="MariGold.OpenXHTML, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MariGold.OpenXHTML.2.7.0\lib\netstandard2.0\MariGold.OpenXHTML.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNetCore.Authentication.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
     </Reference>
@@ -191,6 +197,9 @@
       <HintPath>packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Packaging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.IO.Packaging.6.0.0\lib\net461\System.IO.Packaging.dll</HintPath>
     </Reference>
@@ -423,6 +432,7 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\ExportService.cs" />
     <Compile Include="Models\FamilyMember_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -448,6 +458,7 @@
     <Compile Include="Models\Languages_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartResumeMode.cs" />
     <Compile Include="Models\LocatedKM_Master.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -562,6 +573,9 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_ParticipantRemarks_History.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ParticipantResumeTemplate.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Participant_Calling.cs">
@@ -713,6 +727,7 @@
     <Content Include="Content\css\themes\type-e\theme-purple.min.css" />
     <Content Include="Content\css\themes\type-e\theme-well-red.min.css" />
     <Content Include="Content\css\themes\type-e\theme-yellow.min.css" />
+    <Content Include="Content\CV.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\1.png" />
     <Content Include="Content\images\2.png" />
@@ -1880,6 +1895,8 @@
     <Content Include="Views\Home\_ParticipantPOPData_TC.cshtml" />
     <Content Include="Views\Tainer\TrainerDashboard.cshtml" />
     <Content Include="Views\Home\_CallStatusDetails.cshtml" />
+    <Content Include="Views\UserProfile\ResumeTemplate.cshtml" />
+    <Content Include="Views\Shared\ResumeFormat.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

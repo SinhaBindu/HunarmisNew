@@ -73,6 +73,7 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="LockoutEnd" Type="datetimeoffset" Precision="7" />
         </EntityType>
         <EntityType Name="AssetOwnership_Master">
           <Key>
@@ -796,6 +797,19 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="RemarksHistoryDate" Type="datetime" />
           <Property Name="RemarkReportedBy" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="tbl_ParticipantResumeTemplate">
+          <Key>
+            <PropertyRef Name="PartResumeId_pk" />
+          </Key>
+          <Property Name="PartResumeId_pk" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PartId" Type="uniqueidentifier" />
+          <Property Name="ResumeTemplate" Type="ntext" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdateByOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_PlacementTracker">
           <Key>
             <PropertyRef Name="PlacementTrackerId_pk" />
@@ -1103,6 +1117,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <EntitySet Name="tbl_Participant_Calling" EntityType="Self.tbl_Participant_Calling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Participant_Child" EntityType="Self.tbl_Participant_Child" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ParticipantRemarks_History" EntityType="Self.tbl_ParticipantRemarks_History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ParticipantResumeTemplate" EntityType="Self.tbl_ParticipantResumeTemplate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_PlacementTracker" EntityType="Self.tbl_PlacementTracker" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_SendMail" EntityType="Self.tbl_SendMail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Survey" EntityType="Self.tbl_Survey" Schema="dbo" store:Type="Tables" />
@@ -1240,6 +1255,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
             <End Role="tbl_Participant" EntitySet="tbl_Participant" />
             <End Role="tbl_PlacementTracker" EntitySet="tbl_PlacementTracker" />
           </AssociationSet>
+          <EntitySet Name="tbl_ParticipantResumeTemplate" EntityType="Hunar_DBModel.tbl_ParticipantResumeTemplate" />
           </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -1294,6 +1310,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <NavigationProperty Name="AspNetUserClaims" Relationship="Hunar_DBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Hunar_DBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="Hunar_DBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <Property Name="LockoutEnd" Type="DateTimeOffset" Precision="7" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="Hunar_DBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -2272,6 +2289,19 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_ParticipantResumeTemplate">
+          <Key>
+            <PropertyRef Name="PartResumeId_pk" />
+          </Key>
+          <Property Name="PartResumeId_pk" Type="Guid" Nullable="false" />
+          <Property Name="PartId" Type="Guid" />
+          <Property Name="ResumeTemplate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateByOn" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2308,6 +2338,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="Hunar_DBModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="LockoutEnd" ColumnName="LockoutEnd" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -3285,6 +3316,20 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
                 <ScalarProperty Name="NativeLanguage" ColumnName="NativeLanguage" />
                 <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
                 <ScalarProperty Name="Child_ParticipantId_pk" ColumnName="Child_ParticipantId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ParticipantResumeTemplate">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_ParticipantResumeTemplate">
+              <MappingFragment StoreEntitySet="tbl_ParticipantResumeTemplate">
+                <ScalarProperty Name="UpdateByOn" ColumnName="UpdateByOn" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ResumeTemplate" ColumnName="ResumeTemplate" />
+                <ScalarProperty Name="PartId" ColumnName="PartId" />
+                <ScalarProperty Name="PartResumeId_pk" ColumnName="PartResumeId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

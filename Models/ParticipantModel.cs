@@ -248,7 +248,7 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.City)]
         public string City { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DplyPartName.Village)]
         public string Village { get; set; }
         [Required]
@@ -260,7 +260,7 @@ namespace Hunarmis.Models
         [Required]
         [Display(Name = DplyPartName.EmergencyRelationship)]
         public string EmergencyRelationship { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DplyPartName.EmergencyMonthlyIncome)]
         public Nullable<decimal> EmergencyMonthlyIncome { get; set; }
        
@@ -271,10 +271,10 @@ namespace Hunarmis.Models
         [Display(Name = DplyPartName.IDNo)]
         public string IDNo { get; set; }
         // public string EducationQualification { get; set; }
-        [Required]
+        //[Required]
         [Display(Name = DplyPartName.SchoolPassoutYear)]
         public string SchoolPassoutYear { get; set; }
-        [Required]
+       // [Required]
         [Display(Name = DplyPartName.MonthlyIncome)]
         public Nullable<decimal> MonthlyIncome { get; set; }
         [Required]

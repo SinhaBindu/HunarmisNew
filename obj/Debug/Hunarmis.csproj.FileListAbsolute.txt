@@ -880,3 +880,6 @@ D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\obj\Debug\Hunarmis.csproj.CoreCompileI
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\obj\Debug\Hunarmis.csproj.Up2Date
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\obj\Debug\Hunarmis.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\obj\Debug\Hunarmis.pdb
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\MariGold.HtmlParser.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\MariGold.OpenXHTML.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Drawing.Common.dll

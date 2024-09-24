@@ -1,7 +1,12 @@
 ﻿using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Office.CustomXsn;
+using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Hunarmis.Manager;
 using Hunarmis.Models;
+using MariGold.OpenXHTML;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,17 +15,40 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
+using static Bodh.Models.Enums;
+using Run = DocumentFormat.OpenXml.Spreadsheet.Run;
+using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+//using DocumentFormat.OpenXml.Packaging;
+//using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Hunarmis.Controllers
 {
+
     public class UserProfileController : Controller
     {
         // GET: UserProfile
+        Hunar_DBEntities db = new Hunar_DBEntities();
+        JsonResponseData response = new JsonResponseData();
+        int result = 0;
         [SessionCheckPart]
         public ActionResult Index()
         {
             return View();
         }
+        private string ConvertViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (StringWriter writer = new StringWriter())
+            {
+                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer);
+                vResult.View.Render(vContext, writer);
+                return writer.ToString();
+            }
+        }
+
         [AllowAnonymous]
         public ActionResult Login()
         {
@@ -110,7 +138,7 @@ namespace Hunarmis.Controllers
                         }
                         if (!string.IsNullOrWhiteSpace(bodyTemplate))
                         {
-                         
+
                             decimal ASCP = Convert.ToDecimal(dt.Rows[0]["Percentage"].ToString());
                             var AScore = Math.Round(ASCP, MidpointRounding.ToEven);
                             bodydata = bodyTemplate.Replace("{Name}", dt.Rows[0]["ReportedBy"].ToString())
@@ -135,9 +163,113 @@ namespace Hunarmis.Controllers
             var tblc = dBEntities.Courses_Master.Find(Convert.ToInt32(CPath));
             return View(tblc);
         }
+        [SessionCheckPart]
         public ActionResult DownLoadSoftSkill()
         {
             return View();
         }
+
+        #region  Resume Template
+        [SessionCheckPart]
+        public ActionResult ResumeTemplate(Guid? ID)
+        {
+            PartResumeMode model = new PartResumeMode();
+            if (Session["PartUserId"] != null && !string.IsNullOrWhiteSpace(Session["PartUserId"].ToString()))
+            {
+                model.PartId = Guid.Parse(Session["PartUserId"].ToString());
+                if (ID == null)
+                {
+                    DataSet ds =SPManager.GetIndiParticipantDetailsByID(Session["PartUserId"].ToString());
+                    DataTable dt = new DataTable();
+                    DataTable dt1 = new DataTable();
+                    dt = ds.Tables[0]; dt1 = ds.Tables[1];
+                    string bodyTemplate = string.Empty;//Server.MapPath("~/Certificate/ParticipantCertificate.html")
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/ResumeFormat.html")))
+                    {
+                        bodyTemplate = reader.ReadToEnd();
+                    }
+                    var bodydata = bodyTemplate.Replace("{Name}", dt.Rows[0]["Name"].ToString())
+                          .Replace("{EmailID}", dt.Rows[0]["EmailID"].ToString())
+                          .Replace("{PhoneNo}", dt.Rows[0]["PhoneNo"].ToString())
+                          .Replace("{Age}", dt.Rows[0]["Age"].ToString());
+                    model.ResumeTemplate = bodydata;
+                }
+            }
+
+            if (ID != null)
+            {
+                var tbl = db.tbl_ParticipantResumeTemplate.Find(ID);
+                model.PartResumeId_pk = tbl.PartResumeId_pk;
+                model.PartId = Guid.Parse(Session["PartUserId"].ToString());
+                model.ResumeTemplate = tbl.ResumeTemplate;
+                //var toReplace = "src=\"" + CommonModel.GetWebUrl() + "/Uploads/";
+                //var toPicUSReplace = CommonModel.GetHeaderUSLogo(tbl.ResumeTemplate);
+                //var toPicCareReplace = CommonModel.GetHeaderCareLogo(toPicUSReplace);
+                //model.ResumeTemplate = toPicCareReplace.Replace("src=\"..//Uploads/", toReplace);
+
+               
+
+
+            }
+            return View(model);
+        }
+        [SessionCheckPart]
+        [HttpPost]
+        public ActionResult ResumeTemplate(PartResumeMode model)
+        {
+            result = 0;
+
+            if (string.IsNullOrEmpty(model.ResumeTemplate))
+            {
+                ModelState.AddModelError("HtmlContent", "Please provide HTML content.");
+                return View("ResumeTemplate");
+            }
+            if (ModelState.IsValid)
+            {
+                if (db.tbl_ParticipantResumeTemplate.Any(x => x.PartId != model.PartId))
+                {
+                    GlobalUtilityManager.MessageToaster(this, "Already Exists Resume Format.", Enums.GetEnumDescription(Enums.eReturnReg.Already), eAlertType.error.ToString());
+                    return View(model);
+                }
+                var tbl = model.PartResumeId_pk != Guid.Empty ? db.tbl_ParticipantResumeTemplate.Find(model.PartResumeId_pk) : new tbl_ParticipantResumeTemplate();
+                if (tbl != null)
+                {
+                    tbl.ResumeTemplate = model.ResumeTemplate;
+                    if (model.PartResumeId_pk == Guid.Empty)
+                    {
+                        tbl.PartResumeId_pk = Guid.NewGuid();
+                        tbl.PartId = model.PartId;
+                        tbl.CreatedBy = model.PartId.ToString();
+                        tbl.CreatedOn = DateTime.Now;
+                        tbl.IsActive = true;
+                        db.tbl_ParticipantResumeTemplate.Add(tbl);
+                    }
+                    else
+                    {
+                        tbl.UpdateBy = model.PartId.ToString();
+                        tbl.UpdateByOn = DateTime.Now;
+                    }
+                    result = db.SaveChanges();
+
+                    if (result > 0)
+                    {
+                        //Load an existing HTML file.
+                        using (MemoryStream mem = new MemoryStream())
+                        {
+                            WordDocument doc = new WordDocument(mem);
+                            doc.Process(new HtmlParser(model.ResumeTemplate));
+                            doc.Save();
+
+                            return File(mem.ToArray(), "application/msword", "ResumeFormat.docx");
+                        }
+                        // GlobalUtilityManager.MessageToaster(this, "Resume Format", Enums.GetEnumDescription(Enums.eReturnReg.Insert), eAlertType.success.ToString());
+                        // return RedirectToAction("ResumeTemplate");
+                    }
+                }
+            }
+            return View(model);
+        }
+
+        #endregion
     }
 }
