@@ -17,6 +17,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using static Hunarmis.Manager.CommonModel;
+using static Hunarmis.Manager.Enums;
 
 namespace Hunarmis.Controllers
 {
@@ -236,6 +237,8 @@ namespace Hunarmis.Controllers
 
                 Id = (Session["SurveyId"] != null && !string.IsNullOrWhiteSpace(Session["SurveyId"].ToString())) ? Convert.ToInt32(Session["SurveyId"].ToString()) : Id;
                 var m = GetAdd(Id, FId, Rdmkeyno);
+                var tbtpartconsent = db_.tbl_Participant.Find(Guid.Parse(Session["PartUserId"].ToString()));
+                m.ConsentOpenForm = tbtpartconsent.IsConsent == true ? 1 : 0;
                 return View(m);
             }
             return RedirectToAction("Login", "ParticipantUser");
@@ -415,12 +418,12 @@ namespace Hunarmis.Controllers
                             var tbl = db_.tbl_AssessmentSchedule.Find(assessmentid);
                             tbl.AssessmentSchedule = true;
                             tbl.UpdatedOn = DateTime.Now;
-                            
+
 
                             tbl2nd.AssessmentSchedule = true;
                             tbl2nd.UpdatedOn = DateTime.Now;
                             db_.SaveChanges();
-                           // return Json(new { IsSuccess = false, type = 1, Redirect = "AssessmentDone", Control = "ParticipantUser" }, JsonRequestBehavior.AllowGet);
+                            // return Json(new { IsSuccess = false, type = 1, Redirect = "AssessmentDone", Control = "ParticipantUser" }, JsonRequestBehavior.AllowGet);
                             // return RedirectToAction("AssessmentDone", "ParticipantUser");
                         }
 
@@ -863,7 +866,33 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+        [HttpPost]
+        public ActionResult ConsentParticipant(Guid? ParticipantId, string ConsentName, string ConsentDate, int IsConsent)
+        {
+            JsonResponseData response = new JsonResponseData();
+            int res = 0;
+            if (ParticipantId != Guid.Empty && ParticipantId != null)
+            {
+                var tblpart = db.tbl_Participant.Find(ParticipantId);
+                tblpart.ConsentName = ConsentName.Trim();
+                tblpart.ConsentDate = Convert.ToDateTime(ConsentDate);
+                tblpart.IsConsent = IsConsent == 1 ? true : false;
+                tblpart.ConsentCreatedOn = DateTime.Now;
+                res = db.SaveChanges();
+                if (res > 0)
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = "Record Submitted Successfully!!!", Data = res };
+                    var resResponse = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse.MaxJsonLength = int.MaxValue;
+                    return resResponse;
+                }
+            }
+            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Participant not valid.", Data = null };
+            var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+            resResponse3.MaxJsonLength = int.MaxValue;
+            return resResponse3;
 
+        }
 
         #region Recursion
         public static List<FormModel> BuildQuestion(List<FormModel> source)

@@ -546,7 +546,18 @@ namespace Hunarmis.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
+                if (!string.IsNullOrWhiteSpace(model.BatchName))
+                {
+                    if (_db.Batch_Master.Any(c => c.BatchName.ToLower() == model.BatchName.Trim().ToLower() && c.Id != model.Id))
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Batch Name is already exists.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
                 var tbl = model.Id != 0 ? db.Batch_Master.Find(model.Id) : new Batch_Master();
+
                 if (tbl != null && model != null)
                 {
                     tbl.BatchName = model.BatchName.Trim();
@@ -663,6 +674,16 @@ namespace Hunarmis.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
+                if (!string.IsNullOrWhiteSpace(model.CourseName))
+                {
+                    if (_db.Courses_Master.Any(c => c.CourseName.ToLower() == model.CourseName.Trim().ToLower() && c.Id != model.Id))
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Course Name is already exists.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
                 var tbl = model.Id != 0 ? db.Courses_Master.Find(model.Id) : new Courses_Master();
                 if (tbl != null && model != null)
                 {
@@ -761,10 +782,20 @@ namespace Hunarmis.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
+                if (!string.IsNullOrWhiteSpace(model.QualificationName))
+                {
+                    if (_db.Educational_Master.Any(c => c.QualificationName.ToLower() == model.QualificationName.Trim().ToLower() && c.Id != model.Id))
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Qualification Name is already exists.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
                 var tbl = model.Id != 0 ? db.Educational_Master.Find(model.Id) : new Educational_Master();
                 if (tbl != null && model != null)
                 {
-                    tbl.QualificationName = model.QualificationName;
+                    tbl.QualificationName = model.QualificationName.Trim();
                     tbl.IsActive = true;
                     if (model.Id == 0)
                     {
@@ -854,10 +885,20 @@ namespace Hunarmis.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
+                if (!string.IsNullOrWhiteSpace(model.TrainingAgencyName))
+                {
+                    if (_db.TrainingAgency_Master.Any(c => c.TrainingAgencyName.ToLower() == model.TrainingAgencyName.Trim().ToLower() && c.Id != model.Id))
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "TrainingAgency Name is already exists.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
                 var tbl = model.Id != 0 ? db.TrainingAgency_Master.Find(model.Id) : new TrainingAgency_Master();
                 if (tbl != null && model != null)
                 {
-                    tbl.TrainingAgencyName = model.TrainingAgencyName;
+                    tbl.TrainingAgencyName = model.TrainingAgencyName.Trim();
                     tbl.IsActive = true;
                     if (model.Id == 0)
                     {
@@ -950,12 +991,22 @@ namespace Hunarmis.Controllers
             JsonResponseData response = new JsonResponseData();
             try
             {
+                if (!string.IsNullOrWhiteSpace(model.TrainingCenter))
+                {
+                    if (_db.TrainingCenter_Master.Any(c => c.TrainingCenter.ToLower() == model.TrainingCenter.Trim().ToLower() && c.Id != model.Id))
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Training Center is already exists.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
+                }
                 var tbl = model.Id != 0 ? db.TrainingCenter_Master.Find(model.Id) : new TrainingCenter_Master();
                 if (tbl != null && model != null)
                 {
                     tbl.DistrictID_fk = model.DistrictID;
                     tbl.TrainingAgencyID_fk = model.TrainingAgencyID;
-                    tbl.TrainingCenter = model.TrainingCenter;
+                    tbl.TrainingCenter = model.TrainingCenter.Trim();
                     tbl.Location = model.Location;
                     tbl.IsActive = true;
                     if (model.Id == 0)

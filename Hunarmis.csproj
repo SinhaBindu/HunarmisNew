@@ -571,7 +571,9 @@
     <Compile Include="Models\tbl_ParticipantRemarks_History.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_ParticipantResumeTemplate.cs" />
+    <Compile Include="Models\tbl_ParticipantResumeTemplate.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_Participant_Calling.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

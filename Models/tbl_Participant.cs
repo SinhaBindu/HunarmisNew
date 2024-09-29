@@ -75,6 +75,10 @@ namespace Hunarmis.Models
         public Nullable<decimal> AnnualHouseholdincome { get; set; }
         public Nullable<int> PreTrainingStatus { get; set; }
         public Nullable<int> TargetGroup { get; set; }
+        public string ConsentName { get; set; }
+        public Nullable<System.DateTime> ConsentDate { get; set; }
+        public Nullable<bool> IsConsent { get; set; }
+        public Nullable<System.DateTime> ConsentCreatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Participant_Child> tbl_Participant_Child { get; set; }

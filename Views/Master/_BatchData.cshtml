@@ -10,11 +10,14 @@
             <thead class="text-center">
                 <tr>
                     <th class="text-center tblth">Srno.</th>
+                    <th style="width: 80px" class="text-center tblth">Edit</th>
                     <th class="text-center tblth">Batch Name</th>
                     <th class="text-center tblth">Batch Start Date</th>
                     <th class="text-center tblth">Batch End Date</th>
                     <th class="text-center tblth">No Of Participant</th>
-                    <th style="width: 80px" class="text-center tblth">Edit</th>
+                    <th class="text-center tblth">Course</th>
+                    <th class="text-center tblth">Training Center</th>
+                    <th class="text-center tblth">Trainer Name</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,13 +29,16 @@
                         {
                                 <tr class="text-center">
                                     <td>@(srno++)</td>
+                                    <td>
+                                        <a href="~/Master/BatchMaster?Id=@dr["Id"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                    </td>
                                     <td>@dr["BatchName"]</td>
                                     <td>@CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString())</td>
                                     <td>@CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</td>
                                     <td>@dr["NoOfParticipant"]</td>
-                                    <td>
-                                        <a href="~/Master/BatchMaster?Id=@dr["Id"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                    </td>
+                                    <td>@dr["CourseName"]</td>
+                                    <td style="word-break:break-word !important;">@dr["TrainingCenter"]</td>
+                                    <td>@dr["TrainerName"]</td>
                                 </tr>
                         }
                     }

@@ -84,6 +84,7 @@ namespace Hunarmis.Models
             get { return _id == null ? 0 : _id.Value; }
             set { _id = value; }
         }
+        public int ConsentOpenForm { get; set; }
         public DateTime? Date { get; set; }
         public int? YearId { get; set; }
         public Guid? AssessmentId { get; set; }
@@ -122,6 +123,15 @@ namespace Hunarmis.Models
         public string UpdatedBy { get; set; }
         public string UpdatedOn { get; set; }
         public int TimeOut { get; set; }
+
+    }
+    public class ConsentPartForm
+    {
+        public Guid ParticipantId { get; set; }
+        public string ConsentName { get; set;}
+        public DateTime ConsentDate { get; set;}
+        public bool IsConsent { get; set;}
+        public DateTime ConsentCreatedOn { get; set;}
 
     }
     public class HRLable

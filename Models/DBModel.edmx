@@ -347,7 +347,7 @@
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'HunarPilot_DB.dbo.SessionPlanTopic_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SessionPlanTopic_Master">
           <Key>
             <PropertyRef Name="SessionPlanTPId_pk" />
@@ -659,6 +659,10 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="AnnualHouseholdincome" Type="decimal" Precision="10" Scale="2" />
           <Property Name="PreTrainingStatus" Type="int" />
           <Property Name="TargetGroup" Type="int" />
+          <Property Name="ConsentName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ConsentDate" Type="date" />
+          <Property Name="IsConsent" Type="bit" />
+          <Property Name="ConsentCreatedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Participant_Calling">
           <Key>
@@ -1245,8 +1249,9 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <EntitySet Name="tbl_AttendanceParticipant" EntityType="Hunar_DBModel.tbl_AttendanceParticipant" />
           <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
           <EntitySet Name="AssetOwnership_Master" EntityType="Hunar_DBModel.AssetOwnership_Master" />
-          <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
           <EntitySet Name="tbl_Participant_Child" EntityType="Hunar_DBModel.tbl_Participant_Child" />
+          <EntitySet Name="tbl_ParticipantResumeTemplate" EntityType="Hunar_DBModel.tbl_ParticipantResumeTemplate" />
+          <EntitySet Name="tbl_Participant" EntityType="Hunar_DBModel.tbl_Participant" />
           <AssociationSet Name="FK_tbl_Participant_Child_tbl_Participant" Association="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant">
             <End Role="tbl_Participant" EntitySet="tbl_Participant" />
             <End Role="tbl_Participant_Child" EntitySet="tbl_Participant_Child" />
@@ -1255,7 +1260,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
             <End Role="tbl_Participant" EntitySet="tbl_Participant" />
             <End Role="tbl_PlacementTracker" EntitySet="tbl_PlacementTracker" />
           </AssociationSet>
-          <EntitySet Name="tbl_ParticipantResumeTemplate" EntityType="Hunar_DBModel.tbl_ParticipantResumeTemplate" />
           </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -2159,6 +2163,64 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Orderby" Type="Int32" />
         </EntityType>
+        <EntityType Name="tbl_Participant_Child">
+          <Key>
+            <PropertyRef Name="Child_ParticipantId_pk" />
+          </Key>
+          <Property Name="Child_ParticipantId_pk" Type="Guid" Nullable="false" />
+          <Property Name="ParticipantId" Type="Guid" />
+          <Property Name="NativeLanguage" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NativeLanguage_Other" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pincode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Village" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmergencyPersonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmergencyContactNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmergencyRelationship" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmergencyMonthlyIncome" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="IDType" Type="Int32" />
+          <Property Name="IDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EducationQualification" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolPassoutYear" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="MonthlyIncome" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="HouseholdAssetOwnership" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccesstoServices" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HaveYouWorkedEarliear" Type="Int32" />
+          <Property Name="WorkExperienceType" Type="Int32" />
+          <Property Name="WorkExperience" Type="Int32" />
+          <Property Name="HomeTown" Type="Int32" />
+          <Property Name="AreyouIntrestedingettingajob" Type="Int32" />
+          <Property Name="Willyoubeinterestedinrelocatingforajob" Type="Int32" />
+          <Property Name="Languagesknown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Languagesknown_Other" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="KnowledgeofEnglishLanguage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Whichskillingcourseshaveyoudoneearlier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Whichskillingcourseshaveyoudoneearlier_Other" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Participant" Relationship="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" FromRole="tbl_Participant_Child" ToRole="tbl_Participant" />
+        </EntityType>
+        <EntityType Name="tbl_ParticipantResumeTemplate">
+          <Key>
+            <PropertyRef Name="PartResumeId_pk" />
+          </Key>
+          <Property Name="PartResumeId_pk" Type="Guid" Nullable="false" />
+          <Property Name="PartId" Type="Guid" />
+          <Property Name="ResumeTemplate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateByOn" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tbl_Participant">
           <Key>
             <PropertyRef Name="ID" />
@@ -2217,53 +2279,12 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="AnnualHouseholdincome" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="PreTrainingStatus" Type="Int32" />
           <Property Name="TargetGroup" Type="Int32" />
+          <Property Name="ConsentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ConsentDate" Type="DateTime" Precision="0" />
+          <Property Name="IsConsent" Type="Boolean" />
+          <Property Name="ConsentCreatedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_Participant_Child" Relationship="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" FromRole="tbl_Participant" ToRole="tbl_Participant_Child" />
           <NavigationProperty Name="tbl_PlacementTracker" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_Participant" ToRole="tbl_PlacementTracker" />
-        </EntityType>
-        <EntityType Name="tbl_Participant_Child">
-          <Key>
-            <PropertyRef Name="Child_ParticipantId_pk" />
-          </Key>
-          <Property Name="Child_ParticipantId_pk" Type="Guid" Nullable="false" />
-          <Property Name="ParticipantId" Type="Guid" />
-          <Property Name="NativeLanguage" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NativeLanguage_Other" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Pincode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="StateId" Type="Int32" />
-          <Property Name="DistrictId" Type="Int32" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Village" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EmergencyPersonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EmergencyContactNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EmergencyRelationship" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EmergencyMonthlyIncome" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="IDType" Type="Int32" />
-          <Property Name="IDNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EducationQualification" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SchoolPassoutYear" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="MonthlyIncome" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="HouseholdAssetOwnership" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AccesstoServices" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HaveYouWorkedEarliear" Type="Int32" />
-          <Property Name="WorkExperienceType" Type="Int32" />
-          <Property Name="WorkExperience" Type="Int32" />
-          <Property Name="HomeTown" Type="Int32" />
-          <Property Name="AreyouIntrestedingettingajob" Type="Int32" />
-          <Property Name="Willyoubeinterestedinrelocatingforajob" Type="Int32" />
-          <Property Name="Languagesknown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Languagesknown_Other" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="KnowledgeofEnglishLanguage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Whichskillingcourseshaveyoudoneearlier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Whichskillingcourseshaveyoudoneearlier_Other" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Participant" Relationship="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" FromRole="tbl_Participant_Child" ToRole="tbl_Participant" />
         </EntityType>
         <Association Name="FK_tbl_Participant_Child_tbl_Participant">
           <End Type="Hunar_DBModel.tbl_Participant" Role="tbl_Participant" Multiplicity="0..1" />
@@ -2289,19 +2310,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_ParticipantResumeTemplate">
-          <Key>
-            <PropertyRef Name="PartResumeId_pk" />
-          </Key>
-          <Property Name="PartResumeId_pk" Type="Guid" Nullable="false" />
-          <Property Name="PartId" Type="Guid" />
-          <Property Name="ResumeTemplate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdateBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateByOn" Type="DateTime" Precision="3" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3214,66 +3222,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Participant">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
-              <MappingFragment StoreEntitySet="tbl_Participant">
-                <ScalarProperty Name="TargetGroup" ColumnName="TargetGroup" />
-                <ScalarProperty Name="PreTrainingStatus" ColumnName="PreTrainingStatus" />
-                <ScalarProperty Name="AnnualHouseholdincome" ColumnName="AnnualHouseholdincome" />
-                <ScalarProperty Name="NoofFamilyMembers" ColumnName="NoofFamilyMembers" />
-                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
-                <ScalarProperty Name="IsAssessmentDone" ColumnName="IsAssessmentDone" />
-                <ScalarProperty Name="CallingID_fk" ColumnName="CallingID_fk" />
-                <ScalarProperty Name="RemarksID_fk" ColumnName="RemarksID_fk" />
-                <ScalarProperty Name="RemarkReportedBy" ColumnName="RemarkReportedBy" />
-                <ScalarProperty Name="RemarkDate" ColumnName="RemarkDate" />
-                <ScalarProperty Name="RemarkStatus" ColumnName="RemarkStatus" />
-                <ScalarProperty Name="AtPresentCallStatus" ColumnName="AtPresentCallStatus" />
-                <ScalarProperty Name="FixedCallLimitMonth" ColumnName="FixedCallLimitMonth" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CallYear" ColumnName="CallYear" />
-                <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
-                <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
-                <ScalarProperty Name="CallTempReportedBy" ColumnName="CallTempReportedBy" />
-                <ScalarProperty Name="CallTempStatusDate" ColumnName="CallTempStatusDate" />
-                <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
-                <ScalarProperty Name="IsOffered" ColumnName="IsOffered" />
-                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
-                <ScalarProperty Name="TrainerMobileNo" ColumnName="TrainerMobileNo" />
-                <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
-                <ScalarProperty Name="TrainingCenterID" ColumnName="TrainingCenterID" />
-                <ScalarProperty Name="TrainingAgencyID" ColumnName="TrainingAgencyID" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="StateID" ColumnName="StateID" />
-                <ScalarProperty Name="CourseEnrolledID" ColumnName="CourseEnrolledID" />
-                <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
-                <ScalarProperty Name="EduQualificationID" ColumnName="EduQualificationID" />
-                <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
-                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
-                <ScalarProperty Name="SelfImagePath" ColumnName="SelfImagePath" />
-                <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="BatchEnrolledID" ColumnName="BatchEnrolledID" />
-                <ScalarProperty Name="RegID" ColumnName="RegID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Participant_Child">
             <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant_Child">
               <MappingFragment StoreEntitySet="tbl_Participant_Child">
@@ -3330,6 +3278,70 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
                 <ScalarProperty Name="ResumeTemplate" ColumnName="ResumeTemplate" />
                 <ScalarProperty Name="PartId" ColumnName="PartId" />
                 <ScalarProperty Name="PartResumeId_pk" ColumnName="PartResumeId_pk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Participant">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
+              <MappingFragment StoreEntitySet="tbl_Participant">
+                <ScalarProperty Name="ConsentCreatedOn" ColumnName="ConsentCreatedOn" />
+                <ScalarProperty Name="IsConsent" ColumnName="IsConsent" />
+                <ScalarProperty Name="ConsentDate" ColumnName="ConsentDate" />
+                <ScalarProperty Name="ConsentName" ColumnName="ConsentName" />
+                <ScalarProperty Name="TargetGroup" ColumnName="TargetGroup" />
+                <ScalarProperty Name="PreTrainingStatus" ColumnName="PreTrainingStatus" />
+                <ScalarProperty Name="AnnualHouseholdincome" ColumnName="AnnualHouseholdincome" />
+                <ScalarProperty Name="NoofFamilyMembers" ColumnName="NoofFamilyMembers" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="IsAssessmentDone" ColumnName="IsAssessmentDone" />
+                <ScalarProperty Name="CallingID_fk" ColumnName="CallingID_fk" />
+                <ScalarProperty Name="RemarksID_fk" ColumnName="RemarksID_fk" />
+                <ScalarProperty Name="RemarkReportedBy" ColumnName="RemarkReportedBy" />
+                <ScalarProperty Name="RemarkDate" ColumnName="RemarkDate" />
+                <ScalarProperty Name="RemarkStatus" ColumnName="RemarkStatus" />
+                <ScalarProperty Name="AtPresentCallStatus" ColumnName="AtPresentCallStatus" />
+                <ScalarProperty Name="FixedCallLimitMonth" ColumnName="FixedCallLimitMonth" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CallYear" ColumnName="CallYear" />
+                <ScalarProperty Name="CallMonth" ColumnName="CallMonth" />
+                <ScalarProperty Name="CallRemark" ColumnName="CallRemark" />
+                <ScalarProperty Name="CallTempReportedBy" ColumnName="CallTempReportedBy" />
+                <ScalarProperty Name="CallTempStatusDate" ColumnName="CallTempStatusDate" />
+                <ScalarProperty Name="CallTempStatus" ColumnName="CallTempStatus" />
+                <ScalarProperty Name="IsOffered" ColumnName="IsOffered" />
+                <ScalarProperty Name="IsPlaced" ColumnName="IsPlaced" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
+                <ScalarProperty Name="TrainerMobileNo" ColumnName="TrainerMobileNo" />
+                <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
+                <ScalarProperty Name="TrainingCenterID" ColumnName="TrainingCenterID" />
+                <ScalarProperty Name="TrainingAgencyID" ColumnName="TrainingAgencyID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CourseEnrolledID" ColumnName="CourseEnrolledID" />
+                <ScalarProperty Name="EduQualOther" ColumnName="EduQualOther" />
+                <ScalarProperty Name="EduQualificationID" ColumnName="EduQualificationID" />
+                <ScalarProperty Name="AssessmentScore" ColumnName="AssessmentScore" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="SelfImagePath" ColumnName="SelfImagePath" />
+                <ScalarProperty Name="AadharCardNo" ColumnName="AadharCardNo" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="BatchEnrolledID" ColumnName="BatchEnrolledID" />
+                <ScalarProperty Name="RegID" ColumnName="RegID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
