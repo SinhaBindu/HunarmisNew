@@ -206,14 +206,16 @@
                                     <div>
                                         <div class="d-flex">
                                             <h3 class="f-26 count">
-                                                @*@if (dt0.Rows.Count > 0)
-                                                    {
-                                                        <span>
-                                                            @dt0.Rows[0]["TotalBatches"].ToString()
-                                                            <span> / </span>
-                                                            @dt0.Rows[0]["TotalBatches"].ToString()
-                                                        </span>
-                                                    }*@
+                                                @if (dt0.Rows.Count > 0)
+                                                {
+                                                    <span>
+                                                        @dt0.Rows[0]["TotalBatches"].ToString()
+                                                        <span> / </span>
+                                                        @dt0.Rows[0]["TotalBatchesActive"].ToString()
+                                                        <span> / </span>
+                                                        @dt0.Rows[0]["TotalBatchesDone"].ToString()
+                                                    </span>
+                                                }
                                             </h3>
                                         </div>
                                     </div>
@@ -319,7 +321,7 @@
                                             <th class="text-center tblth">Batch End Date</th>
                                             <th class="text-center tblth">Course</th>
                                             @*<th class="text-center tblth">Training <br />Center</th>
-                            <th class="text-center tblth">Assessment<br /> Score</th>*@
+                                                <th class="text-center tblth">Assessment<br /> Score</th>*@
                                             <th class="text-center tblth">Learners <br />Certified</th>
                                             <th class="text-center tblth">Learners <br />Placed</th>
                                         </tr>
@@ -341,7 +343,7 @@
                                                         <td class="text-center">@dr["BatchEndDate"]</td>
                                                         <td class="text-left">@dr["CourseName"]</td>
                                                         @*<td class="text-left">@dr["TrainingCenter"]</td>
-                                        <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>*@
+                                                            <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>*@
                                                         <td class="text-center"><strong>@dr["LearnersCertified"]</strong></td>
                                                         <td class="text-center"><strong>@dr["LearnersPlaced"]</strong></td>
                                                     </tr>
