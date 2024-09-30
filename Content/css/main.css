@@ -579,6 +579,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         bottom: 0;
         opacity: 0;
         transition: all 0.7s;
+        z-index:9999;
     }
 
         .nano > .nano-pane > .nano-slider {
@@ -1406,7 +1407,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     }
 
     #mainnav-menu ul ul a, .menu-popover .sub-menu ul ul a {
-        padding: 8px 20px 8px 65px;
+        /*padding: 8px 20px 8px 65px;*/
+        padding: 8px 0px 8px 10px;
     }
 }
 
@@ -1625,7 +1627,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     #container.mainnav-sm #mainnav-menu .list-header, #container.mainnav-sm #mainnav-menu .list-divider, #container.mainnav-sm #mainnav-menu .menu-title, #container.mainnav-sm #mainnav-menu .arrow, #container.mainnav-sm #mainnav-menu .menu-title > .label, #container.mainnav-sm #mainnav-menu .menu-title > .badge {
         display: none;
     }
-
+    #mainnav-menu-wrap .list-divider{
+        display:none !important;
+    }
+    /*.nano:hover > .nano-content {
+        right: -13px !important;
+    }*/
     #container.mainnav-sm #mainnav-menu .hover {
         position: relative;
     }
