@@ -165,11 +165,9 @@
                             <!--<strong id="sg-title" class="text-info"></strong>-->
                         </div>
                         <div class="tools">
-                            
                         </div>
                     </div>
                     <div class="card-body">
-                        @*"*@
                         @using (Html.BeginForm("GetPartList", "Participant", FormMethod.Get, new { @class = "form-padding loader", @id = "formid" , role = "form", autocomplete = "off", enctype = "multipart/form-data", noValidate = "novalidate"}))
                         {<div class="col-md-12">@Html.Partial("_Alerts")</div>
                         <fieldset class="fieldset-card">
@@ -232,8 +230,11 @@
                                         <span class="check-spacer">
                                             <a href="~/Participant/ParticipantList" class="btn-reset"><i class="fa fa-refresh"></i></a>
                                         </span>
-                                        <span id="div-download"></span>
-                                    </div>
+                                        @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                        {
+                                            <span id="div-download"></span>
+                                        }
+                                        </div>
                                 </div>
                             </div>
 

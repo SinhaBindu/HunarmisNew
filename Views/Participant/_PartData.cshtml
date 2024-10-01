@@ -44,61 +44,64 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                            <tr>
-                                <td class="text-center">@(srno++)</td>
-                                <td class="text-center">
+                                <tr>
+                                    <td class="text-center">@(srno++)</td>
                                     @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
                                     {
-                                        if (User.IsInRole(CommonModel.RoleNameCont.Mobilizer))
-                                        {
-                                            if (!string.IsNullOrWhiteSpace(dr["EntryReportedId"].ToString()) && !string.IsNullOrWhiteSpace(MvcApplication.CUser.UserId.ToLower()))
+                                        <td class="text-center">
+                                            @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
                                             {
-                                                if (dr["EntryReportedId"].ToString().ToLower() == MvcApplication.CUser.UserId.ToLower())
+                                                if (User.IsInRole(CommonModel.RoleNameCont.Mobilizer))
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(dr["EntryReportedId"].ToString()) && !string.IsNullOrWhiteSpace(MvcApplication.CUser.UserId.ToLower()))
+                                                    {
+                                                        if (dr["EntryReportedId"].ToString().ToLower() == MvcApplication.CUser.UserId.ToLower())
+                                                        {
+                                                            <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon btn-sm" target="_blank" title="Participant Edit" style="width: 25px !important; height: 23px !important; line-height: 21px; display: inline-block;">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        }
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon btn-sm" target="_blank" title="Participant Edit" style="width: 25px !important; height: 23px !important; line-height: 21px; display: inline-block;">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                 }
                                             }
-                                        }
-                                        else
-                                        {
-                                            <a href="~/Participant/AddParticipant?Id=@dr["ID"]" class="check-icon btn-sm" target="_blank" title="Participant Edit" style="width: 25px !important; height: 23px !important; line-height: 21px; display: inline-block;">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        }
-                                    }
 
-                                    @if (!User.IsInRole(CommonModel.RoleNameCont.Mobilizer) && !User.IsInRole(CommonModel.RoleNameCont.Viewer))
-                                    {
-                                        if (!string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString()) && dr["AssessmentScore"].ToString() != "0")
-                                        {
-                                            <button type="button" style="@(dr["PlaceTrackerEditColor"]);margin-left:5px;" class="btnpop check-icon btn-sm" data-id="@dr["ID"]" data-placementrackerid="@dr["maxPlaceTrackerID"]" data-placetrackerdistrictId="@dr["PlaceTrackerDistrictId"]" title="Placement Tracker">
-                                                <i class="fa fa-suitcase"></i>
-                                            </button>
-                                        }
-                                    }
+                                            @if (!User.IsInRole(CommonModel.RoleNameCont.Mobilizer) && !User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                            {
+                                                if (!string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString()) && dr["AssessmentScore"].ToString() != "0")
+                                                {
+                                                    <button type="button" style="@(dr["PlaceTrackerEditColor"]);margin-left:5px;" class="btnpop check-icon btn-sm" data-id="@dr["ID"]" data-placementrackerid="@dr["maxPlaceTrackerID"]" data-placetrackerdistrictId="@dr["PlaceTrackerDistrictId"]" title="Placement Tracker">
+                                                        <i class="fa fa-suitcase"></i>
+                                                    </button>
+                                                }
+                                            }
 
-                                </td>
-                                <td class="text-left">
-                                    @dr["TrainingCenter"]
-                                    /<br />@dr["DistrictName"]
-                                </td>
-                                <td class="" width="20%">
-                                    @dr["PhoneNo"]
-                                </td>
-                                <td class="text-left">@dr["FullName"]</td>
-                                @*<td class="text-center text-white" style="background: #604ccf !important; color: #fff !important"><strong>@dr["RegID"]</strong></td>*@
-                                <td class="text-left">@dr["EmailID"]</td>
-                                @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
-                                <td class="text-left">@dr["BatchName"]</td>
-                                <td class="text-center">@dr["BatchStartDate"]</td>
-                                <td class="text-center">@dr["BatchEndDate"]</td>
-                                <td class="text-center">@dr["CourseName"]</td>
-                                @*<td class="text-center">@dr["CurrentStatus"]/<br />@dr["CurrentReportedDate"] </td>
-                                    <td class="text-center" style="word-break:break-word !important;">@dr["CurrentReportedByName"]</td>*@
-                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
-                            </tr>
+                                        </td>
+                                    }
+                                        <td class="text-left">
+                                            @dr["TrainingCenter"]
+                                            /<br />@dr["DistrictName"]
+                                        </td>
+                                        <td class="" width="20%">
+                                            @dr["PhoneNo"]
+                                        </td>
+                                        <td class="text-left">@dr["FullName"]</td>
+                                        @*<td class="text-center text-white" style="background: #604ccf !important; color: #fff !important"><strong>@dr["RegID"]</strong></td>*@
+                                        <td class="text-left">@dr["EmailID"]</td>
+                                        @*<td class="text-center">&times;&times;&times;&times;&times;&times;&times;&times;&times;@Regex.Match(dr["AadharCardNo"].ToString(), @"(.{3})\s*$")</td>*@
+                                        <td class="text-left">@dr["BatchName"]</td>
+                                        <td class="text-center">@dr["BatchStartDate"]</td>
+                                        <td class="text-center">@dr["BatchEndDate"]</td>
+                                        <td class="text-center">@dr["CourseName"]</td>
+                                        @*<td class="text-center">@dr["CurrentStatus"]/<br />@dr["CurrentReportedDate"] </td>
+            <td class="text-center" style="word-break:break-word !important;">@dr["CurrentReportedByName"]</td>*@
+                                        <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
+                                    </tr>
                         }
                     }
                     else

@@ -36,7 +36,6 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Survey" Width="1.5" PointX="16.125" PointY="12.125" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_SurveyAnswer" Width="1.5" PointX="18.375" PointY="13.625" IsExpanded="false" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_SurveyAnswer_tbl_Survey" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_ExcelParticipantData" Width="1.5" PointX="8.375" PointY="15.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AnnualHousehold_Master" Width="1.5" PointX="3.75" PointY="5.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.Courses_Master" Width="1.5" PointX="5.75" PointY="5.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.District_Master" Width="1.5" PointX="9.75" PointY="2.75" />
@@ -62,6 +61,7 @@
         <EntityTypeShape EntityType="Hunar_DBModel.AssetOwnership_Master" Width="1.5" PointX="13.375" PointY="12.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant_Child" Width="1.5" PointX="18" PointY="23.125" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ParticipantResumeTemplate" Width="1.5" PointX="20.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_ExcelParticipantData" Width="1.5" PointX="20.375" PointY="18.75" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="15.75" PointY="21.25" IsExpanded="false" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" />

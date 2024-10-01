@@ -1096,6 +1096,7 @@ namespace Hunarmis.Controllers
                                     CreatedOn = DateTime.Now,
                                     IsActive = true,
 
+                                    AttendancePercent = Convert.ToString(x["Attendance"]),
                                     MaritalStatus = Convert.ToString(x["MaritalStatus"]),
                                     NoofFamilyMembers = Convert.ToString(x["NoofFamilyMembers"]),
                                     AnnualHouseholdincome = !string.IsNullOrWhiteSpace(Convert.ToString(x["AnnualHouseholdincome"])) ? Convert.ToDecimal(x["AnnualHouseholdincome"]) : 0,
@@ -1197,6 +1198,7 @@ namespace Hunarmis.Controllers
                                         tblu.TargetGroup = TargetGroupId;
                                         tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
 
+                                        tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? Convert.ToInt32(dr["Attendance"]) : 0;
                                         resupdated += db_.SaveChanges();
                                     }
                                     else
@@ -1286,6 +1288,7 @@ namespace Hunarmis.Controllers
                                                 tblu.TargetGroup = TargetGroupId;
 
                                                 tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
+                                                tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? Convert.ToInt32(dr["Attendance"]) : 0;
                                                 resupdated += db_.SaveChanges();
                                             }
                                         }
@@ -1371,6 +1374,7 @@ namespace Hunarmis.Controllers
                                                 var TargetGroup = Convert.ToString(dr["TargetGroup"]);
                                                 var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup.Trim()).FirstOrDefault()?.TargetGroupId_pk : null;
                                                 tblpart.TargetGroup = TargetGroupId;
+                                                tblpart.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? Convert.ToInt32(dr["Attendance"]) : 0;
                                                 //if (!string.IsNullOrEmpty(dr["DateofBirth"].ToString()))
                                                 //{
                                                 //    tblpart.DOB = Convert.ToDateTime(dr["DateofBirth"].ToString());

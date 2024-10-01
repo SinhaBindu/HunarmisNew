@@ -1,7 +1,7 @@
 ﻿@model  Hunarmis.Models.FilterModel
 @using Hunarmis.Manager
 @{
-    ViewBag.Title = "Assessment Score Summary (Participant Wise)";
+    ViewBag.Title = "Batch Wise (Participant Lists)";
     ViewBag.TitleIcon = "fa fa-user";
     ViewBag.SemiTitle = "Score Summary";
     ViewBag.SemiTitleLink = "/Assessment/ScorerSummary";
@@ -58,8 +58,11 @@
                                     </div>
                                     <div class="col-md-3" style="padding-left:5%;padding-top:2%">
                                         <div class="position-relative form-group">
-                                            <strong id="div-download"></strong>
-                                        </div>
+                                            @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                            {
+                                                <strong id="div-download"></strong>
+                                            }
+                                            </div>
                                     </div>
                                 </div>
 

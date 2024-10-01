@@ -48,5 +48,6 @@ namespace Hunarmis.Models
         public Nullable<decimal> AnnualHouseholdincome { get; set; }
         public string PreTrainingStatus { get; set; }
         public string TargetGroup { get; set; }
+        public string AttendancePercent { get; set; }
     }
 }
