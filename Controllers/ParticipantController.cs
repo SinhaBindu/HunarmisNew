@@ -183,12 +183,12 @@ namespace Hunarmis.Controllers
                         model.partChildModel.EmergencyPersonName = childtbl.EmergencyPersonName;
                         model.partChildModel.EmergencyContactNo = childtbl.EmergencyContactNo;
                         model.partChildModel.EmergencyRelationship = childtbl.EmergencyRelationship;
-                        model.partChildModel.EmergencyMonthlyIncome = (int)childtbl.EmergencyMonthlyIncome;
+                        model.partChildModel.EmergencyMonthlyIncome =childtbl.EmergencyMonthlyIncome!=null? (int)childtbl.EmergencyMonthlyIncome: childtbl.EmergencyMonthlyIncome;
 
                         model.partChildModel.IDType = childtbl.IDType;
                         model.partChildModel.IDNo = childtbl.IDNo;
                         model.partChildModel.SchoolPassoutYear = childtbl.SchoolPassoutYear;
-                        model.partChildModel.MonthlyIncome = (int)(childtbl.MonthlyIncome);
+                        model.partChildModel.MonthlyIncome = childtbl.MonthlyIncome != null ? (int)(childtbl.MonthlyIncome) : childtbl.MonthlyIncome; ;
                         model.partChildModel.HouseholdAssetOwnership = childtbl.HouseholdAssetOwnership;
                         model.partChildModel.AccesstoServices = childtbl.AccesstoServices;
                         model.partChildModel.HaveYouWorkedEarliear = childtbl.HaveYouWorkedEarliear;
@@ -1198,7 +1198,7 @@ namespace Hunarmis.Controllers
                                         tblu.TargetGroup = TargetGroupId;
                                         tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
 
-                                        tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? Convert.ToInt32(dr["Attendance"]) : 0;
+                                        tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? dr["Attendance"].ToString().Trim() : null;
                                         resupdated += db_.SaveChanges();
                                     }
                                     else
@@ -1288,7 +1288,7 @@ namespace Hunarmis.Controllers
                                                 tblu.TargetGroup = TargetGroupId;
 
                                                 tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
-                                                tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? Convert.ToInt32(dr["Attendance"]) : 0;
+                                                tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? dr["Attendance"].ToString().Trim() : null;
                                                 resupdated += db_.SaveChanges();
                                             }
                                         }
@@ -1374,7 +1374,7 @@ namespace Hunarmis.Controllers
                                                 var TargetGroup = Convert.ToString(dr["TargetGroup"]);
                                                 var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup.Trim()).FirstOrDefault()?.TargetGroupId_pk : null;
                                                 tblpart.TargetGroup = TargetGroupId;
-                                                tblpart.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? Convert.ToInt32(dr["Attendance"]) : 0;
+                                                tblpart.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? dr["Attendance"].ToString().Trim() : null;
                                                 //if (!string.IsNullOrEmpty(dr["DateofBirth"].ToString()))
                                                 //{
                                                 //    tblpart.DOB = Convert.ToDateTime(dr["DateofBirth"].ToString());

@@ -664,7 +664,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="ConsentDate" Type="date" />
           <Property Name="IsConsent" Type="bit" />
           <Property Name="ConsentCreatedOn" Type="datetime" />
-          <Property Name="AttendancePercent" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="AttendancePercent" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_Participant_Calling">
           <Key>
@@ -2286,7 +2286,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="ConsentDate" Type="DateTime" Precision="0" />
           <Property Name="IsConsent" Type="Boolean" />
           <Property Name="ConsentCreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="AttendancePercent" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="AttendancePercent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_Participant_Child" Relationship="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" FromRole="tbl_Participant" ToRole="tbl_Participant_Child" />
           <NavigationProperty Name="tbl_PlacementTracker" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_Participant" ToRole="tbl_PlacementTracker" />
         </EntityType>
