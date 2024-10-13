@@ -373,6 +373,26 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetCoursesPCIEdubridge(int SelectAll)
+        {
+            try
+            {
+                var items = CommonModel.GetCoursePCIEdubridgeText(SelectAll);
+                if (items != null)
+                {
+                    if (items.Count > 0)
+                    {
+                        var data = JsonConvert.SerializeObject(items);
+                        return Json(new { IsSuccess = true, res = data }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { IsSuccess = false, res = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { IsSuccess = false, res = "There was a communication error." }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetModuleWiseBatches(int SelectAll, int ModuleType = 0, int CourseId = 0, int BatchId = 0, int TrainingCenterId = 0)
         {
             try

@@ -1892,6 +1892,8 @@
     <Content Include="Views\Tainer\TrainerDashboard.cshtml" />
     <Content Include="Views\Home\_CallStatusDetails.cshtml" />
     <Content Include="Views\UserProfile\ResumeTemplate.cshtml" />
+    <Content Include="Views\Participant\ParticipantShowList.cshtml" />
+    <Content Include="Views\Participant\_PartDataShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

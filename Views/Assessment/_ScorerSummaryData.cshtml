@@ -1,5 +1,6 @@
 ﻿@using System.Data
 @using Hunarmis.Models
+@using Hunarmis.Manager
 @{
     DataTable dt = new DataTable();
     if (Model != null)
@@ -22,7 +23,10 @@
                 <th width="25" class="text-center">Sl.No.</th>
                 <th class="text-center">Assessment Date</th>
                 <th class="text-center">Participant Name</th>
-                <th class="text-center">Participant <br /> Mobile No</th>
+                @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                {
+                    <th class="text-center">Participant <br /> Mobile No</th>
+                }
                 <th class="text-center">Batch </th>
                 <th class="text-center">Trainer Name</th>
                 <th class="text-center">Course</th>
@@ -44,7 +48,10 @@
                             <td class="text-center">@(sno++)</td>
                             <td class="text-left"><strong>@dr["AssessmentDate"]</strong></td>
                             <td class="text-left">@dr["ReportedBy"]</td>
-                            <td class="text-left">@dr["PhoneNo"]</td>
+                            @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                            {
+                                <td class="text-left">@dr["PhoneNo"]</td>
+                            }
                             <td class="text-center">@dr["BatchName"]</td>
                             <td class="text-center">@dr["TrainerName"]</td>
                             <td class="text-center">@dr["CourseName"]</td>

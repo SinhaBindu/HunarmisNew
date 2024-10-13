@@ -17,6 +17,12 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_PCIEdubridgeCoursesList()
+        {
+            StoredProcedure sp = new StoredProcedure("SP_PCIEdubridgeCoursesList");
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
         public static DataTable SPGetUserlist(int? RoleId)
         {
             StoredProcedure sp = new StoredProcedure("SPGetUserlist");
@@ -144,6 +150,20 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
             sp.Command.AddParameter("@TCIds", tcid, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_RawShowParticipantList(FilterModel model)
+        {
+            model.UserId = string.IsNullOrEmpty(model.UserId) || model.UserId == "-1" || model.UserId == "0" ? "" : model.UserId;
+            //model.CourseId = string.IsNullOrEmpty(model.CourseId) ? model.CourseId = "" : model.CourseId;
+            StoredProcedure sp = new StoredProcedure("SP_RawShowParticipantList");
+            sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
+            sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
+            sp.Command.AddParameter("@Gender", model.Gender, DbType.String);
+            sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
+            sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
+            sp.Command.AddParameter("@TCIds", model.TrainingCenterID, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

@@ -158,24 +158,6 @@
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.BatchId, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2" })
-                                        @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                @if (!User.IsInRole(CommonModel.RoleNameCont.Mobilizer) && !User.IsInRole(CommonModel.RoleNameCont.Viewer))
-                                {
-                                    <div class="col-xs-12 col-md-3">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.IsPlacementTracker, htmlAttributes: new { @class = "control-label" })
-                                            @Html.DropDownListFor(m => m.IsPlacementTracker, CommonModel.GetddlPlacementTracker(), "Select", htmlAttributes: new { @class = "form-control select2" })
-                                            @Html.ValidationMessageFor(model => model.IsPlacementTracker, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                }
-
-                                <div class="col-xs-12 col-md-3">
-                                    <div class="form-group">
                                         @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
                                         @Html.DropDownListFor(m => m.Gender, CommonModel.GetGender(true).OrderBy(x => x.Text), htmlAttributes: new { @class = "form-control select2" })
                                         @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
@@ -205,7 +187,7 @@
                                             <input type="submit" name="btnsubmit" id="btnsubmit" class="btn-register" value="Filter" />
                                         </span>
                                         <span class="check-spacer">
-                                            <a href="~/Participant/ParticipantList" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                            <a href="~/Participant/ParticipantShowList" class="btn-reset"><i class="fa fa-refresh"></i></a>
                                         </span>
                                         @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
                                         {
@@ -259,205 +241,19 @@
                     $("#FromDt").datepicker("option", "maxDate", selectedDate);
                 }
             });
-            BindGetCourses("CourseId", "", 1, '0');
+
+            BindGetCoursesPCIEdubridge('CourseId', '', '1');
             $('select[name="CourseId"]').find('option').eq(1).attr("selected", true).change();
-            BindModuleWiseBatches("BatchId", "", 1, '0', $('#CourseId').val(), 0);
-            $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
-            if ('@Model.TrainingCenterID' == '0' || '@Model.TrainingCenterID'=='') {
-                //$('select[name="CourseId"]').find('option[value="1"]').attr("selected", true).change();
-                $('select[name="CourseId"]').find('option').eq(1).attr("selected", true).change();
-            }
-            //$('#BatchId').change(function (e) {
-            //    e.preventDefault();
-            //    BindData();
-            //});
-            $('#CourseId').change(function (e) {
-                BindModuleWiseBatches("BatchId", "", 1, '0', $(this).val(), 0)
-                //BindData();
-            });
-            //$('#IsPlacementTracker').change(function (e) {
-            //    e.preventDefault();
-            //    BindData();
-            //});
             BindData();
             //setTimeout(function () {
-            //    //$('select[name="BatchId"]').find('option[value="21"]').attr("selected", true).change();
+            //    //$('select[name="CourseId"]').find('option').eq(1).attr("selected", true).change();
+            //    $('select[name="CourseId"]').val('2');
             //    BindData();
-            //}, 200);
+            //}, 500);
             $("#formid").submit(function (e) {
                 e.preventDefault();
                 BindData();
             });
-
-            $(document).on('change', '#Salary', function (e) {
-                var value = $(this).val();
-                var validValue = value.replace(/[^0-9.]/g, '');
-                var decimalMatch = validValue.match(/^\d*(\.\d{0,2})?$/);
-                if (decimalMatch) {
-                    $(this).val(validValue);
-                } else {
-                    $(this).val(value.slice(0, -1));
-                }
-            });
-             //model pop call
-            $(document).on('change', '#StateId', function (e) {
-                e.preventDefault();
-                BindDistrict("DistrictId", '', "1", $(this).val(),2);
-            });
-            $(document).on('click', '.btnpop', function (e) {
-                $('#div-popmodel').html('');
-                debugger;
-                var button = $(e.relatedTarget); // Button that triggered the modal
-                var id = button.data('id'); // Extract the id from data-* attributes
-                var datapartid = $(this).attr('data-id'); // Extract the id from data-* attributes
-                var dataplacementrackerid = $(this).attr('data-placementrackerid') != '@Guid.Empty' ? $(this).attr('data-placementrackerid') : '@Guid.Empty'; // Extract the id from data-* attributes
-                var placetrackerdistrictId = $(this).attr('data-placetrackerdistrictId') != '' ? $(this).attr('data-placetrackerdistrictId') : null; // Extract the id from data-* attributes
-
-                var modal = $(this);
-
-                // Load content via AJAX
-                $.ajax({
-                    url: '@Url.Action("AddPlacementTracker", "Participant")',
-                    data: { PartId: datapartid, Id: dataplacementrackerid },
-                    async: false,
-                    success: function (result) {
-                        $('#div-popmodel').html(result);
-                        $("#myModal").modal({ backdrop: "static" });
-
-
-                        BindDistrict("DistrictId", '', "1", $('#StateId').val(),2);
-                        if (dataplacementrackerid != '@Guid.Empty') {
-                            BindPlacementDetailData(datapartid, dataplacementrackerid);
-                            if (placetrackerdistrictId != null) {
-                                $("#DistrictId").val(placetrackerdistrictId);
-                            }
-                            //moment($("#DateofOffer").val()).format("DD-MMM-YYYY");
-                            //moment($("#DOJStartDate").val()).format("DD-MMM-YYYY");
-                            //if ($("#DOJEndDate").val()!='') {
-                            //    moment($("#DOJEndDate").val()).format("DD-MMM-YYYY");
-                            //}
-                        }
-                        else {
-                            $("#formidpop")[0].reset();
-                            $('#StateId').val('0'); $('#DistrictId').val('');
-                        }
-
-                        $("#DateofOffer").datepicker({
-                            //beforeShow: customRangeEndComplt,
-                            //dateFormat: 'mm-dd-yy',
-                            dateFormat: 'dd-M-yy',
-                            // changeMonth: true,
-                            //changeYear: true,
-                            maxDate: new Date(),
-                            onSelect: function (d, i) {
-                                if (d !== i.lastVal) {
-                                    $(this).change();
-                                }
-                            }
-                        });
-
-                        $("#DOJStartDate").datepicker({
-                            //defaultDate: "+1w",
-                            changeMonth: true,
-                            numberOfMonths: 1,
-                            dateFormat: 'dd-M-yy',
-                            maxDate: new Date(),
-                            onClose: function (selectedDate) {
-                                $("#DOJEndDate").datepicker("option", "minDate", selectedDate);
-                            }
-                        });
-                        $("#DOJEndDate").datepicker({
-                            //defaultDate: "+1w",
-                            changeMonth: true,
-                            numberOfMonths: 1,
-                            dateFormat: 'dd-M-yy',
-                            maxDate: new Date(),
-                            onClose: function (selectedDate) {
-                                $("#DOJStartDate").datepicker("option", "maxDate", selectedDate);
-                            }
-                        });
-
-
-
-                    }
-                });
-            });
-
-
-           // $(document).on('click', "#btnsubmitpop #formidpop ", function (event) {
-            $(document).on('submit', "#formidpop", function (event) {
-                //button[type='submit']
-                event.preventDefault();
-                //jQuery.event.trigger("ajaxStart");
-                debugger;
-                //var formDataJson = $('#formid').serialize();//formData.append('tax_file', $('input[type=file]')[0].files[0]);
-
-                //var vl = $("#formid").validate();
-                ////var formData = new FormData($('#formid')[0]);
-
-                var formData = new FormData();
-                var isvalid = $("#formidpop").valid(); //$('#formid').validate();
-                //var formData = $(this).serialize();
-                var formDataSerialized = $("#formidpop").serialize();
-
-                formDataSerialized.split('&').forEach(function (item) {
-                    var parts = item.split('=');
-                    formData.append(decodeURIComponent(parts[0]), decodeURIComponent(parts[1]));
-                });
-
-                 if ($('#UploadOfferLetter').get(0).files.length != 0) {
-                      formData.append('UploadOfferLetter', $('#UploadOfferLetter')[0].files[0]);
-                  }
-                  if ($('#UploadAppointmentLetter').get(0).files.length != 0) {
-                      formData.append('UploadAppointmentLetter', $('#UploadAppointmentLetter')[0].files[0]);
-                }
-                console.log(formData)
-
-            if (isvalid) {
-                $('#btnsubmitpop').attr('disabled', true);
-                $.ajax({
-                    type: "POST",
-                    url: document.baseURI + "/Participant/PostPlacementTracker/",
-                    data: formData,
-                    //use contentType, processData for sure.
-                    contentType: false,
-                     processData: false,
-                    dataType: 'json',
-                   //contentType: "application/json; charset=utf-8",
-                    success: function (resp) {
-                        if (resp.StatusType == "success") {
-                            toastr.success("Success", resp.Message);
-                            BindData();
-                            //jQuery.event.trigger("ajaxStop");
-                            //$('#btnsubmitpop').attr('disabled', true);
-                            if ($('#PlacementTrackerId_pk').val() == '@Guid.Empty') {
-                                $("#formidpop")[0].reset();
-                               // BindStateList("StateId", '', "1");
-                                BindDistrict("DistrictId", '', "1" ,0,2);
-                            }
-                        }
-                        else {
-                            $('#btnsubmitpop').attr('disabled', false);
-                            toastr.error("Error", resp.Message);
-                        }
-                    },
-                    error: function (req, error) {
-                        $('#btnsubmitpop').attr('disabled', false);
-                        if (error === 'error') { error = req.statusText; }
-                        var errormsg = 'There was a communication error: ' + error;
-                        toastr.error("Error", errormsg);
-                        //jQuery.event.trigger("ajaxStop");
-                        return false;
-                    }
-                });
-            }
-            else {
-                //CreateToasterMessage("Error", "All Record Validate !!", "error");
-                toastr.error("Error", "All Record Validate !!");
-                // jQuery.event.trigger("ajaxStop");
-                return false;
-            }
-        });
 
         });
 
@@ -472,22 +268,16 @@
             $("#subdata").html('');
             $('#global-loader').css('background', 'transparent').css('display', 'block');
             var filtermodel = new Object();
-            filtermodel.Type = 0;//$('#Type').val() == '' ? '' : $('#Type').val();
-            filtermodel.Search = ""; //$('#Search').val() == '' ? '' : $('#Search').val();
-            filtermodel.IsPlacementTracker = $('#IsPlacementTracker').val() == '' ? "0" : $('#IsPlacementTracker').val();
-            filtermodel.BatchId = $('#BatchId').val() == '' ? "0" : $('#BatchId').val();
-            //filtermodel.CourseId = $('#CourseId').val() == '' ? "0" : $('#CourseId').val();
-            var CourseId = $('#CourseId').val() == '' ? "0" : $('#CourseId').val();
+            var CourseId = $('#CourseId option:selected').text() == 'All' ? "0" : $('#CourseId option:selected').text();
             filtermodel.Gender = $('#Gender').val() == '' ? '0' : $('#Gender').val();
             filtermodel.FromDt = $('#FromDt').val() == '' ? '0' : $('#FromDt').val();
             filtermodel.ToDt = $('#ToDt').val() == '' ? '0' : $('#ToDt').val();
-            filtermodel.TrainingCenterID = '@Model.TrainingCenterID';
-            filtermodel.CourseId = '@Model.TrainingCenterID' == '0' || '@Model.TrainingCenterID' == '' ? CourseId : "0";
+            filtermodel.CourseId = CourseId;
             var formData = $('#formid').serialize();
 
             $.ajax({
                 type: "Get",
-                url: document.baseURI + "/Participant/GetPartList",
+                url: document.baseURI + "/Participant/GetPartShowList",
                 data: filtermodel,//JSON.stringify({ 'Roles': '' }),
                 //cache: false,
                // async: false,

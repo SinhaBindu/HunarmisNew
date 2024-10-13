@@ -1,13 +1,14 @@
 ﻿//using DocumentFormat.OpenXml.Office2010.ExcelAc;
 //using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
 //using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.EMMA;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using DocumentFormat.OpenXml.Spreadsheet;
+//using DocumentFormat.OpenXml.EMMA;
+//using DocumentFormat.OpenXml.Office2010.ExcelAc;
+////using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
+//using DocumentFormat.OpenXml.Spreadsheet;
 using Hunarmis.Helpers;
 using Hunarmis.Models;
-using Irony.Parsing.Construction;
-using Microsoft.AspNet.Identity;
+//using Irony.Parsing.Construction;
+//using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using SubSonic.Extensions;
 using SubSonic.Schema;
@@ -230,6 +231,25 @@ namespace Hunarmis.Manager
                 }
             }
             return "all";
+        }
+        public static List<SelectListItem> GetCoursePCIEdubridgeText(int IsAll = 2)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            DataTable dt1 = SPManager.SP_PCIEdubridgeCoursesList();
+            list = dt1.AsEnumerable().Select(x => new SelectListItem()
+            {
+                Value = x.Field<Int32>("Id").ToString(),
+                Text = x.Field<string>("CourseName")
+            }).ToList();
+            if (IsAll == 0)
+            {
+                list.Insert(0, new SelectListItem { Value = "0", Text = "Select", Selected = true });
+            }
+            else if (IsAll == 1)
+            {
+                list.Insert(0, new SelectListItem { Value = "0", Text = "All", Selected = true });
+            }
+            return list;
         }
         public static List<SelectListItem> GetSPModuleWiseBatches(int IsAll = 2, int ModuleType = 0, int CourseId = 0, int BatchId = 0, int TrainingCenterId = 0)
         {

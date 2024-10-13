@@ -88,6 +88,39 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = IsCheck, Data = Enums.GetEnumDescription(Enums.eReturnReg.ExceptionError) }, JsonRequestBehavior.AllowGet); throw;
             }
         }
+        public ActionResult ParticipantShowList(FilterModel model)
+        {
+            return View();
+        }
+        public ActionResult GetPartShowList(FilterModel model)
+        {
+            DataTable tbllist = new DataTable();
+            var html = "";
+            try
+            {
+                tbllist = SPManager.SP_RawShowParticipantList(model);
+                bool IsCheck = false;
+                if (tbllist.Rows.Count > 0)
+                {
+                    IsCheck = true;
+                    html = ConvertViewToString("_PartDataShow", tbllist);
+                    var res = Json(new { IsSuccess = IsCheck, Data = html }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+                else
+                {
+                    var res = Json(new { IsSuccess = IsCheck, Data = "Record Not Found !!" }, JsonRequestBehavior.AllowGet);
+                    res.MaxJsonLength = int.MaxValue;
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+            }
+        }
         public ActionResult ParticipantList(int TCId = 0)
         {
             FilterModel model = new FilterModel();
@@ -183,7 +216,7 @@ namespace Hunarmis.Controllers
                         model.partChildModel.EmergencyPersonName = childtbl.EmergencyPersonName;
                         model.partChildModel.EmergencyContactNo = childtbl.EmergencyContactNo;
                         model.partChildModel.EmergencyRelationship = childtbl.EmergencyRelationship;
-                        model.partChildModel.EmergencyMonthlyIncome =childtbl.EmergencyMonthlyIncome!=null? (int)childtbl.EmergencyMonthlyIncome: childtbl.EmergencyMonthlyIncome;
+                        model.partChildModel.EmergencyMonthlyIncome = childtbl.EmergencyMonthlyIncome != null ? (int)childtbl.EmergencyMonthlyIncome : childtbl.EmergencyMonthlyIncome;
 
                         model.partChildModel.IDType = childtbl.IDType;
                         model.partChildModel.IDNo = childtbl.IDNo;
@@ -262,7 +295,7 @@ namespace Hunarmis.Controllers
                         //l.FirstName + tbl.MiddleName + tbl.LastName;
                         //  tbl.StateId = db.State_Mast.Where(x => x.ID == sid).FirstOrDefault().ID.ToString();
                         tbl.Gender = !(string.IsNullOrWhiteSpace(model.Gender)) ? model.Gender.Trim() : model.Gender;
-                        tbl.DOB = model.DOB;    
+                        tbl.DOB = model.DOB;
                         //tbl.Age = !(string.IsNullOrWhiteSpace(model.Age)) ? model.Age.Trim() : model.Age;
                         tbl.PhoneNo = !(string.IsNullOrWhiteSpace(model.PhoneNo)) ? model.PhoneNo.Trim() : model.PhoneNo;
                         tbl.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(model.AlternatePhoneNo)) ? model.AlternatePhoneNo.Trim() : model.AlternatePhoneNo;
@@ -1144,7 +1177,7 @@ namespace Hunarmis.Controllers
 
                                         tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
                                         tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
-                                      //  tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                        //  tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
                                         // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
                                         tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
                                         tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
@@ -1246,7 +1279,7 @@ namespace Hunarmis.Controllers
                                                 tblu.DOB = CommonModel.FormateDtYMD(dobirth);
                                                 tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
                                                 tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
-                                               // tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                                // tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
                                                 // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
                                                 tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
                                                 //tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;

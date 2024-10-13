@@ -191,7 +191,6 @@
     .card-box .f-26 {
         font-size: 20px !important;
     }
-
 </style>
 
 <div class="container-fluid">
@@ -219,7 +218,7 @@
                                                         @dt0.Rows[0]["TotalBatchesDone"].ToString()
                                                         )
                                                     </span>
-                                                  
+
                                                 }
                                             </h4>
                                         </div>
@@ -319,8 +318,11 @@
                                         <tr>
                                             <th class="text-center tblth">Srno.</th>
                                             <th class="text-center tblth">Name</th>
-                                            <th class="text-center tblth">Phone No</th>
-                                            <th class="text-center tblth">Email ID</th>
+                                            @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                            {
+                                                <th class="text-center tblth">Phone No</th>
+                                                <th class="text-center tblth">Email ID</th>
+                                            }
                                             <th class="text-center tblth">Batch Name</th>
                                             <th class="text-center tblth">Batch Start Date</th>
                                             <th class="text-center tblth">Batch End Date</th>
@@ -341,8 +343,11 @@
                                                     <tr>
                                                         <td class="text-center">@(srno++)</td>
                                                         <td class="text-left">@dr["Name"]</td>
-                                                        <td class="text-center">@dr["PhoneNo"]</td>
-                                                        <td class="text-left">@dr["EmailID"]</td>
+                                                        @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                                        {
+                                                            <td class="text-center">@dr["PhoneNo"]</td>
+                                                            <td class="text-left">@dr["EmailID"]</td>
+                                                        }
                                                         <td class="text-left">@dr["BatchName"]</td>
                                                         <td class="text-left">@dr["BatchStartDate"]</td>
                                                         <td class="text-center">@dr["BatchEndDate"]</td>
