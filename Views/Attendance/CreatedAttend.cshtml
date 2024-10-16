@@ -82,7 +82,7 @@
                                                     @Html.LabelFor(model => model.AttendanceImage, htmlAttributes: new { @class = "control-label" })
                                                     @if (Model.AttendanceId_pk == Guid.Empty)
                                                     {
-                                                        <input type="file" class="AttendanceImage form-control" name="AttendanceImage" id="AttendanceImage" accept="image/png, image/jpeg, image/jpg" />
+                                                        <input type="file" class="AttendanceImage form-control" name="AttendanceImage" id="AttendanceImage" required accept="image/png, image/jpeg, image/jpg" />
                                                         @Html.ValidationMessageFor(model => model.AttendanceImage, "", new { @class = "text-danger" })
                                                     }
                                                     else
@@ -383,6 +383,11 @@
             }
             if ($('#StrStartTime').val() == '' || $('#StrStartTime').val() == undefined || $('#StrEndTime').val() == '' || $('#StrEndTime').val() == '') {
                 toastr.error("Error", "Enter the Start and End Time.");
+                IsCheck = false
+                return false;
+            }
+            if ($('#AttendanceImage').val() == '' || $('#AttendanceImage').val() == undefined) {
+                toastr.error("Error", "Choose Image.");
                 IsCheck = false
                 return false;
             }
