@@ -164,6 +164,7 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
             sp.Command.AddParameter("@TCIds", model.TrainingCenterID, DbType.String);
+            sp.Command.AddParameter("@TypeData", model.Type, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

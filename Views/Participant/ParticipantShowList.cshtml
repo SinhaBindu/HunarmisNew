@@ -149,53 +149,63 @@
                         {<div class="col-md-12">@Html.Partial("_Alerts")</div>
                         <fieldset class="fieldset-card">
                             <div class="row">
-                                <div class="col-xs-12 col-md-3">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(m => m.CourseId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2" })
-                                        @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-3">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
-                                        @Html.DropDownListFor(m => m.Gender, CommonModel.GetGender(true).OrderBy(x => x.Text), htmlAttributes: new { @class = "form-control select2" })
-                                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-md-3">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @class = "form-control datepickermonth" } })
-                                        @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-md-3">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @class = "form-control datepickermonth" } })
-                                        @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-md-6">
-                                    <div class="form-group">
-                                        <div style="margin-top:5px;">&nbsp;</div>
-                                        <span class="check-spacer">
-                                            <input type="submit" name="btnsubmit" id="btnsubmit" class="btn-register" value="Filter" />
-                                        </span>
-                                        <span class="check-spacer">
-                                            <a href="~/Participant/ParticipantShowList" class="btn-reset"><i class="fa fa-refresh"></i></a>
-                                        </span>
-                                        @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
-                                        {
-                                            <span id="div-download"></span>
-                                        }
+                                @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                {
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.Type, CommonModel.GetPCIEdubridge(2).OrderBy(x => x.Text), htmlAttributes: new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                                         </div>
+                                    </div>
+                                }
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.CourseId, new List<SelectListItem>(), "Select", htmlAttributes: new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.Gender, CommonModel.GetGender(true).OrderBy(x => x.Text), htmlAttributes: new { @class = "form-control select2" })
+                                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FromDt, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(m => m.FromDt, null, new { htmlAttributes = new { @class = "form-control datepickermonth" } })
+                                            @Html.ValidationMessageFor(model => model.FromDt, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ToDt, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(m => m.ToDt, null, new { htmlAttributes = new { @class = "form-control datepickermonth" } })
+                                            @Html.ValidationMessageFor(model => model.ToDt, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <div style="margin-top:5px;">&nbsp;</div>
+                                            <span class="check-spacer">
+                                                <input type="submit" name="btnsubmit" id="btnsubmit" class="btn-register" value="Filter" />
+                                            </span>
+                                            <span class="check-spacer">
+                                                <a href="~/Participant/ParticipantShowList" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                            </span>
+                                            @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                            {
+                                                <span id="div-download"></span>
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
                         </fieldset>
 
@@ -272,6 +282,7 @@
             filtermodel.Gender = $('#Gender').val() == '' ? '0' : $('#Gender').val();
             filtermodel.FromDt = $('#FromDt').val() == '' ? '0' : $('#FromDt').val();
             filtermodel.ToDt = $('#ToDt').val() == '' ? '0' : $('#ToDt').val();
+            filtermodel.Type = $('#Type').val() == '' ? '0' : $('#Type').val();
             filtermodel.CourseId = CourseId;
             var formData = $('#formid').serialize();
 

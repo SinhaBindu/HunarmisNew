@@ -804,6 +804,21 @@ namespace Hunarmis.Manager
             list.Add(new SelectListItem { Value = "Female", Text = "Female" });
             return list.OrderByDescending(x => x.Text).ToList();
         }
+        public static List<SelectListItem> GetPCIEdubridge(int Sle = 2)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (Sle == 0)
+            {
+                list.Add(new SelectListItem { Value = "0", Text = "All" });
+            }
+            else if (Sle == 1)
+            {
+                list.Add(new SelectListItem { Value = "0", Text = "Select" });
+            }
+            list.Add(new SelectListItem { Value = "1", Text = "PCI" });
+            list.Add(new SelectListItem { Value = "2", Text = "Edubridge", Selected = true });
+            return list.OrderByDescending(x => x.Text).ToList();
+        }
         public static List<SelectListItem> GetddlPlacementTracker()
         {
             List<SelectListItem> list = new List<SelectListItem>();
