@@ -548,6 +548,13 @@ namespace Hunarmis.Controllers
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             try
             {
+                if (db_.tbl_PlacementTracker.Any(x => x.ParticipantId_fk == model.ParticipantId_fk && model.PlacementTrackerId_pk == Guid.Empty))
+                {
+                    response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Record is already exists.", Data = null };
+                    var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                    resResponse3.MaxJsonLength = int.MaxValue;
+                    return resResponse3;
+                }
                 if (model.DateofOffer > model.DOJStartDate)
                 {
                     response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Date of offer greater than date of joining.", Data = null };
@@ -626,10 +633,13 @@ namespace Hunarmis.Controllers
                             tbl.IsActive = true;
                             tbl.CreatedBy = MvcApplication.CUser.UserId;
                             tbl.CreatedOn = DateTime.Now;
-                            db_.tbl_PlacementTracker.Add(tbl);
                             var tblpart = db_.tbl_Participant.Find(model.ParticipantId_fk);
                             tblpart.IsPlaced = true;
                             tblpart.IsOffered = true;
+                            if (!db_.tbl_PlacementTracker.Any(x => x.ParticipantId_fk == model.ParticipantId_fk))
+                            {
+                                db_.tbl_PlacementTracker.Add(tbl);
+                            }
                         }
                         else
                         {

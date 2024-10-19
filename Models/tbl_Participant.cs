@@ -80,6 +80,12 @@ namespace Hunarmis.Models
         public Nullable<bool> IsConsent { get; set; }
         public Nullable<System.DateTime> ConsentCreatedOn { get; set; }
         public string AttendancePercent { get; set; }
+        public Nullable<int> Alloted_Slots { get; set; }
+        public Nullable<int> Slots_Attended { get; set; }
+        public Nullable<int> Total_Hours { get; set; }
+        public Nullable<decimal> Slot_Wise_Attendance { get; set; }
+        public string Assessed { get; set; }
+        public string Certified { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Participant_Child> tbl_Participant_Child { get; set; }

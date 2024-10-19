@@ -665,6 +665,12 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="IsConsent" Type="bit" />
           <Property Name="ConsentCreatedOn" Type="datetime" />
           <Property Name="AttendancePercent" Type="nvarchar" MaxLength="50" />
+          <Property Name="Alloted_Slots" Type="int" />
+          <Property Name="Slots_Attended" Type="int" />
+          <Property Name="Total_Hours" Type="int" />
+          <Property Name="Slot_Wise_Attendance" Type="decimal" Precision="10" Scale="5" />
+          <Property Name="Assessed" Type="nvarchar" MaxLength="20" />
+          <Property Name="Certified" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tbl_Participant_Calling">
           <Key>
@@ -1246,7 +1252,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <EntitySet Name="WorkExperience_Master" EntityType="Hunar_DBModel.WorkExperience_Master" />
           <EntitySet Name="Year_Master" EntityType="Hunar_DBModel.Year_Master" />
           <EntitySet Name="MaritalStatus_Master" EntityType="Hunar_DBModel.MaritalStatus_Master" />
-          <EntitySet Name="tbl_PlacementTracker" EntityType="Hunar_DBModel.tbl_PlacementTracker" />
           <EntitySet Name="tbl_AttendanceParticipant" EntityType="Hunar_DBModel.tbl_AttendanceParticipant" />
           <EntitySet Name="Batch_Master" EntityType="Hunar_DBModel.Batch_Master" />
           <EntitySet Name="AssetOwnership_Master" EntityType="Hunar_DBModel.AssetOwnership_Master" />
@@ -1258,6 +1263,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
             <End Role="tbl_Participant" EntitySet="tbl_Participant" />
             <End Role="tbl_Participant_Child" EntitySet="tbl_Participant_Child" />
           </AssociationSet>
+          <EntitySet Name="tbl_PlacementTracker" EntityType="Hunar_DBModel.tbl_PlacementTracker" />
           <AssociationSet Name="FK_tbl_PlacementTracker_tbl_Participant" Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant">
             <End Role="tbl_Participant" EntitySet="tbl_Participant" />
             <End Role="tbl_PlacementTracker" EntitySet="tbl_PlacementTracker" />
@@ -2039,36 +2045,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaritalStatusName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tbl_PlacementTracker">
-          <Key>
-            <PropertyRef Name="PlacementTrackerId_pk" />
-          </Key>
-          <Property Name="PlacementTrackerId_pk" Type="Guid" Nullable="false" />
-          <Property Name="ParticipantId_fk" Type="Guid" />
-          <Property Name="EmployeeTypeId" Type="Int32" />
-          <Property Name="IndustryId" Type="Int32" />
-          <Property Name="IndustryOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Designation" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
-          <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="StateId" Type="Int32" />
-          <Property Name="DistrictId" Type="Int32" />
-          <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="DateofOffer" Type="DateTime" Precision="0" />
-          <Property Name="DateofJoining" Type="DateTime" Precision="0" />
-          <Property Name="DOJStartDate" Type="DateTime" Precision="0" />
-          <Property Name="DOJEndDate" Type="DateTime" Precision="0" />
-          <Property Name="UploadOfferLetterPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UploadAppointmentLetterPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
-          <Property Name="OrderBy" Type="Int32" />
-          <NavigationProperty Name="tbl_Participant" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_PlacementTracker" ToRole="tbl_Participant" />
-        </EntityType>
         <EntityType Name="tbl_AttendanceParticipant">
           <Key>
             <PropertyRef Name="AttendanceId_pk" />
@@ -2288,6 +2264,12 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="ConsentCreatedOn" Type="DateTime" Precision="3" />
           <Property Name="AttendancePercent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_Participant_Child" Relationship="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" FromRole="tbl_Participant" ToRole="tbl_Participant_Child" />
+          <Property Name="Alloted_Slots" Type="Int32" />
+          <Property Name="Slots_Attended" Type="Int32" />
+          <Property Name="Total_Hours" Type="Int32" />
+          <Property Name="Slot_Wise_Attendance" Type="Decimal" Precision="10" Scale="5" />
+          <Property Name="Assessed" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Certified" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_PlacementTracker" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_Participant" ToRole="tbl_PlacementTracker" />
         </EntityType>
         <Association Name="FK_tbl_Participant_Child_tbl_Participant">
@@ -2302,6 +2284,36 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_PlacementTracker">
+          <Key>
+            <PropertyRef Name="PlacementTrackerId_pk" />
+          </Key>
+          <Property Name="PlacementTrackerId_pk" Type="Guid" Nullable="false" />
+          <Property Name="ParticipantId_fk" Type="Guid" />
+          <Property Name="EmployeeTypeId" Type="Int32" />
+          <Property Name="IndustryId" Type="Int32" />
+          <Property Name="IndustryOther" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DateofOffer" Type="DateTime" Precision="0" />
+          <Property Name="DateofJoining" Type="DateTime" Precision="0" />
+          <Property Name="DOJStartDate" Type="DateTime" Precision="0" />
+          <Property Name="DOJEndDate" Type="DateTime" Precision="0" />
+          <Property Name="UploadOfferLetterPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UploadAppointmentLetterPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsDeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="OrderBy" Type="Int32" />
+          <NavigationProperty Name="tbl_Participant" Relationship="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" FromRole="tbl_PlacementTracker" ToRole="tbl_Participant" />
+        </EntityType>
         <Association Name="FK_tbl_PlacementTracker_tbl_Participant">
           <End Type="Hunar_DBModel.tbl_Participant" Role="tbl_Participant" Multiplicity="0..1" />
           <End Type="Hunar_DBModel.tbl_PlacementTracker" Role="tbl_PlacementTracker" Multiplicity="*" />
@@ -3096,36 +3108,6 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_PlacementTracker">
-            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_PlacementTracker">
-              <MappingFragment StoreEntitySet="tbl_PlacementTracker">
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
-                <ScalarProperty Name="IsDeletedOn" ColumnName="IsDeletedOn" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="UploadAppointmentLetterPath" ColumnName="UploadAppointmentLetterPath" />
-                <ScalarProperty Name="UploadOfferLetterPath" ColumnName="UploadOfferLetterPath" />
-                <ScalarProperty Name="DOJEndDate" ColumnName="DOJEndDate" />
-                <ScalarProperty Name="DOJStartDate" ColumnName="DOJStartDate" />
-                <ScalarProperty Name="DateofJoining" ColumnName="DateofJoining" />
-                <ScalarProperty Name="DateofOffer" ColumnName="DateofOffer" />
-                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="Salary" ColumnName="Salary" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="IndustryOther" ColumnName="IndustryOther" />
-                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
-                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
-                <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
-                <ScalarProperty Name="PlacementTrackerId_pk" ColumnName="PlacementTrackerId_pk" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_AttendanceParticipant">
             <EntityTypeMapping TypeName="Hunar_DBModel.tbl_AttendanceParticipant">
               <MappingFragment StoreEntitySet="tbl_AttendanceParticipant">
@@ -3289,6 +3271,12 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <EntitySetMapping Name="tbl_Participant">
             <EntityTypeMapping TypeName="Hunar_DBModel.tbl_Participant">
               <MappingFragment StoreEntitySet="tbl_Participant">
+                <ScalarProperty Name="Certified" ColumnName="Certified" />
+                <ScalarProperty Name="Assessed" ColumnName="Assessed" />
+                <ScalarProperty Name="Slot_Wise_Attendance" ColumnName="Slot_Wise_Attendance" />
+                <ScalarProperty Name="Total_Hours" ColumnName="Total_Hours" />
+                <ScalarProperty Name="Slots_Attended" ColumnName="Slots_Attended" />
+                <ScalarProperty Name="Alloted_Slots" ColumnName="Alloted_Slots" />
                 <ScalarProperty Name="AttendancePercent" ColumnName="AttendancePercent" />
                 <ScalarProperty Name="ConsentCreatedOn" ColumnName="ConsentCreatedOn" />
                 <ScalarProperty Name="IsConsent" ColumnName="IsConsent" />
@@ -3348,6 +3336,36 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
                 <ScalarProperty Name="BatchEnrolledID" ColumnName="BatchEnrolledID" />
                 <ScalarProperty Name="RegID" ColumnName="RegID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PlacementTracker">
+            <EntityTypeMapping TypeName="Hunar_DBModel.tbl_PlacementTracker">
+              <MappingFragment StoreEntitySet="tbl_PlacementTracker">
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="IsDeletedOn" ColumnName="IsDeletedOn" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UploadAppointmentLetterPath" ColumnName="UploadAppointmentLetterPath" />
+                <ScalarProperty Name="UploadOfferLetterPath" ColumnName="UploadOfferLetterPath" />
+                <ScalarProperty Name="DOJEndDate" ColumnName="DOJEndDate" />
+                <ScalarProperty Name="DOJStartDate" ColumnName="DOJStartDate" />
+                <ScalarProperty Name="DateofJoining" ColumnName="DateofJoining" />
+                <ScalarProperty Name="DateofOffer" ColumnName="DateofOffer" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="IndustryOther" ColumnName="IndustryOther" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
+                <ScalarProperty Name="ParticipantId_fk" ColumnName="ParticipantId_fk" />
+                <ScalarProperty Name="PlacementTrackerId_pk" ColumnName="PlacementTrackerId_pk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

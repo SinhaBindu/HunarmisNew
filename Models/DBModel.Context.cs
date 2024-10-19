@@ -71,7 +71,6 @@ namespace Hunarmis.Models
         public virtual DbSet<WorkExperience_Master> WorkExperience_Master { get; set; }
         public virtual DbSet<Year_Master> Year_Master { get; set; }
         public virtual DbSet<MaritalStatus_Master> MaritalStatus_Master { get; set; }
-        public virtual DbSet<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
         public virtual DbSet<tbl_AttendanceParticipant> tbl_AttendanceParticipant { get; set; }
         public virtual DbSet<Batch_Master> Batch_Master { get; set; }
         public virtual DbSet<AssetOwnership_Master> AssetOwnership_Master { get; set; }
@@ -79,5 +78,6 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_ParticipantResumeTemplate> tbl_ParticipantResumeTemplate { get; set; }
         public virtual DbSet<tbl_ExcelParticipantData> tbl_ExcelParticipantData { get; set; }
         public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
+        public virtual DbSet<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
     }
 }
