@@ -77,7 +77,7 @@ namespace Hunarmis.Models
         public virtual DbSet<tbl_Participant_Child> tbl_Participant_Child { get; set; }
         public virtual DbSet<tbl_ParticipantResumeTemplate> tbl_ParticipantResumeTemplate { get; set; }
         public virtual DbSet<tbl_ExcelParticipantData> tbl_ExcelParticipantData { get; set; }
-        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
         public virtual DbSet<tbl_PlacementTracker> tbl_PlacementTracker { get; set; }
+        public virtual DbSet<tbl_Participant> tbl_Participant { get; set; }
     }
 }

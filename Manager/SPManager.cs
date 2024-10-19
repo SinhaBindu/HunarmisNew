@@ -449,5 +449,12 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataTable SP_GetBulkDataParticipantLoginCreated(string TypeInsertUpdate = "")
+        {
+            StoredProcedure sp = new StoredProcedure("BulkDataParticipantLoginCreated");
+            sp.Command.AddParameter("@TypeInsertUpdate", TypeInsertUpdate, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
     }
 }

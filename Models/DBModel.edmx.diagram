@@ -61,9 +61,9 @@
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant_Child" Width="1.5" PointX="18" PointY="23.125" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ParticipantResumeTemplate" Width="1.5" PointX="20.375" PointY="0.75" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_ExcelParticipantData" Width="1.5" PointX="20.375" PointY="18.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="15.75" PointY="21.25" IsExpanded="false" />
-        <AssociationConnector Association="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" />
         <EntityTypeShape EntityType="Hunar_DBModel.tbl_PlacementTracker" Width="1.5" PointX="18" PointY="16.5" />
+        <EntityTypeShape EntityType="Hunar_DBModel.tbl_Participant" Width="1.5" PointX="15.75" PointY="22" IsExpanded="false" />
+        <AssociationConnector Association="Hunar_DBModel.FK_tbl_Participant_Child_tbl_Participant" />
         <AssociationConnector Association="Hunar_DBModel.FK_tbl_PlacementTracker_tbl_Participant" />
         </Diagram>
     </edmx:Diagrams>

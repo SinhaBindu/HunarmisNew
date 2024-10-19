@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using Hunarmis.Models;
 using NLog.LayoutRenderers;
 using Hunarmis.Manager;
+using System.Data;
+using System.Drawing;
 
 namespace Hunarmis.Controllers
 {
@@ -264,6 +266,111 @@ namespace Hunarmis.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //bulk user register
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult RegisterUser()
+        {
+            RegisterViewModel model = new RegisterViewModel();
+            Hunar_DBEntities db_ = new Hunar_DBEntities();
+            DataTable dtU = new DataTable();
+            dtU = SPManager.SP_GetBulkDataParticipantLoginCreated("U");
+            foreach (DataRow dr in dtU.Rows)
+            {
+                if (!string.IsNullOrWhiteSpace(dr["AspNetUserId"].ToString().Trim()))
+                {
+                    model.Id = dr["AspNetUserId"].ToString().Trim();
+                    model.Password = !string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString().Trim()) ? dr["PhoneNo"].ToString().Trim() : dr["PhoneNo"].ToString().Trim();
+                    var tbLu = db_.AspNetUsers.Find(model.Id);
+
+                    var passwordHasher = new Microsoft.AspNet.Identity.PasswordHasher();
+                    tbLu.PasswordHash = passwordHasher.HashPassword(model.Password);
+
+                    tbLu.UserName = dr["PhoneNo"].ToString().Trim();
+                    tbLu.EmpName = dr["FullName"].ToString().Trim();
+                    tbLu.Email = dr["EmailID"].ToString().Trim();
+                    tbLu.PhoneNumber = dr["PhoneNo"].ToString().Trim();
+                    //tbLu.PasswordHash = model.Password;
+                    int res = db_.SaveChanges();
+
+                    var userRoles = UserManager.GetRoles(tbLu.Id);
+                    var rolename = db_.AspNetRoles.Find("3").Name;
+                    foreach (var item in userRoles)
+                    {
+                        if (model.RoleID != item)
+                        {
+                            UserManager.RemoveFromRoles(tbLu.Id, item);
+                            UserManager.AddToRole(tbLu.Id, rolename);
+                        }
+                    }
+                }
+            }
+
+            DataTable dtI = new DataTable();
+            dtI = SPManager.SP_GetBulkDataParticipantLoginCreated("I");
+            //var w = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
+            foreach (DataRow dr in dtI.Rows)
+            {
+                var user = new ApplicationUser { PhoneNumber = dr["PhoneNo"].ToString().Trim(), UserName = dr["PhoneNo"].ToString().Trim(), Email = dr["EmailID"].ToString().Trim() };
+                // model.Password = !string.IsNullOrWhiteSpace(model.Password) ? model.Password : dr["PhoneNo"].ToString().Trim();
+                var result =  UserManager.CreateAsync(user, dr["PhoneNo"].ToString().Trim());
+                if (result.Result.Succeeded)
+                {
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var rolename = db_.AspNetRoles.Find("3").Name;//User
+                    var result1 = UserManager.AddToRole(user.Id, rolename);
+                    if (db_.AspNetUsers.Any(x => x.Id == user.Id.Trim()))
+                    {
+                        var tbLu = db_.AspNetUsers.Find(user.Id);
+                        tbLu.EmpName = dr["FullName"].ToString().Trim();
+                        tbLu.IsActive = true;
+                        // tbLu.CreatedBy = MvcApplication..Id;
+                        tbLu.CreatedOn = DateTime.Now;
+                        int res = db_.SaveChanges();
+                        UserManager.AddToRole(user.Id, rolename);
+
+                        var tblu = db_.tbl_Participant.Find(Guid.Parse(dr["ID"].ToString().Trim()));
+                        tblu.AspNetUserId = user.Id;
+                        db_.SaveChanges();
+                    }
+                }
+            }
+           
+            //if (!string.IsNullOrWhiteSpace(model.Id))
+            //{
+
+            //    model.Password = !string.IsNullOrWhiteSpace(model.Password) ? model.Password : model.PhoneNo.Trim();
+            //    var tbLu = db_.AspNetUsers.Find(model.Id);
+
+            //    var passwordHasher = new Microsoft.AspNet.Identity.PasswordHasher();
+            //    tbLu.PasswordHash = passwordHasher.HashPassword(model.Password);
+
+            //    tbLu.UserName = model.PhoneNo;
+            //    tbLu.EmpName = model.Name;
+            //    tbLu.Email = model.EmailId;
+            //    tbLu.PhoneNumber = model.PhoneNo;
+            //    //tbLu.PasswordHash = model.Password;
+            //    int res = db_.SaveChanges();
+
+            //    var userRoles = UserManager.GetRoles(tbLu.Id);
+            //    var rolename = db_.AspNetRoles.Find(model.RoleID).Name;
+            //    foreach (var item in userRoles)
+            //    {
+            //        if (model.RoleID != item)
+            //        {
+            //            UserManager.RemoveFromRoles(tbLu.Id, item);
+            //            UserManager.AddToRole(tbLu.Id, rolename);
+            //        }
+            //    }
+            //    return RedirectToAction("UserDetaillist", "Master");
+            //}
+
+
+
+            // If we got this far, something failed, redisplay form
+            return Json("User",JsonRequestBehavior.AllowGet);
         }
         public ActionResult Register_Lock(RegisterViewModel model)
         {

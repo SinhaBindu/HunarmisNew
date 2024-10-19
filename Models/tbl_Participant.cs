@@ -86,6 +86,7 @@ namespace Hunarmis.Models
         public Nullable<decimal> Slot_Wise_Attendance { get; set; }
         public string Assessed { get; set; }
         public string Certified { get; set; }
+        public string AspNetUserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Participant_Child> tbl_Participant_Child { get; set; }
