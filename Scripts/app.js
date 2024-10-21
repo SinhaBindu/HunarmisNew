@@ -16,9 +16,16 @@ $(document).ready(function () {
 
     $(".treeview li.active-link").each(function (i, e) {
         $(this).parent('ul').addClass('in');
-        $(this).parents('li.treeview').removeClass('active').addClass('active-sub');
+        //$(this).parent('ul').parent('li').parent('ul').parent('li').addClass('active');
+        $(this).parents('li.treeview').addClass('active-sub active');
+        //if ($(this).parents('li.treeview').parent('ul').parent('li').length) {
+            $(this).parents('li.treeview').addClass('active').children('ul').addClass('in');
+        //}
+        
+        //$(this).parents('li.treeview').children('a').addClass('active-sub-sub');
+        //$(this).parents('li.treeview').parents('li.treeview').removeClass('active').addClass('active-sub');
     });
-    $("#mainnav-menu li.active-link").removeClass('active').addClass('active-sub');
+    $("#mainnav-menu li.active-link").addClass('active-sub');
 
 });
 

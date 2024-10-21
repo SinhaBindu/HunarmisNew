@@ -660,7 +660,6 @@ function BindBatchWiseCourseList(ElementId, SelectedValue, SelectAll, Para) {
 }
 
 function BindGetTainerWiseBatchesList(ElementId, SelectedValue, SelectAll, Para) {
-    debugger;
     $('#' + ElementId).empty();
     $('#' + ElementId).prop("disabled", false);
     //$('#' + ElementId).append($("<option>").val('0').text('Select'));

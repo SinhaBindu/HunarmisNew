@@ -82,6 +82,9 @@ h1, h2, h3, h4, h5, h6, svg {
 #mainnav-menu .active-sub .treeview-menu .active-link i, #mainnav-menu .active-sub .treeview-menu li i {
     color: #000 !important;
 }
+#mainnav-menu .active-sub-sub .treeview-menu .active-link i, #mainnav-menu .active-sub-sub .treeview-menu li i {
+    color: #fff !important;
+}
 @media (min-width: 1200px) {
     #mainnav-menu ul a{
         padding: 8px 10px 8px 10px;
@@ -90,6 +93,11 @@ h1, h2, h3, h4, h5, h6, svg {
 #mainnav-menu > .active-sub .active-sub > a, #mainnav-menu > .active-sub .active-sub > a:hover {
     color: #555 !important;
     font-weight: 600 !important;
+}
+#mainnav-menu > .active-sub-sub .active-sub-sub > a, #mainnav-menu > .active-sub .active-sub-sub > a:hover {
+    color: #fff !important;
+    font-weight: 600 !important;
+    background: #8a3b99;
 }
 #mainnav-menu a {
     font-family: Outfit, sans-serif !important;
