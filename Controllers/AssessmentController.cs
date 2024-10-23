@@ -74,7 +74,7 @@ namespace Hunarmis.Controllers
             try
             {
                 User = CommonModel.GetUserRoleId();
-                ds = SPManager.GetSP_ScorersSummaryMarks(User, FormId, BatchId);
+                ds = SPManager.GetSP_ScorersSummaryBatchWise(User, FormId, BatchId);
                 if (ds.Tables.Count > 0)
                 {
                     tbllist = (ds.Tables[0]);
@@ -721,7 +721,7 @@ namespace Hunarmis.Controllers
             {
                 DataSet ds = SPManager.GetSP_ScorersSummaryMarks(Session["PartUserId"].ToString(), Convert.ToInt32(Session["FormId"].ToString()), Convert.ToInt32(Session["BatchId"].ToString()));
                 DataTable dt = new DataTable();
-                DataTable dt1 = new DataTable();
+               // DataTable dt1 = new DataTable();
                 if (ds.Tables.Count > 0)
                 {
                     dt = ds.Tables[0];

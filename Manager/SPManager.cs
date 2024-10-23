@@ -1,8 +1,10 @@
-﻿using Hunarmis.Models;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Hunarmis.Models;
 using SubSonic.Schema;
 using System;
 using System.Data;
 using System.Web;
+using System.Web.Security;
 
 namespace Hunarmis.Manager
 {
@@ -14,6 +16,16 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@StateId", StateId, DbType.Int32);
             sp.Command.AddParameter("@RoleIds", RoleIds, DbType.String);
             sp.Command.AddParameter("@TrainingCenterIds", TrainingCenterIds, DbType.String);
+            DataTable dt = sp.ExecuteDataSet().Tables[0];
+            return dt;
+        }
+        public static DataTable SP_ParticipantCheckValidWise(string ID="",int Type=0 ,string PhoneNo="",string EmailId="")
+        {
+            StoredProcedure sp = new StoredProcedure("Check_ParticipantEntryValition");
+            sp.Command.AddParameter("@ID", ID, DbType.String);
+            sp.Command.AddParameter("@Type", Type, DbType.Int32);
+            sp.Command.AddParameter("@PhoneNo", PhoneNo, DbType.String);
+            sp.Command.AddParameter("@EmailId", EmailId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -263,6 +275,15 @@ namespace Hunarmis.Manager
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
+        public static DataSet GetSP_ScorersSummaryBatchWise(string User, int FormId, int BatchId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_ScorersSummaryBatchWise");
+            sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
+            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
+            sp.Command.AddParameter("@User", User, DbType.String);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
         public static DataSet GetSP_ParticipantCallMonthWisematrix(string PrtId, string BatchId,string Course,string CallStatus ,string ReportedBy)
         {
             StoredProcedure sp = new StoredProcedure("Usp_ParticipantCallMonthWisematrix");
@@ -405,11 +426,10 @@ namespace Hunarmis.Manager
         #endregion
 
         #region Login For User Profile
-        public static DataTable SP_LoginForIndiParticipantCheck(IndiParticipantModels model)
+        public static DataTable SP_LoginForIndiParticipantCheck(string ASPNetPartId)
         {
             StoredProcedure sp = new StoredProcedure("SP_LoginForIndiParticipantCheck");
-            sp.Command.AddParameter("@EmailID", model.EmailID, DbType.String);
-            sp.Command.AddParameter("@Password", model.Password, DbType.String);
+            sp.Command.AddParameter("@ASPNetPartId", ASPNetPartId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -449,10 +469,11 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SP_GetBulkDataParticipantLoginCreated(string TypeInsertUpdate = "")
+        public static DataTable SP_GetBulkDataParticipantLoginCreated(string TypeInsertUpdate = "",string PartId="")
         {
             StoredProcedure sp = new StoredProcedure("BulkDataParticipantLoginCreated");
             sp.Command.AddParameter("@TypeInsertUpdate", TypeInsertUpdate, DbType.String);
+            sp.Command.AddParameter("@PartId", PartId, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

@@ -83,6 +83,30 @@ namespace Hunarmis.Manager
         {
             return ConfigurationManager.AppSettings["WebUrl"];
         }
+        public static bool ValidateImageSizeMemory(MemoryStream ms)
+        {
+            const int maxSizeInBytes = 1 * 1024 * 1024; // 1 MB in bytes
+
+            // Check if the stream size is less than or equal to 1 MB
+            if (ms.Length <= maxSizeInBytes)
+            {
+                return true; // Valid size
+            }
+
+            return false; // Invalid size
+        }
+        public static bool ValidateImageSize(HttpPostedFileBase image)
+        {
+            const int maxSizeInBytes = 1 * 1024 * 1024; // 1 MB in bytes
+
+            // Check if the stream size is less than or equal to 1 MB
+            if (image.ContentLength <= maxSizeInBytes)
+            {
+                return true; // Valid size
+            }
+
+            return false; // Invalid size
+        }
 
         public static bool IsEmailConfiguredToLive()
         {

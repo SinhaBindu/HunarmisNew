@@ -24,6 +24,8 @@ using static Hunarmis.Manager.Enums;
 
 namespace Hunarmis.Controllers
 {
+
+    [Authorize(Roles = CommonModel.RoleNameCont.Admin + "," + CommonModel.RoleNameCont.Verifier + "," + CommonModel.RoleNameCont.State + "," + CommonModel.RoleNameCont.Trainer + "," + CommonModel.RoleNameCont.District +"," + CommonModel.RoleNameCont.Mobilizer)]
     [Authorize]
     [SessionCheck]
     public class ParticipantController : Controller
@@ -252,21 +254,33 @@ namespace Hunarmis.Controllers
                 //HttpPostedFileBase imageFile = Request.Files["SelfImage"];
                 if (ModelState.IsValid && MvcApplication.CUser != null)
                 {
-                    var getdt = db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
-                    if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && model.ID == Guid.Empty))//&& x.BatchId == model.BatchId
+                    var getdtph = SPManager.SP_ParticipantCheckValidWise(model.ID.ToString(), 1, model.PhoneNo.Trim(), ""); //db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
+                    var getdtemail = SPManager.SP_ParticipantCheckValidWise(model.ID.ToString(), 2, "", model.EmailID.Trim()); //db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
+                    if (getdtph.Rows.Count > 0)//&& x.BatchId == model.BatchId
                     {
-                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Reg ID : <strong> " + getdt?.FirstOrDefault().RegID + " </strong>  </span>", Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Phone No Registration.<br /> <span> Reg ID : <strong> " + getdtph.Rows[0]["RegID"] + " </strong>  </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
                     }
-                    if (getdt.Any(x => x.PhoneNo == model.PhoneNo.Trim() && x.ID != model.ID))
+                    if (getdtemail.Rows.Count > 0)
                     {
-                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Registration.<br /> <span> Reg ID : <strong> " + getdt?.FirstOrDefault().RegID + " </strong>  </span>", Data = null };
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists EmailId Registration.<br /> <span> Reg ID : <strong> " + getdtemail.Rows[0]["RegID"] + " </strong>  </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;
                     }
+                    if (model.SelfImage != null && model.SelfImage.ContentLength > 0)
+                    {
+                        if (!CommonModel.ValidateImageSize(model.SelfImage))
+                        {
+                            response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "The Self Image size less than equal to 1 MB.", Data = null };
+                            var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                            resResponse1.MaxJsonLength = int.MaxValue;
+                            return resResponse1;
+                        }
+                    }
+                   
                     if (model.DOB == null)
                     {
                         response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Please select Date Of Birth minimum 18 and maximum 30 yrs.<br />", Data = null };
@@ -280,6 +294,13 @@ namespace Hunarmis.Controllers
                         //    resResponse1.MaxJsonLength = int.MaxValue;
                         //    return resResponse1;
                         //}
+                    }
+                    if (model.TrainingCenterID == 0 || model.TrainingCenterID == null)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Please Select Training Center.<br />", Data = null };
+                        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse1.MaxJsonLength = int.MaxValue;
+                        return resResponse1;
                     }
                     var tbl = model.ID != Guid.Empty ? db_.tbl_Participant.Find(model.ID) : new tbl_Participant();
                     if (tbl != null)

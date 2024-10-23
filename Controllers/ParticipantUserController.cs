@@ -202,7 +202,7 @@ namespace Hunarmis.Controllers
             {
                 DataSet ds = SPManager.GetSP_ScorersSummaryMarks(Session["PartUserId"].ToString(), Convert.ToInt32(Session["FormId"].ToString()), Convert.ToInt32(Session["BatchId"].ToString()));
                 DataTable dt = new DataTable();
-                DataTable dt1 = new DataTable();
+               // DataTable dt1 = new DataTable();
                 if (ds.Tables.Count > 0)
                 {
                     dt = ds.Tables[0];
@@ -245,18 +245,18 @@ namespace Hunarmis.Controllers
                             }
                             if (!string.IsNullOrWhiteSpace(bodyTemplate))
                             {
-                                dt1 = ds.Tables[1];
+                                //dt1 = ds.Tables[1];
 
                                 decimal ASCP = Convert.ToDecimal(dt.Rows[0]["Percentage"].ToString());
                                 var AScore = Math.Round(ASCP, MidpointRounding.ToEven);
-                                bodydata = bodyTemplate.Replace("{Name}", dt1.Rows[0]["ReportedNameBy"].ToString())
-                           .Replace("{CourseName}", dt1.Rows[0]["CourseName"].ToString())
+                                bodydata = bodyTemplate.Replace("{Name}", dt.Rows[0]["ReportedNameBy"].ToString())
+                           .Replace("{CourseName}", dt.Rows[0]["CourseName"].ToString())
                            //.Replace("{Completion}", "yes")//dt.Rows[0][""].ToString()
-                           .Replace("{ConductedBy}", dt1.Rows[0]["TrainerName"].ToString())
-                           .Replace("{BatchS}", dt1.Rows[0]["BatchStartDate"].ToString())
-                           .Replace("{BatchE}", dt1.Rows[0]["BatchEndDate"].ToString())
-                           .Replace("{TrainingCenter}", dt1.Rows[0]["TrainingCenter"].ToString())
-                           .Replace("{IsIssueDt}", dt1.Rows[0]["CreatedOn"].ToString())
+                           .Replace("{ConductedBy}", dt.Rows[0]["TrainerName"].ToString())
+                           .Replace("{BatchS}", dt.Rows[0]["BatchStartDate"].ToString())
+                           .Replace("{BatchE}", dt.Rows[0]["BatchEndDate"].ToString())
+                           .Replace("{TrainingCenter}", dt.Rows[0]["TrainingCenter"].ToString())
+                           .Replace("{IsIssueDt}", dt.Rows[0]["CreatedOn"].ToString())
                            .Replace("{AssessmentScore}", AScore.ToString());
                                 model.HrmlData = bodydata;
                             }

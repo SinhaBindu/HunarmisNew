@@ -152,14 +152,14 @@
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter password" })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
-                        <div class="check-box">
+                        <div class="check-box" style="display:none;">
                             @Html.CheckBoxFor(m => m.RememberMe)
                             @Html.LabelFor(m => m.RememberMe, new { @class = "check-label" })
                         </div>
                         <input type="submit" value="Log in" class="btn-login" />
 
                         <br />
-                        <h4><a href="~/UserProfile/Login" target="_blank"><i class="fa fa-users"></i> Learner Login</a></h4>
+                        @*<h4><a href="~/UserProfile/Login" target="_blank"><i class="fa fa-users"></i> Learner Login</a></h4>*@
                     }
                 </div>
             </div>

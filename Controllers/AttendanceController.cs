@@ -18,7 +18,7 @@ namespace Hunarmis.Controllers
 {
     [SessionCheck]
     [Authorize]
-    public class AttendanceController : Controller
+    public class AttendanceController : AccountController
     {
         // GET: Attendance
         public ActionResult Index()
@@ -572,6 +572,13 @@ namespace Hunarmis.Controllers
                         resResponse3.MaxJsonLength = int.MaxValue;
                         return resResponse3;
                     }
+                    if (tblbatch.BatchAssignNoOfParticipant > 50)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Maximum 50 Participants Batch Assign.", Data = null };
+                        var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse3.MaxJsonLength = int.MaxValue;
+                        return resResponse3;
+                    }
                     foreach (var item in spllist)
                     {
                         var partguid = Guid.Parse(item);
@@ -579,14 +586,20 @@ namespace Hunarmis.Controllers
                         tbl.BatchId = BatchId;
                         tbl.TrainerId = tblbatch.TrainerId;
                         res += _db.SaveChanges();
-                    }
-                    if (res > 0)
-                    {
                         tblbatch.BatchAssignNoOfParticipant = res;
                         tblbatch.BatchAssignCreatedBy = MvcApplication.CUser.UserId;
                         tblbatch.BatchAssignCreatedOn = DateTime.Now;
                         tblbatch.BatchAssignDate = DateTime.Now.Date;
                         _db.SaveChanges();
+                        RegisterUserPartWise("I", tbl.ID.ToString());
+                    }
+                    if (res > 0)
+                    {
+                        //tblbatch.BatchAssignNoOfParticipant = res;
+                        //tblbatch.BatchAssignCreatedBy = MvcApplication.CUser.UserId;
+                        //tblbatch.BatchAssignCreatedOn = DateTime.Now;
+                        //tblbatch.BatchAssignDate = DateTime.Now.Date;
+                        //_db.SaveChanges();
                         response = new JsonResponseData { StatusType = eAlertType.success.ToString(), Message = Enums.GetEnumDescription(Enums.eReturnReg.Update), Data = null };
                         var resResponse3 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse3.MaxJsonLength = int.MaxValue;
