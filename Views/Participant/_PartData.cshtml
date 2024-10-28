@@ -38,6 +38,7 @@
                 @*<th class="text-center tblth">Status/Date</th>
                     <th class="text-center tblth">Reported By</th>*@
                 <th class="text-center tblth">Assessment<br /> Score</th>
+                <th class="text-center tblth">Attendance (%)</th>
             </tr>
         </thead>
         <tbody>
@@ -105,6 +106,7 @@
                             @*<td class="text-center">@dr["CurrentStatus"]/<br />@dr["CurrentReportedDate"] </td>
                                 <td class="text-center" style="word-break:break-word !important;">@dr["CurrentReportedByName"]</td>*@
                             <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
+                            <td class="text-center"><strong>@dr["SW_Attendance"]</strong></td>
                         </tr>
                     }
                 }
