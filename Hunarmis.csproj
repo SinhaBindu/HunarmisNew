@@ -385,6 +385,7 @@
     <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\ParticipantController.cs" />
     <Compile Include="Controllers\ParticipantUserController.cs" />
+    <Compile Include="Controllers\UserResumeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1894,6 +1895,7 @@
     <Content Include="Views\UserProfile\ResumeTemplate.cshtml" />
     <Content Include="Views\Participant\ParticipantShowList.cshtml" />
     <Content Include="Views\Participant\_PartDataShow.cshtml" />
+    <Content Include="Views\UserResume\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

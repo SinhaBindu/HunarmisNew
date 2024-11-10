@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<table id="myTable">
+    <thead>
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+            <th>Header 3</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Existing rows go here -->
+    </tbody>
+</table>
+
+<button id="addRowButton">Add Row</button>
+
+
+@*@section Script{*@
+
+    <script>
+        $(document).ready(function () {
+            // Function to add a new row
+            $("#addRowButton").click(function () {
+                // Create a new <tr> row with
+                //<td>
+                //            cells and a delete button
+                let newRow = $("<tr ></tr>").append(
+                    $("<td></td>").text("New Cell 1"),
+                    $("<td></td>").text("New Cell 2"),
+                    $("<td></td>").text("New Cell 3"),
+                    $("<td></td>").append($("<button class='deleteRow'>Delete</button>"))
+                );
+
+                // Append the new row to the table's <tbody>
+                $("#myTable tbody").append(newRow);
+            });
+
+            // Delegate event for deleting a row
+            $("#myTable").on("click", ".deleteRow", function () {
+                // Remove the specific row that the delete button is in
+                $(this).closest("tr").remove();
+            });
+        });
+    </script>
+@*}*@
