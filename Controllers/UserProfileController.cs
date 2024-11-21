@@ -262,6 +262,11 @@ namespace Hunarmis.Controllers
             return View(model);
         }
 
+        public ActionResult ResumeTemplateForm()
+        {
+            return View();  
+        }
+
         #endregion
     }
 }

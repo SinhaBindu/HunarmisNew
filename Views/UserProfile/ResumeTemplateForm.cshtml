@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "Resume Template Formate";
+}
+
+
+<div class="app-content">
+    <div class="side-app">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <ol class="breadcrumb">
+                <!-- breadcrumb -->
+                <li class="breadcrumb-item"><a href="javascript:void(0)"><h3 class="mb-0 breadcrump-tittle">@ViewBag.Resume <strong class="text-green"></strong></h3></a></li>
+            </ol><!-- End breadcrumb -->
+            <div id="div-download"></div>
+        </div>
+    </div>
+    @using (Html.BeginForm("ResumeTemplateForm", "UserProfile", FormMethod.Post, new { id = "submission-form" }))
+    {
+        @*@Html.Hidden("PartId")*@
+        <div class="form-group cooler-bg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3">Name</div>
+                    <div class="col-md-3"></div>
+
+
+                    <TABLE id="dataTable" width="350px" border="1">
+                        <TR>
+                            <TD>
+                                <INPUT type="button" value="Add Row" onclick="addRow('dataTable')" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="button" name="button1" value="Delete" onclick="removeRow('button1')">
+                            </TD>
+                            <TD>1</TD>
+                            <TD><input type="text" value="" name="nameTxt"></TD>
+                        </TR>
+                    </TABLE>
+
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="table-data">
+                        <tr>
+                            <td>Name</td>
+                            <td>Location</td>
+                            <td>From</td>
+                            <td>To</td>
+                            <td>Add</td>
+                        </tr>
+                        <tr id="id1" class="tr_clone">
+                            <td><input type="text" autofocus placeholder="who" name="who" id="who1"></td>
+                            <td>
+                                <select name="txtCategory[]" id="category1">
+                                    <option value="">Please select</option>
+                                </select>
+                            </td>
+                            <td><input type="text" placeholder="Start Date" name="datepicker_start" class="datepicker" id="datepicker_start1"></td>
+                            <td><input type="text" placeholder="End Date" name="datepicker_end" class="datepicker" id="datepicker_end1"></td>
+                            <td><input type="button" name="add" value="Add" class="tr_clone_add"></td>
+                        </tr>
+                    </table><!-- /table#table-data -->
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <SCRIPT language="javascript">
+        $(document).ready(function () {
+
+            var regex = /^(.*)(\d)+$/i;
+            var cindex = 1;
+
+            $("input.tr_clone_add").on('click', function () {
+                var $tr = $(this).closest('.tr_clone');
+                var $clone = $tr.clone(true);
+                cindex++;
+                $clone.find(':text').val('');
+                $clone.attr('id', 'id' + (cindex)); //update row id if required
+                //update ids of elements in row
+                $clone.find("*").each(function () {
+                    var id = this.id || "";
+                    var match = id.match(regex) || [];
+                    if (match.length == 3) {
+                        this.id = match[1] + (cindex);
+                    }
+                });
+                $tr.after($clone);
+            });
+
+
+        });
+
+        function addRow(tableID) {
+            var table = document.getElementById(tableID);
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+            //Column 1
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "button";
+            var btnName = "button" + (rowCount + 1);
+            element1.name = btnName;
+            element1.setAttribute('value', 'Delete'); // or element1.value = "button";
+            element1.onclick = function () { removeRow(btnName); }
+            cell1.appendChild(element1);
+            //Column 2
+            var cell2 = row.insertCell(1);
+            cell2.innerHTML = rowCount + 1;
+            //Column 3
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement("input");
+            element3.type = "text";
+            cell3.appendChild(element3);
+        }
+        function removeRow(btnName) {
+            try {
+                var table = document.getElementById('dataTable');
+                var rowCount = table.rows.length;
+                for (var i = 0; i < rowCount; i++) {
+                    var row = table.rows[i];
+                    var rowrowObj = row.cells[0].childNodes[0];
+                    if (rowObj.name == btnName) {
+                        table.deleteRow(i);
+                        rowCount--;
+                    }
+                }
+            }
+            catch (e) {
+                alert(e);
+            }
+        }
+    </SCRIPT>
+}
