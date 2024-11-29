@@ -1703,6 +1703,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Scripts\Custom\jquery.multi-select.min.js" />
+    <Content Include="Scripts\highchart\accessibility.js" />
+    <Content Include="Scripts\highchart\drilldown.js" />
+    <Content Include="Scripts\highchart\exporting.js" />
+    <Content Include="Scripts\highchart\highcharts.js" />
+    <Content Include="Scripts\highchart\highmaps.js" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <EntityDeploy Include="Models\DBModel.edmx">

@@ -20,12 +20,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using static Hunarmis.Manager.Enums;
 
 namespace Hunarmis.Controllers
 {
 
-    [Authorize(Roles = CommonModel.RoleNameCont.Admin + "," + CommonModel.RoleNameCont.Verifier + "," + CommonModel.RoleNameCont.State + "," + CommonModel.RoleNameCont.Trainer + "," + CommonModel.RoleNameCont.District +"," + CommonModel.RoleNameCont.Mobilizer)]
+    [Authorize(Roles = CommonModel.RoleNameCont.Admin + ","  + CommonModel.RoleNameCont.Viewer + "," + CommonModel.RoleNameCont.Verifier + "," + CommonModel.RoleNameCont.State + "," + CommonModel.RoleNameCont.Trainer + "," + CommonModel.RoleNameCont.District +"," + CommonModel.RoleNameCont.Mobilizer)]
     [Authorize]
     [SessionCheck]
     public class ParticipantController : Controller
