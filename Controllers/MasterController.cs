@@ -861,7 +861,7 @@ namespace Hunarmis.Controllers
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;
         }
-        //---------------------//Training_Agency//----------------------
+        //---------------------// Training_Agency //----------------------
         public ActionResult GetTrainAgencylist()
         {
             try
@@ -964,7 +964,7 @@ namespace Hunarmis.Controllers
             resResponse4.MaxJsonLength = int.MaxValue;
             return resResponse4;
         }
-        //---------------------//Training_Centre//----------------------
+        //---------------------// Training_Centre //----------------------
         public ActionResult GetTrainingCentreMasterList()
         {
             try
