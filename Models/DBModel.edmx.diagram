@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="12f0fe8778d24a76b3f05eadbe39ab8d" Name="Diagram1" ZoomLevel="52" >
+      <Diagram DiagramId="12f0fe8778d24a76b3f05eadbe39ab8d" Name="Diagram1" ZoomLevel="88" >
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="false" />
         <EntityTypeShape EntityType="Hunar_DBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="false" />

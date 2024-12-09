@@ -73,6 +73,13 @@
                                             @Html.ValidationMessageFor(m => m.TrainingCenterId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+                                    <div class="col-xs-12 col-md-2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.NoofTrainingDays, new { @class = "control-label" })<em>*</em>
+                                            @Html.EditorFor(m => m.NoofTrainingDays, null, new { htmlAttributes = new { @placeholder = "No Of Training Days", @class = "form-control required", @required = "required" } })
+                                            @Html.ValidationMessageFor(m => m.NoofTrainingDays, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
                                     <div class="col-xs-12 col-md-3">
                                         <div class="form-group">
                                             <div class="control-label" style="margin-bottom:5px;">&nbsp;</div>
@@ -214,7 +221,7 @@
             formData.append('TrainerId', $('#TrainerId').val());
             formData.append('CourseId', $('#CourseId').val());
             formData.append('TrainingCenterId', $('#TrainingCenterId').val());
-
+            formData.append('NoofTrainingDays', $('#NoofTrainingDays').val());
             //formData.append('v_model', JSON.stringify(MS_model));
 
             if (isvalid && IsCheck) {
@@ -236,7 +243,7 @@
                             BindData();
                             window.location = document.baseURI + "/Master/BatchMaster";
                             $('#Id').val('0');
-                            $('#BatchName').val(''); $('#BatchStartDate').val(''); $('#BatchEndDate').val('');
+                            $('#BatchName').val(''); $('#BatchStartDate').val(''); $('#BatchEndDate').val(''); $("#NoofTrainingDays").val('');
                             //jQuery.event.trigger("ajaxStop");
 
                         }

@@ -32,5 +32,6 @@ namespace Hunarmis.Models
         public Nullable<int> BatchAssignNoOfParticipant { get; set; }
         public string BatchAssignCreatedBy { get; set; }
         public Nullable<System.DateTime> BatchAssignCreatedOn { get; set; }
+        public Nullable<int> NoofTrainingDays { get; set; }
     }
 }

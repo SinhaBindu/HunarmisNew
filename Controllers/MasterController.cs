@@ -553,6 +553,7 @@ namespace Hunarmis.Controllers
                     model.TrainerId = tbl.TrainerId;
                     model.CourseId = tbl.CourseId;
                     model.TrainingCenterId = tbl.TrainingCenterId;
+                    model.NoofTrainingDays = tbl.NoofTrainingDays;
                 }
             }
             return View(model);
@@ -587,6 +588,7 @@ namespace Hunarmis.Controllers
                     tbl.CourseId = model.CourseId;
                     tbl.TrainingCenterId = model.TrainingCenterId;
                     tbl.IsActive = true;
+                    tbl.NoofTrainingDays= model.NoofTrainingDays;
                     if (model.Id == 0)
                     {
                         if (!_db.Batch_Master.Any())

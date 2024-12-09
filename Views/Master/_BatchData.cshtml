@@ -18,6 +18,7 @@
                     <th class="text-center tblth">Course</th>
                     <th class="text-center tblth">Training Center</th>
                     <th class="text-center tblth">Trainer Name</th>
+                    <th class="text-center tblth">No Of Training Days</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,19 +28,20 @@
                         int srno = 1;
                         foreach (DataRow dr in dt.Rows)
                         {
-                                <tr class="text-center">
-                                    <td>@(srno++)</td>
-                                    <td>
-                                        <a href="~/Master/BatchMaster?Id=@dr["Id"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                    </td>
-                                    <td>@dr["BatchName"]</td>
-                                    <td>@CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString())</td>
-                                    <td>@CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</td>
-                                    <td>@dr["NoOfParticipant"]</td>
-                                    <td>@dr["CourseName"]</td>
-                                    <td style="word-break:break-word !important;">@dr["TrainingCenter"]</td>
-                                    <td>@dr["TrainerName"]</td>
-                                </tr>
+                <tr class="text-center">
+                    <td>@(srno++)</td>
+                    <td>
+                        <a href="~/Master/BatchMaster?Id=@dr["Id"]" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                    </td>
+                    <td>@dr["BatchName"]</td>
+                    <td>@CommonModel.FormateDtDMY(dr["BatchStartDate"].ToString())</td>
+                    <td>@CommonModel.FormateDtDMY(dr["BatchEndDate"].ToString())</td>
+                    <td>@dr["NoOfParticipant"]</td>
+                    <td>@dr["CourseName"]</td>
+                    <td style="word-break:break-word !important;">@dr["TrainingCenter"]</td>
+                    <td>@dr["TrainerName"]</td>
+                    <td>@dr["NoofTrainingDays"]</td>
+                </tr>
                         }
                     }
                     else

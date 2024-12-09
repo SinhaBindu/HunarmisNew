@@ -99,6 +99,7 @@
           <Property Name="TrainerId" Type="uniqueidentifier" />
           <Property Name="CourseId" Type="int" />
           <Property Name="TrainingCenterId" Type="int" />
+          <Property Name="NoofTrainingDays" Type="int" />
           <Property Name="IsAssessmentDone" Type="bit" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
@@ -2089,6 +2090,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <Property Name="BatchAssignNoOfParticipant" Type="Int32" />
           <Property Name="BatchAssignCreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="BatchAssignCreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="NoofTrainingDays" Type="Int32" />
         </EntityType>
         <EntityType Name="AssetOwnership_Master">
           <Key>
@@ -3135,6 +3137,7 @@ warning 6002: The table/view 'Hunar_DB.dbo.SessionPlanTopic_Master' does not hav
           <EntitySetMapping Name="Batch_Master">
             <EntityTypeMapping TypeName="Hunar_DBModel.Batch_Master">
               <MappingFragment StoreEntitySet="Batch_Master">
+                <ScalarProperty Name="NoofTrainingDays" ColumnName="NoofTrainingDays" />
                 <ScalarProperty Name="BatchAssignCreatedOn" ColumnName="BatchAssignCreatedOn" />
                 <ScalarProperty Name="BatchAssignCreatedBy" ColumnName="BatchAssignCreatedBy" />
                 <ScalarProperty Name="BatchAssignNoOfParticipant" ColumnName="BatchAssignNoOfParticipant" />
