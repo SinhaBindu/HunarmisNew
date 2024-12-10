@@ -1207,63 +1207,63 @@ namespace Hunarmis.Controllers
 
                                         tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
 
-                                        tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
-                                        tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
-                                        //  tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
-                                        // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
+                                        //tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                        //tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                        ////  tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                        //// tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
                                         tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
-                                        tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
+                                        //tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
 
-                                        var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
-                                         dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
-                                        tblu.DateOfBirth = dobirth;
-                                        tblu.DOB = CommonModel.FormateDtYMD(dobirth);
-                                        tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
-                                        tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
-                                        tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
-                                        // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
-                                        tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
-                                        tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
-                                        tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
+                                        //var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
+                                        // dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
+                                        //tblu.DateOfBirth = dobirth;
+                                        //tblu.DOB = CommonModel.FormateDtYMD(dobirth);
+                                        //tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                        //tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                        //tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                        //// tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
+                                        //tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
+                                        //tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
+                                        //tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
 
-                                        var bName = Convert.ToString(dr["BatchName"]);
-                                        var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName.Trim()).FirstOrDefault() : null;
-                                        tblu.BatchId = GetBatchdata.Id;
-                                        tblu.TrainerId = GetBatchdata.TrainerId;
+                                        //var bName = Convert.ToString(dr["BatchName"]);
+                                        //var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName.Trim()).FirstOrDefault() : null;
+                                        //tblu.BatchId = GetBatchdata.Id;
+                                        //tblu.TrainerId = GetBatchdata.TrainerId;
 
-                                        var qName = Convert.ToString(dr["QualificationName"]);
-                                        var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName.Trim()).FirstOrDefault()?.Id : null;
-                                        tblu.EduQualificationID = EducationId;
-                                        //tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
-                                        tblu.EduQualOther = dr["EduQualOther"].ToString();
-                                        var cName = Convert.ToString(dr["CourseName"]);
-                                        var CourseEnrolledId = !(string.IsNullOrWhiteSpace(cName)) ? db.Courses_Master.Where(x => x.CourseName == cName.Trim()).FirstOrDefault()?.Id : null;
-                                        tblu.CourseEnrolledID = CourseEnrolledId;
+                                        //var qName = Convert.ToString(dr["QualificationName"]);
+                                        //var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName.Trim()).FirstOrDefault()?.Id : null;
+                                        //tblu.EduQualificationID = EducationId;
+                                        ////tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
+                                        //tblu.EduQualOther = dr["EduQualOther"].ToString();
+                                        //var cName = Convert.ToString(dr["CourseName"]);
+                                        //var CourseEnrolledId = !(string.IsNullOrWhiteSpace(cName)) ? db.Courses_Master.Where(x => x.CourseName == cName.Trim()).FirstOrDefault()?.Id : null;
+                                        //tblu.CourseEnrolledID = CourseEnrolledId;
 
-                                        var trainingAgencyName = Convert.ToString(dr["TrainingAgencyName"]);
-                                        var TrainingAgencyId = !(string.IsNullOrWhiteSpace(trainingAgencyName)) ? db.TrainingAgency_Master.Where(x => x.TrainingAgencyName == trainingAgencyName.Trim()).FirstOrDefault()?.Id : null;
-                                        tblu.TrainingAgencyID = TrainingAgencyId;
-                                        var trainingCenter = Convert.ToString(dr["TrainingCenter"]);
-                                        var TrainingCenterId = !(string.IsNullOrWhiteSpace(trainingCenter)) ? db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter.Trim()).FirstOrDefault()?.Id : null;
-                                        tblu.TrainingCenterID = TrainingCenterId;
-                                        tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
-                                        tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
-                                        tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
+                                        //var trainingAgencyName = Convert.ToString(dr["TrainingAgencyName"]);
+                                        //var TrainingAgencyId = !(string.IsNullOrWhiteSpace(trainingAgencyName)) ? db.TrainingAgency_Master.Where(x => x.TrainingAgencyName == trainingAgencyName.Trim()).FirstOrDefault()?.Id : null;
+                                        //tblu.TrainingAgencyID = TrainingAgencyId;
+                                        //var trainingCenter = Convert.ToString(dr["TrainingCenter"]);
+                                        //var TrainingCenterId = !(string.IsNullOrWhiteSpace(trainingCenter)) ? db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter.Trim()).FirstOrDefault()?.Id : null;
+                                        //tblu.TrainingCenterID = TrainingCenterId;
+                                        //tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
+                                        //tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
+                                        //tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
 
-                                        var MaritalStatus = Convert.ToString(dr["MaritalStatus"]);
-                                        var MaritalStatusId = !(string.IsNullOrWhiteSpace(MaritalStatus)) ? CommonModel.GetMaritalStatus().Where(x => x.Text == MaritalStatus.Trim()).FirstOrDefault()?.Value : null;
-                                        tblu.MaritalStatus = MaritalStatusId;
-                                        tblu.NoofFamilyMembers = !(string.IsNullOrWhiteSpace(dr["NoofFamilyMembers"].ToString())) ? Convert.ToInt32(dr["NoofFamilyMembers"]) : 0;
-                                        tblu.AnnualHouseholdincome = !(string.IsNullOrWhiteSpace(dr["AnnualHouseholdincome"].ToString())) ? Convert.ToDecimal(dr["AnnualHouseholdincome"]) : 0;
-                                        var PreTrainingStatus = Convert.ToString(dr["PreTrainingStatus"]);
-                                        var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ? db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus.Trim()).FirstOrDefault()?.PreTrainingId_pk : null;
-                                        tblu.PreTrainingStatus = PreTrainingStatusId;
-                                        var TargetGroup = Convert.ToString(dr["TargetGroup"]);
-                                        var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup.Trim()).FirstOrDefault()?.TargetGroupId_pk : null;
-                                        tblu.TargetGroup = TargetGroupId;
-                                        tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
+                                        //var MaritalStatus = Convert.ToString(dr["MaritalStatus"]);
+                                        //var MaritalStatusId = !(string.IsNullOrWhiteSpace(MaritalStatus)) ? CommonModel.GetMaritalStatus().Where(x => x.Text == MaritalStatus.Trim()).FirstOrDefault()?.Value : null;
+                                        //tblu.MaritalStatus = MaritalStatusId;
+                                        //tblu.NoofFamilyMembers = !(string.IsNullOrWhiteSpace(dr["NoofFamilyMembers"].ToString())) ? Convert.ToInt32(dr["NoofFamilyMembers"]) : 0;
+                                        //tblu.AnnualHouseholdincome = !(string.IsNullOrWhiteSpace(dr["AnnualHouseholdincome"].ToString())) ? Convert.ToDecimal(dr["AnnualHouseholdincome"]) : 0;
+                                        //var PreTrainingStatus = Convert.ToString(dr["PreTrainingStatus"]);
+                                        //var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ? db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus.Trim()).FirstOrDefault()?.PreTrainingId_pk : null;
+                                        //tblu.PreTrainingStatus = PreTrainingStatusId;
+                                        //var TargetGroup = Convert.ToString(dr["TargetGroup"]);
+                                        //var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup.Trim()).FirstOrDefault()?.TargetGroupId_pk : null;
+                                        //tblu.TargetGroup = TargetGroupId;
+                                        //tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
 
-                                        tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? dr["Attendance"].ToString().Trim() : null;
+                                        //tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? dr["Attendance"].ToString().Trim() : null;
                                         resupdated += db_.SaveChanges();
                                     }
                                     else
@@ -1298,62 +1298,62 @@ namespace Hunarmis.Controllers
 
                                                 tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
 
-                                                tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
-                                                tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                                //tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                                //tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
                                                 tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
-                                                // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
-                                                tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
-                                                tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
-
-                                                var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
-                                                 dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
-                                                tblu.DateOfBirth = dobirth;
-                                                tblu.DOB = CommonModel.FormateDtYMD(dobirth);
-                                                tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
-                                                tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
-                                                // tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
-                                                // tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
-                                                tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
+                                                //// tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
                                                 //tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
-                                                tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
+                                                //tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
 
-                                                var bName = Convert.ToString(dr["BatchName"]);
-                                                var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName.Trim()).FirstOrDefault() : null;
-                                                tblu.BatchId = GetBatchdata.Id;
-                                                tblu.TrainerId = GetBatchdata.TrainerId;
+                                                //var dobirth = !(string.IsNullOrWhiteSpace(dr["DateofBirth"].ToString())) ?
+                                                // dr["DOBDD"].ToString() + "-" + dr["DOBMM"].ToString() + "-" + dr["DOBYYYY"].ToString() : null;
+                                                //tblu.DateOfBirth = dobirth;
+                                                //tblu.DOB = CommonModel.FormateDtYMD(dobirth);
+                                                //tblu.Gender = !(string.IsNullOrWhiteSpace(dr["Gender"].ToString())) ? dr["Gender"].ToString().Trim() : null;
+                                                //tblu.Age = !(string.IsNullOrWhiteSpace(dr["Age"].ToString())) ? dr["Age"].ToString().Trim() : null;
+                                                //// tblu.PhoneNo = !(string.IsNullOrWhiteSpace(dr["PhoneNo"].ToString())) ? dr["PhoneNo"].ToString().Trim() : null;
+                                                //// tblpart.AlternatePhoneNo = !(string.IsNullOrWhiteSpace(dr["AlternatePhoneNo"].ToString())) ? dr["AlternatePhoneNo"].ToString().Trim() : null;
+                                                //tblu.EmailID = !(string.IsNullOrWhiteSpace(dr["EmailID"].ToString())) ? dr["EmailID"].ToString().Trim() : null;
+                                                ////tblu.AadharCardNo = !(string.IsNullOrWhiteSpace(dr["AadharCardNo"].ToString())) ? dr["AadharCardNo"].ToString().Trim() : null;
+                                                //tblu.AssessmentScore = !(string.IsNullOrWhiteSpace(dr["AssessmentScore"].ToString())) ? dr["AssessmentScore"].ToString().Trim() : null;
 
-                                                var qName = Convert.ToString(dr["QualificationName"]);
-                                                var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName.Trim()).FirstOrDefault()?.Id : null;
-                                                tblu.EduQualificationID = EducationId;
-                                                //tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
-                                                tblu.EduQualOther = dr["EduQualOther"].ToString();
-                                                var cName = Convert.ToString(dr["CourseName"]);
-                                                var CourseEnrolledId = !(string.IsNullOrWhiteSpace(cName)) ? db.Courses_Master.Where(x => x.CourseName == cName.Trim()).FirstOrDefault()?.Id : null;
-                                                tblu.CourseEnrolledID = CourseEnrolledId;
+                                                //var bName = Convert.ToString(dr["BatchName"]);
+                                                //var GetBatchdata = !(string.IsNullOrWhiteSpace(bName)) ? db.Batch_Master.Where(x => x.BatchName == bName.Trim()).FirstOrDefault() : null;
+                                                //tblu.BatchId = GetBatchdata.Id;
+                                                //tblu.TrainerId = GetBatchdata.TrainerId;
 
-                                                var trainingAgencyName = Convert.ToString(dr["TrainingAgencyName"]);
-                                                var TrainingAgencyId = !(string.IsNullOrWhiteSpace(trainingAgencyName)) ? db.TrainingAgency_Master.Where(x => x.TrainingAgencyName == trainingAgencyName.Trim()).FirstOrDefault()?.Id : null;
-                                                tblu.TrainingAgencyID = TrainingAgencyId;
-                                                var trainingCenter = Convert.ToString(dr["TrainingCenter"]);
-                                                var TrainingCenterId = !(string.IsNullOrWhiteSpace(trainingCenter)) ? db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter.Trim()).FirstOrDefault()?.Id : null;
-                                                tblu.TrainingCenterID = TrainingCenterId;
-                                                tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
-                                                tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
+                                                //var qName = Convert.ToString(dr["QualificationName"]);
+                                                //var EducationId = !(string.IsNullOrWhiteSpace(qName)) ? db.Educational_Master.Where(x => x.QualificationName == qName.Trim()).FirstOrDefault()?.Id : null;
+                                                //tblu.EduQualificationID = EducationId;
+                                                ////tblpart.EduQualOther = EducationId == 4 && !(string.IsNullOrWhiteSpace(dr["EduQualOther"].ToString())) ? dr["EduQualOther"].ToString().Trim() : "NA";
+                                                //tblu.EduQualOther = dr["EduQualOther"].ToString();
+                                                //var cName = Convert.ToString(dr["CourseName"]);
+                                                //var CourseEnrolledId = !(string.IsNullOrWhiteSpace(cName)) ? db.Courses_Master.Where(x => x.CourseName == cName.Trim()).FirstOrDefault()?.Id : null;
+                                                //tblu.CourseEnrolledID = CourseEnrolledId;
 
-                                                var MaritalStatus = Convert.ToString(dr["MaritalStatus"]);
-                                                var MaritalStatusId = !(string.IsNullOrWhiteSpace(MaritalStatus)) ? CommonModel.GetMaritalStatus().Where(x => x.Text == MaritalStatus).FirstOrDefault()?.Value : null;
-                                                tblu.MaritalStatus = MaritalStatusId;
-                                                tblu.NoofFamilyMembers = !(string.IsNullOrWhiteSpace(dr["NoofFamilyMembers"].ToString())) ? Convert.ToInt32(dr["NoofFamilyMembers"]) : 0;
-                                                tblu.AnnualHouseholdincome = !(string.IsNullOrWhiteSpace(dr["AnnualHouseholdincome"].ToString())) ? Convert.ToDecimal(dr["AnnualHouseholdincome"]) : 0;
-                                                var PreTrainingStatus = Convert.ToString(dr["PreTrainingStatus"]);
-                                                var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ? db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus.Trim()).FirstOrDefault()?.PreTrainingId_pk : null;
-                                                tblu.PreTrainingStatus = PreTrainingStatusId;
-                                                var TargetGroup = Convert.ToString(dr["TargetGroup"]);
-                                                var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup.Trim()).FirstOrDefault()?.TargetGroupId_pk : null;
-                                                tblu.TargetGroup = TargetGroupId;
+                                                //var trainingAgencyName = Convert.ToString(dr["TrainingAgencyName"]);
+                                                //var TrainingAgencyId = !(string.IsNullOrWhiteSpace(trainingAgencyName)) ? db.TrainingAgency_Master.Where(x => x.TrainingAgencyName == trainingAgencyName.Trim()).FirstOrDefault()?.Id : null;
+                                                //tblu.TrainingAgencyID = TrainingAgencyId;
+                                                //var trainingCenter = Convert.ToString(dr["TrainingCenter"]);
+                                                //var TrainingCenterId = !(string.IsNullOrWhiteSpace(trainingCenter)) ? db.TrainingCenter_Master.Where(x => x.TrainingCenter == trainingCenter.Trim()).FirstOrDefault()?.Id : null;
+                                                //tblu.TrainingCenterID = TrainingCenterId;
+                                                //tblu.TrainerName = !(string.IsNullOrWhiteSpace(dr["TrainerName"].ToString())) ? dr["TrainerName"].ToString().Trim() : null;
+                                                //tblu.TrainerMobileNo = !(string.IsNullOrWhiteSpace(dr["TrainerMobileNo"].ToString())) ? dr["TrainerMobileNo"].ToString().Trim() : null;
 
-                                                tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
-                                                tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? dr["Attendance"].ToString().Trim() : null;
+                                                //var MaritalStatus = Convert.ToString(dr["MaritalStatus"]);
+                                                //var MaritalStatusId = !(string.IsNullOrWhiteSpace(MaritalStatus)) ? CommonModel.GetMaritalStatus().Where(x => x.Text == MaritalStatus).FirstOrDefault()?.Value : null;
+                                                //tblu.MaritalStatus = MaritalStatusId;
+                                                //tblu.NoofFamilyMembers = !(string.IsNullOrWhiteSpace(dr["NoofFamilyMembers"].ToString())) ? Convert.ToInt32(dr["NoofFamilyMembers"]) : 0;
+                                                //tblu.AnnualHouseholdincome = !(string.IsNullOrWhiteSpace(dr["AnnualHouseholdincome"].ToString())) ? Convert.ToDecimal(dr["AnnualHouseholdincome"]) : 0;
+                                                //var PreTrainingStatus = Convert.ToString(dr["PreTrainingStatus"]);
+                                                //var PreTrainingStatusId = !(string.IsNullOrWhiteSpace(PreTrainingStatus)) ? db_.PreTraining_Master.Where(x => x.PreTrainingName == PreTrainingStatus.Trim()).FirstOrDefault()?.PreTrainingId_pk : null;
+                                                //tblu.PreTrainingStatus = PreTrainingStatusId;
+                                                //var TargetGroup = Convert.ToString(dr["TargetGroup"]);
+                                                //var TargetGroupId = !(string.IsNullOrWhiteSpace(TargetGroup)) ? db_.TargetGroup_Master.Where(x => x.TargetGroupName == TargetGroup.Trim()).FirstOrDefault()?.TargetGroupId_pk : null;
+                                                //tblu.TargetGroup = TargetGroupId;
+
+                                                //tblu.IsPlaced = !(string.IsNullOrWhiteSpace(dr["IsPlaced"].ToString())) && dr["IsPlaced"].ToString().ToLower() == Enums.ePlaced.Yes.ToString().ToLower() ? true : false;
+                                                //tblu.AttendancePercent = !(string.IsNullOrWhiteSpace(dr["Attendance"].ToString())) ? dr["Attendance"].ToString().Trim() : null;
                                                 resupdated += db_.SaveChanges();
                                             }
                                         }
