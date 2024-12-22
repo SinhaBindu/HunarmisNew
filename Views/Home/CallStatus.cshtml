@@ -115,6 +115,7 @@
                 //defaultDate: "+1w",
                 changeMonth: true,
                 numberOfMonths: 1,
+                dateFormat: 'dd-M-yy',
                 onClose: function (selectedDate) {
                     $("#ToDt").datepicker("option", "minDate", selectedDate);
                 }
@@ -123,6 +124,7 @@
                 //defaultDate: "+1w",
                 changeMonth: true,
                 numberOfMonths: 1,
+                dateFormat: 'dd-M-yy',
                 onClose: function (selectedDate) {
                     $("#FromDt").datepicker("option", "maxDate", selectedDate);
                 }
@@ -130,13 +132,14 @@
 
             //BindBatchList("BatchId", 0, true);
             BindModuleWiseBatches("BatchId", "", 1, '0', 0, 0)
+            $('#FromDt').val(moment().startOf('month').format('DD-MMM-YYYY'));
+            $('#ToDt').val(moment().endOf('day').format('DD-MMM-YYYY'));//subtract(1, 'days')
 
+            setTimeout(function () { BindData(); }, 2000);
             $("#formid").submit(function (e) {
                 e.preventDefault();
                 BindData();
             });
-
-            setTimeout(function () { BindData(); }, 2000);
 
         });
 
@@ -159,10 +162,10 @@
                     if (res.IsSuccess) {
                         $("#subdata").html(res.Data);
 
-                        if ($.fn.dataTable.isDataTable('#tbl')) {
-                            $("#tbl").dataTable().fnDestroy();
+                        if ($.fn.dataTable.isDataTable('.tbl')) {
+                            $(".tbl").dataTable().fnDestroy();
                         }
-                        table = $('#tbl').DataTable({
+                        table = $('.tbl').DataTable({
                             //scrollY: "400px",
                             //scrollX: true,
                             //scrollCollapse: true,
@@ -201,10 +204,12 @@
         function getdetaildata(ReportedBy, Flag, lblname, maxdate, ReportedName, TotalRecords) {
             $("#subdata1").html('');
             $('#global-loader').css('background', 'transparent').css('display', 'block');
+            var FromDt = $('#FromDt').val() == '' ? '' : $('#FromDt').val();
+            var ToDt = $('#ToDt').val() == '' ? '' : $('#ToDt').val();
             $.ajax({
                 type: "Get",
                 url: document.baseURI + "/Home/CallStatustDetails",
-                data: { 'ReportedBy': ReportedBy, 'Flag': Flag, 'MaxDate': maxdate },
+                data: { 'ReportedBy': ReportedBy, 'Flag': Flag, 'MaxDate': maxdate, 'SD': FromDt, 'ED': ToDt },
                 //cache: false,
                 async: false,
                 success: function (res) {

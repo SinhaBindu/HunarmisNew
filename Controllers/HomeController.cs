@@ -193,17 +193,17 @@ namespace Hunarmis.Controllers
         }
         public ActionResult GetCallStatus(FilterModel model)
         {
-            DataTable tbllist = new DataTable();
+            DataSet ds = new DataSet();
             var html = "";
             try
             {
-                tbllist = SPManager.sp_callstatus(model);
+                ds = SPManager.sp_callstatus(model);
                 bool IsCheck = false;
-                if (tbllist.Rows.Count > 0)
+                if (ds.Tables.Count > 0)
                 {
                     IsCheck = true;
-                    html = ConvertViewToString("_CallStatusData", tbllist);
-                    var resDt = JsonConvert.SerializeObject(tbllist);
+                    html = ConvertViewToString("_CallStatusData", ds);
+                    var resDt = JsonConvert.SerializeObject(ds);
                     var res = Json(new { IsSuccess = IsCheck, Data = html, resData = resDt }, JsonRequestBehavior.AllowGet);
                     res.MaxJsonLength = int.MaxValue;
                     return res;
@@ -221,11 +221,11 @@ namespace Hunarmis.Controllers
                 return Json(new { IsSuccess = false, Data = "These exceptions are caused by the programmer." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
-        public ActionResult CallStatustDetails(string ReportedBy = "", int Flag = 0,string MaxDate="")
+        public ActionResult CallStatustDetails(string ReportedBy = "", int Flag = 0,string MaxDate="",string SD = "", string ED = "")
         {
             Hunar_DBEntities db_ = new Hunar_DBEntities();
             DataTable dt = new DataTable();
-            dt = SPManager.SP_GetCallStatusDetails(ReportedBy, Flag,MaxDate);
+            dt = SPManager.SP_GetCallStatusDetails(ReportedBy, Flag,MaxDate,SD,ED);
             TempData["Flag"] = Flag;
             return PartialView("_CallStatusDetails", dt);
         }

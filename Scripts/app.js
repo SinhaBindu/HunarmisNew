@@ -1,4 +1,5 @@
 ﻿$(function () {
+
     $("#captcha-div a").attr('href', '');
     $("#captcha-div a").on('click', function (event) {
         event.preventDefault();
@@ -701,10 +702,15 @@ function Graph(jsonData, selector, graphType = 'column', title, xAxis, yAxis, pr
                     formatter: function () {
                         var sum = 0;
                         var series = this.axis.series;
-                        for (var i in series) {
-                            if (series[i].visible && series[i].options.stacking == 'normal' && series[i].xData.indexOf(this.x) > -1)
-                                sum += series[i].yData[series[i].xData.indexOf(this.x)];
-                        }
+                        series.forEach(serie => {
+                            if (serie.visible && serie.options.stacking === 'normal') {
+                                // Access the corresponding point for this x value
+                                const point = serie.userOptions.data[this.x];
+                                if (point) {
+                                    sum += point.y || 0; // Add the y value of the point
+                                }
+                            }
+                        });
                         if (this.total > 0) {
                             return parseInt(sum);
                         } else {

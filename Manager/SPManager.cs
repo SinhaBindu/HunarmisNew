@@ -377,7 +377,7 @@ namespace Hunarmis.Manager
         #endregion
 
         #region Report
-        public static DataTable sp_callstatus(FilterModel model)
+        public static DataSet sp_callstatus(FilterModel model)
         {
             //FromDt = !string.IsNullOrWhiteSpace(FromDt) ? FromDt:"";
             StoredProcedure sp = new StoredProcedure("SP_CallStatusUserWiseList");
@@ -385,8 +385,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@ReportedBy", model.UserId, DbType.String);
             sp.Command.AddParameter("@SD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@ED", model.ToDt, DbType.String);
-            DataTable dt = sp.ExecuteDataSet().Tables[0];
-            return dt;
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
         }
         public static DataTable SP_CourseWiseTopices(FilterModel model)
         {
@@ -460,12 +460,14 @@ namespace Hunarmis.Manager
             return ds;
         }
         #endregion
-        public static DataTable SP_GetCallStatusDetails(string ReportedBy = "", int Flag = 0,string MaxDate="")
+        public static DataTable SP_GetCallStatusDetails(string ReportedBy = "", int Flag = 0,string MaxDate="",string SD="",string ED="")
         {
             StoredProcedure sp = new StoredProcedure("Usp_CallStatusDetails");
             sp.Command.AddParameter("@RepBy", ReportedBy, DbType.String);
             sp.Command.AddParameter("@Flg", Flag, DbType.String);
             sp.Command.AddParameter("@MaxDate", MaxDate, DbType.String);
+            sp.Command.AddParameter("@SD", SD, DbType.String);
+            sp.Command.AddParameter("@ED", ED, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
