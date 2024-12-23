@@ -11,6 +11,7 @@
                     <th class="text-center tblth">Srno.</th>
                     <th class="text-center tblth">Month/Year</th>
                     <th class="text-center tblth">Center Name</th>
+                    <th class="text-center tblth">No of Calls</th>
                     <th class="text-center tblth">Registration ID <br /><strong class="vw">View</strong></th>
                     <th class="text-center tblth">Name</th>
                     <th class="text-center tblth">Phone No</th>
@@ -33,6 +34,7 @@
                                 <td class="text-center">@(srno++)</td>
                                 <td class="text-center bg-warning text-white"><strong>@(dr["Ques_Month"] + "/" +dr["Ques_Year"])</strong></td>
                                 <td class="text-left">@dr["TrainingCenter"]</td>
+                                <td class="text-left"><strong class="text-bg-success">@dr["NoofCallResponses"]</strong></td>
                                 <td class="text-center  bg-success text-white">
                                     <a href="~/Participant/QuesResponse?PartQuestId=@dr["ParticipantQuestionId"]&PartId=@dr["ID"]&M=@dr["QuesMonth"]&Y=@dr["QuesYear"]" target="_blank"><strong style="text-decoration:underline !important;">@dr["RegID"]</strong></a>
                                     @*<a href="javascript:void(0);" onclick="QuesResDisplay('@dr["ParticipantQuestionId"]','@dr["ID"]','@dr["QuesMonth"]','@dr["QuesYear"]')" target="_blank"><strong style="text-decoration:underline !important;">@dr["RegID"]</strong></a>*@
