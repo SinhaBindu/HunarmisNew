@@ -5,6 +5,7 @@
     ViewBag.Title = "Questionnaire";
     ViewBag.TitleIcon = "fa fa-user";
     ViewBag.SemiTitle = "Questionnaire";
+    ViewBag.ViewTitle = "Placement Tracker View";
     ViewBag.SemiTitleLink = "/";
     string IsSadmin = string.Empty;
 }
@@ -60,21 +61,37 @@
                             @Html.HiddenFor(m => m.ParticipantId_fk)
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <p class="bord-btm pad-ver text-main text-bold"><i class="fa fa-users spacerright2"></i>Questionnaire Information</p>
-                            <h4 class="semi-title">Basic Details</h4>
-                            <div class="basic-info">
-                                <div class=""><p>Reg ID  <span> :@Model.RegID</span></p></div>
-                                <div class=""><p>Name  <span>: @Model.FullName</span></p></div>
-                                <div class=""><p>Phone No  <span>: @Model.PhoneNo</span></p></div>
-                                <div class=""><p>Batch Name <span> : @Model.BatchName</span></p></div>
-                                <div class=""><p>Start Batch Name  <span>: @Model.SBatchDt</span></p></div>
-                                <div class=""><p>End Batch Name  <span> : @Model.EBatchDt</span></p></div>
-                                <div class=""><p>Training Agency Name  <span> : @Model.TrainingAgencyName</span></p></div>
-                                <div class=""><p>Training Center  <span> : @Model.TrainingCenter</span></p></div>
-                                <div class=""><p>Reported By  <span> : @Model.ReportedBy</span></p></div>
-                                <div class=""><p>Reported On  <span> : @Model.ReportedOn</span></p></div>
-                                <div class=""><p>Remark Status  <span> : @Model.PrvRemarkStatus</span></p></div>
-                                <div class=""><p>Remarks  <span> : @Model.PrvRemark</span></p></div>
+
+                            <h4 class="semi-title accordions">
+                                Basic Details
+                                <span class="arrows"><i class="fa fa-arrow-circle-down"></i></span>
+                            </h4>
+                            <div class="accord">
+                                <div class="basic-info">
+                                    <div class=""><p>Reg ID  <span> :@Model.RegID</span></p></div>
+                                    <div class=""><p>Name  <span>: @Model.FullName</span></p></div>
+                                    <div class=""><p>Phone No  <span>: @Model.PhoneNo</span></p></div>
+                                    <div class=""><p>Batch Name <span> : @Model.BatchName</span></p></div>
+                                    <div class=""><p>Start Batch Name  <span>: @Model.SBatchDt</span></p></div>
+                                    <div class=""><p>End Batch Name  <span> : @Model.EBatchDt</span></p></div>
+                                    <div class=""><p>Training Agency Name  <span> : @Model.TrainingAgencyName</span></p></div>
+                                    <div class=""><p>Training Center  <span> : @Model.TrainingCenter</span></p></div>
+                                    <div class=""><p>Reported By  <span> : @Model.ReportedBy</span></p></div>
+                                    <div class=""><p>Reported On  <span> : @Model.ReportedOn</span></p></div>
+                                    <div class=""><p>Remark Status  <span> : @Model.PrvRemarkStatus</span></p></div>
+                                    <div class=""><p>Remarks  <span> : @Model.PrvRemark</span></p></div>
+                                </div>
                             </div>
+                            @if (Model.PlacementTrackerId_pk != Guid.Empty)
+                            {
+                                <h4 class="semi-title accordions">
+                                    @ViewBag.ViewTitle <span class="arrows"><i class="fa fa-arrow-circle-down"></i></span>
+                                </h4>
+                                <div class="accord">
+                                    <div id="div-viewpopmodel"></div>
+                                </div>
+
+                            }
                             <div class="form-group">
                                 @Html.LabelFor(model => model.QuesYear, htmlAttributes: new { @class = "control-label col-lg-2" })
                                 <div class="col-lg-3">
@@ -113,7 +130,7 @@
                             <div class="form-group div-remark" style="display:none;">
                                 @Html.LabelFor(model => model.RemarkStatus, htmlAttributes: new { @class = "control-label col-lg-4" })
                                 <div class="col-lg-8">
-                                    @Html.DropDownListFor(model => model.RemarkStatus, CommonModel.GetRemarkStatusList(false), "Select One", htmlAttributes: new { @class = "form-control select2" , @required = "required" })
+                                    @Html.DropDownListFor(model => model.RemarkStatus, CommonModel.GetRemarkStatusList(false), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                     @Html.ValidationMessageFor(model => model.RemarkStatus, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>
@@ -199,7 +216,7 @@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.SalaryPackage, htmlAttributes: new { @class = "control-label col-lg-4" })
                                     <div class="col-lg-8">
-                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal(this)", min = "0"} })
+                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal(this)", min = "0" } })
                                         @Html.ValidationMessageFor(model => model.SalaryPackage, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -384,6 +401,22 @@
         <script src="~/Scripts/CustomValidator.js"></script>
         <script src="~/Scripts/Custom/Employee.js"></script>*@
     <script>
+        let acc = document.getElementsByClassName("accordions");
+        let i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                let accord = this.nextElementSibling;
+                if (accord.style.display === "block") {
+                    accord.style.display = "none";
+                } else {
+                    accord.style.display = "block";
+                }
+            });
+        }
+    </script>
+    <script>
        @* $('#DesignationId').val('@Model.DesignationId').select2();*@
         $(document).ready(function () {
 
@@ -432,7 +465,7 @@
                     $('#RemarkStatus').attr('required','required');
                 }
             });
-           
+
 
             $('input[type=radio][name=IsPresent]').change(function () {
                 $("input[name=IsComfortable]").prop('checked', false);
@@ -489,6 +522,9 @@
                     $('#div-MSBenefitId').hide(); $("input[name=MSBenefitId]").removeAttr('required');
                 }
             });
+            if ('@Model.PlacementTrackerId_pk'!='null' && '@Model.PlacementTrackerId_pk'!='@Guid.Empty') {
+                BindPlacementDetailData('@Model.ParticipantId_fk','@Model.PlacementTrackerId_pk');
+            }
 
             $("#formid").on("submit", function (event) {
                 event.preventDefault();
@@ -576,7 +612,45 @@
             });//end final submit
 
         });//End Load Method
-       
+        function BindPlacementDetailData(ParticipantId, PlacementTrackerId) {
+            debugger;
+            $("#div-viewpopmodel").html('');
+            var filtermodel = new Object();
+            filtermodel.ParticipantId = ParticipantId;
+            filtermodel.PlacementTrackerId = PlacementTrackerId;
+            $('#global-loader').css('background', 'transparent').css('display', 'block');
+            if (PlacementTrackerId != '' && PlacementTrackerId != undefined && PlacementTrackerId != null) {
+                $.ajax({
+                    type: "Get",
+                    url: document.baseURI + "/Participant/PlacementTrackerDetail",
+                    data: filtermodel,
+                    //cache: false,
+                    // async: false,
+                    success: function (res) {
+                        if (res) {
+                            $('#global-loader').css('background', 'transparent').css('display', 'none');
+                            $('#div-viewpopmodel').html(res);
+                            $("#myModal").modal({ backdrop: "static" });
+                        }
+                        else {
+                            $("#div-viewpopmodel").html("<h4 class='text-center text-danger'>" + res + "!</h4>");
+                            $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        }
+                    },
+                    error: function (req, error) {
+                        if (error === 'error') { error = req.statusText; }
+                        var errormsg = 'There was a communication error: ' + error;
+                        $('#div-viewpopmodel').html("<h4 class='text-center text-danger'>" + errormsg + "!</h4>");
+                        $('#global-loader').css('background', 'transparent').css('display', 'none');
+                        //Do To Message display
+                    }
+                });
+            }
+            else {
+                $('#div-popmodel').html("<h4 class='text-center text-danger'> Placement Tracker Details Not Found !</h4>");
+            }
+
+        }
 
         function formatDate(dateStr) {
             debugger;

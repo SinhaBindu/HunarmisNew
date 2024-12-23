@@ -13,6 +13,7 @@ namespace Hunarmis.Models
             ID = Guid.Empty;
         }
         public System.Guid ID { get; set; }
+        public System.Guid PlacementTrackerId_pk { get; set; }
         [Required]
         [Display(Name = DplyPartCalName.QuesMonth)]
         public Nullable<int> QuesMonth { get; set; }

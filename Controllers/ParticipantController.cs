@@ -26,7 +26,7 @@ using static Hunarmis.Manager.Enums;
 namespace Hunarmis.Controllers
 {
 
-    [Authorize(Roles = CommonModel.RoleNameCont.Admin + ","  + CommonModel.RoleNameCont.Viewer + "," + CommonModel.RoleNameCont.Verifier + "," + CommonModel.RoleNameCont.State + "," + CommonModel.RoleNameCont.Trainer + "," + CommonModel.RoleNameCont.District +"," + CommonModel.RoleNameCont.Mobilizer)]
+    [Authorize(Roles = CommonModel.RoleNameCont.Admin + "," + CommonModel.RoleNameCont.Viewer + "," + CommonModel.RoleNameCont.Verifier + "," + CommonModel.RoleNameCont.State + "," + CommonModel.RoleNameCont.Trainer + "," + CommonModel.RoleNameCont.District + "," + CommonModel.RoleNameCont.Mobilizer)]
     [Authorize]
     [SessionCheck]
     public class ParticipantController : Controller
@@ -281,7 +281,7 @@ namespace Hunarmis.Controllers
                             return resResponse1;
                         }
                     }
-                   
+
                     if (model.DOB == null)
                     {
                         response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Please select Date Of Birth minimum 18 and maximum 30 yrs.<br />", Data = null };
@@ -797,7 +797,8 @@ namespace Hunarmis.Controllers
                     var AspUser = db_.AspNetUsers.Where(x => x.Id == getdt.CreatedBy)?.FirstOrDefault();
                     model.ReportedBy = AspUser != null ? AspUser.EmpName : null;
                     model.ReportedOn = AspUser != null ? CommonModel.FormateDtDMY(getdt.RemarkDate.ToString()) : null;
-
+                    var placetracker = db_.tbl_PlacementTracker.Where(x => x.IsActive == true && x.ParticipantId_fk == getdt.ID)?.FirstOrDefault();
+                    model.PlacementTrackerId_pk = placetracker!=null? placetracker.PlacementTrackerId_pk:Guid.Empty;
                 }
             }
             if (Id != Guid.Empty && Id != null)
