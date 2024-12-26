@@ -48,7 +48,7 @@
 </style>
 
 <div id="page-content">
-    <div class="genral-form">
+    <div class="genral-form input-spacerinline">
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel">
@@ -93,26 +93,27 @@
 
                             }
                             <div class="form-group">
-                                @Html.LabelFor(model => model.QuesYear, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                <div class="col-lg-3">
+                                @Html.LabelFor(model => model.QuesYear, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-2" })
+                                <div class="col-xs-12 col-lg-3">
                                     @Html.DropDownListFor(model => model.QuesYear, CommonModel.GetYear(1), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                     @Html.ValidationMessageFor(model => model.QuesYear, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>
-                                @Html.LabelFor(model => model.QuesMonth, htmlAttributes: new { @class = "control-label col-lg-2" })
-                                <div class="col-lg-3">
+                                @Html.LabelFor(model => model.QuesMonth, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-2" })
+                                <div class="col-xs-12 col-lg-3">
                                     @Html.DropDownListFor(model => model.QuesMonth, CommonModel.GetMonth(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                     @Html.ValidationMessageFor(model => model.QuesMonth, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(model => model.CallType, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                @Html.LabelFor(model => model.CallType, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                 <div class="checkbox">
                                     @foreach (var item in CommonModel.GetCalling())
                                     {
                                         <div class="input-spacer">
                                             @Html.RadioButtonFor(model => model.CallType, item.Value, new { id = "CallType" + item.Value, @required = "required" }) @item.Text
+
                                         </div>
                                     }
                                     @Html.ValidationMessageFor(model => model.CallType, "", new { @class = "text-danger" })
@@ -120,16 +121,16 @@
                                 <div class="mark-devide"></div>
                             </div>
                             <div class="form-group div-remark" style="display:none;">
-                                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                <div class="col-lg-8">
+                                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                <div class="col-xs-12 col-lg-8">
                                     @Html.TextAreaFor(model => model.Remark, new { @type = "text", @class = "required form-control" })
                                     @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="mark-devide"></div>
                             </div>
                             <div class="form-group div-remark" style="display:none;">
-                                @Html.LabelFor(model => model.RemarkStatus, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                <div class="col-lg-8">
+                                @Html.LabelFor(model => model.RemarkStatus, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                <div class="col-xs-12 col-lg-8">
                                     @Html.DropDownListFor(model => model.RemarkStatus, CommonModel.GetRemarkStatusList(false), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                     @Html.ValidationMessageFor(model => model.RemarkStatus, "", new { @class = "text-danger" })
                                 </div>
@@ -137,12 +138,13 @@
                             </div>
                             <div style="display:none;" id="div-ques">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.IsAssessmentCert, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.IsAssessmentCert, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
                                             <div class="input-spacer">
                                                 @Html.RadioButtonFor(model => model.IsAssessmentCert, item.Value, new { id = "IsAssessmentCert" + item.Value, @required = "required" }) @item.Text
+
                                             </div>
                                         }
                                         @Html.ValidationMessageFor(model => model.IsAssessmentCert, "", new { @class = "text-danger" })
@@ -150,7 +152,7 @@
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.IsPresent, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.IsPresent, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
@@ -163,18 +165,21 @@
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group" id="div-IsComfortable" style="display:none;">
-                                    @Html.LabelFor(model => model.IsComfortable, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.IsComfortable, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
-                                            @Html.RadioButtonFor(model => model.IsComfortable, item.Value, new { id = "IsComfortable" + item.Value }) @item.Text
-                                        }
-                                        @Html.ValidationMessageFor(model => model.IsComfortable, "", new { @class = "text-danger" })
-                                    </div>
+                                           <div class="input-spacer">
+                                               @Html.RadioButtonFor(model => model.IsComfortable, item.Value, new { id = "IsComfortable" + item.Value }) @item.Text
+                                           </div>
+                                               }
+                                               
+                                               @Html.ValidationMessageFor(model => model.IsComfortable, "", new { @class = "text-danger" })
+                                           </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable" id="div-EmpCompany" style="display:none;">
-                                    @Html.LabelFor(model => model.EmpCompany, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.EmpCompany, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="col-lg-8">
                                         @Html.EditorFor(model => model.EmpCompany, new { htmlAttributes = new { @type = "text", @class = "required form-control" } })
                                         @Html.ValidationMessageFor(model => model.EmpCompany, "", new { @class = "text-danger" })
@@ -190,55 +195,55 @@
                 <div class="mark-devide"></div>
             </div>*@
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.DOJ, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
+                                    @Html.LabelFor(model => model.DOJ, htmlAttributes: new { @class = "control-label  col-xs-12 col-lg-4" })
+                                    <div class=" col-xs-12 col-lg-8">
                                         @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
                                         @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group" style="display:none">
-                                    @Html.LabelFor(model => model.CurrentEmployer, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
+                                    @Html.LabelFor(model => model.CurrentEmployer, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                    <div class=" col-xs-12 col-lg-8">
                                         @Html.EditorFor(model => model.CurrentEmployer, new { htmlAttributes = new { @type = "text", @class = "required form-control", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(model => model.CurrentEmployer, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
+                                    @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                    <div class=" col-xs-12 col-lg-8">
                                         @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.SalaryPackage, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
+                                    @Html.LabelFor(model => model.SalaryPackage, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                    <div class=" col-xs-12 col-lg-8">
                                         @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal(this)", min = "0" } })
                                         @Html.ValidationMessageFor(model => model.SalaryPackage, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.CurrentlyWorking, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
+                                    @Html.LabelFor(model => model.CurrentlyWorking, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                    <div class=" col-xs-12 col-lg-8">
                                         @Html.EditorFor(model => model.CurrentlyWorking, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.CurrentlyWorking, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.WorkingKM, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
+                                    @Html.LabelFor(model => model.WorkingKM, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                    <div class=" col-xs-12 col-lg-8">
                                         @Html.DropDownListFor(model => model.WorkingKM, CommonModel.GetLocatedKM(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
                                         @Html.ValidationMessageFor(model => model.WorkingKM, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.Traininghelp, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.Traininghelp, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
@@ -252,7 +257,7 @@
                                 </div>
                                 <h4 class="semi-title Iscomftable">@Hunarmis.Models.DplyPartCalName.SectionGeneral</h4>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.SalaryWages, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.SalaryWages, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
@@ -265,7 +270,7 @@
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.ExpectationJobRole, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.ExpectationJobRole, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
@@ -278,7 +283,7 @@
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.WorkPlaceSafe, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.WorkPlaceSafe, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
@@ -291,7 +296,7 @@
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable">
-                                    @Html.LabelFor(model => model.IsMSBenefit, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.IsMSBenefit, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
@@ -304,15 +309,15 @@
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable" id="div-MSBenefitId" style="display:none;">
-                                    @Html.LabelFor(model => model.MSBenefitId, htmlAttributes: new { @class = "control-label col-md-4" })
-                                    <div class="col-md-8">
+                                    @Html.LabelFor(model => model.MSBenefitId, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
+                                    <div class=" col-xs-12 col-md-8">
                                         @Html.DropDownListFor(model => model.MSBenefitId, CommonModel.GetBenefit(), "Select One", htmlAttributes: new { @class = "form-control select2" })
                                         @Html.ValidationMessageFor(model => model.MSBenefitId, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable" id="div-AnyChallenges" style="display:none;">
-                                    @Html.LabelFor(model => model.AnyChallenges, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.AnyChallenges, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
@@ -325,23 +330,23 @@
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable" id="div-AreaSupport" style="display:none;">
-                                    @Html.LabelFor(model => model.AreaSupport, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
+                                    @Html.LabelFor(model => model.AreaSupport, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                    <div class=" col-xs-12 col-lg-8">
                                         @Html.EditorFor(model => model.AreaSupport, new { htmlAttributes = new { @type = "text", @class = "required form-control" } })
                                         @Html.ValidationMessageFor(model => model.AreaSupport, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group" id="div-EmployedId" style="display:none;">
-                                    @Html.LabelFor(model => model.EmployedId, htmlAttributes: new { @class = "control-label col-lg-4" })
-                                    <div class="col-lg-8">
+                                    @Html.LabelFor(model => model.EmployedId, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
+                                    <div class=" col-xs-12 col-lg-8">
                                         @Html.DropDownListFor(model => model.EmployedId, CommonModel.GetEmployed(), "Select One", htmlAttributes: new { @class = "form-control select2" })
                                         @Html.ValidationMessageFor(model => model.EmployedId, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group IsGettingjob" style="display:none;">
-                                    @Html.LabelFor(model => model.IsGettingjob, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                    @Html.LabelFor(model => model.IsGettingjob, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
@@ -362,7 +367,7 @@
                                 <div id="div-PlacedStatus" style="display:none;">
                                     <h4 class="semi-title">@Hunarmis.Models.DplyPartCalName.SectionPlacement</h4>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.PlacedStatus, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                        @Html.LabelFor(model => model.PlacedStatus, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                         <div class="checkbox">
                                             @foreach (var item in CommonModel.GetYesNo())
                                             {
@@ -381,8 +386,8 @@
                                 <div class="col-md-7">
                                     <span class="">
                                         @*<button type="submit" class="previous btn btn-primary btn-lg">Submit</button>*@
-                                        <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="previous btn-lg btn-register" />
-                                        <a href="~/Participant/AddPartCalling?PartId=@Model.ParticipantId_fk" class="btn-reset"><i class="fa fa-refresh"></i></a>
+                                        <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" class="previous btn-lg btn-register" style="height:auto;" />
+                                        <a href="~/Participant/AddPartCalling?PartId=@Model.ParticipantId_fk" class="btn-reset" style="height:auto;"><i class="fa fa-refresh"></i></a>
                                     </span>
                                 </div>
                             </div>
