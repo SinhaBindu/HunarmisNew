@@ -121,7 +121,7 @@ namespace Hunarmis.Controllers
             catch (Exception ex)
             {
                 string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+                return Json(new { IsSuccess = false, Data = "There was a communication error." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
         public ActionResult ParticipantList(int TCId = 0)
@@ -156,7 +156,7 @@ namespace Hunarmis.Controllers
             catch (Exception ex)
             {
                 string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+                return Json(new { IsSuccess = false, Data = "There was a communication error." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
         public ActionResult AddParticipant(Guid? Id)
@@ -713,7 +713,7 @@ namespace Hunarmis.Controllers
             catch (Exception ex)
             {
                 string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+                return Json(new { IsSuccess = false, Data = "There was a communication error." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
         public ActionResult ParticipantCallList()
@@ -1074,7 +1074,7 @@ namespace Hunarmis.Controllers
             catch (Exception ex)
             {
                 string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+                return Json(new { IsSuccess = false, Data = "There was a communication error." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
         public ActionResult QuesResponse(string PartQuestId, string PartId, int M, int Y)
@@ -1549,7 +1549,7 @@ namespace Hunarmis.Controllers
             catch (Exception ex)
             {
                 string er = ex.Message;
-                return Json(new { IsSuccess = false, Data = "" }, JsonRequestBehavior.AllowGet); throw;
+                return Json(new { IsSuccess = false, Data = "There was a communication error." }, JsonRequestBehavior.AllowGet); throw;
             }
         }
         #endregion

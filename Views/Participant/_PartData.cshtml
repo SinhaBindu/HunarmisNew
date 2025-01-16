@@ -39,6 +39,7 @@
                     <th class="text-center tblth">Reported By</th>*@
                 <th class="text-center tblth">Assessment<br /> Score</th>
                 <th class="text-center tblth">Attendance (%)</th>
+                <th class="text-center tblth">Placement  <br />Tracker Status</th>
             </tr>
         </thead>
         <tbody>
@@ -107,13 +108,14 @@
                                 <td class="text-center" style="word-break:break-word !important;">@dr["CurrentReportedByName"]</td>*@
                             <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
                             <td class="text-center"><strong>@dr["SW_Attendance"]</strong></td>
+                            <td class="text-center"><strong>@dr["PlaceTrackerYesNo"]</strong></td>
                         </tr>
                     }
                 }
                 else
                 {
                     <tr>
-                        <td colspan="15" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                        <td colspan="16" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
                     </tr>
                 }
             }

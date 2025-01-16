@@ -118,7 +118,7 @@
             });
 
             BindGetTainerWiseBatchesList("BatchId", '', '2', '');
-            $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+            $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
             BindPartData();
             $('.onchnagecl').change(function () {
                 BindPartData();
