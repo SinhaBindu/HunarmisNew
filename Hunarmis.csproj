@@ -1902,6 +1902,7 @@
     <Content Include="Views\Participant\_PartDataShow.cshtml" />
     <Content Include="Views\UserResume\Index.cshtml" />
     <Content Include="Views\UserProfile\ResumeTemplateForm.cshtml" />
+    <Content Include="Views\Tainer\_TrainerDashboardListData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

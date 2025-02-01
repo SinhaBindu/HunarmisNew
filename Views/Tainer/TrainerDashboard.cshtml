@@ -1,4 +1,5 @@
-﻿@using Hunarmis.Manager
+﻿@model  Hunarmis.Models.FilterModel
+@using Hunarmis.Manager
 @using Hunarmis.Helpers
 @using System.Data
 @{
@@ -7,7 +8,7 @@
     DataTable dt1 = new DataTable();
     DataTable dt2 = new DataTable();
     DataTable dt3 = new DataTable();
-    DataTable dt4 = new DataTable();
+    //DataTable dt4 = new DataTable();
     DataSet ds = SPManager.SP_TainerDashoard();
     if (ds.Tables.Count > 0)
     {
@@ -15,7 +16,7 @@
         dt1 = ds.Tables[1];
         dt2 = ds.Tables[2];
         dt3 = ds.Tables[3];
-        dt4 = ds.Tables[4];
+        //dt4 = ds.Tables[4];
     }
 
 }
@@ -252,6 +253,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <div class="card card-box p-0 main-content-card bg-light-tertiary mb-0 shadow-none">
                             <div class="card-body" style="padding:15px;">
@@ -274,6 +276,28 @@
                                     </div>
                                 </div>
                                 <h5 class="f-14" title="Learners certified">Learners Certified</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3" title="Attendance % 50 & Scored % 75">
+                        <div class="card card-box p-0 main-content-card bg-light-info mb-0 shadow-none">
+                            <div class="card-body" style="padding:15px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        <i class="fa fa-briefcase"></i>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex">
+                                            <h3 class="f-26 count">
+                                                @if (dt0.Rows.Count > 0)
+                                                {
+                                                    <span>@dt0.Rows[0]["AttendanceScored"]</span>
+                                                }
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="f-14" title="Attendance % 50 & Scored % 75">Attendance % 50 & Scored % 75</h5>
                             </div>
                         </div>
                     </div>
@@ -305,111 +329,166 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card card-box p-0">
-                <div class="card-body">
-                    <div class="row">
-                        <div id="div-download" style="display:none;float:right;"></div>
-                        <div class="col-xs-12 col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="tbl">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th class="text-center tblth">Srno.</th>
-                                            <th class="text-center tblth">Name</th>
-                                            @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
-                                            {
-                                                <th class="text-center tblth">Phone No</th>
-                                                <th class="text-center tblth">Email ID</th>
-                                            }
-                                            <th class="text-center tblth">Batch Name</th>
-                                            <th class="text-center tblth">Batch Start Date</th>
-                                            <th class="text-center tblth">Batch End Date</th>
-                                            <th class="text-center tblth">Course</th>
-                                            @*<th class="text-center tblth">Training <br />Center</th>
-                                                <th class="text-center tblth">Assessment<br /> Score</th>*@
-                                            <th class="text-center tblth">Learners <br />Certified</th>
-                                            <th class="text-center tblth">Learners <br />Placed</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-                                            if (dt4.Rows.Count > 0)
-                                            {
-                                                int srno = 1;
-                                                foreach (DataRow dr in dt4.Rows)
-                                                {
-                                                    <tr>
-                                                        <td class="text-center">@(srno++)</td>
-                                                        <td class="text-left">@dr["Name"]</td>
-                                                        @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
-                                                        {
-                                                            <td class="text-center">@dr["PhoneNo"]</td>
-                                                            <td class="text-left">@dr["EmailID"]</td>
-                                                        }
-                                                        <td class="text-left">@dr["BatchName"]</td>
-                                                        <td class="text-left">@dr["BatchStartDate"]</td>
-                                                        <td class="text-center">@dr["BatchEndDate"]</td>
-                                                        <td class="text-left">@dr["CourseName"]</td>
-                                                        @*<td class="text-left">@dr["TrainingCenter"]</td>
-                                                            <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>*@
-                                                        <td class="text-center"><strong>@dr["LearnersCertified"]</strong></td>
-                                                        <td class="text-center"><strong>@dr["LearnersPlaced"]</strong></td>
-                                                    </tr>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <tr>
-                                                    <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
-
-                                </table>
-                            </div>
+    @using (Html.BeginForm("GetScorerSummary", "Assessment", FormMethod.Post, new { @id = "tblList-frm", @class = "panel-body form-horizontal form-padding loader" }))
+    {
+        <div class="panel-bodys">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="position-relative form-group">
+                            @Html.LabelFor(m => m.FormId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(m => m.FormId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="position-relative form-group">
+                            @Html.LabelFor(m => m.BatchId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(m => m.BatchId, new List<SelectListItem>(), null, htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left:5%;padding-top:2%">
+                        <div class="position-relative form-group">
+                            @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                            {
+                                <strong id="div-download"></strong>
+                            }
                         </div>
                     </div>
                 </div>
+
             </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12" id="div-main">
+
         </div>
     </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/Custom/Master.js"></script>
     <script>
         $(document).ready(function () {
 
-            if ($.fn.dataTable.isDataTable('#tbl')) {
-                $("#tbl").dataTable().fnDestroy();
+             BindGetCourses("FormId", "", 0, 0);
+             $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
+             BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+            $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+            LoadReport();
+            //if ($.fn.dataTable.isDataTable('#tbl')) {
+            //    $("#tbl").dataTable().fnDestroy();
+            //}
+            //table = $('#tbl').DataTable({
+            //    //scrollY: "400px",
+            //    //scrollX: true,
+            //    //scrollCollapse: true,
+            //    //paging: false,
+            //    "dom": '<"pull-left"f><"pull-right"l>tip',
+            //    pageLength: 25,
+            //    fixedColumns: {
+            //        leftColumns: 1,
+            //        rightColumns: 1
+            //    },
+            //    order: [[0, 'asc']],
+            //    buttons: [{
+            //        extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Participant Lists',//$('#IDDistrict option:selected').text() +
+            //        className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+            //        filename: 'Participant List',
+            //        exportOptions: { modifier: { page: 'all' } }
+            //    }],
+            //});
+            //$('.dataTables_filter input[type="search"]').css(
+            //    { 'width': '300px', 'display': 'inline-block' }
+            //);
+            //$('#div-download').empty();
+            //table.buttons().container().appendTo($('#div-download'));
+
+          $('#FormId').change(function () {
+        BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
+        $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+       LoadReport();
+    })
+    $('#BatchId').change(function () {
+        LoadReport();
+    })
+
+});
+function LoadReport() {
+    $('#div-main').html(""); $("#tbl tbody").html("");
+    $('#div-main').removeClass("text-danger");
+    $('#global-loader').css('background', 'transparent').css('display', 'block');
+    var id = '#tblList-frm'
+    var url = $(id).attr("action");
+    var User = 'all';
+    var FormId = $("#FormId").val();
+    var BatchId = $("#BatchId").val() == null || $("#BatchId").val() == '' || $("#BatchId").val() == '0' ? 0 : $("#BatchId").val();
+        $.ajax({
+            // url: url,
+            url: document.baseURI + "/Tainer/GetTrainerDashboardList",
+            type: "POST",
+            data: { 'CId': FormId, 'BId': BatchId },
+            // contentType: "application/json",
+            success: function (resp) {
+                if (resp.IsSuccess) {
+                    //$('#div-Chart').html(resp.Data); $('#div-Chart').addClass("text-black");
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                    var Datalist = (resp.reshtml);
+                    if (Datalist != null && Datalist != undefined) {
+                        if (Datalist.length > 0) {
+                            $('#div-main').html(Datalist);
+                            //$("#ListDataTable").DataTable();
+                            if ($.fn.dataTable.isDataTable('#ListDataTable')) {
+                                $("#ListDataTable").dataTable().fnDestroy();
+                            }
+                            table = $('#ListDataTable').DataTable({
+                                //scrollY: "400px",
+                                //scrollX: true,
+                                //scrollCollapse: true,
+                                "dom": '<"pull-left"f><"pull-right"l>tip',
+                                paging: false,
+                                pageLength: 100,
+                                fixedColumns: {
+                                    leftColumns: 1,
+                                    rightColumns: 1
+                                },
+                                order: [[0, 'asc']],
+                                buttons: [{
+                                    extend: 'excel', text: '<span><i class="fa fa-download"></i>Export To Excel</span>', title: $('#BatchId option:selected').text() + $('#FormId option:selected').text() + ' Assessment Score Summary Lists',//$('#IDDistrict option:selected').text() +
+                                    className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
+                                    filename: 'Assessment Score Summary List',
+                                    exportOptions: { modifier: { page: 'all' } }
+                                }],
+                            });
+                            $('#div-download').empty();
+                            table.buttons().container().appendTo($('#div-download'));
+                        }
+                        else {
+
+                            $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                        }
+                    }
+                    else {
+                        $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                    }
+                }
+                else {
+                    $('#div-main').html("<h4 class='text-center text-danger'>Record Not Found!</h4>");
+                    //  CreateToasterMessage("Error", response.Message, response.StatusType);
+                    $('#global-loader').css('background', 'transparent').css('display', 'none');
+                }
+            },
+            error: function (req, error) {
+                if (error === 'error') { error = req.statusText; }
+                var errormsg = 'There was a communication error: ' + error;
+                $('#div-Chart').html(errormsg); $('#div-Chart').addClass("text-danger");
+                $('#global-loader').css('background', 'transparent').css('display', 'none');
             }
-            table = $('#tbl').DataTable({
-                //scrollY: "400px",
-                //scrollX: true,
-                //scrollCollapse: true,
-                //paging: false,
-                "dom": '<"pull-left"f><"pull-right"l>tip',
-                pageLength: 25,
-                fixedColumns: {
-                    leftColumns: 1,
-                    rightColumns: 1
-                },
-                order: [[0, 'asc']],
-                buttons: [{
-                    extend: 'excel', text: '<span><i class="fa fa-download"></i>Download</span>', title: 'Participant Lists',//$('#IDDistrict option:selected').text() +
-                    className: 'btn btn-primary button-icon mr-3 mt-1 mb-1',
-                    filename: 'Participant List',
-                    exportOptions: { modifier: { page: 'all' } }
-                }],
-            });
-            $('.dataTables_filter input[type="search"]').css(
-                { 'width': '300px', 'display': 'inline-block' }
-            );
-            $('#div-download').empty();
-            table.buttons().container().appendTo($('#div-download'));
-        })
+        });
+    
+}
     </script>
 }

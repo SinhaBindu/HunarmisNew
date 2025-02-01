@@ -1,0 +1,78 @@
+﻿@using System.Data
+@using Hunarmis.Models
+@using Hunarmis.Manager
+@{
+    DataTable dt = new DataTable();
+    if (Model != null)
+    {
+        dt = Model;
+    }
+}
+
+<div class="card card-box p-0">
+    <div class="card-body">
+        <div class="row">
+            <div id="div-download" style="display:none;float:right;"></div>
+            <div class="col-xs-12 col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="ListDataTable">
+                        <thead class="text-center">
+                            <tr>
+                                <th class="text-center tblth">Srno.</th>
+                                <th class="text-center tblth">Name</th>
+                                @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                {
+                                    <th class="text-center tblth">Phone No</th>
+                                    <th class="text-center tblth">Email ID</th>
+                                }
+                                <th class="text-center tblth">Batch Name</th>
+                                <th class="text-center tblth">Batch Start Date</th>
+                                <th class="text-center tblth">Batch End Date</th>
+                                <th class="text-center tblth">Course</th>
+                                @*<th class="text-center tblth">Training <br />Center</th>
+                                    <th class="text-center tblth">Assessment<br /> Score</th>*@
+                                <th class="text-center tblth">Learners <br />Certified</th>
+                                <th class="text-center tblth">Learners <br />Placed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (dt.Rows.Count > 0)
+                                {
+                                    int srno = 1;
+                                    foreach (DataRow dr in dt.Rows)
+                                    {
+                                        <tr>
+                                            <td class="text-center">@(srno++)</td>
+                                            <td class="text-left">@dr["Name"]</td>
+                                            @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
+                                            {
+                                                <td class="text-center">@dr["PhoneNo"]</td>
+                                                <td class="text-left">@dr["EmailID"]</td>
+                                            }
+                                            <td class="text-left">@dr["BatchName"]</td>
+                                            <td class="text-left">@dr["BatchStartDate"]</td>
+                                            <td class="text-center">@dr["BatchEndDate"]</td>
+                                            <td class="text-left">@dr["CourseName"]</td>
+                                            @*<td class="text-left">@dr["TrainingCenter"]</td>
+                                                <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>*@
+                                            <td class="text-center"><strong>@dr["LearnersCertified"]</strong></td>
+                                            <td class="text-center"><strong>@dr["LearnersPlaced"]</strong></td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="12" class="text-center"><strong class="text-danger">Record Not Found !!</strong></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

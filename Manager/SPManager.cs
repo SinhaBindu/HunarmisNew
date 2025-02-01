@@ -459,6 +459,15 @@ namespace Hunarmis.Manager
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
+        public static DataSet SP_TainerDashoard_List(int CId,int BId)
+        {
+            StoredProcedure sp = new StoredProcedure("SP_TainerDashoard_List");
+            sp.Command.AddParameter("@TrainingCenterIds", MvcApplication.CUser.MappedTCenterIds, DbType.String);
+            sp.Command.AddParameter("@CourseId", CId, DbType.Int32);
+            sp.Command.AddParameter("@BatchId", BId, DbType.Int64);
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
         #endregion
         public static DataTable SP_GetCallStatusDetails(string ReportedBy = "", int Flag = 0,string MaxDate="",string SD="",string ED="")
         {
