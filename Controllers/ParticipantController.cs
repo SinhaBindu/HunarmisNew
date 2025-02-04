@@ -257,9 +257,17 @@ namespace Hunarmis.Controllers
                 {
                     var getdtph = SPManager.SP_ParticipantCheckValidWise(model.ID.ToString(), 1, model.PhoneNo.Trim(), ""); //db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
                     var getdtemail = SPManager.SP_ParticipantCheckValidWise(model.ID.ToString(), 2, "", model.EmailID.Trim()); //db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
+                    var getdtadhar = SPManager.SP_ParticipantCheckValidWise(model.ID.ToString(), 3, "", model.AadharCardNo.Trim()); //db_.tbl_Participant.Where(x => x.IsActive == true).ToList();
                     if (getdtph.Rows.Count > 0)//&& x.BatchId == model.BatchId
                     {
                         response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Phone No Registration.<br /> <span> Reg ID : <strong> " + getdtph.Rows[0]["RegID"] + " </strong>  </span>", Data = null };
+                        var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
+                        resResponse1.MaxJsonLength = int.MaxValue;
+                        return resResponse1;
+                    }
+                    if (getdtadhar.Rows.Count > 0)
+                    {
+                        response = new JsonResponseData { StatusType = eAlertType.error.ToString(), Message = "Already Exists Aadhar No Registration.<br /> <span> Reg ID : <strong> " + getdtadhar.Rows[0]["RegID"] + " </strong>  </span>", Data = null };
                         var resResponse1 = Json(response, JsonRequestBehavior.AllowGet);
                         resResponse1.MaxJsonLength = int.MaxValue;
                         return resResponse1;

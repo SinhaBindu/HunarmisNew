@@ -19,13 +19,14 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
-        public static DataTable SP_ParticipantCheckValidWise(string ID="",int Type=0 ,string PhoneNo="",string EmailId="")
+        public static DataTable SP_ParticipantCheckValidWise(string ID="",int Type=0 ,string PhoneNo="",string EmailId="", string AadharCardNo = "")
         {
             StoredProcedure sp = new StoredProcedure("Check_ParticipantEntryValition");
             sp.Command.AddParameter("@ID", ID, DbType.String);
             sp.Command.AddParameter("@Type", Type, DbType.Int32);
             sp.Command.AddParameter("@PhoneNo", PhoneNo, DbType.String);
             sp.Command.AddParameter("@EmailId", EmailId, DbType.String);
+            sp.Command.AddParameter("@AadharCardNo", AadharCardNo, DbType.String);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -191,6 +192,7 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@ParticipantId", model.ParticipantId, DbType.String);
             sp.Command.AddParameter("@ParticipantQuestionId", model.ParticipantQuestionId, DbType.String);
             sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
+            sp.Command.AddParameter("@IsPlacementTracker", model.IsPlacementTracker, DbType.Int32);
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }

@@ -474,11 +474,12 @@
 
             $('input[type=radio][name=IsPresent]').change(function () {
                 $("input[name=IsComfortable]").prop('checked', false);
-                $('#EmployedId').val(''); $('.Iscomftable').hide(); InputClear();
+                $('#EmployedId').val('');// 01feb2025 $('.Iscomftable').hide();
+                InputClear();
                 if (this.value == 'Yes') {
                     $('#div-IsComfortable').show(); $("input[name=IsComfortable]").attr('required', 'required');
                     $('#div-EmployedId').hide(); $("input[name=EmployedId]").removeAttr('required');
-                    $('.IsGettingjob').hide();
+                    // 01feb2025 $('.IsGettingjob').hide();
                 }
                 else if (this.value == 'No') {
                     $('#div-EmployedId').show();
@@ -490,7 +491,8 @@
             });
             $('input[type=radio][name=IsComfortable]').change(function () {
                 $("input[name=AnyChallenges]").prop('checked', false);
-                $('.Iscomftable').hide(); InputClear();
+                // 01feb2025 $('.Iscomftable').hide();
+                InputClear();
                 //$("input[name=PlacedStatus]").prop('checked', false);
                 $('#AreaSupport').val('');
                 $('#EmpCompany').val('');

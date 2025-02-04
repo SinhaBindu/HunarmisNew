@@ -81,7 +81,16 @@
                                             @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-md-4">
+                                    <div class="col-xs-12 col-md-1">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                @Html.LabelFor(model => model.IsPlacementTracker, htmlAttributes: new { @class = "" })
+                                            </label>
+                                            @Html.DropDownListFor(m => m.IsPlacementTracker, Hunarmis.Manager.CommonModel.GetddlPlacementTracker(), null, new { @class = "form-select select2" })
+                                            @Html.ValidationMessageFor(model => model.IsPlacementTracker, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
                                         <div class="form-group">
                                             <div class="control-label" style="margin-bottom:10px;">&nbsp;</div>
                                             <span class="check-spacer">
@@ -137,6 +146,7 @@
             filtermodel.MonthId = $('#MonthId').val() == '' ? '' : $('#MonthId').val();
             filtermodel.BatchId = $('#BatchId').val() == '' ? '' : $('#BatchId').val();
             filtermodel.UserId = $('#UserId').val() == '' ? '' : $('#UserId').val();
+            filtermodel.IsPlacementTracker = $('#IsPlacementTracker').val() == '' ? '' : $('#IsPlacementTracker').val();
             var formData = $('#formid').serialize();
 
             $.ajax({

@@ -713,4 +713,25 @@ div.dataTables_wrapper div.dataTables_filter input {
 @media (max-width: 479px) {
 	
 }
-
+@media (min-width: 992px) {
+    .fiveColbox .col-md-3 {
+        width: 20%;
+    }
+}
+.fiveColbox .card-box .f-26 {
+    font-size: 16px;
+    color: #fff;
+    margin: 0px;
+}
+.fiveColbox .flex-shrink-0 {
+    align-items: center;
+    display: flex;
+    height: 36px;
+    justify-content: center;
+    width: 36px;
+    background: #fff;
+    border-radius: 50% !important;
+    font-size: 24px;
+    box-shadow: none;
+    flex-shrink: 0 !important;
+}
