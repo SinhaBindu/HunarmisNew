@@ -125,16 +125,21 @@
 <div class="container-fluid">
     <div class="row mt-20">
 
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="title"></div>
+            <div class="tools">
+                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; width: 100%">
+                    <i class="fa fa-calendar"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="card card-box p-0">
                 <div class="card-head">
                     <div class="title">Month wise placement numbers</div>
                     <div class="tools">
-                        <select id="ddlSection7PlacementNumber" class="form-control form-control-custom">
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                        </select>
                     </div>
                 </div>
                 <div class="card-body">
@@ -191,6 +196,36 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card card-box p-0">
+                <div class="card-head">
+                    <div class="title">Placement Info</div>
+                    <div class="tools">
+                        <select id="ddlSection7PlacementNumber" class="form-control form-control-custom">
+                            <option value="Location">Location</option>
+                            <option value="Industry">Industry</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <figure class="highcharts-figure WhiteFontChart" id="figureSection7_Location">
+                                <div id="parent-container">
+                                    <div id="containerSection7_PlacementLocation"></div>
+                                </div>
+                            </figure>
+                            <figure class="highcharts-figure WhiteFontChart" id="figureSection7_Industry" style="display:none">
+                                <div id="parent-container">
+                                    <div id="containerSection7_PlacementIndustry"></div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -219,19 +254,67 @@
             });
         });
 
+        var startDate = "", endDate = "";
         $(document).ready(function () {
+
+            //var start = moment().startOf('year');//moment().subtract(29, 'days');
+            var start = moment('2023-01-01').startOf('year');//moment().subtract(29, 'days');
+            //var end = moment().endOf('year');//moment();
+            var end = moment();//moment();
+            startDate = start.format('YYYY-MM-DD');
+            endDate = end.format('YYYY-MM-DD');
+
+
+            function cb(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+                startDate = start.format('YYYY-MM-DD');
+                endDate = end.format('YYYY-MM-DD');
+
+                console.log(startDate);
+                console.log(endDate);
+
+                section7();
+            }
+
+            $('#reportrange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                    'This Year': [moment().startOf('year'), moment().endOf('year')],
+                    'All Time': [moment('2023-01-01'), moment()]
+                }
+            }, cb);
+
+            cb(start, end);
+
             $('.tab-btn').on('click', function () {
                 $('.tab-btn').removeClass('act');
                 $(this).addClass('act');
             })
 
-            $("#ddlSection7PlacementNumber").val(new Date().getFullYear());
+            //$("#ddlSection7PlacementNumber").val(new Date().getFullYear());
+
+            //$("#ddlSection7PlacementNumber").change(function (e) {
+            //    section7($(this).val());
+            //});
 
             $("#ddlSection7PlacementNumber").change(function (e) {
-                section7($(this).val());
+                if ($(this).val() == 'Location') {
+                    $('#figureSection7_Industry').hide();
+                    $('#figureSection7_Location').show();
+                } else {
+                    $('#figureSection7_Industry').show();
+                    $('#figureSection7_Location').hide();
+                }
             });
 
-            section7($("#ddlSection7PlacementNumber").val());
         });
 
         function escapeRegExp(str) {
@@ -242,10 +325,10 @@
             return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
         }
         //placementNumberJsonDataSection7 = [];
-        function section7(startDate) {
+        function section7() {
             $.ajax({
                 url: '@Url.Action("GetDashboard", "home")',
-                data: { mode: 7, startDate: startDate },
+                data: { mode: 7, startDate: startDate, endDate: endDate },
                 async: false,
                 success: function (result) {
                     console.log(result);
@@ -264,6 +347,9 @@
 
                         Graph(JSON.parse(data.EmployeeTypeJsonData), 'containerSection7_EmployeeType', 'donut', '', 'Pre-Training Status', '', 'EmployeeTypeName', '');
                         Graph(JSON.parse(data.GapDayJsonData), 'containerSection7_GapDay', 'column', '', 'Pre-Training Status', '', 'GapDay', '');
+
+                        Graph(JSON.parse(data.PlacementLocationJsonData), 'containerSection7_PlacementLocation', 'column', '', 'Pre-Training Status', '', 'StateName', '');
+                        Graph(JSON.parse(data.PlacementIndustryJsonData), 'containerSection7_PlacementIndustry', 'column', '', 'Pre-Training Status', '', 'IndustryName', '');
                     }
                 }
             });
