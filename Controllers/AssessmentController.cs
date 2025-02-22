@@ -74,7 +74,7 @@ namespace Hunarmis.Controllers
             try
             {
                 User = CommonModel.GetUserRoleId();
-                ds = SPManager.GetSP_ScorersSummaryBatchWise(User, FormId, BatchId);
+                ds = SPManager.GetSP_ScorersSummaryBatchWise(User, FormId, BatchId);//BatchId
                 if (ds.Tables.Count > 0)
                 {
                     tbllist = (ds.Tables[0]);

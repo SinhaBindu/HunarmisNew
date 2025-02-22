@@ -90,7 +90,6 @@
                                 <div class="accord">
                                     <div id="div-viewpopmodel"></div>
                                 </div>
-
                             }
                             <div class="form-group">
                                 @Html.LabelFor(model => model.QuesYear, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-2" })
@@ -169,43 +168,43 @@
                                     <div class="checkbox">
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
-                                           <div class="input-spacer">
-                                               @Html.RadioButtonFor(model => model.IsComfortable, item.Value, new { id = "IsComfortable" + item.Value }) @item.Text
-                                           </div>
-                                               }
-                                               
-                                               @Html.ValidationMessageFor(model => model.IsComfortable, "", new { @class = "text-danger" })
-                                           </div>
+                                            <div class="input-spacer">
+                                                @Html.RadioButtonFor(model => model.IsComfortable, item.Value, new { id = "IsComfortable" + item.Value }) @item.Text
+                                            </div>
+                                        }
+
+                                        @Html.ValidationMessageFor(model => model.IsComfortable, "", new { @class = "text-danger" })
+                                    </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group Iscomftable" id="div-EmpCompany" style="display:none;">
                                     @Html.LabelFor(model => model.EmpCompany, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class="col-lg-8">
-                                        @Html.EditorFor(model => model.EmpCompany, new { htmlAttributes = new { @type = "text", @class = "required form-control" } })
+                                        @Html.EditorFor(model => model.EmpCompany, new { htmlAttributes = new { @type = "text", @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.EmpCompany, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 @*<div class="form-group Iscomftable" style="display:none;">
-                @Html.LabelFor(model => model.FirstJobTraining, htmlAttributes: new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.EditorFor(model => model.FirstJobTraining, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
-                    @Html.ValidationMessageFor(model => model.FirstJobTraining, "", new { @class = "text-danger" })
-                </div>
-                <div class="mark-devide"></div>
-            </div>*@
+                                        @Html.LabelFor(model => model.FirstJobTraining, htmlAttributes: new { @class = "control-label col-lg-4" })
+                                        <div class="col-lg-8">
+                                            @Html.EditorFor(model => model.FirstJobTraining, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                                            @Html.ValidationMessageFor(model => model.FirstJobTraining, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="mark-devide"></div>
+                                    </div>*@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.DOJ, htmlAttributes: new { @class = "control-label  col-xs-12 col-lg-4" })
                                     <div class=" col-xs-12 col-lg-8">
-                                        @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control datepickermonth", @required = "required", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
-                                        @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control datepickermonth", @maxlength = "11", @placeholder = "dd-mmm-yyyy" } })
+                                        @*@Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })*@
                                     </div>
                                     <div class="mark-devide"></div>
                                 </div>
                                 <div class="form-group" style="display:none">
                                     @Html.LabelFor(model => model.CurrentEmployer, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class=" col-xs-12 col-lg-8">
-                                        @Html.EditorFor(model => model.CurrentEmployer, new { htmlAttributes = new { @type = "text", @class = "required form-control", @readonly = "readonly" } })
+                                        @Html.EditorFor(model => model.CurrentEmployer, new { htmlAttributes = new { @type = "text", @class = "form-control", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(model => model.CurrentEmployer, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -213,7 +212,7 @@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class=" col-xs-12 col-lg-8">
-                                        @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                                        @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @type = "text", @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -221,7 +220,7 @@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.SalaryPackage, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class=" col-xs-12 col-lg-8">
-                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required", onchange = "setTwoNumberDecimal(this)", min = "0" } })
+                                        @Html.EditorFor(model => model.SalaryPackage, new { htmlAttributes = new { @type = "text", @class = "form-control", onchange = "setTwoNumberDecimal(this)", min = "0" } })
                                         @Html.ValidationMessageFor(model => model.SalaryPackage, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -229,7 +228,7 @@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.CurrentlyWorking, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class=" col-xs-12 col-lg-8">
-                                        @Html.EditorFor(model => model.CurrentlyWorking, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                                        @Html.EditorFor(model => model.CurrentlyWorking, new { htmlAttributes = new { @type = "text", @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.CurrentlyWorking, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -237,7 +236,7 @@
                                 <div class="form-group Iscomftable">
                                     @Html.LabelFor(model => model.WorkingKM, htmlAttributes: new { @class = "control-label col-xs-12 col-lg-4" })
                                     <div class=" col-xs-12 col-lg-8">
-                                        @Html.DropDownListFor(model => model.WorkingKM, CommonModel.GetLocatedKM(), "Select One", htmlAttributes: new { @class = "form-control select2", @required = "required" })
+                                        @Html.DropDownListFor(model => model.WorkingKM, CommonModel.GetLocatedKM(), "Select One", htmlAttributes: new { @class = "form-control select2" })
                                         @Html.ValidationMessageFor(model => model.WorkingKM, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="mark-devide"></div>
@@ -248,7 +247,7 @@
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
                                             <div class="input-spacer">
-                                                @Html.RadioButtonFor(model => model.Traininghelp, item.Value, new { id = "IsAssessmentCert" + item.Value, @required = "required" }) @item.Text
+                                                @Html.RadioButtonFor(model => model.Traininghelp, item.Value, new { id = "IsAssessmentCert" + item.Value }) @item.Text
                                             </div>
                                         }
                                         @Html.ValidationMessageFor(model => model.Traininghelp, "", new { @class = "text-danger" })
@@ -262,7 +261,7 @@
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
                                             <div class="input-spacer">
-                                                @Html.RadioButtonFor(model => model.SalaryWages, item.Value, new { id = "SalaryWages" + item.Value, @required = "required" }) @item.Text
+                                                @Html.RadioButtonFor(model => model.SalaryWages, item.Value, new { id = "SalaryWages" + item.Value }) @item.Text
                                             </div>
                                         }
                                         @Html.ValidationMessageFor(model => model.SalaryWages, "", new { @class = "text-danger" })
@@ -275,7 +274,7 @@
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
                                             <div class="input-spacer">
-                                                @Html.RadioButtonFor(model => model.ExpectationJobRole, item.Value, new { id = "ExpectationJobRole" + item.Value, @required = "required" }) @item.Text
+                                                @Html.RadioButtonFor(model => model.ExpectationJobRole, item.Value, new { id = "ExpectationJobRole" + item.Value }) @item.Text
                                             </div>
                                         }
                                         @Html.ValidationMessageFor(model => model.ExpectationJobRole, "", new { @class = "text-danger" })
@@ -288,7 +287,7 @@
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
                                             <div class="input-spacer">
-                                                @Html.RadioButtonFor(model => model.WorkPlaceSafe, item.Value, new { id = "ExpectationJobRole" + item.Value, @required = "required" }) @item.Text
+                                                @Html.RadioButtonFor(model => model.WorkPlaceSafe, item.Value, new { id = "ExpectationJobRole" + item.Value }) @item.Text
                                             </div>
                                         }
                                         @Html.ValidationMessageFor(model => model.WorkPlaceSafe, "", new { @class = "text-danger" })
@@ -301,7 +300,7 @@
                                         @foreach (var item in CommonModel.GetYesNo())
                                         {
                                             <div class="input-spacer">
-                                                @Html.RadioButtonFor(model => model.IsMSBenefit, item.Value, new { id = "IsMSBenefit" + item.Value, @required = "required" }) @item.Text
+                                                @Html.RadioButtonFor(model => model.IsMSBenefit, item.Value, new { id = "IsMSBenefit" + item.Value }) @item.Text
                                             </div>
                                         }
                                         @Html.ValidationMessageFor(model => model.IsMSBenefit, "", new { @class = "text-danger" })
@@ -357,9 +356,9 @@
                                         @Html.ValidationMessageFor(model => model.IsGettingjob, "", new { @class = "text-danger" })
                                     </div>
                                     @*<div class="col-lg-8">
-                    @Html.EditorFor(model => model.IsGettingjob, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
-                    @Html.ValidationMessageFor(model => model.IsGettingjob, "", new { @class = "text-danger" })
-                </div>*@
+                                            @Html.EditorFor(model => model.IsGettingjob, new { htmlAttributes = new { @type = "text", @class = "required form-control", @required = "required" } })
+                                            @Html.ValidationMessageFor(model => model.IsGettingjob, "", new { @class = "text-danger" })
+                                        </div>*@
                                     <div class="mark-devide"></div>
                                 </div>
 

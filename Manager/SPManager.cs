@@ -283,6 +283,12 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
             sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
+            // Access the underlying DbCommand
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
+
+            // Log the timeout value to verify it's set correctly
+            System.Diagnostics.Debug.WriteLine($"CommandTimeout: {dbCommand.CommandTimeout}");
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }

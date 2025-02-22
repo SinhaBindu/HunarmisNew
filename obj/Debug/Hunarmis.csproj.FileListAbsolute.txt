@@ -735,12 +735,15 @@ D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Xml.XmlSerializer.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Xml.XPath.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Xml.XPath.XDocument.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Antlr3.Runtime.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\AsyncEnumerable.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\ClosedXML.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\DocumentFormat.OpenXml.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\EntityFramework.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\EntityFramework.SqlServer.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\ExcelNumberFormat.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Irony.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\MariGold.HtmlParser.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\MariGold.OpenXHTML.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNet.Identity.Core.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -761,6 +764,7 @@ D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNetCore.ResponseCachi
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNetCore.Routing.Abstractions.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNetCore.Routing.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNetCore.WebUtilities.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.Bcl.AsyncInterfaces.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.DotNet.PlatformAbstractions.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.Extensions.Configuration.Abstractions.dll
@@ -788,6 +792,8 @@ D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Newtonsoft.Json.Bson.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Newtonsoft.Json.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Owin.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\SixLabors.Fonts.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\SubSonic.Core.Abstractions.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\SubSonic.Core.DataAccessLayer.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Buffers.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.ComponentModel.Annotations.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Diagnostics.DiagnosticSource.dll
@@ -808,6 +814,7 @@ D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Web.WebPages.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Web.WebPages.Razor.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\WebGrease.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\XLParser.dll
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\AsyncEnumerable.xml
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\ClosedXML.xml
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\DocumentFormat.OpenXml.xml
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\ExcelNumberFormat.xml
@@ -828,6 +835,7 @@ D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNetCore.ResponseCachi
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNetCore.Routing.xml
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNetCore.Routing.Abstractions.xml
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.AspNetCore.WebUtilities.xml
+D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.Bcl.AsyncInterfaces.xml
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.Extensions.Configuration.Abstractions.xml
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.Extensions.DependencyInjection.xml
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
@@ -880,6 +888,3 @@ D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\obj\Debug\Hunarmis.csproj.CoreCompileI
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\obj\Debug\Hunarmis.csproj.Up2Date
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\obj\Debug\Hunarmis.dll
 D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\obj\Debug\Hunarmis.pdb
-D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\MariGold.HtmlParser.dll
-D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\MariGold.OpenXHTML.dll
-D:\PROJECT PCI\Hunar\HunarNew\HunarmisNew\bin\System.Drawing.Common.dll
