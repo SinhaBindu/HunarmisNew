@@ -16,6 +16,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@StateId", StateId, DbType.Int32);
             sp.Command.AddParameter("@RoleIds", RoleIds, DbType.String);
             sp.Command.AddParameter("@TrainingCenterIds", TrainingCenterIds, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -27,12 +29,16 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@PhoneNo", PhoneNo, DbType.String);
             sp.Command.AddParameter("@EmailId", EmailId, DbType.String);
             sp.Command.AddParameter("@AadharCardNo", AadharCardNo, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         public static DataTable SP_PCIEdubridgeCoursesList()
         {
             StoredProcedure sp = new StoredProcedure("SP_PCIEdubridgeCoursesList");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -41,6 +47,8 @@ namespace Hunarmis.Manager
             StoredProcedure sp = new StoredProcedure("SPGetUserlist");
             sp.Command.AddParameter("@RoleId", RoleId, DbType.Int32);
             sp.Command.AddParameter("@User", HttpContext.Current.User.Identity.Name, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -49,6 +57,8 @@ namespace Hunarmis.Manager
             StoredProcedure sp = new StoredProcedure("SP_GetDTACMasterList");
             sp.Command.AddParameter("@DistrictId", DistrictId, DbType.Int32);
             sp.Command.AddParameter("@TAgencyId", TAgencyId, DbType.Int32);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -56,6 +66,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_GetTrainer");
             sp.Command.AddParameter("@TrainingCenterId", TrainingCenterId.ToString(), DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -63,6 +75,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_GetAllTrainerList");
             sp.Command.AddParameter("@TrainerId", TrainerId.ToString(), DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -72,6 +86,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@TrainerId", TrainerId, DbType.String);
             sp.Command.AddParameter("@TCIds", TCIds, DbType.String);
             sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -83,6 +99,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@CourseId", CId, DbType.Int32);
             sp.Command.AddParameter("@ModuleType", ModuleType, DbType.Int32);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -90,42 +108,56 @@ namespace Hunarmis.Manager
         public static DataTable SP_GetUserList()
         {
             StoredProcedure sp = new StoredProcedure("SP_GetUserList");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         public static DataTable SP_Batch()
         {
             StoredProcedure sp = new StoredProcedure("SP_Batch");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         public static DataTable SP_BatchList()
         {
             StoredProcedure sp = new StoredProcedure("SP_BatchList");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         public static DataTable SP_CoursesList()
         {
             StoredProcedure sp = new StoredProcedure("SP_CoursesList");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         public static DataTable SP_EducationalMList()
         {
             StoredProcedure sp = new StoredProcedure("SP_EducationalMList");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         public static DataTable SP_Training_AgencyList()
         {
             StoredProcedure sp = new StoredProcedure("SP_Training_AgencyList");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         public static DataTable SP_TrainingCentreList()
         {
             StoredProcedure sp = new StoredProcedure("SP_TrainingCentreList");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -141,6 +173,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
             sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
             sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -163,6 +197,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
             sp.Command.AddParameter("@TCIds", tcid, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -178,6 +214,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
             sp.Command.AddParameter("@TCIds", model.TrainingCenterID, DbType.String);
             sp.Command.AddParameter("@TypeData", model.Type, DbType.Int32);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -193,6 +231,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@ParticipantQuestionId", model.ParticipantQuestionId, DbType.String);
             sp.Command.AddParameter("@UserId", model.UserId, DbType.String);
             sp.Command.AddParameter("@IsPlacementTracker", model.IsPlacementTracker, DbType.Int32);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -203,12 +243,16 @@ namespace Hunarmis.Manager
             //sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
             //sp.Command.AddParameter("@BatchId", model.BatchId, DbType.Int32);
             //sp.Command.AddParameter("@ParticipantQuestionId", model.ParticipantQuestionId, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
         public static DataTable SP_Dashboard_TopLegend()
         {
             StoredProcedure sp = new StoredProcedure("SP_Dashboard_TopLegend");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             var ds = sp.ExecuteDataSet().Tables[0];
             return ds;
         }
@@ -218,6 +262,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@mode", mode, DbType.Int32);
             sp.Command.AddParameter("@startDate", startDate, DbType.String);
             sp.Command.AddParameter("@endDate", endDate, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             var ds = sp.ExecuteDataSet().Tables[0];
             return ds;
         }
@@ -225,6 +271,8 @@ namespace Hunarmis.Manager
         public static DataSet Sp_DashboardPartCalling(FilterModel model)
         {
             StoredProcedure sp = new StoredProcedure("Sp_PartCalling");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -234,18 +282,24 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@YearId", model.YearId, DbType.Int32);
             sp.Command.AddParameter("@MonthId", model.MonthId, DbType.Int32);
             sp.Command.AddParameter("@UserBy", model.CutUser, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
         public static DataTable SP_PartTempStatus()
         {
             StoredProcedure sp = new StoredProcedure("SP_PartTempStatus");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
         public static DataTable SP_GetFileUpload()
         {
             StoredProcedure sp = new StoredProcedure("SP_GetFileUpload");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -256,6 +310,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
             sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -265,6 +321,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
             sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -274,6 +332,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
             sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -286,9 +346,8 @@ namespace Hunarmis.Manager
             // Access the underlying DbCommand
             var dbCommand = sp.Command.ToDbCommand();
             dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
-
             // Log the timeout value to verify it's set correctly
-            System.Diagnostics.Debug.WriteLine($"CommandTimeout: {dbCommand.CommandTimeout}");
+            //System.Diagnostics.Debug.WriteLine($"CommandTimeout: {dbCommand.CommandTimeout}");
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -300,6 +359,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@AtPresentCallStatus", CallStatus, DbType.String);
             sp.Command.AddParameter("@PrtId", PrtId, DbType.String);
             sp.Command.AddParameter("@ReportedBy", ReportedBy, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -309,6 +370,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_GetParticipant");
             sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -318,6 +381,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
             sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -328,6 +393,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
             sp.Command.AddParameter("@FD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@TD", model.ToDt, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -337,6 +404,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
             sp.Command.AddParameter("@AssessmentScheduleId", model.AssessmentScheduleId, DbType.String);
             sp.Command.AddParameter("@TrainingCenterIds", MvcApplication.CUser.MappedTCenterIds, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -347,6 +416,8 @@ namespace Hunarmis.Manager
             StoredProcedure sp = new StoredProcedure("SP_GetPartlistBatchNoAssign");
             sp.Command.AddParameter("@CourseId", Convert.ToInt32(model.CourseId), DbType.Int32);
             sp.Command.AddParameter("@TrainingCenterId",Convert.ToInt32(model.TrainingCenterID), DbType.Int32);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500; 
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -361,6 +432,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@Password", model.Password, DbType.String);
             sp.Command.AddParameter("@RandomValue", model.RandomValue, DbType.String);
             sp.Command.AddParameter("@ParticiPantId", ParticipantId_fk, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -370,6 +443,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_GetAssessmentParticipant");
             sp.Command.AddParameter("@BatchId", Convert.ToInt32(model.BatchId), DbType.Int32);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -378,6 +453,8 @@ namespace Hunarmis.Manager
             StoredProcedure sp = new StoredProcedure("SP_MailSendParticipantWise");
             sp.Command.AddParameter("@BatchId", BatchId, DbType.String);
             sp.Command.AddParameter("@ParticipantIds", ParticipantIds, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -393,6 +470,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@ReportedBy", model.UserId, DbType.String);
             sp.Command.AddParameter("@SD", model.FromDt, DbType.String);
             sp.Command.AddParameter("@ED", model.ToDt, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -400,6 +479,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_CourseWiseTopices");
             sp.Command.AddParameter("@CourseId", model.CourseId, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -407,6 +488,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_CourseBatch");
             sp.Command.AddParameter("@BatchId", model.BatchId, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -417,6 +500,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@StateId", model.StateId, DbType.String);
             sp.Command.AddParameter("@DistrictId", model.DistrictId, DbType.String);
             sp.Command.AddParameter("@TrainingCenterId", model.TrainingCenterID, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -428,6 +513,8 @@ namespace Hunarmis.Manager
             StoredProcedure sp = new StoredProcedure("SP_PlacementTrackerDetails");
             sp.Command.AddParameter("@PlacementTrackerId", model.PlacementTrackerId, DbType.String);
             sp.Command.AddParameter("@PartId", model.ParticipantId, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -438,6 +525,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_LoginForIndiParticipantCheck");
             sp.Command.AddParameter("@ASPNetPartId", ASPNetPartId, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -445,6 +534,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("Usp_GetIndiParticipantDetails");
             sp.Command.AddParameter("@UserID", UserID, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataSet dt = sp.ExecuteDataSet();
             return dt;
         }
@@ -454,6 +545,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@CId", CId, DbType.Int32);
             sp.Command.AddParameter("@BId", BId, DbType.Int32);
             sp.Command.AddParameter("@PartId", PartId, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -464,6 +557,8 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("SP_TainerDashoard");
             sp.Command.AddParameter("@TrainingCenterIds",MvcApplication.CUser.MappedTCenterIds, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -473,6 +568,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@TrainingCenterIds", MvcApplication.CUser.MappedTCenterIds, DbType.String);
             sp.Command.AddParameter("@CourseId", CId, DbType.Int32);
             sp.Command.AddParameter("@BatchId", BId, DbType.Int64);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -485,6 +582,8 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@MaxDate", MaxDate, DbType.String);
             sp.Command.AddParameter("@SD", SD, DbType.String);
             sp.Command.AddParameter("@ED", ED, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
@@ -493,6 +592,8 @@ namespace Hunarmis.Manager
             StoredProcedure sp = new StoredProcedure("BulkDataParticipantLoginCreated");
             sp.Command.AddParameter("@TypeInsertUpdate", TypeInsertUpdate, DbType.String);
             sp.Command.AddParameter("@PartId", PartId, DbType.String);
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
