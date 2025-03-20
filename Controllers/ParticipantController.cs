@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.EMMA;
 using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Spreadsheet;
@@ -66,6 +67,48 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
+
+        public ActionResult ReportParticipantDataExcel()
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                DataTable dt = new System.Data.DataTable();
+                System.Text.StringBuilder htmlstr = new System.Text.StringBuilder();
+                ds = SPManager.ExportData();
+                dt = ds.Tables[0];
+
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt);
+                    wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    wb.Style.Font.Bold = true;
+
+                    var DTDAY = DateTime.Now.Date.ToString("dd-MMM-yyyy");
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.Charset = "";
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;filename=ParticipantTracker" + DTDAY + ".xlsx");
+
+                    using (MemoryStream MyMemoryStream = new MemoryStream())
+                    {
+                        wb.SaveAs(MyMemoryStream);
+                        MyMemoryStream.WriteTo(Response.OutputStream);
+                        // memoryStream.WriteTo(Response.OutputStream);
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+                return new EmptyResult();
+            }
+            catch (Exception ex)
+            {
+                string er = ex.Message;
+                return View("Error");
+            }
+        }
+
         public ActionResult GetDashboard(int mode)
         {
             bool IsCheck = false;

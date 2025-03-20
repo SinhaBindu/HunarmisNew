@@ -206,6 +206,8 @@
                                         @if (!User.IsInRole(CommonModel.RoleNameCont.Viewer))
                                         {
                                             <span id="div-download"></span>
+                                                   
+                                            <a href="~/Participant/ReportParticipantDataExcel" target="_blank" style="padding-left:5px !important; font-size:medium;"><strong><i class="fa fa-file-excel-o" ></i></strong></a>
                                         }
                                         </div>
                                 </div>
@@ -355,9 +357,9 @@
                         $("#DOJStartDate").datepicker({
                             //defaultDate: "+1w",
                             changeMonth: true,
-                            numberOfMonths: 1,
+                            numberOfMonths: 3,
                             dateFormat: 'dd-M-yy',
-                            maxDate: new Date(),
+                            maxDate: 3,
                             onClose: function (selectedDate) {
                                 $("#DOJEndDate").datepicker("option", "minDate", selectedDate);
                             }
@@ -365,9 +367,9 @@
                         $("#DOJEndDate").datepicker({
                             //defaultDate: "+1w",
                             changeMonth: true,
-                            numberOfMonths: 1,
+                            numberOfMonths: 3,
                             dateFormat: 'dd-M-yy',
-                            maxDate: new Date(),
+                            maxDate: 3,
                             onClose: function (selectedDate) {
                                 $("#DOJStartDate").datepicker("option", "maxDate", selectedDate);
                             }

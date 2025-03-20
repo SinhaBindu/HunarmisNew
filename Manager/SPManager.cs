@@ -597,5 +597,13 @@ namespace Hunarmis.Manager
             DataTable dt = sp.ExecuteDataSet().Tables[0];
             return dt;
         }
+        public static DataSet ExportData()
+        {
+            StoredProcedure sp = new StoredProcedure("ExportData");
+            var dbCommand = sp.Command.ToDbCommand();
+            dbCommand.CommandTimeout = 500;
+            DataSet ds = sp.ExecuteDataSet();
+            return ds;
+        }
     }
 }
