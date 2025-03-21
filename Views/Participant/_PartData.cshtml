@@ -11,6 +11,9 @@
     table.dataTable td.dt-type-date {
         text-align: left !important;
     }
+    .clhide{
+        display:none;
+    }
 </style>
 <div class="table-responsive">
     <table class="table table-striped nowrap table-bordered dataTable exampleDatatable no-footer" id="tbl">
@@ -36,10 +39,20 @@
                 <th class="text-center tblth">Batch End Date</th>
                 <th class="text-center tblth">Course</th>
                 @*<th class="text-center tblth">Status/Date</th>
-                    <th class="text-center tblth">Reported By</th>*@
+        <th class="text-center tblth">Reported By</th>*@
                 <th class="text-center tblth">Assessment<br /> Score</th>
                 <th class="text-center tblth">Attendance (%)</th>
                 <th class="text-center tblth">Placement  <br />Tracker Status</th>
+
+                <td class="text-center clhide">Employee Type </td>
+                <td class="text-center clhide">Industry Name</td>
+                <td class="text-center clhide">Salary</td>
+                <td class="text-center clhide">Designation</td>
+                <td class="text-center clhide">CompanyName</td>
+                <td class="text-center clhide">PlaceStateName</td>
+                <td class="text-center clhide">PlaceDistrictName</td>
+                <td class="text-center clhide">Offer Letter</td>
+                <td class="text-center clhide">Appointment Letter</td>
             </tr>
         </thead>
         <tbody>
@@ -109,6 +122,16 @@
                             <td class="text-center"><strong>@dr["AssessmentScore"]</strong></td>
                             <td class="text-center"><strong>@dr["SW_Attendance"]</strong></td>
                             <td class="text-center"><strong>@dr["PlaceTrackerYesNo"]</strong></td>
+
+                            <td class="text-center clhide"><strong>@dr["EmployeeTypeName"]</strong></td>
+                            <td class="text-center clhide"><strong>@dr["IndustryName"]</strong></td>
+                            <td class="text-center clhide"><strong>@dr["Salary"]</strong></td>
+                            <td class="text-center clhide"><strong>@dr["Designation"]</strong></td>
+                            <td class="text-center clhide"><strong>@dr["CompanyName"]</strong></td>
+                            <td class="text-center clhide"><strong>@dr["PlaceStateName"]</strong></td>
+                            <td class="text-center clhide"><strong>@dr["PlaceDistrictName"]</strong></td>
+                            <td class="text-center clhide"><strong>@dr["UOLPath"]</strong></td>
+                            <td class="text-center clhide"><strong>@dr["UALPath"]</strong></td>
                         </tr>
                     }
                 }
