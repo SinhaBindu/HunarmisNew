@@ -67,7 +67,6 @@ namespace Hunarmis.Controllers
         {
             return View();
         }
-
         public ActionResult ReportParticipantDataExcel()
         {
             try
@@ -104,8 +103,13 @@ namespace Hunarmis.Controllers
             }
             catch (Exception ex)
             {
-                string er = ex.Message;
-                return View("Error");
+                // Log the exception to a text file
+                string logFilePath = Server.MapPath("~/Uploads/ErrorLogHistory.txt");
+                string errorMessage = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - " + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine;
+                System.IO.File.AppendAllText(logFilePath, errorMessage);
+
+                // Return an error view
+                return View("Error", new HandleErrorInfo(ex, "ExportToExcel", "YourControllerName"));
             }
         }
 

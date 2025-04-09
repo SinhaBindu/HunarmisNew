@@ -377,9 +377,9 @@
     <script>
         $(document).ready(function () {
 
-             BindGetCourses("FormId", "", 0, 0);
-             $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
-             BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+            BindGetCourses("FormId", "", 0, 0);
+            $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
+            BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
             $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
             LoadReport();
             //if ($.fn.dataTable.isDataTable('#tbl')) {
@@ -410,16 +410,17 @@
             //$('#div-download').empty();
             //table.buttons().container().appendTo($('#div-download'));
 
-          $('#FormId').change(function () {
-        BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
-        $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
-       LoadReport();
-    })
-    $('#BatchId').change(function () {
-        LoadReport();
-    })
+            $('#FormId').change(function () {
+                debugger;
+                BindModuleWiseBatches("BatchId", "", 2, '@((int)Enums.ModuleBatches.Assessment)', $(this).val(), 0);
+                $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
+                LoadReport();
+            })
+            $('#BatchId').change(function () {
+                LoadReport();
+            })
 
-});
+        });
 function LoadReport() {
     $('#div-main').html(""); $("#tbl tbody").html("");
     $('#div-main').removeClass("text-danger");

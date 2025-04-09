@@ -333,7 +333,7 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
             sp.Command.AddParameter("@User", User, DbType.String);
             var dbCommand = sp.Command.ToDbCommand();
-            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
+            dbCommand.CommandTimeout = 1800; // Set timeout to 180 seconds-120//300 sec-5 mints
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
@@ -345,7 +345,7 @@ namespace Hunarmis.Manager
             sp.Command.AddParameter("@User", User, DbType.String);
             // Access the underlying DbCommand
             var dbCommand = sp.Command.ToDbCommand();
-            dbCommand.CommandTimeout = 500; // Set timeout to 180 seconds-120//300 sec-5 mints
+            dbCommand.CommandTimeout = 1800; // Set timeout to 180 seconds-120//300 sec-5 mints
             // Log the timeout value to verify it's set correctly
             //System.Diagnostics.Debug.WriteLine($"CommandTimeout: {dbCommand.CommandTimeout}");
             DataSet ds = sp.ExecuteDataSet();
@@ -601,7 +601,7 @@ namespace Hunarmis.Manager
         {
             StoredProcedure sp = new StoredProcedure("ExportData");
             var dbCommand = sp.Command.ToDbCommand();
-            dbCommand.CommandTimeout = 500;
+            dbCommand.CommandTimeout = 600;
             DataSet ds = sp.ExecuteDataSet();
             return ds;
         }
