@@ -126,8 +126,8 @@
 
         BindGetCourses("FormId", "", 0, 0);
         $('select[name="FormId"]').find('option').eq(1).attr("selected", true).change();
-        BindModuleWiseBatches("BatchId", "", 1, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
-        $('select[name="BatchId"]').find('option').eq(0).attr("selected", true).change();
+        BindModuleWiseBatches("BatchId", "", 0, '@((int)Enums.ModuleBatches.Assessment)', $('#FormId').val(), 0);
+        $('select[name="BatchId"]').find('option').eq(1).attr("selected", true).change();
         GetSummaryData();
 
 
