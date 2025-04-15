@@ -329,7 +329,7 @@
             $.ajax({
                 url: '@Url.Action("GetDashboard", "home")',
                 data: { mode: 7, startDate: startDate, endDate: endDate },
-                async: false,
+                async: true,
                 success: function (result) {
                     console.log(result);
                     if (result.IsSuccess) {

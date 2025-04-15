@@ -489,7 +489,7 @@
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
             data: { mode: 1 },
-            async: false,
+            async: true,
             success: function (result) {
                 console.log(result);
                 if (result.IsSuccess) {
@@ -507,8 +507,7 @@
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
             data: { mode: 2, startDate: startDate, endDate: endDate },
-
-            async: false,
+            async: true,
             success: function (result) {
                 console.log(result);
                 if (result.IsSuccess) {
@@ -528,7 +527,7 @@
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
             data: { mode: 3, startDate: startDate, endDate: endDate},
-            async: false,
+            async: true,
             success: function (result) {
                 console.log(result);
                 if (result.IsSuccess) {
@@ -545,7 +544,7 @@
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
             data: { mode: 4},
-            async: false,
+            async: true,
             success: function (result) {
                 console.log(result);
                 if (result.IsSuccess) {
@@ -815,7 +814,7 @@
         $.ajax({
             url: '@Url.Action("GetDashboard", "home")',
             data: { mode: 4 },
-            async: false,
+            async: true,
             success: function (result) {
                 console.log(result);
                 if (result.IsSuccess) {
