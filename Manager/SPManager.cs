@@ -1,15 +1,34 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Hunarmis.Models;
 using SubSonic.Schema;
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Security;
 
 namespace Hunarmis.Manager
 {
-    public static partial class SPManager
+    public class SPManager
     {
+        // static partial
+        public static SqlConnection con = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
+        public SPManager()
+        {
+            //con = null;
+            con = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+                con.Open();
+            }
+            else
+            {
+                con.Close();
+            }
+        }
         public static DataTable GetSPMasterList(int StateId ,string RoleIds ,string TrainingCenterIds)
         {
             StoredProcedure sp = new StoredProcedure("SPMasterList");
@@ -339,17 +358,47 @@ namespace Hunarmis.Manager
         }
         public static DataSet GetSP_ScorersSummaryBatchWise(string User, int FormId, int BatchId)
         {
-            StoredProcedure sp = new StoredProcedure("SP_ScorersSummaryBatchWise");
-            sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
-            sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
-            sp.Command.AddParameter("@User", User, DbType.String);
-            // Access the underlying DbCommand
-            var dbCommand = sp.Command.ToDbCommand();
-            dbCommand.CommandTimeout = 1800; // Set timeout to 180 seconds-120//300 sec-5 mints
-            // Log the timeout value to verify it's set correctly
-            //System.Diagnostics.Debug.WriteLine($"CommandTimeout: {dbCommand.CommandTimeout}");
-            DataSet ds = sp.ExecuteDataSet();
-            return ds;
+
+            using (var context = new ApplicationDbContext())
+            {
+                con = (SqlConnection)context.Database.Connection;
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand();
+                SqlDataAdapter da = new SqlDataAdapter();
+                // //StoredProcedure sp = new StoredProcedure("SP_LoginCheck1");
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SP_ScorersSummaryBatchWise";
+                cmd.CommandTimeout = 9000;
+                cmd.Parameters.AddWithValue("@FormId", FormId);
+                cmd.Parameters.AddWithValue("@BatchId", BatchId);
+                cmd.Parameters.AddWithValue("@User", User);
+                da.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                da.Fill(ds);//sp.ExecuteDataSet();
+                da.Dispose();
+                cmd.Dispose();
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                return ds;
+            }
+
+            //StoredProcedure sp = new StoredProcedure("SP_ScorersSummaryBatchWise");
+            //sp.Command.AddParameter("@FormId", FormId, DbType.Int32);
+            //sp.Command.AddParameter("@BatchId", BatchId, DbType.Int32);
+            //sp.Command.AddParameter("@User", User, DbType.String);
+            //// Access the underlying DbCommand
+            //var dbCommand = sp.Command.ToDbCommand();
+            //dbCommand.CommandTimeout = 1800; // Set timeout to 180 seconds-120//300 sec-5 mints
+            //// Log the timeout value to verify it's set correctly
+            ////System.Diagnostics.Debug.WriteLine($"CommandTimeout: {dbCommand.CommandTimeout}");
+            //DataSet ds = sp.ExecuteDataSet();
+            //return ds;
         }
         public static DataSet GetSP_ParticipantCallMonthWisematrix(string PrtId, string BatchId,string Course,string CallStatus ,string ReportedBy)
         {

@@ -2177,7 +2177,7 @@ namespace Hunarmis.Manager
                         MailMessage mail = new MailMessage();
                         //mail.To.Add("bindu@careindia.org");
                         mail.To.Add(To + "," + OtherEmailID);
-                        mail.From = new MailAddress("kgbvjh4care@gmail.com", "Hunar MIS");
+                        mail.From = new MailAddress("pci4tech@gmail.com", "Hunar MIS");
                         //mail.From = new MailAddress("hunarmis2024@gmail.com");
                         mail.Subject = Subject + " ( Assessment Date : ) " + ASDT;// + " ( " + SenderName + " )";
 
@@ -2190,7 +2190,8 @@ namespace Hunarmis.Manager
                         smtp.UseDefaultCredentials = false;
                         //smtp.Credentials = new System.Net.NetworkCredential("hunarmis2024@gmail.com", "Hunar@2024");//Pasw-Care@321 // Enter seders User name and password       
                         //smtp.Credentials = new System.Net.NetworkCredential("careindiabtsp@gmail.com", "gupczsbvzinhivzw");//Pasw-Care@321 // Enter seders User name and password       
-                        smtp.Credentials = new System.Net.NetworkCredential("kgbvjh4care@gmail.com", "yklzeazktmknvcbu");// yklz eazk tmkn vcbu//Pasw-Care@321 // Enter seders User name and password       
+                        //working now 28apr25//smtp.Credentials = new System.Net.NetworkCredential("kgbvjh4care@gmail.com", "yklzeazktmknvcbu");// yklz eazk tmkn vcbu//Pasw-Care@321 // Enter seders User name and password       
+                        smtp.Credentials = new System.Net.NetworkCredential("pci4tech@gmail.com", "tylodouomqitatre");// yklz eazk tmkn vcbu//Pasw-Care@321 // Enter seders User name and password       
                         //smtp.Credentials = new System.Net.NetworkCredential("kgbvjh4care@gmail.com", "nihcghzbcotzckot");// nihc ghzb cotz ckot//Pasw-Care@321 // Enter seders User name and password       
                         smtp.EnableSsl = true;
                         smtp.Send(mail);
